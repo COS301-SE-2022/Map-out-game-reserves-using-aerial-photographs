@@ -7,6 +7,7 @@
     "api-interfaces": "libs/api-interfaces",
     "client-dashboard": "libs/client/dashboard",
     "client-login": "libs/client/login",
-    "client-register": "libs/client/register"
+    "client-register": "libs/client/register",
+    "client-shared-assets": "libs/client/shared/assets"
   }
 }
