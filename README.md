@@ -14,3 +14,36 @@ Drones allow for a more up to date set of images of a landscape, this allows muc
 ```sh
 /*commands here*/
 ```
+
+## Link to Recorded Demo
+
+## Link to Functional Requirements (SRS)
+
+## Link to Project Board
+
+## Short Profile Description of Each Team Member
+### Ben Pietersen
+
+### Chiara Goncalves
+
+### Dylan Pietersen
+
+### Dylan Spies
+
+### Steven Schormann
+
+### Zoe Liebenberg
+
+## Professional Profile for Each Team Member
+### Ben Pietersen
+
+### Chiara Goncalves
+
+### Dylan Pietersen
+
+### Dylan Spies
+
+### Steven Schormann
+
+### Zoe Liebenberg
+
