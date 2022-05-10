@@ -4,6 +4,7 @@
     "aerial-mapping": "apps/aerial-mapping",
     "aerial-mapping-e2e": "apps/aerial-mapping-e2e",
     "api": "apps/api",
-    "api-interfaces": "libs/api-interfaces"
+    "api-interfaces": "libs/api-interfaces",
+    "client-dashboard": "libs/client/dashboard"
   }
 }
