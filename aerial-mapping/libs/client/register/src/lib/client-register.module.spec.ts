@@ -1,10 +1,11 @@
 import { async, TestBed } from '@angular/core/testing';
 import { ClientRegisterModule } from './client-register.module';
+import { MaterialModule } from './materials/material.module';
 
 describe('ClientRegisterModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ClientRegisterModule],
+      imports: [ClientRegisterModule, MaterialModule],
     }).compileComponents();
   }));
 
