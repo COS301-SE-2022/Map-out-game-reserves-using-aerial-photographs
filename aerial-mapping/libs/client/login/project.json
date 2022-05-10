@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/client/login/src",
+  "prefix": "aerial-mapping",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/client/login"],
+      "options": {
+        "jestConfig": "libs/client/login/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/client/login/**/*.ts",
+          "libs/client/login/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
