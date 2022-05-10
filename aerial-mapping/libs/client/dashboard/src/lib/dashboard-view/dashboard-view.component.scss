@@ -1,1 +1,19 @@
 @import 'libs/client/shared/assets/src/lib/global';
+body {
+    text-align: center;
+}
+
+.test {
+    color: $primary;
+    background-color: $primary-background;
+}
+
+.test2 {
+    color: $primary;
+    background-color: $primary-dark;
+}
+
+.test3 {
+    color: $primary-dark;
+    background-color: $primary-brown;
+}
