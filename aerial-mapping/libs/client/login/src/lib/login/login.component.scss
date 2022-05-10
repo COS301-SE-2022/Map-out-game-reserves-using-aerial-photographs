@@ -1,0 +1,72 @@
+h2{
+    font-family: 'Tahoma';
+    //background-color: #74685c;
+    color:white;
+    padding: 10px;
+    padding-bottom: 0px;
+    font-size: 30px;
+
+    width:50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+
+    font-weight: 100 ;
+}
+
+mat-form-field{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: lightgray;
+    font-family: 'Tahoma';
+    color: gray;
+    padding-bottom: 15px;
+
+    border: 1px solid #74685c;
+    margin: 10px;
+    width: 50%;
+    
+}
+
+mat-form-field:hover{
+    color:rgb(176, 176, 176);
+    border: 1px solid darkgray;
+}
+
+button{
+    position: absolute;
+    text-align: center;
+    vertical-align: center;
+    background-color: #74685c;
+    color: white;
+    border: 2px solid white;
+    border-radius: 0px;
+    padding: 20px 28px;
+
+    position: absolute;
+    font-family: 'Tahoma';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 7px;
+
+    width: 10;
+    height: 14;
+}
+
+.center {
+    background-color: #74685c;
+    width:50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+}
+
+button:hover {
+    background-color: white;
+    color:#74685c;
+}
+
