@@ -1,0 +1,96 @@
+{
+  "projectType": "application",
+  "sourceRoot": "apps/aerial-mapping/src",
+  "prefix": "aerial-mapping",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/aerial-mapping",
+        "index": "apps/aerial-mapping/src/index.html",
+        "main": "apps/aerial-mapping/src/main.ts",
+        "polyfills": "apps/aerial-mapping/src/polyfills.ts",
+        "tsConfig": "apps/aerial-mapping/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/aerial-mapping/src/favicon.ico",
+          "apps/aerial-mapping/src/assets"
+        ],
+        "styles": ["apps/aerial-mapping/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/aerial-mapping/src/environments/environment.ts",
+              "with": "apps/aerial-mapping/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "aerial-mapping:build:production"
+        },
+        "development": {
+          "browserTarget": "aerial-mapping:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "proxyConfig": "apps/aerial-mapping/proxy.conf.json"
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "aerial-mapping:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/aerial-mapping/**/*.ts",
+          "apps/aerial-mapping/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/aerial-mapping"],
+      "options": {
+        "jestConfig": "apps/aerial-mapping/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
