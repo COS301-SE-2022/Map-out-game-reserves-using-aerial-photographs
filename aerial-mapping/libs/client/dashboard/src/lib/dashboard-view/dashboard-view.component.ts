@@ -10,5 +10,7 @@ export class DashboardViewComponent implements OnInit {
     //Code
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    //Placeholder code
+  }
 }
