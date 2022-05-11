@@ -11,14 +11,15 @@ datasource db {
 }
 
 model User {
-  userID              Int                   @id @unique @default(autoincrement())
-  user_email          String                @unique
-  user_password       String
-  user_name           String
-  user_surname        String
-  user_role           String
-  user_approved       Boolean               @default(false)
-  Flight_Details      Flight_Details[]
+  userID             Int              @id @unique @default(autoincrement())
+  user_email         String           @unique
+  user_password      String
+  user_password_salt String
+  user_name          String
+  user_surname       String
+  user_role          String           @default("user")
+  user_approved      Boolean          @default(false)
+  Flight_Details     Flight_Details[]
 }
 
 model Video {

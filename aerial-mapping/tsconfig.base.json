@@ -36,7 +36,10 @@
       ],
       "@aerial-mapping/client/shared/components/navbar": [
         "libs/client/shared/components/navbar/src/index.ts"
-      ]
+      ],
+      "@aerial-mapping/api/shell/feature": ["libs/api/shell/feature/src/index.ts"],
+      "@aerial-mapping/api/shared/services/prisma/data-access": ["libs/api/shared/services/prisma/data-access/src/index.ts"],
+      "@aerial-mapping/api/dashboard/service/feature": ["libs/api/dashboard/service/feature/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

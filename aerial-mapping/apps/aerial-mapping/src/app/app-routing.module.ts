@@ -38,7 +38,7 @@ const routes: Routes = [
       )
   },
   {
-    path: 'mapcollection',
+    path: 'map-collection',
     loadChildren: () =>
     import('@aerial-mapping/client/mapcollection').then(
         (x) => x.ClientMapcollectionModule
