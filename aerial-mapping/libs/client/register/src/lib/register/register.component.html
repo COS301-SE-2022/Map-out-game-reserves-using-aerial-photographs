@@ -1,3 +1,4 @@
+
 <!-- <p>register works!</p>
 <mat-card>
 <mat-card-content>
@@ -28,27 +29,23 @@
   </mat-form-field>
 </mat-card> -->
 
-<h2>Modal Signup Form</h2>
-
-<!-- <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Sign Up</button> -->
-
 <div id="id01" class="modal">
   <!-- <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span> -->
     <form class="modal-content" action="/action_page.php">
         <div class="image" style="display: inline-block;">
-            <img src="../../../../../../apps/aerial-mapping/src/assets/erpngo-header.jpg" alt="Image" width="100px" height="auto">
+            <img src="assets/erpngo-header-full.jpg" alt="Image" width="100%" height="auto">
         </div>
-        <div class="container" style="display: inline-block;">
-            <h1>Register</h1>
-            <p>Please fill in this form to create an account.</p>
+        <div class="container" style="float: left;">
+            <h1 style="text-align: center;">Register</h1>
             <hr>
+            <!-- <mat-divider></mat-divider> -->
             <div style="display: inline-block; width: 49%;">
                 <label for="name"><b>Name</b></label>
                 <input type="text" placeholder="Enter Name" name="name" required>
             </div>
             <div style="display: inline-block; width: 50%; margin-left: 1%;">
-                <label for="username"><b>Username</b></label>
-                <input type="text" placeholder="Enter Username" name="username" required>
+                <label for="surname"><b>Surname</b></label>
+                <input type="text" placeholder="Enter Surname" name="surname" required>
             </div>
             <br/>
             <label for="email"><b>Email</b></label>
