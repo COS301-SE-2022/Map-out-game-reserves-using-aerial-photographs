@@ -36,6 +36,13 @@ const routes: Routes = [
     import('@aerial-mapping/client/account').then(
         (x) => x.ClientAccountModule
       )
+  },
+  {
+    path: 'mapcollection',
+    loadChildren: () =>
+    import('@aerial-mapping/client/mapcollection').then(
+        (x) => x.ClientMapcollectionModule
+      )
   }
 ];
 
