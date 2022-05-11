@@ -1,1 +1,33 @@
-<p>file-upload works!</p>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="component" content="File-Upload" />
+</head>
+
+<body>
+  <div class="background">
+    <div class="heading">File Upload</div>
+    <aerial-mapping-side-navbar></aerial-mapping-side-navbar>
+  </div>
+  <div class="drag-box">
+    <h3 class="uploadHeading">Select a file</h3>
+    <button class="clearbtn" mat-flat-button (click)="hiddenfileinput.click()"><h3 class="uploadHeading">Browse</h3></button>
+    <h3 class="uploadHeading">or</h3>
+    <h3 class="uploadHeading">Drag and drop a file below</h3>
+    <br>
+    <div *ngIf="fileName !== ''">
+      <div>
+        {{ fileName || ""}}
+      </div>
+      <button class="clearbtn" mat-flat-button (click)="onClearSelection"> <h3 class="uploadHeading">Clear Selection</h3></button><br/>
+    </div>
+    <div class="hidebtn">
+      <input #hiddenfileinput type="file" multiple (change)="onFileSelected($event)" class="file">
+    </div>
+    <div class="progress"></div>
+  </div>
+
+</body>
+
+</html>
