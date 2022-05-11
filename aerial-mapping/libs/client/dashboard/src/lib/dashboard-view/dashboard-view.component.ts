@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { faPaperPlane as plane } from '@fortawesome/free-solid-svg-icons';
+import { Component} from '@angular/core';
 
 @Component({
   selector: 'aerial-mapping-dashboard-view',
@@ -7,6 +6,7 @@ import { faPaperPlane as plane } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./dashboard-view.component.scss'],
 })
 export class DashboardViewComponent {
-  plane = plane;
-  total = 253;
+  constructor() {
+    //Code
+  }
 }
