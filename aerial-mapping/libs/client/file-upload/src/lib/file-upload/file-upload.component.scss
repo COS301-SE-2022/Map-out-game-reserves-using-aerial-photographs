@@ -19,3 +19,38 @@
   height: 100%;
   position: absolute;
 }
+
+.drag-box {
+  width: 50%;
+  height: 40%;
+  background-color: $primary-background;
+  border: 4px dashed $primary-brown;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: absolute;
+  display: block;
+  top: 30%;
+  left: 30%;
+}
+
+.uploadHeading {
+  color: $primary-dark;
+}
+
+.file {
+  opacity: 50;
+  padding: 0;
+  width: auto;
+  height: 5rem;
+}
+
+.clearbtn {
+  background-color: $primary-brown;
+  width:60%;
+  left: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+}
