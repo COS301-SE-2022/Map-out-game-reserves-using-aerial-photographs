@@ -16,10 +16,12 @@
     <h3 class="uploadHeading">or</h3>
     <h3 class="uploadHeading">Drag and drop a file below</h3>
     <br>
-    <div *ngIf="file">File Name: {{file.name}} <br/>
+    <div *ngIf="file">
+      File Name: {{file.name}} <br/>
+      <br>
       <button class="clearbtn" mat-flat-button (click)="file=undefined"> <h3 class="uploadHeading">Clear Selection</h3></button><br/>
     </div>
-    <input #hiddenfileinput type="file" (change)="getFile($event)" class="file">
+    <div class="hidebtn"><input #hiddenfileinput type="file" multiple (change)="getFile($event)" class="file"></div>
   </div>
 
 </body>

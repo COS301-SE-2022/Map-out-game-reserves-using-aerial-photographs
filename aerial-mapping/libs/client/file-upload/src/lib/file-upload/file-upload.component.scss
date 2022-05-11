@@ -22,7 +22,7 @@
 
 .drag-box {
   width: 50%;
-  height: 60%;
+  height: auto;
   background-color: $primary-background;
   align-items: center;
   justify-content: center;
@@ -41,7 +41,7 @@
 }
 
 .file {
-  opacity: 100;
+  opacity: 0;
   padding: 0;
   width: 90%;
   height: 20%;
@@ -66,4 +66,12 @@
   justify-content: center;
   align-items: center;
   height: 60px;
+}
+
+.hidebtn{
+  width: 90%;
+  height: 20%;
+  border: 4px dashed $primary-brown;
+  margin-bottom: 3%;
+  margin-left: 6%;
 }

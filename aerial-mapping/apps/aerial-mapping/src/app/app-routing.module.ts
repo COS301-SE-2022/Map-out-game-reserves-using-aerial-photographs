@@ -29,6 +29,13 @@ const routes: Routes = [
       import('@aerial-mapping/client/file-upload').then(
         (x) => x.ClientFileUploadModule
       )
+  },
+  {
+    path: 'account',
+    loadChildren: () =>
+    import('@aerial-mapping/client/account').then(
+        (x) => x.ClientAccountModule
+      )
   }
 ];
 

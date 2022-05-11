@@ -18,4 +18,5 @@ export class FileUploadComponent implements OnInit {
     this.file = event.target.files[0];
     console.log("File: ", this.file)
   }
+
 }
