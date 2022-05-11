@@ -1,17 +1,8 @@
 import { Module } from '@nestjs/common';
-import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { ApiShellFeatureModule } from '@aerial-mapping/api/shell/feature';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [
-    GraphQLModule.forRoot<ApolloDriverConfig>({
-      autoSchemaFile: true,
-      driver: ApolloDriver
-    })
-  ],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [ApiShellFeatureModule, ConfigModule.forRoot()]
 })
 export class AppModule {}

@@ -11,6 +11,7 @@
     "client-shared-assets": "libs/client/shared/assets",
     "client-shared-components-footer": "libs/client/shared/components/footer",
     "client-shared-components-navbar": "libs/client/shared/components/navbar",
-    "client-file-upload": "libs/client/file-upload"
+    "client-file-upload": "libs/client/file-upload",
+    "api-shell": "libs/api/shell/feature"  
   }
 }
