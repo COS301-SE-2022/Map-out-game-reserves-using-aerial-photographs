@@ -50,9 +50,16 @@ td {
     border-radius: 3px;
 }
 
-.flights,
+.cont:hover {
+    box-shadow: 0px 0px 5px $primary;
+}
+
+.flights {
+    height: 61%;
+}
+
 .videoImage {
-    height: 45.5%;
+    height: 30%;
 }
 
 .gap {
@@ -62,4 +69,33 @@ td {
 .progress,
 .completed {
     height: 98%;
+}
+
+fa-icon {
+    color: $primary;
+    font-size: 50px;
+}
+
+.total {
+    margin-top: 5%;
+    text-align: center;
+}
+
+.num {
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 60px;
+    color: $primary-dark;
+}
+
+.label {
+    color: $primary;
+}
+
+.barChart {
+    position: absolute;
+    bottom: 37%;
+    height: 30%;
+    width: 24.7%;
 }

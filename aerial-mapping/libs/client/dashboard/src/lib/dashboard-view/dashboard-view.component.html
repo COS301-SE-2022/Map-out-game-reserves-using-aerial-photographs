@@ -14,7 +14,18 @@
                 <tr>
                     <td>
                         <div class="flights cont">
-                            No. Flights
+                            <div class="total">
+                                <div class="num">
+                                    <fa-icon [icon]="plane"></fa-icon>
+                                    {{total}}
+                                </div>
+                                <div class="label">
+                                    Total Flights
+                                </div>
+                            </div>
+                            <div class="barChart">
+                                <aerial-mapping-bar-chart [List]='flights'></aerial-mapping-bar-chart>
+                            </div>
                         </div>
                         <div class="gap"></div>
                         <div class="videoImage cont">
