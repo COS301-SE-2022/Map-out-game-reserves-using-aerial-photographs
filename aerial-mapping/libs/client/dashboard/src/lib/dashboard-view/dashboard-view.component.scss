@@ -68,8 +68,25 @@ td {
     height: 4%;
 }
 
-.progress,
+.messages {
+    height: 37%;
+}
+
+.messageTitle {
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 25px;
+    color: $primary-dark;
+    width: 24%;
+    margin: 2%;
+}
+
 .completed {
+    height: 54%;
+}
+
+.progress {
     height: 98%;
 }
 
@@ -123,4 +140,13 @@ fa-icon {
 img {
     float: right;
     margin-right: 2.5%;
+}
+
+ul {
+    padding-left: 0;
+    list-style-type: none;
+}
+
+.messageList {
+    padding: 2%;
 }

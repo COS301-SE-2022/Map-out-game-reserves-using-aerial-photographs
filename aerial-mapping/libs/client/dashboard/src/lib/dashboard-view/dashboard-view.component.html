@@ -19,15 +19,15 @@
                         <div class="flights cont">
                             <div class="total">
                                 <div class="num">
-                                    <fa-icon [icon]="plane"></fa-icon>
+                                    <fa-icon [icon]="camera"></fa-icon>
                                     {{total}}
                                 </div>
                                 <div class="label">
-                                    Total Flights
+                                    New Images
                                 </div>
                             </div>
                             <div class="barChart">
-                                <aerial-mapping-bar-chart [List]='flights'></aerial-mapping-bar-chart>
+                                <aerial-mapping-bar-chart [List]='photos'></aerial-mapping-bar-chart>
                             </div>
                         </div>
                         <div class="gap"></div>
@@ -36,13 +36,25 @@
                         </div>
                     </td>
                     <td>
-                        <div class="progress cont">
-                            In Progress
+                        <div class="messages cont">
+                            <div class="messageTitle">
+                                Messages
+                                <hr>
+                            </div>
+                            <ul>
+                                <li class="messageList" *ngFor="let m of messages">
+                                    {{m}}
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="gap"></div>
+                        <div class="completed cont">
+                            Completed
                         </div>
                     </td>
                     <td>
-                        <div class="completed cont">
-                            Completed
+                        <div class="progress cont">
+                            In Progress
                         </div>
                     </td>
                 </tr>
