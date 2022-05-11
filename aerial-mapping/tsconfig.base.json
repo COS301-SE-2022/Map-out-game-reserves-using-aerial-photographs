@@ -19,6 +19,9 @@
       "@aerial-mapping/client/dashboard": [
         "libs/client/dashboard/src/index.ts"
       ],
+      "@aerial-mapping/client/file-upload": [
+        "libs/client/file-upload/src/index.ts"
+      ],
       "@aerial-mapping/client/login": ["libs/client/login/src/index.ts"],
       "@aerial-mapping/client/register": ["libs/client/register/src/index.ts"],
       "@aerial-mapping/client/shared/assets": [
@@ -29,8 +32,7 @@
       ],
       "@aerial-mapping/client/shared/components/navbar": [
         "libs/client/shared/components/navbar/src/index.ts"
-      ],
-      "@aerial-mapping/client/file-upload": ["libs/client/file-upload/src/index.ts"]
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
