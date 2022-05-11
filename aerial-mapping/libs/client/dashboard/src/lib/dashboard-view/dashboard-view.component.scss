@@ -86,8 +86,16 @@ fa-icon {
     font-weight: 700;
     font-style: normal;
     font-size: 60px;
+    color: $primary-dark;
 }
 
 .label {
-    color: gray;
+    color: $primary;
+}
+
+.barChart {
+    position: absolute;
+    bottom: 37%;
+    height: 30%;
+    width: 24.7%;
 }
