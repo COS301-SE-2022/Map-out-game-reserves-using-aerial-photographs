@@ -21,30 +21,36 @@ model Newtable {
   @@map("newtable")
 }
 
-model Game_Park {
-  parkID        Int    @id @default(autoincrement())
-  park_name     String @db.VarChar(45)
-  park_location String @db.VarChar(45)
-  park_address  String @db.VarChar(45)
-
-  @@map("game_park")
-  Video_Collection Video_Collection[]
+model User {
+  userID         Int              @id @unique @default(autoincrement())
+  user_email     String           @unique
+  user_password  String
+  user_name      String
+  user_surname   String
+  user_role      String
+  user_approved  Boolean          @default(false)
+  Flight_Details Flight_Details[]
 }
 
-model Video_Collection {
-  collectionID     Int       @id @default(autoincrement())
-  parkID           Int
-  Game_Park        Game_Park @relation(fields: [parkID], references: [parkID])
-  upload_date_time DateTime  @default(now())
-
-  @@map("video_collection")
+model Video {
+  videoID          Int      @id @unique @default(autoincrement())
+  filmed_date_time DateTime
+  file_location    String   @db.VarChar(45)
+  Images           Images[]
 }
 
-model Video_In_Collection {
-  collectionID     Int
-  videoID          Int
-  video_order      Int
+model Images {
+  imageID       Int    @id @unique @default(autoincrement())
+  videoID       Int
+  video         Video  @relation(fields: [videoID], references: [videoID])
+  file_location String @db.VarChar(45)
+  imagescol     String @db.VarChar(45)
+}
 
-  @@id([collectionID, videoID])
-  @@unique([collectionID, videoID, video_order])
+model Flight_Details {
+  flightID      Int    @id @unique @default(autoincrement())
+  flight_height String @db.VarChar(45)
+  flight_type   String @db.VarChar(45)
+  pilotID       Int
+  pilot         User   @relation(fields: [pilotID], references: [userID])
 }
