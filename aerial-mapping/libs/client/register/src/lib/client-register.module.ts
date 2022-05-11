@@ -7,6 +7,7 @@ import {MatCardModule} from '@angular/material/card';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatDividerModule} from '@angular/material/divider';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatDividerModule
   ],
   declarations: [RegisterComponent],
 })
