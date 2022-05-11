@@ -29,7 +29,8 @@
       ],
       "@aerial-mapping/client/shared/components/navbar": [
         "libs/client/shared/components/navbar/src/index.ts"
-      ]
+      ],
+      "@aerial-mapping/client/file-upload": ["libs/client/file-upload/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
