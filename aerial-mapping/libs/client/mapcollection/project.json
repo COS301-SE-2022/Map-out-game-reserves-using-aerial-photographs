@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/client/mapcollection/src",
+  "prefix": "aerial-mapping",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/client/mapcollection"],
+      "options": {
+        "jestConfig": "libs/client/mapcollection/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/client/mapcollection/**/*.ts",
+          "libs/client/mapcollection/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
