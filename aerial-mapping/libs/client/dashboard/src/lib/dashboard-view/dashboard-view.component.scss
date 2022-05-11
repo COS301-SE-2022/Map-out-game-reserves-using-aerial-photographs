@@ -21,7 +21,7 @@
 
 .content {
     border-radius: 3px;
-    background: $primary-background;
+    background: $primary-background-opaque;
     padding: 1%;
     margin-left: 0.5%;
     width: 87%;
@@ -43,8 +43,9 @@ td {
 }
 
 .cont {
+    background: $primary-background;
     width: 90%;
-    border: 1px solid;
+    border: 1px solid $primary-dark;
     margin: 2%;
     padding: 5px;
     border-radius: 3px;
@@ -60,14 +61,32 @@ td {
 
 .videoImage {
     height: 30%;
+    text-align: center;
 }
 
 .gap {
     height: 4%;
 }
 
-.progress,
+.messages {
+    height: 37%;
+}
+
+.messageTitle {
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 25px;
+    color: $primary-dark;
+    width: 24%;
+    margin: 2%;
+}
+
 .completed {
+    height: 54%;
+}
+
+.progress {
     height: 98%;
 }
 
@@ -98,4 +117,36 @@ fa-icon {
     bottom: 37%;
     height: 30%;
     width: 24.7%;
+}
+
+.upload {
+    margin: 15%;
+    padding: 2%;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 40px;
+    color: $primary-dark;
+    border: 1px solid $primary;
+    border-radius: 3px;
+    background: $primary-background;
+}
+
+.upload:hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 5px $primary;
+}
+
+img {
+    float: right;
+    margin-right: 2.5%;
+}
+
+ul {
+    padding-left: 0;
+    list-style-type: none;
+}
+
+.messageList {
+    margin: 2%;
 }

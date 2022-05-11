@@ -7,7 +7,10 @@
 
 <body>
     <div class="background">
-        <div class="heading">Dashboard</div>
+        <div class="heading">
+            Dashboard
+            <img src="assets/ERP_Logo.png" width="50px" alt="logo">
+        </div>
         <aerial-mapping-side-navbar></aerial-mapping-side-navbar>
         <div class="content">
             <table>
@@ -16,30 +19,43 @@
                         <div class="flights cont">
                             <div class="total">
                                 <div class="num">
-                                    <fa-icon [icon]="plane"></fa-icon>
+                                    <fa-icon [icon]="camera"></fa-icon>
                                     {{total}}
                                 </div>
                                 <div class="label">
-                                    Total Flights
+                                    New Images
                                 </div>
                             </div>
                             <div class="barChart">
-                                <aerial-mapping-bar-chart [List]='flights'></aerial-mapping-bar-chart>
+                                <aerial-mapping-bar-chart [List]='photos'></aerial-mapping-bar-chart>
                             </div>
                         </div>
                         <div class="gap"></div>
                         <div class="videoImage cont">
-                            Videos and Image uploading
+                            <button class="upload" mat-raised-button routerLink="/file-upload">File Upload</button>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="messages cont">
+                            <div class="messageTitle">
+                                Messages
+                                <hr>
+                            </div>
+                            <ul>
+                                <li class="messageList" *ngFor="let m of messages">
+                                    - {{m}}
+                                    <hr>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="gap"></div>
+                        <div class="completed cont">
+                            Completed
                         </div>
                     </td>
                     <td>
                         <div class="progress cont">
                             In Progress
-                        </div>
-                    </td>
-                    <td>
-                        <div class="completed cont">
-                            Completed
                         </div>
                     </td>
                 </tr>
