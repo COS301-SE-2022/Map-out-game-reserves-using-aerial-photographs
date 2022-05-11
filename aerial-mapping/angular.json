@@ -8,7 +8,6 @@
     "client-dashboard": "libs/client/dashboard",
     "client-login": "libs/client/login",
     "client-register": "libs/client/register",
-    "client-file-upload": "libs/client/file-upload",
     "client-shared-assets": "libs/client/shared/assets"
   }
 }

@@ -21,8 +21,9 @@
       ],
       "@aerial-mapping/client/login": ["libs/client/login/src/index.ts"],
       "@aerial-mapping/client/register": ["libs/client/register/src/index.ts"],
-      "@aerial-mapping/client/file-upload": ["libs/client/file-upload/src/index.ts"],
-      "@aerial-mapping/client/shared/assets": ["libs/client/shared/assets/src/index.ts"]
+      "@aerial-mapping/client/shared/assets": [
+        "libs/client/shared/assets/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
