@@ -1,23 +1,72 @@
 @import 'libs/client/shared/assets/src/lib/global';
-body {
-    text-align: center;
+.background {
+    background-color: $primary-dark;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
 }
 
 .heading {
-    font-size: xx-large;
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 505;
+    font-style: normal;
+    font-size: 40px;
+    width: 100%;
+    height: 10%;
+    padding: 1%;
+    // padding-left: 15.5%;
 }
 
-.test {
-    color: $primary;
-    background-color: $primary-background;
+.content {
+    border-radius: 3px;
+    background: $primary-background;
+    padding: 1%;
+    margin-left: 0.5%;
+    width: 87%;
+    height: 89%;
+    vertical-align: top;
+    float: left;
 }
 
-.test2 {
-    color: $primary;
-    background-color: $primary-dark;
+table {
+    width: 100%;
+    height: 100%;
+    table-layout: fixed;
 }
 
-.test3 {
-    color: $primary-dark;
-    background-color: $primary-brown;
+tr,
+td {
+    height: 100%;
+    vertical-align: top;
+}
+
+.cont {
+    width: 90%;
+    border: 1px solid;
+    margin: 2%;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.flights {
+    height: 46%;
+}
+
+.gap {
+    height: 3%;
+}
+
+.videoImage {
+    height: 46%;
+}
+
+.progress {
+    height: 98%;
+}
+
+.completed {
+    height: 98%;
 }
