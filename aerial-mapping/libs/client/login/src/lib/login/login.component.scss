@@ -1,7 +1,7 @@
 @import 'libs/client/shared/assets/src/lib/global';
 
 h2{
-    font-family: 'Tahoma';
+    font-family: "Segoe UI", sans-serif;
     color:white;
     padding: 10px;
     padding-bottom: 0px;
@@ -20,7 +20,7 @@ h2{
 label{
     padding-left:15px;
     color: white;
-    font-family: "Tahoma";
+    font-family: "Segoe UI", sans-serif;
 }
 
 mat-form-field{
@@ -54,7 +54,7 @@ button{
     padding: 20px 28px;
 
     position: absolute;
-    font-family: 'Tahoma';
+    font-family: "Segoe UI", sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
@@ -72,6 +72,33 @@ button{
     height: 60px;
 }
 
+.right {
+    width:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+}
+
+a:link {
+    height:40px;
+    font-size: 14px;
+    padding-top: 10px;
+    padding-left: 14px;
+    padding-right: 14px;
+    border: none;
+    font-family: "Segoe UI", sans-serif;
+    text-decoration: none;
+}
+a:visited{
+    color:white;
+}
+
+a:hover{
+    color: $primary;
+    background-color: white;
+}
+
 .back {
     width:100%;
     justify-content: center;
@@ -82,4 +109,17 @@ button:hover {
     background-color: white;
     color:#74685c;
 }
+
+#container {
+    background-color: rgba(116, 104, 92, 0.7);
+    padding: 1% 2%;
+    position: fixed; /* Stay in place /
+    z-index: 1; / Sit on top */
+    left: 7.5%;
+    top: 10%;
+    width: 50%;
+    height: 70%;
+    align-content: center;
+  }
+
 
