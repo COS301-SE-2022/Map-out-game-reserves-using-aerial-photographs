@@ -1,6 +1,7 @@
+@import 'libs/client/shared/assets/src/lib/global';
+
 h2{
     font-family: 'Tahoma';
-    //background-color: #74685c;
     color:white;
     padding: 10px;
     padding-bottom: 0px;
@@ -31,14 +32,14 @@ mat-form-field{
     color: gray;
     padding-bottom: 15px;
 
-    border: 1px solid #74685c;
+    border: 1px solid $primary;
     margin: 10px;
     width: 93%;
     
 }
 
 mat-form-field:hover{
-    color:rgb(176, 176, 176);
+    //color:rgb(176, 176, 176);
     border: 1px solid darkgray;
 }
 
@@ -51,7 +52,6 @@ button{
     border: 2px solid white;
     border-radius: 0px;
     padding: 20px 28px;
-    //margin-bottom: 20px;
 
     position: absolute;
     font-family: 'Tahoma';
@@ -65,12 +65,17 @@ button{
 }
 
 .center {
-    //background-color: #74685c;
     width:100%;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 60px;
+}
+
+.back {
+    width:100%;
+    justify-content: center;
+    align-items: center;
 }
 
 button:hover {
