@@ -22,13 +22,6 @@ const routes: Routes = [
       import('@aerial-mapping/client/register').then(
         (x) => x.ClientRegisterModule
       )
-  },
-  {
-    path: 'file-upload',
-    loadChildren: () =>
-      import('@aerial-mapping/client/file-upload').then(
-        (x) => x.ClientFileUploadModule
-      )
   }
 ];
 
