@@ -10,14 +10,47 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 ///////////////////////////////////////////////////////////////////////
 // 1. User
 ///////////////////////////////////////////////////////////////////////
 
 // All entities within the database is defined as users
 model Newtable {
-  test        String    @unique
+  test String @unique
 
   @@map("newtable")
+}
+
+model User {
+  userID         Int              @id @unique @default(autoincrement())
+  user_email     String           @unique
+  user_password  String
+  user_name      String
+  user_surname   String
+  user_role      String
+  user_approved  Boolean          @default(false)
+  Flight_Details Flight_Details[]
+}
+
+model Video {
+  videoID          Int      @id @unique @default(autoincrement())
+  filmed_date_time DateTime
+  file_location    String   @db.VarChar(45)
+  Images           Images[]
+}
+
+model Images {
+  imageID       Int    @id @unique @default(autoincrement())
+  videoID       Int
+  video         Video  @relation(fields: [videoID], references: [videoID])
+  file_location String @db.VarChar(45)
+  imagescol     String @db.VarChar(45)
+}
+
+model Flight_Details {
+  flightID      Int    @id @unique @default(autoincrement())
+  flight_height String @db.VarChar(45)
+  flight_type   String @db.VarChar(45)
+  pilotID       Int
+  pilot         User   @relation(fields: [pilotID], references: [userID])
 }
