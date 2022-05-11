@@ -1,50 +1,66 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from "@angular/forms";
 import { FileUploader } from "ng2-file-upload";
-import { Observable } from "rxjs";
-import { HttpClient } from "@angular/common/http";
+import { finalize, Observable, Subscription } from "rxjs";
+import { HttpClient, HttpEventType } from "@angular/common/http";
 
 @Component({
   selector: 'aerial-mapping-file-upload',
   templateUrl: './file-upload.component.html',
-  styleUrls: ['./file-upload.component.scss'],
+  styleUrls: ['./file-upload.component.scss']
 })
-export class FileUploadComponent implements OnInit {
+
+//https://blog.angular-university.io/angular-file-upload/
+
+export class FileUploadComponent {
+
+  requiredFileType : string | undefined;
+
+  fileName = '';
+  uploadProgress: number | undefined;
+  uploadSub: Subscription | undefined;
+
   constructor(private http: HttpClient) {
-    //Code
   }
 
-  fileName = "";
-
-  ngOnInit() : void {
-    console.log("onInitRan");
-  }
-
-  onFileSelected(event: any) {
-
+  onFileSelected(event : any) {
     const file:File = event.target.files[0];
 
-    if (file)
-    {
+    if (file) {
         this.fileName = file.name;
         const formData = new FormData();
         formData.append("thumbnail", file);
-        //const upload$ = this.http.post("/api/thumbnail-upload", formData);
-        //upload$.subscribe();
+
+        const upload$ = this.http.post("/api/thumbnail-upload", formData, {
+            reportProgress: true,
+            observe: 'events'
+        })
+        .pipe(
+            finalize(() => this.reset())
+        );
+
+        this.uploadSub = upload$.subscribe(event => {
+          if (event.type == HttpEventType.UploadProgress && event.total) {
+            this.uploadProgress = Math.round(100 * (event.loaded / event.total));
+          }
+        })
     }
-  }
+}
 
-  onClearSelection()
-  {
-    //location.reload();
-    this.ngOnInit();
+cancelUpload() {
+  if(this.uploadSub){
+    this.uploadSub.unsubscribe();
   }
+  this.reset();
+}
 
-  // file:any;
-  // getFile(event:any)
-  // {
-  //   this.file = event.target.files[0];
-  //   console.log("File: ", this.file)
-  // }
+reset() {
+  this.uploadProgress = undefined;
+  this.uploadSub = undefined;
+}
+
+clearSelection() {
+  window.location.reload();
+}
 
 }
