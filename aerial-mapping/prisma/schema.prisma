@@ -10,11 +10,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-///////////////////////////////////////////////////////////////////////
-// 1. User
-///////////////////////////////////////////////////////////////////////
-
-// All entities within the database is defined as users
 model User {
   userID         Int              @id @unique @default(autoincrement())
   user_email     String           @unique
