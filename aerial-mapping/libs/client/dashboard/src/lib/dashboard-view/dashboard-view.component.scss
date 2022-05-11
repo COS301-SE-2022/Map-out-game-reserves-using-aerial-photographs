@@ -60,6 +60,7 @@ td {
 
 .videoImage {
     height: 30%;
+    text-align: center;
 }
 
 .gap {
@@ -98,4 +99,22 @@ fa-icon {
     bottom: 37%;
     height: 30%;
     width: 24.7%;
+}
+
+.upload {
+    margin: 15%;
+    padding: 2%;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 40px;
+    color: $primary-dark;
+    border: 1px solid $primary;
+    border-radius: 3px;
+    background: $primary-background;
+}
+
+.upload:hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 5px $primary;
 }
