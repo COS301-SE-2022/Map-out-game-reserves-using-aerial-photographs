@@ -11,6 +11,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatDividerModule} from '@angular/material/divider';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 // import {MatDialog} from '@angular/material/dialog';
 // , MatDialogRef, MAT_DIALOG_DATA
 
@@ -26,7 +27,9 @@ const MaterialComponents=[
   MatFormFieldModule,
   MatSidenavModule,
   MatDividerModule,
-  FlexLayoutModule
+  FlexLayoutModule,
+  FormsModule,
+  ReactiveFormsModule,
   // MatDialog
 ]
 ;
