@@ -23,6 +23,12 @@
       "@aerial-mapping/client/register": ["libs/client/register/src/index.ts"],
       "@aerial-mapping/client/shared/assets": [
         "libs/client/shared/assets/src/index.ts"
+      ],
+      "@aerial-mapping/client/shared/components/footer": [
+        "libs/client/shared/components/footer/src/index.ts"
+      ],
+      "@aerial-mapping/client/shared/components/navbar": [
+        "libs/client/shared/components/navbar/src/index.ts"
       ]
     }
   },
