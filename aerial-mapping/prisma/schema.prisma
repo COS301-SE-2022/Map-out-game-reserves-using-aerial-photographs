@@ -10,14 +10,41 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 ///////////////////////////////////////////////////////////////////////
 // 1. User
 ///////////////////////////////////////////////////////////////////////
 
 // All entities within the database is defined as users
 model Newtable {
-  test        String    @unique
+  test String @unique
 
   @@map("newtable")
+}
+
+model Game_Park {
+  parkID        Int    @id @default(autoincrement())
+  park_name     String @db.VarChar(45)
+  park_location String @db.VarChar(45)
+  park_address  String @db.VarChar(45)
+
+  @@map("game_park")
+  Video_Collection Video_Collection[]
+}
+
+model Video_Collection {
+  collectionID     Int       @id @default(autoincrement())
+  parkID           Int
+  Game_Park        Game_Park @relation(fields: [parkID], references: [parkID])
+  upload_date_time DateTime  @default(now())
+
+  @@map("video_collection")
+}
+
+model Video_In_Collection {
+  collectionID     Int
+  videoID          Int
+  video_order      Int
+
+  @@id([collectionID, videoID])
+  @@unique([collectionID, videoID, video_order])
 }
