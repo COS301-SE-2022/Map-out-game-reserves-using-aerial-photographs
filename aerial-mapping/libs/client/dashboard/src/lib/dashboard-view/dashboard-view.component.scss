@@ -17,7 +17,6 @@
     width: 100%;
     height: 10%;
     padding: 1%;
-    // padding-left: 15.5%;
 }
 
 .content {
@@ -51,22 +50,16 @@ td {
     border-radius: 3px;
 }
 
-.flights {
-    height: 46%;
+.flights,
+.videoImage {
+    height: 45.5%;
 }
 
 .gap {
-    height: 3%;
+    height: 4%;
 }
 
-.videoImage {
-    height: 46%;
-}
-
-.progress {
-    height: 98%;
-}
-
+.progress,
 .completed {
     height: 98%;
 }

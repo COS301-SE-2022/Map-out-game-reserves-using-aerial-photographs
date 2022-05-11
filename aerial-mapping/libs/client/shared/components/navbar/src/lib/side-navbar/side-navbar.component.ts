@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 
 @Component({
   selector: 'aerial-mapping-side-navbar',
   templateUrl: './side-navbar.component.html',
   styleUrls: ['./side-navbar.component.scss'],
 })
-export class SideNavbarComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
+export class SideNavbarComponent {
+  constructor() {
+    //code
+  }
 }
