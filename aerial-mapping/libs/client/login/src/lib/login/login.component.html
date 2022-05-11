@@ -6,8 +6,8 @@
                 <h2>LOGIN</h2>
                 <hr>
                 <div class="login">
-                    <label>Email</label>
-                    <mat-form-field appearance="fill">
+                    <label for="email">Email</label>
+                    <mat-form-field appearance="fill" required>
                         <!-- <mat-label>Enter your email</mat-label> -->
                         <input placeholder = "Enter your email" matInput>
                     </mat-form-field>
@@ -16,10 +16,15 @@
                         <!-- <mat-label>Enter your password</mat-label> -->
                         <input placeholder = "Enter your password" matInput>
                     </mat-form-field>
-                    
+                    <br/>
                     <div class = "center">
                         <button mat-flat-button>LOGIN</button>
                     </div>
+                    <div class = "right">
+                        <!-- <button id = "signin" mat-flat-button>I don't have an account</button> -->
+                        <a routerLink='/register' aria-current="page">I don't have an account</a>
+                    </div>
+                    
                     <br/>
                 </div>
             </div>

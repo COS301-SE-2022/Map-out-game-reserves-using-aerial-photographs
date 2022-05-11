@@ -1,43 +1,12 @@
-
-<!-- <p>register works!</p>
-<mat-card>
-<mat-card-content>
-    <div class="example-container">
-        <mat-form-field appearance="fill">
-          <mat-label>Enter your email</mat-label>
-          <input matInput placeholder="pat@example.com" [formControl]="email" required>
-          <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-            <mat-label>Textarea</mat-label>
-            <textarea matInput></textarea>
-          </mat-form-field>
-      </div>
-      <button mat-button>Button</button>
-</mat-card-content>
-
-<mat-form-field appearance="fill">
-    <mat-label>Input</mat-label>
-    <input matInput>
-  </mat-form-field>
-  <mat-form-field appearance="fill">
-    <mat-label>Select</mat-label>
-    <mat-select>
-      <mat-option value="one">First option</mat-option>
-      <mat-option value="two">Second option</mat-option>
-    </mat-select>
-  </mat-form-field>
-</mat-card> -->
-
 <div id="id01" class="modal">
   <!-- <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span> -->
     <form class="modal-content" action="/action_page.php">
         <div class="image" style="display: inline-block;">
             <img src="assets/erpngo-header-full.jpg" alt="Image" width="100%" height="auto">
         </div>
-        <div class="container" style="float: left;">
+        <div class="container">
             <div class="container2">
-            <h2 style="margin-top: 2%;">REGISTER</h2>
+            <h2>REGISTER FOR AERIAL MAPPING</h2>
             <hr>
             <!-- <mat-divider></mat-divider> -->
             <div style="display: inline-block; width: 49%;">
@@ -59,9 +28,11 @@
             <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
     
             <div class="clearfix center">
-                <!-- <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button> -->
-                <button type="submit" class="signupbtn">Sign Up</button>
+                <button type="submit" class="button signupbtn">Sign Up</button>
             </div>
+            <div class="clearfix center" style="height: 40px;">
+              <a routerLink='/login' class="button2" aria-current="page">Already have an account</a>
+          </div>
         </div>
         </div>
     </form>
