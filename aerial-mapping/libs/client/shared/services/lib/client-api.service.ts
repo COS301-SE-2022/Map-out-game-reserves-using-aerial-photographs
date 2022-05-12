@@ -46,7 +46,7 @@ export class ClientApiService {
 
 
   getVideoCollections(): Observable<any> {
-    return this.runQuery('query { getVideoCollections { collectionID, parkID }}',null);
+    return this.runQuery('query { getVideoCollections { collectionID, parkID, completed }}',null);
   }
 
   // MUTATIONS //

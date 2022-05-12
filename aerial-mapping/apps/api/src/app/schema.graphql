@@ -47,6 +47,7 @@ type Video_Collection {
   collectionID: Int!
   parkID: Int
   #upload_date_time: DateTime
+  completed: Boolean
 }
 
 type Video_In_Collection {

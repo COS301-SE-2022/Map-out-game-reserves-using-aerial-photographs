@@ -61,6 +61,7 @@ model Video_Collection {
   Game_Park           Game_Park             @relation(fields: [parkID], references: [parkID])
   upload_date_time    DateTime              @default(now())
   Video_In_Collection Video_In_Collection[]
+  completed           Boolean               @default(false)
 }
 
 model Video_In_Collection {

@@ -17,6 +17,8 @@ import { ClientApiService } from '@aerial-mapping/client/shared/services';
 })
 export class DashboardViewComponent implements OnInit{
   videoCollectionsData: Video_Collection[] = [];
+  completed: Video_Collection[] = [];
+  processing: Video_Collection[] = [];
   pastWeek: number[];
   total: number;
   public messages: Array<{message: string, icon: IconDefinition, color: string, date: string}>;
@@ -148,6 +150,21 @@ export class DashboardViewComponent implements OnInit{
     this.apiService.getVideoCollections().subscribe({
       next: (_res) => {
         this.videoCollectionsData = _res.data.getVideoCollections;
+
+        let completed_count = 0;
+        let processing_count = 0;
+        for(let i = 0; i< this.videoCollectionsData.length;i++){
+          if(this.videoCollectionsData[i].completed){
+            this.completed[completed_count] = this.videoCollectionsData[i];
+            completed_count++;
+          }
+          else{
+            this.processing[processing_count] = this.videoCollectionsData[i];
+            processing_count++;
+          }
+
+          console.log(this.videoCollectionsData);
+        }
       },
       error: (err) => { console.log(err); }
     });
@@ -173,4 +190,5 @@ interface  Video_Collection {
   collectionID: number;
   parkID: number;
   // upload_date_time: DateTime
+  completed: boolean;
 }
