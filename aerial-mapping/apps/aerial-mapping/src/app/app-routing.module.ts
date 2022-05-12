@@ -43,6 +43,13 @@ const routes: Routes = [
     import('@aerial-mapping/client/mapcollection').then(
         (x) => x.ClientMapcollectionModule
       )
+  },
+  {
+    path: 'image-catalogue',
+    loadChildren: () =>
+    import('@aerial-mapping/client/image-catalogue').then(
+        (x) => x.ClientImageCatalogueModule
+      )
   }
 ];
 

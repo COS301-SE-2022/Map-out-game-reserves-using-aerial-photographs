@@ -11,6 +11,7 @@
     "client-account": "libs/client/account",
     "client-dashboard": "libs/client/dashboard",
     "client-file-upload": "libs/client/file-upload",
+    "client-image-catalogue": "libs/client/image-catalogue",
     "client-login": "libs/client/login",
     "client-mapcollection": "libs/client/mapcollection",
     "client-register": "libs/client/register",

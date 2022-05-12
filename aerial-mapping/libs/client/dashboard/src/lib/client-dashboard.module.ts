@@ -5,6 +5,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { ComponentsNavbarModule } from './../../../shared/components/navbar/src/lib/client-shared-components-navbar.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   imports: [
@@ -12,6 +13,7 @@ import { BarChartComponent } from './bar-chart/bar-chart.component';
     DashboardRoutingModule,
     ComponentsNavbarModule,
     FontAwesomeModule,
+    MatListModule,
   ],
   declarations: [DashboardViewComponent, BarChartComponent],
 })
