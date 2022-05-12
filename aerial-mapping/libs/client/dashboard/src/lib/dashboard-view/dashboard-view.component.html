@@ -37,7 +37,7 @@
                     </td>
                     <td>
                         <div class="messages cont">
-                            <div class="Title">
+                            <div class="messageTitle">
                                 Messages
                                 <hr>
                             </div>
@@ -53,14 +53,14 @@
                         </div>
                         <div class="gap"></div>
                         <div class="completed cont">
-                            <div class="Title">
-                                Complete
+                            <div class="completeTitle">
+                                Completed
                                 <hr>
                             </div>
                             <div class="scrollableComplete">
                                 <mat-list>
                                     <mat-list-item matLine class="completeItem" *ngFor="let m of completed">
-                                        <fa-icon matListAvatar class="icon green-icon" [icon]="complete"></fa-icon>
+                                        <fa-icon matListAvatar class="icon brown-icon" [icon]="complete"></fa-icon>
                                         <span class="completeName">{{m.name}}</span>
                                         <span class="completeDate">{{m.date}}</span>
                                     </mat-list-item>
@@ -70,7 +70,19 @@
                     </td>
                     <td>
                         <div class="progress cont">
-                            In Progress
+                            <div class="progressTitle">
+                                In Progress
+                                <hr>
+                            </div>
+                            <div class="scrollableProgress">
+                                <mat-list>
+                                    <mat-list-item matLine class="progressItem" *ngFor="let m of inProgress">
+                                        <fa-icon matListAvatar class="icon brown-icon" [icon]="progress"></fa-icon>
+                                        <span class="progressName">{{m.name}}</span>
+                                        <span class="progressDate">{{m.date}}</span>
+                                    </mat-list-item>
+                                </mat-list>
+                            </div>
                         </div>
                     </td>
                 </tr>

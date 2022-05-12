@@ -55,13 +55,33 @@ td {
     box-shadow: 0px 0px 5px $primary;
 }
 
-.Title {
+.messageTitle {
     font-family: 'Segoe UI', sans-serif;
     font-weight: 700;
     font-style: normal;
     font-size: 25px;
     color: $primary-dark;
     width: 24%;
+    margin: 2%;
+}
+
+.completeTitle {
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 25px;
+    color: $primary-dark;
+    width: 27%;
+    margin: 2%;
+}
+
+.progressTitle {
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 25px;
+    color: $primary-dark;
+    width: 30%;
     margin: 2%;
 }
 
@@ -149,7 +169,7 @@ img {
 }
 
 .scrollableProgress {
-    height: 90%;
+    height: 73vh;
     overflow-y: auto;
 }
 
@@ -157,18 +177,18 @@ img {
     width: 20px;
 }
 
- ::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
     background-color: transparent;
 }
 
- ::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
     background-color: #d6dee1;
     border-radius: 20px;
     border: 6px solid transparent;
     background-clip: content-box;
 }
 
- ::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover {
     background-color: #a8bbbf;
 }
 
@@ -205,6 +225,10 @@ img {
     color: red;
 }
 
+.brown-icon {
+    color: $primary;
+}
+
 .completeItem {
     background-color: #d6dee15b;
     border-radius: 3px;
@@ -212,6 +236,19 @@ img {
 }
 
 .completeDate {
+    position: absolute;
+    right: 3%;
+    color: gray;
+    font-size: smaller;
+}
+
+.progressItem {
+    background-color: #d6dee15b;
+    border-radius: 3px;
+    margin-bottom: 1%;
+}
+
+.progressDate {
     position: absolute;
     right: 3%;
     color: gray;

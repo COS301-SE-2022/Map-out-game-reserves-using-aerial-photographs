@@ -17,7 +17,7 @@ export class DashboardViewComponent {
   total: number;
   public messages: Array<any>;
   public completed: Array<any>;
-  // public inProgress: Array<any>;
+  public inProgress: Array<any>;
   public photos: Array<BarChart>;
 
   camera = camera;
@@ -32,7 +32,10 @@ export class DashboardViewComponent {
 
   constructor() {
     this.pastWeek = [3, 5, 2, 3, 2, 1, 7];
-    this.total = 253;
+    this.total = 0;
+    this.pastWeek.forEach(element => {
+      this.total+=element;
+    });
     this.messages = [
       {
         message: 'Everything is good',
@@ -67,36 +70,75 @@ export class DashboardViewComponent {
     ];
     this.completed = [
       {
-        name: 'Everything is good',
+        name: 'Upload 76',
         date: "Today"
       },
       {
-        name: 'System is slower than usual',
+        name: 'Upload 75',
         date: "Yesterday"
       },
       {
-        name: 'Everything is good',
+        name: 'Upload 74',
         date: "10 May"
       },
       {
-        name: 'Fire Detected',
+        name: 'Upload 73',
         date: "9 May"
       },
       {
-        name: 'Unknown objects in image',
+        name: 'Upload 72',
         date: "8 May"
       },
       {
-        name: 'Unknown objects in image',
-        date: "8 May"
+        name: 'Upload 71',
+        date: "7 May"
       },
       {
-        name: 'Unknown objects in image',
-        date: "8 May"
+        name: 'Upload 70',
+        date: "6 May"
       },
       {
-        name: 'Unknown objects in image',
-        date: "8 May"
+        name: 'Upload 69',
+        date: "5 May"
+      },
+    ];
+
+    this.inProgress = [
+      {
+        name: 'Upload 77',
+      },
+      {
+        name: 'Upload 78',
+      },
+      {
+        name: 'Upload 79',
+      },
+      {
+        name: 'Upload 80',
+      },
+      {
+        name: 'Upload 81',
+      },
+      {
+        name: 'Upload 82',
+      },
+      {
+        name: 'Upload 83',
+      },
+      {
+        name: 'Upload 84',
+
+      },{
+        name: 'Upload 85',
+      },
+      {
+        name: 'Upload 86',
+      },
+      {
+        name: 'Upload 87',
+      },
+      {
+        name: 'Upload 88',
       },
     ];
     this.photos = [
