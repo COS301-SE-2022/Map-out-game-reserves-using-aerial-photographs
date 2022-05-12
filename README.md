@@ -1,6 +1,7 @@
 # Map Out Game Reserves Using Aerial Photographs
 
 [![Default Test](https://github.com/COS301-SE-2022/Map-out-game-reserves-using-aerial-photographs/actions/workflows/nxtest.yml/badge.svg)](https://github.com/COS301-SE-2022/Map-out-game-reserves-using-aerial-photographs/actions/workflows/nxtest.yml)
+https://img.shields.io/librariesio/github/COS301-SE-2022/Map-out-game-reserves-using-aerial-photographs
 
 An application to map out game reserves using aerial photography, intelligent image stitching and AI driven recognition focus.
 
