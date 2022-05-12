@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { faCamera as camera } from '@fortawesome/free-solid-svg-icons';
 import { faExclamationTriangle as warning } from '@fortawesome/free-solid-svg-icons';
 import { faExclamationCircle as error } from '@fortawesome/free-solid-svg-icons';
@@ -6,13 +6,15 @@ import { faCheck as good } from '@fortawesome/free-solid-svg-icons';
 import { faCheckCircle as complete } from '@fortawesome/free-solid-svg-icons';
 import { faSpinner as progress } from '@fortawesome/free-solid-svg-icons';
 import { BarChart } from '../bar-chart/bar-chart.model';
+import { ClientApiService } from '../../../../shared/services/client-api.service';
 
 @Component({
   selector: 'aerial-mapping-dashboard-view',
   templateUrl: './dashboard-view.component.html',
   styleUrls: ['./dashboard-view.component.scss'],
 })
-export class DashboardViewComponent {
+export class DashboardViewComponent implements OnInit{
+  videoCollectionsData: Video_Collection[] = [];
   pastWeek: number[];
   total: number;
   public messages: Array<any>;
@@ -30,7 +32,7 @@ export class DashboardViewComponent {
   count = 0;
   d = new Date().getDay();
 
-  constructor() {
+  constructor(private apiService:ClientApiService) {
     this.pastWeek = [3, 5, 2, 3, 2, 1, 7];
     this.total = 0;
     this.pastWeek.forEach(element => {
@@ -174,6 +176,17 @@ export class DashboardViewComponent {
     ];
   }
 
+  ngOnInit(): void {
+    //make API call to access status of resources for particular company
+    this.apiService.getVideoCollection().subscribe({
+      next: (_res) => {
+        this.videoCollectionsData = _res.data.getCompanyReps;
+      },
+      error: (err) => { console.log(err); }
+    });
+    console.log(this.videoCollectionsData);
+  }
+
   getDayOfWeek(): string {
     if (this.d == new Date().getDay() - 1) {
       this.d++;
@@ -188,4 +201,10 @@ export class DashboardViewComponent {
       return weekday[this.d++];
     }
   }
+}
+
+interface  Video_Collection {
+  collectionID: number;
+  parkID: number;
+  // upload_date_time: DateTime
 }
