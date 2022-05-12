@@ -27,14 +27,14 @@ jobs:
         with:
           mode: minimum
           count: 1
-          labels: 'type:bug, type:change, type:documentation, type:enhancement, type:feature, type:test, type:meeting'
+          labels: 'type:fix, type:documentation, type:feature, type:refactor, type:test'
     
       - name: Has atleast one scope label
         uses: mheap/github-action-required-labels@v1
         with:
           mode: minimum
           count: 1
-          labels: 'scope:api, scope:cicd, scope:db, scope:ui, scope:repository, scope:feature'
+          labels: 'scope:api, scope:cicd, scope:client, scope:db, scope:design, scope:repository, scope:ui'
 
   milestone-check:
     name: Checks if milestone is used

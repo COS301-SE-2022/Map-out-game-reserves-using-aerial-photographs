@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faCamera as camera } from '@fortawesome/free-solid-svg-icons';
+import { faCamera as camera, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { faExclamationTriangle as warning } from '@fortawesome/free-solid-svg-icons';
 import { faExclamationCircle as error } from '@fortawesome/free-solid-svg-icons';
 import { faCheck as good } from '@fortawesome/free-solid-svg-icons';
@@ -19,9 +19,9 @@ export class DashboardViewComponent implements OnInit{
   videoCollectionsData: Video_Collection[] = [];
   pastWeek: number[];
   total: number;
-  public messages: Array<any>;
-  public completed: Array<any>;
-  public inProgress: Array<any>;
+  public messages: Array<{message: string, icon: IconDefinition, color: string, date: string}>;
+  public completed: Array<{name: string, date: string}>;
+  public inProgress: Array<{name: string}>;
   public photos: Array<BarChart>;
 
   camera = camera;
