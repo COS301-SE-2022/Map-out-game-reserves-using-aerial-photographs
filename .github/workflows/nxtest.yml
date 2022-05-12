@@ -96,6 +96,7 @@ jobs:
         #   yarn nx run-many --target=e2e --all --skip-nx-cache --parallel --coverage
 
       - uses: codecov/codecov-action@v3.1.0
+        if: inputs.testtype == "unit"
         with:
           # Organization codecov token to be placed below
           token: ${{ secrets.CODECOV_TOKEN }}
