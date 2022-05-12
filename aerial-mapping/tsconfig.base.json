@@ -26,6 +26,8 @@
       "@aerial-mapping/api/shell/feature": [
         "libs/api/shell/feature/src/index.ts"
       ],
+      "@aerial-mapping/api/dashboard/feature": ["libs/api/shell/feature/src/index.ts"],
+      "@aerial-mapping/api/login/feature": ["libs/api/login/feature/src/index.ts"],
       "@aerial-mapping/apps/api": ["apps/api/src/app/index.ts"],
       "@aerial-mapping/client/account": ["libs/client/account/src/index.ts"],
       "@aerial-mapping/client/dashboard": [
