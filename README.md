@@ -1,5 +1,7 @@
 # Map Out Game Reserves Using Aerial Photographs
 
+[![codecov](https://codecov.io/gh/COS301-SE-2022/Map-out-game-reserves-using-aerial-photographs/branch/develop/graph/badge.svg?token=G5PT5BHCO4)](https://codecov.io/gh/COS301-SE-2022/Map-out-game-reserves-using-aerial-photographs)
+
 [![Default Test](https://github.com/COS301-SE-2022/Map-out-game-reserves-using-aerial-photographs/actions/workflows/nxtest.yml/badge.svg)](https://github.com/COS301-SE-2022/Map-out-game-reserves-using-aerial-photographs/actions/workflows/nxtest.yml)
 
 [![Dependencies](https://img.shields.io/librariesio/github/COS301-SE-2022/Map-out-game-reserves-using-aerial-photographs)](https://libraries.io/github/COS301-SE-2022/Map-out-game-reserves-using-aerial-photographs)
