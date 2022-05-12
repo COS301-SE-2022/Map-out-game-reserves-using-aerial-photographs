@@ -1,6 +1,6 @@
 import { forwardRef, Inject } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { User, Video, Video_Collection} from '@prisma/client';
+import { User, Video, Video_Collection, Game_Park } from '@prisma/client';
 import { DashboardRepository } from '../repository/dashboard-repository';
 
 @Resolver('User')
@@ -9,10 +9,15 @@ export class DashboardResolver {
   private readonly repo: DashboardRepository
   ) { }
 
-  @Query('user')
-  user(@Args('name', { type: () => String }) _name: string): Promise<User|null> {
-    return this.repo.getAllSets();
+  @Query('getUsers')
+  getUsers(): Promise<User|null> {
+    return this.repo.getAllUsers();
   };
+
+  @Query('getParks')
+  getParks(): Promise<Game_Park[]|null> {
+    return this.repo.getParks();
+  }
 
   @Query('getVideoCollections')
   getVideoCollections(): Promise<Video_Collection[]|null> {

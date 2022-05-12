@@ -69,7 +69,8 @@ type Flight_details {
 }
 
 type Query {
-  user(name: String): User
+  getUsers: [User]
+  getParks: [Game_Park]
   pingAuthentication: String!
   getVideoCollections: [Video_Collection]
 }

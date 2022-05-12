@@ -1,12 +1,12 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "@aerial-mapping/api/shared/services/prisma/data-access";
-import { User, Video_Collection } from "@prisma/client";
+import { Game_Park, User, Video_Collection } from "@prisma/client";
 
 @Injectable()
 export class DashboardRepository {
   constructor(private prisma: PrismaService) {}
 
-  public async getAllSets(): Promise<User|null> {
+  public async getAllUsers(): Promise<User|null> {
     return this.prisma.user.findFirst({
       where: {
         userID: 2
@@ -16,6 +16,17 @@ export class DashboardRepository {
 
   public async getVideoCollections(): Promise<Video_Collection[]|null> {
     return this.prisma.video_Collection.findMany({})
+  }
+
+  public async getParks(): Promise<Game_Park[]|null> {
+    return this.prisma.game_Park.findMany({
+      select: {
+        parkID: true,
+        park_name: true,
+        park_location: true,
+        park_address: true
+      }
+    })
   }
 
   public async createUser(firstname: string, lastname: string, email: string, hashedPassword: string, salt: string, role: string, approved: boolean) {
@@ -34,7 +45,7 @@ export class DashboardRepository {
     return "Created User!";
   }
 
-  public async login
+  //public async login
 
   public async createVideoCollection(parkID: number) {
     //validation
