@@ -40,7 +40,7 @@ model Images {
 
 model Flight_Details {
   flightID            Int                   @id @unique @default(autoincrement())
-  flight_height       String                @db.VarChar(45)
+  flight_height       Float
   flight_type         String                @db.VarChar(45)
   pilotID             Int
   pilot               User                  @relation(fields: [pilotID], references: [userID])

@@ -1,0 +1,79 @@
+# type Set {
+#     id: Int!
+#     name: String
+#     year: Int
+#     numParts: Int
+# }
+
+# type Query {
+#     allSets: [Set]
+# }
+
+# type Mutation {
+#     addSet(name: String, year: String, numParts: Int): Set
+# }
+
+type User {
+  userID: Int!
+  user_email: String
+  user_password: String
+  user_password_salt: String
+  user_name: String
+  user_surname: String
+  user_role: String
+  user_approved: Boolean
+}
+
+type Game_Park{
+  parkID: Int!
+  park_name: String
+  park_location: String
+  park_address: String
+}
+
+type Video {
+  videoID: Int!
+  flightID: Int
+  #video_title: String
+  #video_description: String
+  file_location: String
+  #video_thumbnail: String
+  duration: String
+  filmed_date_time: String
+  #video_user: User
+}
+
+type Video_Collection {
+  collectionID: Int!
+  parkID: Int
+  #upload_date_time: DateTime
+}
+
+type Video_In_Collection {
+  collectionID: Int!
+  videoID: Int!
+  video_order: Int!
+}
+
+type Images {
+  imageID: Int!
+  videoID: Int
+  file_location: String
+}
+
+type Flight_details {
+  flightID: Int!
+  flight_height: Float
+  flight_type: String
+  pilotID:Int
+}
+
+type Query {
+  user(name: String): User
+  pingAuthentication: String!
+  getVideoCollections: [Video_Collection]
+}
+
+type Mutation {
+  login(email: String, password: String): User
+}

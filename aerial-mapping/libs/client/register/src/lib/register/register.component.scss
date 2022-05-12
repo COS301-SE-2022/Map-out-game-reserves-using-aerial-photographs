@@ -58,7 +58,7 @@ label{
   left: 7.5%;
   top: 5%;
   width: 50%;
-  height: 90%;
+  height: auto;
   align-content: center;
 }
 
@@ -154,6 +154,10 @@ a:visited {
   color: white;
 }
 
+a:hover {
+  font-size: 16px;
+}
+
 .center {
     //background-color: #74685c;
     width:100%;
@@ -169,4 +173,5 @@ a:visited {
 .button:hover {
     background-color: white;
     color:#74685c;
+    cursor: pointer;
 }

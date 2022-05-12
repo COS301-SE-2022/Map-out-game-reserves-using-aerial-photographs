@@ -1,0 +1,125 @@
+@import 'libs/client/shared/assets/src/lib/global';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+body {
+  overflow: auto;
+}
+.heading {
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+  font-weight: 505;
+  font-style: normal;
+  font-size: 40px;
+  width: 100%;
+  height: 10%;
+  padding: 1%;
+}
+
+.background {
+  background-color: $primary-dark;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.content {
+  border-radius: 3px;
+  background: $primary-background-opaque;
+  padding: 1%;
+  margin-left: 0.5%;
+  width: 87%;
+  height: 89%;
+  vertical-align: top;
+  float: left;
+}
+
+.container {
+  position: absolute;
+  left: 12%;
+  top: 5%;
+  width: 88%;
+}
+
+.form {
+  width: 70%;
+  height: auto;
+  display: inline-block;
+  // align-items: center;
+  // align-content: center;
+  border-style: solid;
+  background-color: $primary-background-opaque;
+  border-color: $primary-background-opaque;
+  border-radius: 20px;
+  padding: 2px;
+}
+
+mat-icon {
+  padding: 1%;
+  line-height: 16px;
+}
+
+.search {
+  position: relative;
+  display: inline-block;
+  left: 20px;
+  padding: 0.5%;
+  margin: 0;
+  width: 90%;
+  border: none;
+  height: auto;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.search:active {
+  border: none;
+}
+
+.search:focus {
+  outline: none;
+  font-size: larger;
+}
+
+.sort {
+  display: inline;
+  background-color: $primary-background;
+  width: 40%;
+  left: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  border-radius: 10px;
+}
+
+mat-select {
+  display: inline;
+  background-color: $primary-background;
+  width: 90%;
+  left: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+mat-option {
+  display: inline-block;
+  background-color: $primary-background;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+mat-card {
+    width: 30%;
+    margin: 1%;
+    display: inline-block;
+    height: 30%;
+
+}
