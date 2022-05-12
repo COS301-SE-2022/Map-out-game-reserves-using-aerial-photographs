@@ -6,6 +6,6 @@ on:
 
 jobs:
   test-all:
-    uses: ./.github/workflows/FrontCItest.yml
+    uses: ./.github/workflows/nxtest.yml
     with:
       test: 'all'
