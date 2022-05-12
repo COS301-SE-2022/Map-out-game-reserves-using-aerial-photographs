@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faCamera as camera } from '@fortawesome/free-solid-svg-icons';
+import { faCamera as camera, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { faExclamationTriangle as warning } from '@fortawesome/free-solid-svg-icons';
 import { faExclamationCircle as error } from '@fortawesome/free-solid-svg-icons';
 import { faCheck as good } from '@fortawesome/free-solid-svg-icons';
@@ -19,8 +19,9 @@ export class DashboardViewComponent implements OnInit{
   videoCollectionsData: Video_Collection[] = [];
   pastWeek: number[];
   total: number;
-  public messages: Array<any>;
-  public inProgress: Array<any>;
+  public messages: Array<{message: string, icon: IconDefinition, color: string, date: string}>;
+  public completed: Array<{name: string, date: string}>;
+  public inProgress: Array<{name: string}>;
   public photos: Array<BarChart>;
 
   camera = camera;
@@ -63,6 +64,40 @@ export class DashboardViewComponent implements OnInit{
         icon: warning,
         color: 'orange-icon',
         date: "8 May"
+      },
+    ];
+    this.completed = [
+      {
+        name: 'Upload 76',
+        date: "Today"
+      },
+      {
+        name: 'Upload 75',
+        date: "Yesterday"
+      },
+      {
+        name: 'Upload 74',
+        date: "10 May"
+      },
+      {
+        name: 'Upload 73',
+        date: "9 May"
+      },
+      {
+        name: 'Upload 72',
+        date: "8 May"
+      },
+      {
+        name: 'Upload 71',
+        date: "7 May"
+      },
+      {
+        name: 'Upload 70',
+        date: "6 May"
+      },
+      {
+        name: 'Upload 69',
+        date: "5 May"
       },
     ];
 
@@ -145,13 +180,13 @@ export class DashboardViewComponent implements OnInit{
 
   ngOnInit(): void {
     //make API call to access status of resources for particular company
-    this.apiService.getVideoCollections().subscribe({
+    this.apiService.getVideoCollection().subscribe({
       next: (_res) => {
-        this.videoCollectionsData = _res.data.getVideoCollections;
-        console.log(this.videoCollectionsData);
+        this.videoCollectionsData = _res.data.getCompanyReps;
       },
       error: (err) => { console.log(err); }
     });
+    console.log(this.videoCollectionsData);
   }
 
   getDayOfWeek(): string {
@@ -173,5 +208,5 @@ export class DashboardViewComponent implements OnInit{
 interface  Video_Collection {
   collectionID: number;
   parkID: number;
-  upload_date_time: Date;
+  // upload_date_time: DateTime
 }
