@@ -15,7 +15,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@aerial-mapping/apps/api": ["apps/api/src/app/index.ts"],
       "@aerial-mapping/api/dashboard/service/feature": [
         "libs/api/dashboard/service/feature/src/index.ts"
       ],
@@ -25,12 +24,16 @@
       "@aerial-mapping/api/shell/feature": [
         "libs/api/shell/feature/src/index.ts"
       ],
+      "@aerial-mapping/apps/api": ["apps/api/src/app/index.ts"],
       "@aerial-mapping/client/account": ["libs/client/account/src/index.ts"],
       "@aerial-mapping/client/dashboard": [
         "libs/client/dashboard/src/index.ts"
       ],
       "@aerial-mapping/client/file-upload": [
         "libs/client/file-upload/src/index.ts"
+      ],
+      "@aerial-mapping/client/image-catalogue": [
+        "libs/client/image-catalogue/src/index.ts"
       ],
       "@aerial-mapping/client/login": ["libs/client/login/src/index.ts"],
       "@aerial-mapping/client/mapcollection": [
