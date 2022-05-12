@@ -19,6 +19,7 @@ export class DashboardRepository {
   }
 
   public async createUser(firstname: string, lastname: string, email: string, hashedPassword: string, salt: string, role: string, approved: boolean) {
+    //validation
     const x = await this.prisma.user.create({
       data: {
         user_name: firstname,
@@ -33,7 +34,10 @@ export class DashboardRepository {
     return "Created User!";
   }
 
+  public async login
+
   public async createVideoCollection(parkID: number) {
+    //validation
     const x = await this.prisma.video_Collection.create({
       data: {
         parkID: parkID

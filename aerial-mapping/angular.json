@@ -6,6 +6,8 @@
     "api": "apps/api",
     "api-interfaces": "libs/api-interfaces",
     "api-shell": "libs/api/shell/feature",
+    "api-dashboard": "libs/api/dashboard/feature",
+    "api-login": "libs/api/login/feature",
     "client-account": "libs/client/account",
     "client-dashboard": "libs/client/dashboard",
     "client-file-upload": "libs/client/file-upload",
