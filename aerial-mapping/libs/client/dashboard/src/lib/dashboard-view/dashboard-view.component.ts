@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { faCamera as camera } from '@fortawesome/free-solid-svg-icons';
+import { faCamera as camera, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { faExclamationTriangle as warning } from '@fortawesome/free-solid-svg-icons';
 import { faExclamationCircle as error } from '@fortawesome/free-solid-svg-icons';
 import { faCheck as good } from '@fortawesome/free-solid-svg-icons';
 import { faCheckCircle as complete } from '@fortawesome/free-solid-svg-icons';
 import { faSpinner as progress } from '@fortawesome/free-solid-svg-icons';
 import { BarChart } from '../bar-chart/bar-chart.model';
-import { ClientApiService } from '../../../../shared/services/client-api.service';
+import { ClientApiService } from '@aerial-mapping/client/shared/services';
+//import { HttpClientModule } from '@angular/common/http';
+
 
 @Component({
   selector: 'aerial-mapping-dashboard-view',
@@ -17,9 +19,9 @@ export class DashboardViewComponent implements OnInit{
   videoCollectionsData: Video_Collection[] = [];
   pastWeek: number[];
   total: number;
-  public messages: Array<any>;
-  public completed: Array<any>;
-  public inProgress: Array<any>;
+  public messages: Array<{message: string, icon: IconDefinition, color: string, date: string}>;
+  public completed: Array<{name: string, date: string}>;
+  public inProgress: Array<{name: string}>;
   public photos: Array<BarChart>;
 
   camera = camera;

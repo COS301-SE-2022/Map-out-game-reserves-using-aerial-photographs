@@ -21,16 +21,21 @@ export class BarChartComponent implements OnInit {
   }
 
   Chart() {
-    this.List.forEach((element) => {
-      this.Total += element.Value;
-      if (this.largest < element.Value){
-        this.largest = element.Value;
-      }
-    });
+    if(this.List){
+      this.List.forEach((element) => {
+        this.Total += element.Value;
+        if (this.largest < element.Value){
+          this.largest = element.Value;
+        }
+      });
+    }
 
-    this.List.forEach((element) => {
-      element.Size =
-        Math.round((element.Value * 100) / this.largest) + '%';
-    });
+    if(this.List)
+    {
+      this.List.forEach((element) => {
+        element.Size =
+          Math.round((element.Value * 100) / this.largest) + '%';
+      });
+    }
   }
 }
