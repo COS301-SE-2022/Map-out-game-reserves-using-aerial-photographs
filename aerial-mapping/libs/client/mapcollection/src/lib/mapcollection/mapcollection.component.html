@@ -13,6 +13,7 @@
       <div class="heading">Map Collections</div>
       <aerial-mapping-side-navbar></aerial-mapping-side-navbar>
       <div class="content">
+          <div>
         <form class="form">
           <!-- <div class="form"> -->
           <mat-icon>search</mat-icon>
@@ -20,16 +21,15 @@
           <!-- </div> -->
         </form>
         <mat-form-field appearance="fill">
-            <label class="sort">Sort By</label>
-            <div class="sort">
-            <mat-select>
-              <mat-option *ngFor="let sorts of sort" [value]="sorts.value" placeholder="sorts.viewValue">
-                {{sorts.viewValue}}
-              </mat-option>
-            </mat-select>
-        </div>
+            <label id="right" class="sort">Sort By</label>
+                <select id="left" class="sort" required style="display: inline;">
+                    <option value="date">Upload Date</option>
+                    <option value="time">Upload Time</option>
+                    <option value="park">Park</option>
+                </select>
           </mat-form-field>
-        <div style="height: 75%; overflow-y: scroll;">
+          </div>
+        <div style="height: 85%; overflow-y: scroll; margin-top: 2%;">
         <mat-card> </mat-card>
         <mat-card> </mat-card>
         <mat-card> </mat-card>

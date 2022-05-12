@@ -34,24 +34,18 @@ body {
   float: left;
 }
 
-.container {
-  position: absolute;
-  left: 12%;
-  top: 5%;
-  width: 88%;
-}
-
 .form {
+    position: relative;
+    top: 0.4rem;
   width: 70%;
   height: auto;
   display: inline-block;
-  // align-items: center;
-  // align-content: center;
   border-style: solid;
   background-color: $primary-background-opaque;
   border-color: $primary-background-opaque;
   border-radius: 20px;
   padding: 2px;
+  margin: 0;
 }
 
 mat-icon {
@@ -83,37 +77,28 @@ mat-icon {
 .sort {
   display: inline;
   background-color: $primary-background;
-  width: 40%;
-  left: 20%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
-  border-radius: 10px;
+  width: 60%;
+  height: auto;
+//   border-radius: 10px;
+// margin: 1%;
+  padding: 4%;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  line-height: 16px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-mat-select {
-  display: inline;
-  background-color: $primary-background;
-  width: 90%;
-  left: 20%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
-  text-align: center;
-  border-radius: 10px;
+#left {
+    border-start-end-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-left: solid #12172a4e;
 }
 
-mat-option {
-  display: inline-block;
-  background-color: $primary-background;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
-  border-radius: 10px;
-  text-align: center;
+#right {
+    border-start-start-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10x;
 }
 
 mat-card {
@@ -122,4 +107,14 @@ mat-card {
     display: inline-block;
     height: 30%;
 
+}
+
+mat-form-field {
+    height: auto;
+    margin: 0;
+    margin-left: 2%;
+    align-content: center;
+    align-items: center;
+    width: 26%;
+    
 }
