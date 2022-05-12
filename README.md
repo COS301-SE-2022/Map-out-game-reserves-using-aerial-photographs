@@ -2,7 +2,7 @@
 
 An application to map out game reserves using aerial photography, intelligent image stitching and AI driven recognition focus.
 
-## Project Description
+## The Dylpickles - Map Out Game Reserves Using Aerial Photographs - Project Description
 Nature conservation and anti-poaching initiatives are a major focus area in our society. From movement sensing cameras, to tracking collars on animals, technology plays a major role in the conservation of endangered animals.
 While the small satellite industry is doing extremely well in terms of earth imaging in higher and higher spatial and temporal resolution, they can not be used to resolve anything less than 0.5m per pixel currently. High resolution aerial footage largely solves this issue but doesn’t have the same field of view of a satellite. 
 In order to solve this problem, we plan on bridging this gap by taking multiple aerial images and using their identifiable features to overlay and join images into a detailed bigger picture. This will be optimised by either supervised or unsupervised image recognition machine learning techniques. This will allow for various analysis to be performed, such as snare and trap detection, localised water scarcity, changes in animal paths and tracking changes in vegetation health among others.
