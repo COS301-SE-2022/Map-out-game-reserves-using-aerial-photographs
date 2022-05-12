@@ -21,4 +21,9 @@ describe('DashboardViewComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+
+  it('should initiate', () => {
+    expect(component.ngOnInit()).toBeDefined();
+  });
 });

@@ -6,7 +6,8 @@ import { faCheck as good } from '@fortawesome/free-solid-svg-icons';
 import { faCheckCircle as complete } from '@fortawesome/free-solid-svg-icons';
 import { faSpinner as progress } from '@fortawesome/free-solid-svg-icons';
 import { BarChart } from '../bar-chart/bar-chart.model';
-import { ClientApiService } from '../../../../shared/services/client-api.service';
+import { ClientApiService } from '@aerial-mapping/client/shared/services';
+
 
 @Component({
   selector: 'aerial-mapping-dashboard-view',
