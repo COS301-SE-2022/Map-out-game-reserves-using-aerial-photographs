@@ -19,7 +19,7 @@
                         <div class="flights cont">
                             <div class="total">
                                 <div class="num">
-                                    <fa-icon [icon]="camera"></fa-icon>
+                                    <fa-icon class="camera" [icon]="camera"></fa-icon>
                                     {{total}}
                                 </div>
                                 <div class="label">
@@ -41,21 +41,48 @@
                                 Messages
                                 <hr>
                             </div>
-                            <ul>
-                                <li class="messageList" *ngFor="let m of messages">
-                                    - {{m}}
-                                    <hr>
-                                </li>
-                            </ul>
+                            <div class="scrollableMessage">
+                                <mat-list>
+                                    <mat-list-item matLine class="messageItem" *ngFor="let m of messages">
+                                        <fa-icon class="icon" matListAvatar [class]="m.color" [icon]="m.icon"></fa-icon>
+                                        <span class="message">{{m.message}}</span>
+                                        <span class="messageDate">{{m.date}}</span>
+                                    </mat-list-item>
+                                </mat-list>
+                            </div>
                         </div>
                         <div class="gap"></div>
                         <div class="completed cont">
-                            Completed
+                            <div class="completeTitle">
+                                Completed
+                                <hr>
+                            </div>
+                            <div class="scrollableComplete">
+                                <mat-list>
+                                    <mat-list-item matLine class="completeItem" *ngFor="let m of completed">
+                                        <fa-icon matListAvatar class="icon brown-icon" [icon]="complete"></fa-icon>
+                                        <span class="completeName">{{m.name}}</span>
+                                        <span class="completeDate">{{m.date}}</span>
+                                    </mat-list-item>
+                                </mat-list>
+                            </div>
                         </div>
                     </td>
                     <td>
                         <div class="progress cont">
-                            In Progress
+                            <div class="progressTitle">
+                                In Progress
+                                <hr>
+                            </div>
+                            <div class="scrollableProgress">
+                                <mat-list>
+                                    <mat-list-item matLine class="progressItem" *ngFor="let m of inProgress">
+                                        <fa-icon matListAvatar class="icon brown-icon" [icon]="progress"></fa-icon>
+                                        <span class="progressName">{{m.name}}</span>
+                                        <span class="progressDate">{{m.date}}</span>
+                                    </mat-list-item>
+                                </mat-list>
+                            </div>
                         </div>
                     </td>
                 </tr>
