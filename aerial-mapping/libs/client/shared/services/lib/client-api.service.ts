@@ -35,7 +35,7 @@ export class ClientApiService {
     };
 
     return this.http.post<any>(
-      "https://localhost:3333/graphql",
+      "http://localhost:3333/graphql",
       JSON.stringify({
         query: query,
         variables: variables,
@@ -45,8 +45,8 @@ export class ClientApiService {
   }
 
 
-  getVideoCollection(): Observable<any> {
-    return this.runQuery('query { getVideoCollections { parkID }}',null);
+  getVideoCollections(): Observable<any> {
+    return this.runQuery('query { getVideoCollections { collectionID, parkID }}',null);
   }
 
   // MUTATIONS //
