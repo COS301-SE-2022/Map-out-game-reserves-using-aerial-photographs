@@ -85,6 +85,7 @@ jobs:
 
         #run tests on the entire repository
       - name: Test all
+        if: inputs.testtype == 'unit'
         run: |
           cd aerial-mapping
           yarn nx run-many --target=test --all --skip-nx-cache --parallel --coverage
