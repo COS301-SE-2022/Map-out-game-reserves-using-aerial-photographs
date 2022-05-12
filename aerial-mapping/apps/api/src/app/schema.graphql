@@ -75,5 +75,7 @@ type Query {
 }
 
 type Mutation {
+  createUser(firstname: String, lastname: String, email: String): String!
+  createVideoCollection(parkID: Int): String!
   login(email: String, password: String): User
 }
