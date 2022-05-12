@@ -8,7 +8,12 @@ import { Observable } from 'rxjs';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  constructor(private http: HttpClient) { }
+
+  firstArrived = false;
+
+  constructor(private http: HttpClient) {
+
+   }
 
   // EXAMPLE API CALL
   // getVideoCollections(): Observable<any> {
@@ -29,4 +34,6 @@ export class AppComponent {
   //     options
   //   );
   // }
+
+
 }
