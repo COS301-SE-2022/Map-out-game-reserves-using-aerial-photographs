@@ -50,12 +50,6 @@ export class DashboardViewComponent {
         date: "Yesterday"
       },
       {
-        message: 'Everything is good',
-        icon: good,
-        color: 'green-icon',
-        date: "10 May"
-      },
-      {
         message: 'Fire Detected',
         icon: error,
         color: 'red-icon',
