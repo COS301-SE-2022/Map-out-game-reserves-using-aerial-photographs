@@ -12,5 +12,5 @@
     "noFallthroughCasesInSwitch": true
   },
   "exclude": ["**/*.spec.ts", "**/*.test.ts"],
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts", "../../testFeature/set.resolver.ts"]
 }

@@ -3,9 +3,10 @@ CREATE TABLE "User" (
     "userID" SERIAL NOT NULL,
     "user_email" TEXT NOT NULL,
     "user_password" TEXT NOT NULL,
+    "user_password_salt" TEXT NOT NULL,
     "user_name" TEXT NOT NULL,
     "user_surname" TEXT NOT NULL,
-    "user_role" TEXT NOT NULL,
+    "user_role" TEXT NOT NULL DEFAULT E'user',
     "user_approved" BOOLEAN NOT NULL DEFAULT false,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("userID")
@@ -94,3 +95,9 @@ ALTER TABLE "Flight_Details" ADD CONSTRAINT "Flight_Details_pilotID_fkey" FOREIG
 
 -- AddForeignKey
 ALTER TABLE "Video_Collection" ADD CONSTRAINT "Video_Collection_parkID_fkey" FOREIGN KEY ("parkID") REFERENCES "Game_Park"("parkID") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Video_In_Collection" ADD CONSTRAINT "Video_In_Collection_videoID_fkey" FOREIGN KEY ("videoID") REFERENCES "Video"("videoID") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Video_In_Collection" ADD CONSTRAINT "Video_In_Collection_collectionID_fkey" FOREIGN KEY ("collectionID") REFERENCES "Video_Collection"("collectionID") ON DELETE RESTRICT ON UPDATE CASCADE;
