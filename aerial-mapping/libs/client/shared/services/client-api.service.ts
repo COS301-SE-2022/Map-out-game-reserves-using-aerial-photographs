@@ -10,10 +10,26 @@ export class ClientApiService {
 
   // QUERIES //
 
-  getVideoCollections(): Observable<any> {
-    const query =
-      "query { getVideoCollections { parkID }}";
+  // getVideoCollections(): Observable<any> {
+  //   const query =
+  //     "query { getVideoCollections { parkID }}";
 
+  //   const options = {
+  //     headers: new HttpHeaders({
+  //       "Content-Type": "application/json",
+  //     }),
+  //   };
+
+  //   return this.http.post<any>(
+  //     "https://localhost:3333/graphql",
+  //     JSON.stringify({
+  //       query: query,
+  //     }),
+  //     options
+  //   );
+  // }
+
+  runQuery(query:string,variables: any): Observable<any> {
     const options = {
       headers: new HttpHeaders({
         "Content-Type": "application/json",
@@ -24,12 +40,16 @@ export class ClientApiService {
       "https://localhost:3333/graphql",
       JSON.stringify({
         query: query,
+        variables: variables,
       }),
       options
     );
   }
 
 
+  getVideoCollection(): Observable<any> {
+    return this.runQuery('query { getVideoCollections { parkID }}',null);
+  }
 
   // MUTATIONS //
 
