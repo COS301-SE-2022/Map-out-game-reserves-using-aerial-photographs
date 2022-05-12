@@ -51,27 +51,27 @@ jobs:
         #installs the yarn lockfile
       - name: Install packages
         run: |
-          cd aerial-mapping
+          cd aerial-mapping\libs
           yarn install --frozen-lockfile
 
       - name: Lint test affected
         run: |
-          cd aerial-mapping
+          cd aerial-mapping\libs
           yarn nx affected:lint --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} 
 
       - name: Build test affected
         run: |
-          cd aerial-mapping
+          cd aerial-mapping\libs
           yarn nx affected:build --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }}
 
       - name: Unit test affected
         run: |
-          cd aerial-mapping
+          cd aerial-mapping\libs
           yarn nx affected:test --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }}
 
       - name: E2E test affected
         run: |
-          cd aerial-mapping
+          cd aerial-mapping\libs
           yarn nx affected:e2e --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }}
 
         #run tests on the entire repository
