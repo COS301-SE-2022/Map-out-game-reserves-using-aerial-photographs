@@ -27,7 +27,7 @@ jobs:
         with:
           mode: minimum
           count: 1
-          labels: 'type: fix, type:documentation, type:feature, type:refactor, type:test'
+          labels: 'type:fix, type:documentation, type:feature, type:refactor, type:test'
     
       - name: Has atleast one scope label
         uses: mheap/github-action-required-labels@v1
