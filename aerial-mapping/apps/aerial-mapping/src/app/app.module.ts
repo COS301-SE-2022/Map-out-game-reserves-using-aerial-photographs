@@ -13,7 +13,7 @@ import { ClientApiServiceModule } from  '@aerial-mapping/client/shared/services'
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ClientApiServiceModule
+    ClientApiServiceModule,
     BrowserAnimationsModule,
     DragDropModule
   ],
