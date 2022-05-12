@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ClientApiServiceModule } from  '@aerial-mapping/client/shared/services';
 
 @NgModule({
   declarations: [AppComponent],
@@ -12,6 +13,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    ClientApiServiceModule
     BrowserAnimationsModule,
     DragDropModule
   ],

@@ -1,4 +1,5 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
 import { DashboardViewComponent } from './dashboard-view.component';
 
@@ -8,7 +9,9 @@ describe('DashboardViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [HttpClientModule],
       declarations: [DashboardViewComponent],
+      providers: [HttpClient]
     }).compileComponents();
   });
 
@@ -22,8 +25,4 @@ describe('DashboardViewComponent', () => {
     expect(component).toBeTruthy();
   });
 
-
-  it('should initiate', () => {
-    expect(component.ngOnInit()).toBeDefined();
-  });
 });
