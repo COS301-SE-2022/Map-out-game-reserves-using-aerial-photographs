@@ -20,6 +20,7 @@ Drones allow for a more up to date set of images of a landscape, this allows muc
 ## Link to Functional Requirements (SRS)
 
 ## Link to Project Board
+https://github.com/COS301-SE-2022/Map-out-game-reserves-using-aerial-photographs/projects/1 
 
 ## Short Profile Description of Each Team Member
 ### Ben Pietersen
