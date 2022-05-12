@@ -1,11 +1,11 @@
 import { Injectable } from "@nestjs/common";
-//import { PrismaService } from "@aerial-mapping/api/shared/services/prisma/data-access";
+import { PrismaService } from "@aerial-mapping/api/shared/services/prisma/data-access";
 //import { PrismaMock } from "@aerial-mapping/api/shared/services/prisma/data-access";
 import { Game_Park, User, Video_Collection } from "@prisma/client";
 
 @Injectable()
 export class DashboardRepository {
-  //constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) {}
 
   public async getAllUsers(): Promise<User[]|null> {
     return this.prisma.user.findMany({
