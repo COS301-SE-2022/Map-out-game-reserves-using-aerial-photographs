@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ClientApiService } from '../../../../shared/services/client-api.service';
+import { ClientApiService } from '@aerial-mapping/client/shared/services';
 
 @Component({
   selector: 'aerial-mapping-login',
