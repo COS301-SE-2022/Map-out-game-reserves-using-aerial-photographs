@@ -3,7 +3,7 @@
 [![Default Test](https://github.com/COS301-SE-2022/Map-out-game-reserves-using-aerial-photographs/actions/workflows/nxtest.yml/badge.svg)](https://github.com/COS301-SE-2022/Map-out-game-reserves-using-aerial-photographs/actions/workflows/nxtest.yml)
 
 [![Default Test](https://img.shields.io/librariesio/github/COS301-SE-2022/Map-out-game-reserves-using-aerial-photographs)](https://libraries.io/github/COS301-SE-2022/Map-out-game-reserves-using-aerial-photographs)
-[![Default Test](https://img.shields.io/bitbucket/issues/COS301-SE-2022/Map-out-game-reserves-using-aerial-photographs)](https://github.com/COS301-SE-2022/Map-out-game-reserves-using-aerial-photographs/issues)
+[![Default Test](https://img.shields.io/github/issues/COS301-SE-2022/Map-out-game-reserves-using-aerial-photographs)](https://github.com/COS301-SE-2022/Map-out-game-reserves-using-aerial-photographs/issues)
 
 An application to map out game reserves using aerial photography, intelligent image stitching and AI driven recognition focus.
 
