@@ -18,7 +18,6 @@ export class DashboardViewComponent implements OnInit{
   pastWeek: number[];
   total: number;
   public messages: Array<any>;
-  public completed: Array<any>;
   public inProgress: Array<any>;
   public photos: Array<BarChart>;
 
@@ -62,40 +61,6 @@ export class DashboardViewComponent implements OnInit{
         icon: warning,
         color: 'orange-icon',
         date: "8 May"
-      },
-    ];
-    this.completed = [
-      {
-        name: 'Upload 76',
-        date: "Today"
-      },
-      {
-        name: 'Upload 75',
-        date: "Yesterday"
-      },
-      {
-        name: 'Upload 74',
-        date: "10 May"
-      },
-      {
-        name: 'Upload 73',
-        date: "9 May"
-      },
-      {
-        name: 'Upload 72',
-        date: "8 May"
-      },
-      {
-        name: 'Upload 71',
-        date: "7 May"
-      },
-      {
-        name: 'Upload 70',
-        date: "6 May"
-      },
-      {
-        name: 'Upload 69',
-        date: "5 May"
       },
     ];
 
@@ -178,13 +143,13 @@ export class DashboardViewComponent implements OnInit{
 
   ngOnInit(): void {
     //make API call to access status of resources for particular company
-    this.apiService.getVideoCollection().subscribe({
+    this.apiService.getVideoCollections().subscribe({
       next: (_res) => {
-        this.videoCollectionsData = _res.data.getCompanyReps;
+        this.videoCollectionsData = _res.data.getVideoCollections;
+        console.log(this.videoCollectionsData);
       },
       error: (err) => { console.log(err); }
     });
-    console.log(this.videoCollectionsData);
   }
 
   getDayOfWeek(): string {
@@ -206,5 +171,5 @@ export class DashboardViewComponent implements OnInit{
 interface  Video_Collection {
   collectionID: number;
   parkID: number;
-  // upload_date_time: DateTime
+  upload_date_time: Date;
 }

@@ -59,10 +59,10 @@
                             </div>
                             <div class="scrollableComplete">
                                 <mat-list>
-                                    <mat-list-item matLine class="completeItem" *ngFor="let m of completed">
+                                    <mat-list-item matLine class="completeItem" *ngFor="let collection of videoCollectionsData">
                                         <fa-icon matListAvatar class="icon brown-icon" [icon]="complete"></fa-icon>
-                                        <span class="completeName">{{m.name}}</span>
-                                        <span class="completeDate">{{m.date}}</span>
+                                        <span class="completeName">Upload {{collection.collectionID}}</span>
+                                        <!-- <span class="completeDate">{{m.date}}</span> -->
                                     </mat-list-item>
                                 </mat-list>
                             </div>
