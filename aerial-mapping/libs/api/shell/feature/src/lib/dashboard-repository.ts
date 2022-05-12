@@ -17,4 +17,12 @@ export class DashboardRepository {
   public async getVideoCollections(): Promise<Video_Collection[]|null> {
     return this.prisma.video_Collection.findMany({})
   }
+
+  public async createVideoCollection(): Promise<Video_Collection> {
+    const video = {
+      name: "Test Collection",
+    }
+
+    return this.prisma.video_Collection.create({ data: video })
+  }
 }

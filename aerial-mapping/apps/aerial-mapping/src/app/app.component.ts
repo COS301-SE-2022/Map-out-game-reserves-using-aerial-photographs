@@ -11,10 +11,9 @@ export class AppComponent {
   constructor(private http: HttpClient) { }
 
   // EXAMPLE API CALL
-
-  // getResourceStatuses(companyID: string, graduateID: string): Observable<any> {
+  // getVideoCollections(): Observable<any> {
   //   const query =
-  //     "query ($compID: ID!, $gradID: ID!) {status(compId: $compID, gradId: $gradID) { accessStatus, item }}";
+  //     "query { getVideoCollections { parkID }}";
 
   //   const options = {
   //     headers: new HttpHeaders({
@@ -26,7 +25,6 @@ export class AppComponent {
   //     "https://localhost:3333/graphql",
   //     JSON.stringify({
   //       query: query,
-  //       variables: { compID: companyID, gradID: graduateID },
   //     }),
   //     options
   //   );
