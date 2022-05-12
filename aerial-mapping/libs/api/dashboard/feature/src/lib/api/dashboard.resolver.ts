@@ -10,7 +10,7 @@ export class DashboardResolver {
   ) { }
 
   @Query('getUsers')
-  getUsers(): Promise<User|null> {
+  getUsers(): Promise<User[]|null> {
     return this.repo.getAllUsers();
   };
 
@@ -23,6 +23,11 @@ export class DashboardResolver {
   getVideoCollections(): Promise<Video_Collection[]|null> {
     return this.repo.getVideoCollections();
   }
+
+  // @Query('getNumOfVidsPerDate')
+  // getNumOfVidsPerDate(): Promise<number> {
+  //   return this.repo.getNumOfVidsPerDate();
+  // }
 
   // Mutations //
   @Mutation('createUser')
