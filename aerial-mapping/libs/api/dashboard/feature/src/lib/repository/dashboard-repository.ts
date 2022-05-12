@@ -1,15 +1,21 @@
 import { Injectable } from "@nestjs/common";
-import { PrismaService } from "@aerial-mapping/api/shared/services/prisma/data-access";
+//import { PrismaService } from "@aerial-mapping/api/shared/services/prisma/data-access";
+//import { PrismaMock } from "@aerial-mapping/api/shared/services/prisma/data-access";
 import { Game_Park, User, Video_Collection } from "@prisma/client";
 
 @Injectable()
 export class DashboardRepository {
-  constructor(private prisma: PrismaService) {}
+  //constructor(private prisma: PrismaService) {}
 
-  public async getAllUsers(): Promise<User|null> {
-    return this.prisma.user.findFirst({
-      where: {
-        userID: 2
+  public async getAllUsers(): Promise<User[]|null> {
+    return this.prisma.user.findMany({
+      select: {
+        userID: true,
+        user_email: true,
+        user_name: true,
+        user_surname: true,
+        user_role: true,
+        user_approved: true
       }
     });
   }
@@ -26,6 +32,22 @@ export class DashboardRepository {
         park_location: true,
         park_address: true
       }
+    })
+  }
+
+  public async getNumOfVidsPerDate(): Promise<number> {
+    const arr = await this.prisma.video.findMany({
+      select: {
+        filmed_date_time: true
+      }
+    })
+
+    return new Promise((resolve, reject) => {
+      let count = 0;
+      arr.forEach(element => {
+        count++
+      })
+      resolve(count);
     })
   }
 
