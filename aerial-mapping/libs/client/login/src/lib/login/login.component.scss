@@ -80,25 +80,6 @@ button{
     height: 40px;
 }
 
-a:link {
-    height:40px;
-    font-size: 14px;
-    padding-top: 10px;
-    padding-left: 14px;
-    padding-right: 14px;
-    border: none;
-    font-family: "Segoe UI", sans-serif;
-    text-decoration: none;
-}
-a:visited{
-    color:white;
-}
-
-a:hover{
-    color: $primary;
-    background-color: white;
-}
-
 .back {
     width:100%;
     justify-content: center;
@@ -118,7 +99,7 @@ button:hover {
     left: 7.5%;
     top: 10%;
     width: 50%;
-    height: 70%;
+    height: auto;
     align-content: center;
   }
 
