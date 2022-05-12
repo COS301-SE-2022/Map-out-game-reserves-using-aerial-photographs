@@ -95,7 +95,6 @@ jobs:
         #   yarn nx run-many --target=test --all --skip-nx-cache --parallel --coverage
         #   yarn nx run-many --target=e2e --all --skip-nx-cache --parallel --coverage
 
-      - name: CodeCov
       - uses: codecov/codecov-action@v3.1.0
         with:
           # Organization codecov token to be placed below
