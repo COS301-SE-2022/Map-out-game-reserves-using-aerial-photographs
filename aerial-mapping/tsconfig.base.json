@@ -14,6 +14,7 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
+    "types": ["node", "jest", "express"],
     "paths": {
       "@aerial-mapping/apps/api": ["apps/api/src/app/index.ts"],
       "@aerial-mapping/api/dashboard": ["libs/api/dashboard/feature/src/index.ts"],
@@ -28,7 +29,6 @@
       ],
       "@aerial-mapping/api/dashboard/feature": ["libs/api/shell/feature/src/index.ts"],
       "@aerial-mapping/api/login/feature": ["libs/api/login/feature/src/index.ts"],
-      "@aerial-mapping/apps/api": ["apps/api/src/app/index.ts"],
       "@aerial-mapping/client/account": ["libs/client/account/src/index.ts"],
       "@aerial-mapping/client/dashboard": [
         "libs/client/dashboard/src/index.ts"
