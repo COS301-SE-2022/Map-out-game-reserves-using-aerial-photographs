@@ -52,6 +52,8 @@ MEAN, MERN as well as the LAMP technology stacks. Creative individual with an in
 adding value back to the wildlife and conservation community.
 ### Dylan Spies
 
+[![LinkeIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/dylan-spies-0a257722b/)
+
 Has a passion for Computer Software and Hardware for the past 6 and a half years and enjoys the problem
 solving aspect of programming. Is comfortable with Java, C/C++, Javascript, Python, and Assembly. Has had
 experience with the Angular framework and should be able to pick up any frameworks and languages with
