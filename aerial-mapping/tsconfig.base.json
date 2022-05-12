@@ -33,7 +33,7 @@
       "@aerial-mapping/client/shared/components/footer": ["libs/client/shared/components/footer/src/index.ts"],
       "@aerial-mapping/client/shared/components/navbar": ["libs/client/shared/components/navbar/src/index.ts"],
       "@aerial-mapping/data": ["libs/data/src/index.ts"],
-      "@aerial-mapping/client/shared/services":["libs/client/shared/services/client-api.service.ts"]
+      "@aerial-mapping/client/shared/services":["libs/client/shared/services/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
