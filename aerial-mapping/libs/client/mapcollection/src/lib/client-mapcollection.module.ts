@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MapcollectionComponent } from './mapcollection/mapcollection.component';
 import { MapcollectionRoutingModule } from './mapcollection-routing.module';
-import { ComponentsNavbarModule } from './../../../shared/components/navbar/src/lib/client-shared-components-navbar.module';
+import { ComponentsNavbarModule } from '@aerial-mapping/client/shared/components/navbar';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
