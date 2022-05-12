@@ -33,17 +33,23 @@ https://github.com/COS301-SE-2022/Map-out-game-reserves-using-aerial-photographs
 ## Short Profile Description of Each Team Member
 ### Ben Pietersen
 
+[![LinkeIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ben-pietersen-6a775713b/)
+
 Has an elective background in GIS and remote sensing as well as educational experience with multispectral
 and hyperspectral satellite image processing using ENVI and ESA’s SNAP software. Industry experience
 includes over a year of data analysis and statistics for an IT solutions company based in Rosebank.
 Knowledge relevant to the project includes satellite image mapping, processing, filtering and analysis.
 ### Chiara Goncalves
 
+[![LinkeIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/chiara-goncalves-a1771223a/)
+
 Has a background in web development and an elective in computer graphics. Has experience working with
 Angular projects and database design and implementation. Trained in Java, C++, Python, and JavaScript.
 Skilled at designing creative solutions to problems. Knowledge of South African nature reserves and
 various habitats and biomes within the reserves.
 ### Dylan Pietersen
+
+[![LinkeIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/dylan-pietersen-84462a174/)
 
 Has an elective background in Software Development and Informatics. Well versed full-stack developer.
 Proficient with various programming languages such as C/C++, JavaScript, Java and Python. Proficient in
@@ -61,26 +67,16 @@ relative ease.Has elective background in Geology and an overall passion for anim
 conservation.
 ### Steven Schormann
 
+[![LinkeIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/steven-schormann-385208205/)
+
 Has a passion for problem solving and experience in full stack Software Development. Proficient in Java,
 C++, Javascript, python and capable of learning whatever might be required. Has an interest in machine
 learning with an elective in Artificial Intelligence.
 ### Zoe Liebenberg
 
+[![LinkeIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/zoe-liebenberg-3ba6a623a)
+
 Has had experience working with drones. Has been working with computers and programming for the
 past 5 and a half years. Able to pick up coding languages quickly and easily. Has a passion for mathematics
 and problem solving. Handy in web development and interacting with databases. Extremely detail oriented
 and will ensure that every detail is planned towards the bigger picture.
-
-## Professional Profile for Each Team Member
-### Ben Pietersen
-
-### Chiara Goncalves
-
-### Dylan Pietersen
-
-### Dylan Spies
-
-### Steven Schormann
-
-### Zoe Liebenberg
-
