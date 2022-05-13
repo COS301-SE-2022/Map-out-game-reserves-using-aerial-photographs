@@ -18,7 +18,6 @@ on:
         - e2e
         - all
 
-#jobs in the workflow with passed in parameters for frontend and backend code
 jobs:
   test-affected-lint:
     if: ${{ github.event.inputs.testchoice == 'lint' || github.event.inputs.testchoice == 'full' || github.event.inputs.testchoice == ''}}
