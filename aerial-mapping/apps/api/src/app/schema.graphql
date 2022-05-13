@@ -50,6 +50,14 @@ type Video_Collection {
   completed: Boolean
 }
 
+type Message {
+  messageID: Int!
+  message_status: String
+  message_description: String
+  collectionID: Int
+  Video_Collection: Video_Collection
+}
+
 type Video_In_Collection {
   collectionID: Int!
   videoID: Int!
@@ -73,6 +81,7 @@ type Query {
   getUsers: [User]
   getParks: [Game_Park]
   pingAuthentication: String!
+  getMessages: [Message]
   getVideoCollections: [Video_Collection]
 }
 

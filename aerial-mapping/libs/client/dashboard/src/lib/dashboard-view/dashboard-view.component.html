@@ -43,10 +43,10 @@
                             </div>
                             <div class="scrollableMessage">
                                 <mat-list>
-                                    <mat-list-item matLine class="messageItem" *ngFor="let m of messages">
-                                        <fa-icon class="icon" matListAvatar [class]="m.color" [icon]="m.icon"></fa-icon>
-                                        <span class="message">{{m.message}}</span>
-                                        <span class="messageDate">{{m.date}}</span>
+                                    <mat-list-item matLine class="messageItem" *ngFor="let message of messages">
+                                        <fa-icon class="icon" matListAvatar [class]="message.color" [icon]="message.message_status"></fa-icon>
+                                        <span class="message">{{message.message_description}}</span>
+                                        <span class="messageDate">Map ID: {{message.collectionID}}</span>
                                     </mat-list-item>
                                 </mat-list>
                             </div>

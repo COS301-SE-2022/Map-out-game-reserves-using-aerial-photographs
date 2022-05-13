@@ -19,10 +19,12 @@ export class DashboardViewComponent implements OnInit{
   videoCollectionsData: Video_Collection[] = [];
   completed: Video_Collection[] = [];
   processing: Video_Collection[] = [];
+
+  messagesData: Message[] = [];
+  messages: Dashboard_Message[] = [];
+
   pastWeek: number[];
   total: number;
-  public messages: Array<{message: string, icon: IconDefinition, color: string, date: string}>;
-  public inProgress: Array<{name: string}>;
   public photos: Array<BarChart>;
 
   camera = camera;
@@ -41,71 +43,7 @@ export class DashboardViewComponent implements OnInit{
     this.pastWeek.forEach(element => {
       this.total+=element;
     });
-    this.messages = [
-      {
-        message: 'Everything is good',
-        icon: good,
-        color: 'green-icon',
-        date: "Today"
-      },
-      {
-        message: 'System is slower than usual',
-        icon: warning,
-        color: 'orange-icon',
-        date: "Yesterday"
-      },
-      {
-        message: 'Fire Detected',
-        icon: error,
-        color: 'red-icon',
-        date: "9 May"
-      },
-      {
-        message: 'Unknown objects in image',
-        icon: warning,
-        color: 'orange-icon',
-        date: "8 May"
-      },
-    ];
     
-    this.inProgress = [
-      {
-        name: 'Upload 77',
-      },
-      {
-        name: 'Upload 78',
-      },
-      {
-        name: 'Upload 79',
-      },
-      {
-        name: 'Upload 80',
-      },
-      {
-        name: 'Upload 81',
-      },
-      {
-        name: 'Upload 82',
-      },
-      {
-        name: 'Upload 83',
-      },
-      {
-        name: 'Upload 84',
-
-      },{
-        name: 'Upload 85',
-      },
-      {
-        name: 'Upload 86',
-      },
-      {
-        name: 'Upload 87',
-      },
-      {
-        name: 'Upload 88',
-      },
-    ];
     this.photos = [
       {
         Value: this.pastWeek[this.count++],
@@ -162,9 +100,36 @@ export class DashboardViewComponent implements OnInit{
             this.processing[processing_count] = this.videoCollectionsData[i];
             processing_count++;
           }
-
-          console.log(this.videoCollectionsData);
         }
+
+      },
+      error: (err) => { console.log(err); }
+    });
+
+    this.apiService.getMessages().subscribe({
+      next: (_res) => {
+        this.messagesData = _res.data.getMessages;
+
+        for(let i = 0; i< this.messagesData.length;i++){
+          let status = good;
+          let status_color = 'green-icon'
+          if(this.messagesData[i].message_status == "warning"){
+              status = warning;
+              status_color = 'orange-icon'
+          }
+          else if(this.messagesData[i].message_status == "alert"){
+              status = error;
+              status_color = 'red-icon'
+          }
+
+          this.messages[i] = {
+            message_status: status,
+            color: status_color,
+            message_description: this.messagesData[i].message_description,
+            collectionID: this.messagesData[i].collectionID
+          }
+        }
+
       },
       error: (err) => { console.log(err); }
     });
@@ -191,4 +156,17 @@ interface  Video_Collection {
   parkID: number;
   // upload_date_time: DateTime
   completed: boolean;
+}
+
+interface Message{
+  message_status: string,
+  message_description: string,
+  collectionID: number
+}
+
+class Dashboard_Message{
+  message_status = good;
+  color = 'green-icon';
+  message_description = "";
+  collectionID = 0;
 }
