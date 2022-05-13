@@ -47,15 +47,6 @@ type Video_Collection {
   collectionID: Int!
   parkID: Int
   #upload_date_time: DateTime
-  completed: Boolean
-}
-
-type Message {
-  messageID: Int!
-  message_status: String
-  message_description: String
-  collectionID: Int
-  Video_Collection: Video_Collection
 }
 
 type Video_In_Collection {
@@ -81,7 +72,6 @@ type Query {
   getUsers: [User]
   getParks: [Game_Park]
   pingAuthentication: String!
-  getMessages: [Message]
   getVideoCollections: [Video_Collection]
 }
 

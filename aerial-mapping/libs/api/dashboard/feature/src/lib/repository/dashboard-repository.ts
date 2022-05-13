@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "@aerial-mapping/api/shared/services/prisma/data-access";
 //import { PrismaMock } from "@aerial-mapping/api/shared/services/prisma/data-access";
-import { Game_Park, User, Video_Collection, Message } from "@prisma/client";
+import { Game_Park, User, Video_Collection } from "@prisma/client";
 
 @Injectable()
 export class DashboardRepository {
@@ -15,9 +15,7 @@ export class DashboardRepository {
         user_name: true,
         user_surname: true,
         user_role: true,
-        user_approved: true,
-        user_password: true,
-        user_password_salt: true
+        user_approved: true
       }
     });
   }
@@ -51,10 +49,6 @@ export class DashboardRepository {
       })
       resolve(count);
     })
-  }
-
-  public async getMessages(): Promise<Message[]|null> {
-    return this.prisma.message.findMany({})
   }
 
   public async createUser(firstname: string, lastname: string, email: string, hashedPassword: string, salt: string, role: string, approved: boolean) {
