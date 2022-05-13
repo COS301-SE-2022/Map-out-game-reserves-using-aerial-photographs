@@ -43,10 +43,10 @@
                             </div>
                             <div class="scrollableMessage">
                                 <mat-list>
-                                    <mat-list-item matLine class="messageItem" *ngFor="let m of messages">
-                                        <fa-icon class="icon" matListAvatar [class]="m.color" [icon]="m.icon"></fa-icon>
-                                        <span class="message">{{m.message}}</span>
-                                        <span class="messageDate">{{m.date}}</span>
+                                    <mat-list-item matLine class="messageItem" *ngFor="let message of messages">
+                                        <fa-icon class="icon" matListAvatar [class]="message.color" [icon]="message.message_status"></fa-icon>
+                                        <span class="message">{{message.message_description}}</span>
+                                        <span class="messageDate">Map ID: {{message.collectionID}}</span>
                                     </mat-list-item>
                                 </mat-list>
                             </div>
@@ -59,7 +59,7 @@
                             </div>
                             <div class="scrollableComplete">
                                 <mat-list>
-                                    <mat-list-item matLine class="completeItem" *ngFor="let collection of videoCollectionsData">
+                                    <mat-list-item matLine class="completeItem" *ngFor="let collection of completed">
                                         <fa-icon matListAvatar class="icon brown-icon" [icon]="complete"></fa-icon>
                                         <span class="completeName">Upload {{collection.collectionID}}</span>
                                         <!-- <span class="completeDate">{{m.date}}</span> -->
@@ -76,9 +76,9 @@
                             </div>
                             <div class="scrollableProgress">
                                 <mat-list>
-                                    <mat-list-item matLine class="progressItem" *ngFor="let m of inProgress">
+                                    <mat-list-item matLine class="progressItem" *ngFor="let collection of processing">
                                         <fa-icon matListAvatar class="icon brown-icon" [icon]="progress"></fa-icon>
-                                        <span class="progressName">{{m.name}}</span>
+                                        <span class="progressName">Upload {{collection.collectionID}}, to be completed...</span>
                                     </mat-list-item>
                                 </mat-list>
                             </div>
