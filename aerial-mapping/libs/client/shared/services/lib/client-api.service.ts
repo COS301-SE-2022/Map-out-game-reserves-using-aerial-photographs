@@ -46,11 +46,7 @@ export class ClientApiService {
 
 
   getVideoCollections(): Observable<any> {
-    return this.runQuery('query { getVideoCollections { collectionID, parkID, completed }}',null);
-  }
-
-  getMessages(): Observable<any> {
-    return this.runQuery('query { getMessages { message_status, message_description,collectionID }}',null);
+    return this.runQuery('query { getVideoCollections { collectionID, parkID }}',null);
   }
 
   // MUTATIONS //
