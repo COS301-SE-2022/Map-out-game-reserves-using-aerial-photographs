@@ -1,11 +1,11 @@
 import { async, TestBed } from '@angular/core/testing';
 import { ClientMapcollectionModule } from './client-mapcollection.module';
-// import { MaterialModule } from './materials/material.module';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ClientMapcollectionModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ClientMapcollectionModule],
+      imports: [RouterTestingModule, ClientMapcollectionModule],
     }).compileComponents();
   }));
 

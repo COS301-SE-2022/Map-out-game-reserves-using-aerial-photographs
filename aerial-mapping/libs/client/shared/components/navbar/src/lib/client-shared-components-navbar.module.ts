@@ -11,7 +11,7 @@ import { SideNavbarComponent } from './side-navbar/side-navbar.component';
 
 @NgModule({
   imports: [
-    RouterModule,
+    RouterModule
     // MatToolbarModule,
     // MatIconModule,
     // MatSidenavModule,

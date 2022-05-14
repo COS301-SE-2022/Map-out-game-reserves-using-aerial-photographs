@@ -13,6 +13,6 @@ export class LoginResolver {
   login(
     @Args('email', { type: () => String }) email: string,
     @Args('password', { type: () => String }) password: string): boolean {
-    return this.repo.getAllSets();
+    return true//this.repo.getAllUsers();
   };
 }

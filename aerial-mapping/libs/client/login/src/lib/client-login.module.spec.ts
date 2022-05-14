@@ -1,10 +1,12 @@
 import { async, TestBed } from '@angular/core/testing';
 import { ClientLoginModule } from './client-login.module';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 describe('ClientLoginModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ClientLoginModule],
+      imports: [RouterTestingModule, ClientLoginModule, MatFormFieldModule],
     }).compileComponents();
   }));
 

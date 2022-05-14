@@ -1,4 +1,4 @@
-//import { PrismaService } from '@aerial-mapping/api/shared/services/prisma/data-access';
+import { PrismaService } from '@aerial-mapping/api/shared/services/prisma/data-access';
 import { Test, TestingModule } from '@nestjs/testing';
 import { LoginRepository } from '../repository/login-repository';
 import { LoginResolver } from './login.resolver';
@@ -11,7 +11,7 @@ describe('LoginResolver', () => {
     const module: TestingModule =
      await Test.createTestingModule({
       imports: [],
-      providers: [LoginResolver, LoginRepository],
+      providers: [PrismaService, LoginResolver, LoginRepository],
     }).compile();
 
     resolver = module.get<LoginResolver>(LoginResolver);
@@ -20,6 +20,5 @@ describe('LoginResolver', () => {
   it('should be defined', () => {
     expect(resolver).toBeDefined();
   });
-
 });
 
