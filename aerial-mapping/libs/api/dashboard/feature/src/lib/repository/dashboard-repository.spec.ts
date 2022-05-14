@@ -3,14 +3,13 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { DashboardRepository } from './dashboard-repository';
 import { PrismaService } from "@aerial-mapping/api/shared/services/prisma/data-access";
 import { Video_Collection } from '@prisma/client';
-import { RouterTestingModule } from '@angular/router/testing';
 
 describe('DashboardRepository', () => {
     let repository: DashboardRepository;
 
     beforeAll(async () => {
         const module: TestingModule = await Test.createTestingModule({
-            providers: [RouterTestingModule, DashboardRepository, PrismaService]
+            providers: [DashboardRepository, PrismaService]
         }).compile();
 
         repository = module.get<DashboardRepository>(DashboardRepository);
@@ -49,8 +48,8 @@ describe('DashboardRepository', () => {
         {
           collectionID: expect.any(Number),
           parkID: expect.any(Number),
-          completed: expect.any(Boolean)
-          //upload_date_time: expect.any(String)
+          completed: expect.any(Boolean),
+          upload_date_time: expect.any(String)
         }
       ]
 

@@ -3,7 +3,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { DashboardRepository } from '../repository/dashboard-repository';
 import { DashboardResolver } from './dashboard.resolver';
 import { Game_Park, Message, User, Video_Collection } from '@prisma/client';
-import { RouterTestingModule } from '@angular/router/testing';
 
 //Run 'yarn nx test api-dashboard'
 describe('DashboardResolver', () => {
@@ -12,7 +11,7 @@ describe('DashboardResolver', () => {
   beforeEach(async () => {
     const module: TestingModule =
      await Test.createTestingModule({
-      imports: [RouterTestingModule],
+      imports: [],
       providers: [DashboardResolver, DashboardRepository, PrismaService],
     }).compile();
 
@@ -52,8 +51,8 @@ describe('DashboardResolver', () => {
       {
         collectionID: expect.any(Number),
         parkID: expect.any(Number),
-        completed: expect.any(Boolean)
-        //upload_date_time: expect.any(String)
+        completed: expect.any(Boolean),
+        upload_date_time: expect.any(String)
       }
     ]
 
