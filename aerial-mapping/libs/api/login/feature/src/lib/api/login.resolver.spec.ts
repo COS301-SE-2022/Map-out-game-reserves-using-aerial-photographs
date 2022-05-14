@@ -2,7 +2,6 @@ import { PrismaService } from '@aerial-mapping/api/shared/services/prisma/data-a
 import { Test, TestingModule } from '@nestjs/testing';
 import { LoginRepository } from '../repository/login-repository';
 import { LoginResolver } from './login.resolver';
-import { RouterTestingModule } from '@angular/router/testing';
 
 //Run 'yarn nx test api-login'
 describe('LoginResolver', () => {
@@ -12,7 +11,7 @@ describe('LoginResolver', () => {
     const module: TestingModule =
      await Test.createTestingModule({
       imports: [],
-      providers: [RouterTestingModule, PrismaService, LoginResolver, LoginRepository],
+      providers: [PrismaService, LoginResolver, LoginRepository],
     }).compile();
 
     resolver = module.get<LoginResolver>(LoginResolver);

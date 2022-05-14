@@ -2,7 +2,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { DashboardRepository } from './dashboard-repository';
 import { PrismaService } from "@aerial-mapping/api/shared/services/prisma/data-access";
-import { Video_Collection } from '@prisma/client';
+import { Game_Park, Message, User, Video_Collection } from '@prisma/client';
 
 describe('DashboardRepository', () => {
     let repository: DashboardRepository;
@@ -33,9 +33,9 @@ describe('DashboardRepository', () => {
         }
       ]
       it('should return an array with all the users',async () => {
-        // jest
-        // .spyOn(repository, 'getAllUsers')
-        // .mockImplementation((): Promise<User[]> => Promise.resolve(userArr));
+        jest
+          .spyOn(repository, 'getAllUsers')
+          .mockImplementation((): Promise<User[]> => Promise.resolve(userArr));
 
         expect(await repository.getAllUsers()).toEqual(
           expect.objectContaining(userArr)
@@ -74,9 +74,9 @@ describe('DashboardRepository', () => {
         }
       ]
       it('should return an array with all the parks',async () => {
-        // jest
-        // .spyOn(repository, 'getParks')
-        // .mockImplementation((): Promise<Game_Park[]> => Promise.resolve(parkArr));
+        jest
+          .spyOn(repository, 'getParks')
+          .mockImplementation((): Promise<Game_Park[]> => Promise.resolve(parkArr));
 
         expect(await repository.getParks()).toEqual(
           expect.objectContaining(parkArr)
@@ -85,11 +85,10 @@ describe('DashboardRepository', () => {
     });
 
     describe('@getNumOfVidsPerDate', () => {
-
       it('should return the number of videos for a provided date',async () => {
-        // jest
-        // .spyOn(repository, 'getNumOfVidsPerDate')
-        // .mockImplementation((): Promise<number> => Promise.resolve(parkArr));
+        jest
+          .spyOn(repository, 'getNumOfVidsPerDate')
+          .mockImplementation((): Promise<number> => Promise.resolve(3));
 
         expect(await repository.getNumOfVidsPerDate()).toEqual(
           expect.any(Number)
@@ -107,9 +106,9 @@ describe('DashboardRepository', () => {
         }
       ]
       it('should return an array with all the messages',async () => {
-        // jest
-        // .spyOn(repository, 'getMessages')
-        // .mockImplementation((): Promise<Message[]> => Promise.resolve(msgArr));
+        jest
+          .spyOn(repository, 'getMessages')
+          .mockImplementation((): Promise<Message[]> => Promise.resolve(msgArr));
 
         expect(await repository.getMessages()).toEqual(
           expect.objectContaining(msgArr)
