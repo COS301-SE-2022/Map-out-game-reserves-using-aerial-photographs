@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { PrismaService } from "@aerial-mapping/api/shared/services/prisma/data-access";
+import { PrismaService } from "../../../../../shared/services/prisma/data-access/src/index";//"@aerial-mapping/api/shared/services/prisma/data-access";
 //import { PrismaMock } from "@aerial-mapping/api/shared/services/prisma/data-access";
 import { Game_Park, User, Video_Collection, Message } from "@prisma/client";
 

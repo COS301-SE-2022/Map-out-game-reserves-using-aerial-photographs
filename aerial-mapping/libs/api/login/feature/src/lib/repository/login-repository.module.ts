@@ -1,4 +1,4 @@
-import { PrismaService } from '@aerial-mapping/api/shared/services/prisma/data-access';
+import { PrismaService } from "../../../../../shared/services/prisma/data-access/src/index"//'@aerial-mapping/api/shared/services/prisma/data-access';
 import { Module } from '@nestjs/common';
 import { LoginRepository } from './login-repository';
 

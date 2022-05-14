@@ -29,10 +29,10 @@ export class DashboardResolver {
     return this.repo.getMessages();
   }
 
-  // @Query('getNumOfVidsPerDate')
-  // getNumOfVidsPerDate(): Promise<number> {
-  //   return this.repo.getNumOfVidsPerDate();
-  // }
+  @Query('getNumOfVidsPerDate')
+  getNumOfVidsPerDate(): Promise<number> {
+    return this.repo.getNumOfVidsPerDate();
+  }
 
   // Mutations //
   @Mutation('createUser')
