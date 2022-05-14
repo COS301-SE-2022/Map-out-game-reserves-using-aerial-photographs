@@ -1,6 +1,6 @@
 import { forwardRef, Inject } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { User, Video, Video_Collection, Game_Park, Message } from '@prisma/client';
+import { User, Video_Collection, Game_Park, Message } from '@prisma/client';
 import { DashboardRepository } from '../repository/dashboard-repository';
 
 @Resolver('User')

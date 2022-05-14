@@ -1,10 +1,11 @@
 import { async, TestBed } from '@angular/core/testing';
 import { DashboardViewModule } from './dashboard-view.module';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('DashboardViewModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [DashboardViewModule],
+      imports: [RouterTestingModule, DashboardViewModule],
     }).compileComponents();
   }));
 

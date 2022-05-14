@@ -1,3 +1,4 @@
+import { ClientApiService } from '@aerial-mapping/client/shared/services';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
@@ -11,7 +12,7 @@ describe('DashboardViewComponent', () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientModule],
       declarations: [DashboardViewComponent],
-      providers: [HttpClient]
+      providers: [HttpClient, ClientApiService]
     }).compileComponents();
   });
 

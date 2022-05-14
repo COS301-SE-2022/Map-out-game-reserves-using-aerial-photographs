@@ -1,10 +1,9 @@
-//import { PrismaMock } from '@aerial-mapping/api/shared/services/prisma/data-access';
-//import { PrismaService } from '@aerial-mapping/api/shared/services/prisma/data-access';
-import { PrismaService } from '../../../../../shared/services/prisma/data-access/src/index';//'@aerial-mapping/api/shared/services/prisma/data-access';
+import { PrismaService } from '@aerial-mapping/api/shared/services/prisma/data-access';
 import { Test, TestingModule } from '@nestjs/testing';
 import { DashboardRepository } from '../repository/dashboard-repository';
 import { DashboardResolver } from './dashboard.resolver';
 import { Game_Park, Message, User, Video_Collection } from '@prisma/client';
+import { RouterTestingModule } from '@angular/router/testing';
 
 //Run 'yarn nx test api-dashboard'
 describe('DashboardResolver', () => {
@@ -13,7 +12,7 @@ describe('DashboardResolver', () => {
   beforeEach(async () => {
     const module: TestingModule =
      await Test.createTestingModule({
-      imports: [],
+      imports: [RouterTestingModule],
       providers: [DashboardResolver, DashboardRepository, PrismaService],
     }).compile();
 

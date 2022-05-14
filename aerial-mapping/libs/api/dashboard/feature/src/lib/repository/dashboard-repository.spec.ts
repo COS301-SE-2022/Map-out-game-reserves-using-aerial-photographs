@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { Test, TestingModule } from '@nestjs/testing';
 import { DashboardRepository } from './dashboard-repository';
-import { PrismaService } from "../../../../../shared/services/prisma/data-access/src/index";
-import { User, Video_Collection } from '@prisma/client';
+import { PrismaService } from "@aerial-mapping/api/shared/services/prisma/data-access";
+import { Video_Collection } from '@prisma/client';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('DashboardRepository', () => {
     let repository: DashboardRepository;
 
     beforeAll(async () => {
         const module: TestingModule = await Test.createTestingModule({
-            providers: [DashboardRepository, PrismaService]
+            providers: [RouterTestingModule, DashboardRepository, PrismaService]
         }).compile();
 
         repository = module.get<DashboardRepository>(DashboardRepository);

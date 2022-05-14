@@ -1,10 +1,11 @@
 import { async, TestBed } from '@angular/core/testing';
 import { ClientSharedComponentsFooterModule } from './client-shared-components-footer.module';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ClientSharedComponentsFooterModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ClientSharedComponentsFooterModule],
+      imports: [RouterTestingModule, ClientSharedComponentsFooterModule],
     }).compileComponents();
   }));
 

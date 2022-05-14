@@ -1,10 +1,11 @@
 import { async, TestBed } from '@angular/core/testing';
 import { ClientAccountModule } from './client-account.module';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ClientAccountModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ClientAccountModule],
+      imports: [RouterTestingModule, ClientAccountModule],
     }).compileComponents();
   }));
 

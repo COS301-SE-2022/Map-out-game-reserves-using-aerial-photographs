@@ -83,6 +83,7 @@ type Query {
   pingAuthentication: String!
   getMessages: [Message]
   getVideoCollections: [Video_Collection]
+  getNumOfVidsPerDate: Int!
 }
 
 type Mutation {
