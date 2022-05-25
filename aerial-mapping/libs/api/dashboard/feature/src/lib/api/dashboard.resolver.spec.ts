@@ -135,7 +135,7 @@ describe('DashboardResolver', () => {
       .spyOn(resolver, 'createVideoCollection')
       .mockImplementation((parkID: number) => Promise.resolve("Created Video Collection!"));
 
-      expect(await resolver.createVideoCollection(1)).toBe("Created Video Collection!")
+      expect(await resolver.createVideoCollection(1, new Date().toISOString())).toBe("Created Video Collection!")
     })
   });
 
