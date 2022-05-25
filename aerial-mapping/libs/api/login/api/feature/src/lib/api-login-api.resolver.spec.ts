@@ -20,5 +20,15 @@ describe('LoginResolver', () => {
   it('should be defined', () => {
     expect(resolver).toBeDefined();
   });
+
+  describe('@createUser', () => {
+    it('should return "Created User!"',async () => {
+      jest
+      .spyOn(resolver, 'createUser')
+      .mockImplementation((fn: string, ln: string, email: string, hashed: string, salt: string, role: string, approved: boolean) => Promise.resolve("Created User!"));
+
+      expect(await resolver.createUser("Dylan", "Smith", "email@email.com", "sdazdf", "4rr", "user", true)).toBe("Created User!")
+    })
+  });
 });
 

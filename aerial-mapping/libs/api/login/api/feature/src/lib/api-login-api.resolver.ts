@@ -15,4 +15,18 @@ export class LoginResolver {
     @Args('password', { type: () => String }) password: string): boolean {
     return true//this.repo.getAllUsers();
   };
+
+  @Mutation('createUser')
+  async createUser(
+    @Args('firstname', { type: () => String }) firstname: string,
+    @Args('lastname') lastname: string,
+    @Args('email') email: string,
+    @Args('password') hashedPassword: string,
+    @Args('passwordSalt') passwordSalt: string,
+    @Args('role') role: string,
+    @Args('approved', { type: () => Boolean }) approved: boolean) {
+
+    return await this.repo.createUser(firstname, lastname, email, hashedPassword, passwordSalt, role, approved);
+  }
+
 }
