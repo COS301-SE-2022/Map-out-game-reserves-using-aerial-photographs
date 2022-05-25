@@ -55,5 +55,9 @@ export class ClientApiService {
 
   // MUTATIONS //
 
+  createVideoCollection(parkID: number): Observable<any> {
+    const now = new Date().toISOString();
 
+    return this.runQuery('mutation ($parkID: Int, $datetime: DateTime){ createVideoCollection(parkID: $parkID, datetime: $datetime) }', { parkID: parkID, datetime: now });
+  }
 }

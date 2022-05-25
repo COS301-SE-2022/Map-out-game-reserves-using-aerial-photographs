@@ -74,11 +74,12 @@ export class DashboardRepository {
 
   //public async login
 
-  public async createVideoCollection(parkID: number) {
+  public async createVideoCollection(parkID: number, dateTime: string) {
     //validation
     const x = await this.prisma.video_Collection.create({
       data: {
-        parkID: parkID
+        parkID: parkID,
+        upload_date_time: dateTime
       }
     });
     return "Created Video Collection!";

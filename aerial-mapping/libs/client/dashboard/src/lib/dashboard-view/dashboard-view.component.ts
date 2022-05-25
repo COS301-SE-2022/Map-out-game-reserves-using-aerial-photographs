@@ -43,7 +43,7 @@ export class DashboardViewComponent implements OnInit{
     this.pastWeek.forEach(element => {
       this.total+=element;
     });
-    
+
     this.photos = [
       {
         Value: this.pastWeek[this.count++],
@@ -132,6 +132,13 @@ export class DashboardViewComponent implements OnInit{
 
       },
       error: (err) => { console.log(err); }
+    });
+
+    this.apiService.createVideoCollection(1).subscribe({
+      next: (_res) => {
+        console.log(_res);
+      },
+      error: (_err) => { console.log(_err); }
     });
   }
 

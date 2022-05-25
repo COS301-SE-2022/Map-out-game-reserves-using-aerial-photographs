@@ -1,17 +1,4 @@
-# type Set {
-#     id: Int!
-#     name: String
-#     year: Int
-#     numParts: Int
-# }
-
-# type Query {
-#     allSets: [Set]
-# }
-
-# type Mutation {
-#     addSet(name: String, year: String, numParts: Int): Set
-# }
+scalar DateTime
 
 type User {
   userID: Int!
@@ -24,7 +11,7 @@ type User {
   user_approved: Boolean
 }
 
-type Game_Park{
+type Game_Park {
   parkID: Int!
   park_name: String
   park_location: String
@@ -46,7 +33,7 @@ type Video {
 type Video_Collection {
   collectionID: Int!
   parkID: Int
-  #upload_date_time: DateTime
+  upload_date_time: DateTime
   completed: Boolean
 }
 
@@ -88,6 +75,6 @@ type Query {
 
 type Mutation {
   createUser(firstname: String, lastname: String, email: String): String!
-  createVideoCollection(parkID: Int): String!
+  createVideoCollection(parkID: Int, datetime: DateTime): String!
   login(email: String, password: String): User
 }
