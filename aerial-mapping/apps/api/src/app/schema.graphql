@@ -26,7 +26,7 @@ type Video {
   file_location: String
   #video_thumbnail: String
   duration: String
-  filmed_date_time: String
+  filmed_date_time: DateTime
   #video_user: User
 }
 
