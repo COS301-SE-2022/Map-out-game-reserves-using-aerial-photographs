@@ -120,7 +120,7 @@ describe('DashboardRepository', () => {
       it('should return "Created User!"',async () => {
         jest
         .spyOn(repository, 'createUser')
-        .mockImplementation((fn: string, ln: string, email: string, hashed: string, salt: string, role: string, approved: boolean) => Promise.resolve("Created User!"));
+        .mockImplementation(() => Promise.resolve("Created User!"));
 
         expect(await repository.createUser("Dylan", "Smith", "email@email.com", "sdazdf", "4rr", "user", true)).toBe("Created User!")
       })
@@ -130,9 +130,19 @@ describe('DashboardRepository', () => {
       it('should return "Created Video Collection!"',async () => {
         jest
         .spyOn(repository, 'createVideoCollection')
-        .mockImplementation((parkID: number) => Promise.resolve("Created Video Collection!"));
+        .mockImplementation(() => Promise.resolve("Created Video Collection!"));
 
         expect(await repository.createVideoCollection(1, new Date().toISOString())).toBe("Created Video Collection!")
+      })
+    });
+
+    describe('@createVideoCollection', () => {
+      it('should return "Created Video Collection!"',async () => {
+        jest
+        .spyOn(repository, 'createVideoCollection')
+        .mockImplementation(() => Promise.resolve("There is a foreign key constraint violation"));
+
+        expect(await repository.createVideoCollection(-1, "")).toBe("There is a foreign key constraint violation")
       })
     });
 });
