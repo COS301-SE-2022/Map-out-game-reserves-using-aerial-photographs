@@ -49,7 +49,9 @@ export class DashboardResolver {
   }
 
   @Mutation('createVideoCollection')
-  async createVideoCollection(@Args('parkID') parkID: number) {
-    return await this.repo.createVideoCollection(parkID);
+  async createVideoCollection(
+    @Args('parkID') parkID: number,
+    @Args('datetime') datetime: string) {
+    return await this.repo.createVideoCollection(parkID, datetime);
   }
 }

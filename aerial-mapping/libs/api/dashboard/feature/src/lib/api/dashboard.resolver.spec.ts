@@ -133,9 +133,17 @@ describe('DashboardResolver', () => {
     it('should return "Created Video Collection!"',async () => {
       jest
       .spyOn(resolver, 'createVideoCollection')
-      .mockImplementation((parkID: number) => Promise.resolve("Created Video Collection!"));
+      .mockImplementation((parkID: number, dateTime: string) => Promise.resolve("Created Video Collection!"));
 
-      expect(await resolver.createVideoCollection(1)).toBe("Created Video Collection!")
+      expect(await resolver.createVideoCollection(1, new Date().toISOString())).toBe("Created Video Collection!")
+    })
+
+    it('should return "There is a foreign key constraint violation"',async () => {
+      jest
+      .spyOn(resolver, 'createVideoCollection')
+      .mockImplementation((parkID: number, dateTime: string) => Promise.resolve("There is a foreign key constraint violation"));
+
+      expect(await resolver.createVideoCollection(-1, "")).toBe("There is a foreign key constraint violation")
     })
   });
 

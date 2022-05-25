@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ApiShellFeatureModule } from '@aerial-mapping/api/shell/feature';
 import { ConfigModule } from '@nestjs/config';
-import { GraphQLModule } from '@nestjs/graphql';
+import { GraphQLModule, GraphQLISODateTime } from '@nestjs/graphql';
 import { ApolloDriver } from '@nestjs/apollo';
 
 @Module({
@@ -10,6 +10,7 @@ import { ApolloDriver } from '@nestjs/apollo';
     ConfigModule.forRoot(),
     GraphQLModule.forRoot({
       typePaths: ['./**/*.graphql'],
+      resolvers: { DateTime: GraphQLISODateTime},
       driver: ApolloDriver
     })
   ],

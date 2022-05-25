@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "@aerial-mapping/api/shared/services/prisma/data-access";
-import { Game_Park, User, Video_Collection, Message } from "@prisma/client";
+import { Game_Park, User, Video_Collection, Message, Prisma } from "@prisma/client";
 
 @Injectable()
 export class DashboardRepository {
@@ -74,13 +74,27 @@ export class DashboardRepository {
 
   //public async login
 
-  public async createVideoCollection(parkID: number) {
+  public async createVideoCollection(parkID: number, dateTime: string) {
     //validation
-    const x = await this.prisma.video_Collection.create({
-      data: {
-        parkID: parkID
+    try {
+      const x = await this.prisma.video_Collection.create({
+        data: {
+          parkID: parkID,
+          upload_date_time: dateTime
+        }
+      });
+      return "Created Video Collection!";
+    }
+    catch(e) {
+      if(e instanceof Prisma.PrismaClientKnownRequestError) {
+        if(e.code === 'P2002') {
+          return "There is a unique constraint violation";
+        }
+        else if (e.code === 'P2003') {
+          return "There is a foreign key constraint violation";
+        }
       }
-    });
-    return "Created Video Collection!";
+      return "Prisma error";
+    }
   }
 }
