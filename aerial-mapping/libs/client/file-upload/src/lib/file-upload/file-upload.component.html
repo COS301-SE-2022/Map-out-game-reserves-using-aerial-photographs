@@ -16,9 +16,16 @@
     <h3 class="uploadHeading">or</h3>
     <h3 class="uploadHeading">Drag and drop below</h3>
     <input type="file" class="file" multiple (change)="onFileSelected($event)" #fileUpload>
+    <!-- <input type="file" class="file" multiple (change)="onFileSelected($event)" #fileUpload> -->
     <div class="file-upload" *ngIf="fileName">
+      <div class="successful-submit" *ngIf="submitPressed">
+        <h4 class="variable">File Uploaded Successfully</h4>
+       </div>
       <h4 class="variable">{{fileName || "No file uploaded yet."}}</h4>
       <button class="clearbtn" mat-flat-button (click)="clearSelection()"> <h3 class="uploadHeading">Clear Selection</h3></button><br/>
+      <div *ngIf="!submitPressed">
+        <button class="clearbtn" type="submit" mat-flat-button (click)="uploadFileLocal()"> <h3 class="uploadHeading">Submit</h3></button><br/>
+      </div>
    </div>
    <div class="progress">
     <mat-progress-bar class="progress-bar" mode="determinate" [value]="uploadProgress" *ngIf="uploadProgress">

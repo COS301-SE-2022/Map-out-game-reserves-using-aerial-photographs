@@ -15,7 +15,7 @@ import { HttpClient, HttpEventType } from "@angular/common/http";
 export class FileUploadComponent {
 
   requiredFileType : string | undefined;
-
+  submitPressed = false;
   fileName = '';
   uploadProgress: number | undefined;
   uploadSub: Subscription | undefined;
@@ -23,14 +23,23 @@ export class FileUploadComponent {
   constructor(private http: HttpClient) {
   }
 
+
+  uploadFileLocal(){
+    console.log("Submit button pressed");
+    this.submitBtnPressed();
+  }
+
   onFileSelected(event : any) {
-    const file:File = event.target.files[0];
+    this.submitPressed = false;
+    console.log("File staged!");
+     const file:File = event.target.files[0];
 
     if (file) {
         this.fileName = file.name;
         const formData = new FormData();
         formData.append("thumbnail", file);
-
+    }
+/*
         const upload$ = this.http.post("/api/thumbnail-upload", formData, {
             reportProgress: true,
             observe: 'events'
@@ -44,7 +53,7 @@ export class FileUploadComponent {
             this.uploadProgress = Math.round(100 * (event.loaded / event.total));
           }
         })
-    }
+    } */
 }
 
 cancelUpload() {
@@ -61,6 +70,10 @@ reset() {
 
 clearSelection() {
   window.location.reload();
+}
+
+submitBtnPressed() {
+  this.submitPressed = true;
 }
 
 }
