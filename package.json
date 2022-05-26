@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "global": "^4.4.0",
-    "yarn": "^1.22.18"
+    "yarn": "^1.22.18",
+    "dotenv": "^16.0.1"
   }
 }

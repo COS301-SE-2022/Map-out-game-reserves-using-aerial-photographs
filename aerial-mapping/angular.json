@@ -10,6 +10,9 @@
     "api-dashboard-repository-data-access": "libs/api/dashboard/repository/data-access",
     "api-login-api-feature": "libs/api/login/api/feature",
     "api-login-repository-data-access": "libs/api/login/repository/data-access",
+    "api-s3-upload-api-feature": "libs/api/s3-upload/api/feature",
+    "api-s3-upload-repository-data-access": "libs/api/s3-upload/repository/data-access",
+
     "client-account": "libs/client/account",
     "client-dashboard": "libs/client/dashboard",
     "client-file-upload": "libs/client/file-upload",
