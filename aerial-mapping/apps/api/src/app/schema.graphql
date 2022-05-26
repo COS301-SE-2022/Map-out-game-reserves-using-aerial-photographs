@@ -1,5 +1,21 @@
 scalar DateTime
 
+type Query {
+  getUsers: [User]
+  getParks: [Game_Park]
+  pingAuthentication: String!
+  getMessages: [Message]
+  getVideoCollections: [Video_Collection]
+  getNumOfVidsPerDate: Int!
+}
+
+type Mutation {
+  createUser(firstname: String, lastname: String, email: String): String!
+  createVideoCollection(parkID: Int, datetime: DateTime): String!
+  login(email: String, password: String): User
+  S3Upload: String
+}
+
 type User {
   userID: Int!
   user_email: String
@@ -62,19 +78,4 @@ type Flight_details {
   flight_height: Float
   flight_type: String
   pilotID:Int
-}
-
-type Query {
-  getUsers: [User]
-  getParks: [Game_Park]
-  pingAuthentication: String!
-  getMessages: [Message]
-  getVideoCollections: [Video_Collection]
-  getNumOfVidsPerDate: Int!
-}
-
-type Mutation {
-  createUser(firstname: String, lastname: String, email: String): String!
-  createVideoCollection(parkID: Int, datetime: DateTime): String!
-  login(email: String, password: String): User
 }

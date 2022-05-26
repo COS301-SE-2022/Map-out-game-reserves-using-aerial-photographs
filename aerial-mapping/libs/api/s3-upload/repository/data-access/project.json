@@ -1,0 +1,25 @@
+{
+  "root": "libs/api/s3-upload/repository/data-access",
+  "sourceRoot": "libs/api/s3-upload/repository/data-access/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/api/s3-upload/repository/data-access/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/api/s3-upload/repository/data-access"],
+      "options": {
+        "jestConfig": "libs/api/s3-upload/repository/data-access/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
