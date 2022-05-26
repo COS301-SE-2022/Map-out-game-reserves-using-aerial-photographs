@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators} from "@angular/forms";
-import { FileUploader } from "ng2-file-upload";
-import { finalize, Observable, Subscription } from "rxjs";
-import { HttpClient, HttpEventType } from "@angular/common/http";
+import { Component} from '@angular/core';
+import { Subscription } from "rxjs";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 @Component({
   selector: 'aerial-mapping-file-upload',
@@ -14,13 +12,25 @@ import { HttpClient, HttpEventType } from "@angular/common/http";
 
 export class FileUploadComponent {
 
+  //Variables 'n shiet
   requiredFileType : string | undefined;
   submitPressed = false;
   fileName = '';
   uploadProgress: number | undefined;
   uploadSub: Subscription | undefined;
+  file: File | undefined;
+  formData = new FormData();
+
 
   constructor(private http: HttpClient) {
+/*     const imageForm = document.querySelector("#imageForm");
+    const imageInput = document.querySelector("#fileUpload");
+
+    imageForm?.addEventListener("submit", async event =>{
+      event.preventDefault();
+      this.uploadFileLocal();
+      console.log(this.file?.name);
+    }) */
   }
 
 
@@ -32,12 +42,11 @@ export class FileUploadComponent {
   onFileSelected(event : any) {
     this.submitPressed = false;
     console.log("File staged!");
-     const file:File = event.target.files[0];
+    this.file = event.target.files[0];
 
-    if (file) {
-        this.fileName = file.name;
-        const formData = new FormData();
-        formData.append("thumbnail", file);
+    if (this.file) {
+        this.fileName = this.file.name;
+        this.formData.append("thumbnail", this.file);
     }
 /*
         const upload$ = this.http.post("/api/thumbnail-upload", formData, {
@@ -73,7 +82,39 @@ clearSelection() {
 }
 
 submitBtnPressed() {
+  if(this.file)
+  {
+    this.uploadToS3(this.file);
+  }
   this.submitPressed = true;
+}
+
+  async uploadToS3(file : any){
+
+    this.fileName = file.name;
+
+  //get secure url from our server
+  const { url } = await fetch("http://localhost:4201/").then(res => res.json());
+  console.log(url);
+
+  //Post directly to S3 bucket
+  if(file)
+  {
+    await fetch(url,{
+      method: "PUT",
+      headers: {"Content-Type":"multipart/form-data"},
+      body: file
+    })
+  }
+  else{
+    console.log("File Undefined!");
+  }
+
+  const imageURL = url.split('?')[0];
+  console.log(imageURL);
+
+  //post request to my server to store any extra data
+
 }
 
 }
