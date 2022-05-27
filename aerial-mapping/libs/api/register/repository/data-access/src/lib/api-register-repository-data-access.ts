@@ -146,47 +146,51 @@ export class RegisterRepository {
   public async invite(email: string) {
     //send email to email param with registration link
     const mailTransporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: this.ourEmail,
-            pass: 'somethingeasy#1'
-        }
+      service: 'gmail',
+      auth: {
+        user: this.ourEmail,
+        pass: 'somethingeasy#1'
+      }
     });
 
     const mailDetails = {
-        from: this.ourEmail,
-        to: email,
-        subject: 'Aerial Mapper Registration Link',
-        html: this.emailHtml
+      from: this.ourEmail,
+      to: email,
+      subject: 'Aerial Mapper Registration Link',
+      html: this.emailHtml
     };
 
-    mailTransporter.sendMail(mailDetails, function(err, _data) {
-        if(err) {
-            return 'Email not sent. Error occurred.';
-        } else {
-            console.log('Email sent successfully');
-        }
+    let sent = false;
+    mailTransporter.sendMail(mailDetails, function (err) {
+      if (err) {
+        console.log('Email not sent. Error occurred.');
+        sent = true;
+      } else {
+        console.log('Email sent successfully');
+      }
     });
 
     //add invite to database
-    await this.prisma.pending_Invites.create({
-      data: {
-        invite_email: email
-      }
-    });
-
-    return "Created Invite!";
+    if (sent) {
+      await this.prisma.pending_Invites.create({
+        data: {
+          invite_email: email
+        }
+      });
+      return "Created Invite!";
+    }
+    return "Email not sent. Error occurred.";
   }
 
   public async createUser(firstname: string, lastname: string, email: string, password: string, role: string, approved: boolean) {
-    let error: Error|null = null;
+    let error: Error | null = null;
 
     bcrypt.genSalt(10, (err, salt) => {
-      if(err){
+      if (err) {
         error = err;
       }
-      bcrypt.hash(password, salt, async(_rr, hash) => {
-        if(err){
+      bcrypt.hash(password, salt, async (_rr, hash) => {
+        if (err) {
           error = err;
         }
         await this.prisma.user.create({
@@ -203,7 +207,7 @@ export class RegisterRepository {
       });
     });
 
-    if(error == null){
+    if (error == null) {
       return "Created User!";
     }
     return error;
