@@ -23,7 +23,7 @@ describe('LoginRepository', () => {
         .spyOn(repository, 'createUser')
         .mockImplementation(() => Promise.resolve("Created User!"));
 
-      expect(await repository.createUser("Dylan", "Smith", "email@email.com", "sdazdf", "4rr", "user", true)).toBe("Created User!")
+      expect(await repository.createUser("Dylan", "Smith", "email@email.com", "sdazdf", "user", true)).toBe("Created User!")
     })
   });
 });

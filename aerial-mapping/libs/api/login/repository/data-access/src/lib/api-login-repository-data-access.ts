@@ -9,7 +9,7 @@ export class LoginRepository {
   constructor(private prisma: PrismaService) { }
 
   public async createUser(firstname: string, lastname: string, email: string, password: string, role: string, approved: boolean) {
-    let error: Error = null;
+    let error: Error|null = null;
 
     bcrypt.genSalt(10, (err, salt) => {
       if(err){

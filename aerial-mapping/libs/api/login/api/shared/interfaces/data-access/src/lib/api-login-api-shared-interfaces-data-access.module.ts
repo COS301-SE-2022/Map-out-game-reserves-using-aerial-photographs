@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
 import { Module } from '@nestjs/common';
 
-@NgModule({
+@Module({
   providers: [],
   exports: [],
   imports: [CommonModule],
