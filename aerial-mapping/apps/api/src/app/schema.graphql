@@ -1,6 +1,7 @@
 scalar DateTime
 
 type Query {
+  test: String
   getUsers: [User]
   getParks: [Game_Park]
   pingAuthentication: String!
@@ -10,9 +11,9 @@ type Query {
 }
 
 type Mutation {
-  createUser(firstname: String, lastname: String, email: String): String!
+  createUser(firstname: String, lastname: String, email: String, password: String, role: String, approved: Boolean): String!
   createVideoCollection(parkID: Int, datetime: DateTime): String!
-  login(email: String, password: String): User
+  login(email: String, password: String): String
   S3Upload: String
 }
 

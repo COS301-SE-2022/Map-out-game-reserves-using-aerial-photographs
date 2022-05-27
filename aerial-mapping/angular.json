@@ -9,6 +9,7 @@
     "api-dashboard-api-feature": "libs/api/dashboard/api/feature",
     "api-dashboard-repository-data-access": "libs/api/dashboard/repository/data-access",
     "api-login-api-feature": "libs/api/login/api/feature",
+    "api-login-api-shared-interfaces-data-access": "libs/api/login/api/shared/interfaces/data-access",
     "api-login-repository-data-access": "libs/api/login/repository/data-access",
     "api-s3-upload-api-feature": "libs/api/s3-upload/api/feature",
     "api-s3-upload-repository-data-access": "libs/api/s3-upload/repository/data-access",

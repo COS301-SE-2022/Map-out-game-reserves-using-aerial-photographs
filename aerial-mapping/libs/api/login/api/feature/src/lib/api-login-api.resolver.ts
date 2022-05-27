@@ -1,22 +1,34 @@
-import { forwardRef, Inject } from '@nestjs/common';
+import { forwardRef, Inject, UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { User, Video, Video_Collection} from '@prisma/client';
 import { LoginRepository } from '@aerial-mapping/api/login/repository/data-access';
+import { AuthGuard } from '@aerial-mapping/api/login/repository/data-access';
+import { User } from '@prisma/client';
 
-@Resolver('User')
+@Resolver('Login')
 export class LoginResolver {
-  constructor(@Inject(forwardRef(() => LoginRepository))
-  private readonly repo: LoginRepository
+  constructor(
+    @Inject(forwardRef(() => LoginRepository))
+    private readonly repo: LoginRepository
   ) { }
 
-  @Query('login')
-  login(
-    @Args('email', { type: () => String }) email: string,
-    @Args('password', { type: () => String }) password: string): boolean {
-    return true//this.repo.getAllUsers();
+  @Query('test')
+  @UseGuards(new AuthGuard())
+  test() {
+    return "Test";
+  }
+
+  @Mutation('login')
+  async login(
+    @Args('email') email: string,
+    @Args('password') password: string
+  ) {
+    return await this.repo.login(email, password).then((obj) => {
+      return obj.access_token;
+    });
   };
 
-  @Mutation('createUser')
+
+  @Mutation(() => String, { name: 'createUser', nullable: true })
   async createUser(
     @Args('firstname', { type: () => String }) firstname: string,
     @Args('lastname') lastname: string,
@@ -26,7 +38,7 @@ export class LoginResolver {
     @Args('role') role: string,
     @Args('approved', { type: () => Boolean }) approved: boolean) {
 
-    return await this.repo.createUser(firstname, lastname, email, hashedPassword, passwordSalt, role, approved);
+    return await this.repo.createUser(firstname, lastname, email, hashedPassword, role, approved);
   }
 
 }

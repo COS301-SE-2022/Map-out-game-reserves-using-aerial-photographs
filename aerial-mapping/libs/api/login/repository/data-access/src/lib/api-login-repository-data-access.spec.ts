@@ -17,15 +17,13 @@ describe('LoginRepository', () => {
   it('Should be defined', async () => {
     expect(repository).toBeDefined();
   });
-
   describe('@createUser', () => {
     it('should return "Created User!"', async () => {
       jest
         .spyOn(repository, 'createUser')
         .mockImplementation(() => Promise.resolve("Created User!"));
 
-      expect(await repository.createUser("Dylan", "Smith", "email@email.com", "sdazdf", "4rr", "user", true)).toBe("Created User!")
+      expect(await repository.createUser("Dylan", "Smith", "email@email.com", "sdazdf", "user", true)).toBe("Created User!")
     })
   });
-
 });

@@ -3,8 +3,11 @@ import { Module } from '@nestjs/common';
 import { LoginRepository } from './api-login-repository-data-access';
 
 @Module({
-  controllers: [],
-  providers: [PrismaService],
+  imports: [],
+  providers: [
+    PrismaService,
+    LoginRepository
+  ],
   exports: [LoginRepository],
 })
 export class LoginRepositoryModule {}
