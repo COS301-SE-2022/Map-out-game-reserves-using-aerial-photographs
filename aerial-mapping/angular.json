@@ -11,6 +11,10 @@
     "api-login-api-feature": "libs/api/login/api/feature",
     "api-login-api-shared-interfaces-data-access": "libs/api/login/api/shared/interfaces/data-access",
     "api-login-repository-data-access": "libs/api/login/repository/data-access",
+    "api-register-api-feature": "libs/api/register/api/feature",
+    "api-register-repository-data-access": "libs/api/register/repository/data-access",
+
+
     "api-s3-upload-api-feature": "libs/api/s3-upload/api/feature",
     "api-s3-upload-repository-data-access": "libs/api/s3-upload/repository/data-access",
 
