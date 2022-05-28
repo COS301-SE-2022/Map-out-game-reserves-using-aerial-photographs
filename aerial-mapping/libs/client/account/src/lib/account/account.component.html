@@ -7,10 +7,58 @@
 
 <body>
     <div class="background">
-        <div class="heading">Account</div>
+        <div class="heading">
+            Account
+            <!-- <img src="assets/ERP_Logo.png" width="50px" alt="logo"> -->
+        </div>
         <aerial-mapping-side-navbar></aerial-mapping-side-navbar>
         <div class="content">
-
+            <div class="form">
+                <div class="title" style="color: rgb(110, 110, 110)">
+                    <h3>MY DETAILS</h3>
+                </div>
+                <div style="height: 89%; overflow-y: scroll; margin-top: 2%;">
+                    <mat-card class="label">
+                        NAME
+                    </mat-card>
+                    <mat-card id = "name" class="info">
+                        <!--will need to fill out using the session--> 
+                        The Dylpickles
+                    </mat-card>
+                    <mat-card class="label">
+                        EMAIL
+                    </mat-card>
+                    <mat-card id = "email" class="info">
+                        <!--will need to fill out using the session--> 
+                        thedylpickles1@gmail.com
+                    </mat-card>
+                    <mat-card class="label">
+                        ROLE
+                    </mat-card>
+                    <mat-card id = "role" class="info">
+                        <!--will need to fill out using the session--> 
+                        Administrator
+                    </mat-card>
+                    <mat-card class="label">
+                        PASSWORD
+                    </mat-card>
+                    <mat-card id = "password" class="info" type="password">
+                        <!--will need to fill out using the session--> 
+                        <!--change output to be dots rather-->
+                        somethingeasy#1
+                    </mat-card>
+                    <!--need to insert edit links for each of the above elements-->
+                    
+                    <!--button only appears for administrators-->
+                    <div class="contains">
+                        <div class="center">
+                            <button id="link">
+                                Send out a registration link
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </body>
