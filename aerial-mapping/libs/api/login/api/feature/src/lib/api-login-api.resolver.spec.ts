@@ -3,7 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { LoginRepository } from '@aerial-mapping/api/login/repository/data-access';
 import { LoginResolver } from './api-login-api.resolver';
 
-//Run 'yarn nx test api-login'
+//Run 'nx test api-login-api-feature'
 describe('LoginResolver', () => {
   let resolver: LoginResolver;
 
@@ -21,14 +21,28 @@ describe('LoginResolver', () => {
     expect(resolver).toBeDefined();
   });
 
-  describe('@createUser', () => {
-    it('should return "Created User!"',async () => {
+  describe('@login', () => {
+    it('should return "Logged in!"',async () => {
       jest
-      .spyOn(resolver, 'createUser')
-      .mockImplementation(() => Promise.resolve("Created User!"));
+      .spyOn(resolver, 'login')
+      .mockImplementation(() => Promise.resolve("Logged in!"));
 
-      expect(await resolver.createUser("Dylan", "Smith", "email@email.com", "sdazdf", "4rr", "user", true)).toBe("Created User!")
+      expect(await resolver.login("dylan@mweb.co.za", "1234").then((resp) => {
+        return resp;
+      })
+      ).toBe("Logged in!");
     })
   });
+
+  describe('@logout', () => {
+    it('should return "Logged out!"',async () => {
+      jest
+      .spyOn(resolver, 'logout')
+      .mockImplementation(() => "Logged out!");
+
+      expect(resolver.logout()).toBe("Logged out!");
+    })
+  });
+
 });
 

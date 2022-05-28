@@ -13,8 +13,17 @@ import { LoginRepositoryModule } from '@aerial-mapping/api/login/repository/data
     GraphQLModule.forRoot({
       typePaths: ['./**/*.graphql'],
       resolvers: { DateTime: GraphQLISODateTime},
-      context: ({ req }) => ({ headers: req.headers }),
-      driver: ApolloDriver
+      context: ({ req, res }) => ({ headers: req.headers, res }),
+      driver: ApolloDriver,
+      cors: {
+        credentials: true,
+        origin: true
+      },
+      playground: {
+        settings: {
+          'request.credentials': 'include',
+        },
+      }
     })
   ],
   providers: [],
