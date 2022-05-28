@@ -3,64 +3,140 @@
 
 <head>
     <meta name="component" content="Account" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
     <div class="background">
         <div class="heading">
             Account
-            <!-- <img src="assets/ERP_Logo.png" width="50px" alt="logo"> -->
         </div>
         <aerial-mapping-side-navbar></aerial-mapping-side-navbar>
         <div class="content">
             <div class="form">
                 <div class="title" style="color: rgb(110, 110, 110)">
                     <h3>MY DETAILS</h3>
+                    <hr>
                 </div>
-                <div style="height: 89%; overflow-y: scroll; margin-top: 2%;">
-                    <mat-card class="label">
+                <div style="height: 89%; margin-top: 2%;">
+                    <label class="label">
                         NAME
-                    </mat-card>
+                    </label>
                     <mat-card id = "name" class="info">
-                        <!--will need to fill out using the session--> 
-                        The Dylpickles
+                        <div class = "fill">
+                            The Dylpickles
+                        </div>
+                        <button mat-button class="editButt" id="editName" (click)="changeName()">
+                            <mat-icon>edit</mat-icon>
+                        </button>
                     </mat-card>
-                    <mat-card class="label">
+                    <label class="label">
                         EMAIL
-                    </mat-card>
-                    <mat-card id = "email" class="info">
+                    </label>
+                    <mat-card id = "email" class="info" id ="editEmail" (click)="changeEmail()">
                         <!--will need to fill out using the session--> 
-                        thedylpickles1@gmail.com
+                        <div class = "fill">
+                            thedylpickles1@gmail.com
+                        </div>
+                        <button mat-button class="editButt">
+                            <mat-icon>edit</mat-icon>
+                        </button>
                     </mat-card>
-                    <mat-card class="label">
+                    <label class="label">
                         ROLE
-                    </mat-card>
+                    </label>
                     <mat-card id = "role" class="info">
                         <!--will need to fill out using the session--> 
-                        Administrator
+                        <div class = "fill">
+                            Administrator
+                        </div>
                     </mat-card>
-                    <mat-card class="label">
+                    <label class="label">
                         PASSWORD
-                    </mat-card>
+                    </label>
                     <mat-card id = "password" class="info" type="password">
-                        <!--will need to fill out using the session--> 
-                        <!--change output to be dots rather-->
-                        somethingeasy#1
+                        <!--will need to fill out using the session-->
+                        <input type="password" value="somethingeasy#1" readonly style="border:none; font-size: 18px; padding: 16px;">
+                        <button mat-button class="editButt" (click)="changePassword()">
+                            <mat-icon>edit</mat-icon>
+                        </button>
                     </mat-card>
-                    <!--need to insert edit links for each of the above elements-->
-                    
+                                 
                     <!--button only appears for administrators-->
                     <div class="contains">
                         <div class="center">
-                            <button id="link">
+                            <button id="link" class="btn" (click)="sendLink()">
                                 Send out a registration link
                             </button>
                         </div>
+                        
                     </div>
+                    <div class="form-popupName" id="myFormName">
+                        <form class="form-container">
+                          <h3>CHANGE NAME</h3>
+                      
+                          <label for="name" class="label"style="width:100%;"><b>Update name to</b></label>
+                          <input type="text" placeholder="Enter new name" name="name" required>
+                      
+                          <label for="psw" class ="label"><b>Password</b></label>
+                          <input type="password" placeholder="Enter Password" name="psw" required>
+                      
+                          <button type="submit" class="btn">Update Name</button>
+                          <button type="button" class="btn" (click)="closeFormName()">Close</button>
+                        </form>
+                      </div>
+                      <div class="form-popupEmail" id="myFormEmail">
+                        <form class="form-container">
+                          <h3>CHANGE EMAIL</h3>
+                      
+                          <label for="email" class="label" style="width:100%;"><b>Update email to</b></label>
+                          <input type="text" placeholder="Enter new email" name="email" required>
+                      
+                          <label for="psw" class ="label"><b>Password</b></label>
+                          <input type="password" placeholder="Enter Password" name="psw" required>
+                      
+                          <button type="submit" class="btn">Update Email</button>
+                          <button type="button" class="btn" (click)="closeFormEmail()">Close</button>
+                        </form>
+                      </div>
+                      <div class="form-popupPassword" id="myFormPassword">
+                        <form class="form-container">
+                          <h3>CHANGE PASSWORD</h3>
+                      
+                          <label for="newPsw" class="label" style="width:100%;"><b>Update password to</b></label>
+                          <input type="text" placeholder="Enter new password" name="password" required>
+                          
+                          <label for="confirmPsw" class="label" style="width:100%;"><b>Confirm new password</b></label>
+                          <input type="text" placeholder="Confirm new password" name="password" required>
+                      
+                          <label for="psw" class ="label"><b>Password</b></label>
+                          <input type="password" placeholder="Enter Password" name="psw" required>
+                      
+                          <button type="submit" class="btn">Update Password</button>
+                          <button type="button" class="btn" (click)="closeFormPsw()">Close</button>
+                        </form>
+                      </div>
+
+                      <div class="form-popupRegister" id="myFormRegister">
+                        <form class="form-container">
+                          <h3>SEND OUT A REGISTRATION LINK</h3>
+                      
+                          <label for="email" class="label" style="width:100%;"><b>Send the link to</b></label>
+                          <input type="text" placeholder="Enter the email" name="email" required>
+                      
+                          <label for="psw" class ="label"><b>Password</b></label>
+                          <input type="password" placeholder="Enter Password" name="psw" required>
+                      
+                          <button type="submit" class="btn">Send Email</button>
+                          <button type="button" class="btn" (click)="closeFormRegister()">Close</button>
+                        </form>
+                      </div>
                 </div>
             </div>
         </div>
     </div>
+    
+      
 </body>
 
 </html>
