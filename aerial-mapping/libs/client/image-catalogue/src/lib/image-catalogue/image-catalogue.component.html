@@ -1,16 +1,59 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta name="component" content="Image Catalogue" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+  </head>
 
-<head>
-    <meta name="component" content="Image-Catalogue" />
-</head>
-
-<body>
-  <div class="background">
-    <div class="heading">Image Catalogue</div>
-    <aerial-mapping-side-navbar></aerial-mapping-side-navbar>
-  </div>
-
-</body>
-
+  <body>
+    <div class="background">
+      <div class="heading">Image Catalogue</div>
+      <aerial-mapping-side-navbar></aerial-mapping-side-navbar>
+      <div class="content">
+        <div>
+          <form class="form">
+            <!-- <div class="form"> -->
+            <mat-icon>search</mat-icon>
+            <input class="search" type="text" placeholder="Search" matInput />
+            <!-- </div> -->
+          </form>
+          <mat-form-field appearance="fill">
+            <label id="right" class="sort">Sort By</label>
+            <select id="left" class="sort" required style="display: inline">
+              <option value="date">Upload Date</option>
+              <option value="time">Upload Time</option>
+              <option value="park">Park</option>
+            </select>
+          </mat-form-field>
+        </div>
+        <div style="height: 85%; overflow-y: auto; margin-top: 2%">
+          <mat-card *ngFor="let cat of Catalogues" id="{{ cat.id }}">
+            <mat-card-header>
+              <span style="float: left">{{ cat.name }}</span>
+              <span style="float: right">{{ cat.date }}</span>
+            </mat-card-header>
+            <mat-card-footer style="padding: 5px 10px">
+              <button (click)="enlarge()">View</button>
+            </mat-card-footer>
+          </mat-card>
+          <mat-card class="popup" id="popup">
+            <img
+              class="image"
+              *ngFor="let img of Images"
+              src="{{ img.path }}"
+            />
+            <!-- <a routerLink="/map-collection" class="button">
+              <span class="icon"><mat-icon>add</mat-icon></span>
+              <span class="text" style="cursor: pointer;">Create New Map</span>
+            </a> -->
+            <button (click)="closePopup()">Close</button>
+            <button routerLink="/map-collection">Create New Map</button>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
