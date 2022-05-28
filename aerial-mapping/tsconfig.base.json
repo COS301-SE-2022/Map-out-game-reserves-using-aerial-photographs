@@ -22,6 +22,8 @@
       "@aerial-mapping/api/login/api/feature": ["libs/api/login/api/feature/src/index.ts"],
       "@aerial-mapping/api/login/api/shared/interfaces/data-access": ["libs/api/login/api/shared/interfaces/data-access/src/index.ts"],
       "@aerial-mapping/api/login/repository/data-access": ["libs/api/login/repository/data-access/src/index.ts"],
+      "@aerial-mapping/api/register/api/feature": ["libs/api/register/api/feature/src/index.ts"],
+      "@aerial-mapping/api/register/repository/data-access": ["libs/api/register/repository/data-access/src/index.ts"],
       "@aerial-mapping/api/s3-upload/api/feature": ["libs/api/s3-upload/api/feature/src/index.ts"],
       "@aerial-mapping/api/s3-upload/repository/data-access": ["libs/api/s3-upload/repository/data-access/src/index.ts"],
       "@aerial-mapping/api/shared/services/prisma/data-access": ["libs/api/shared/services/prisma/data-access/src/index.ts"],

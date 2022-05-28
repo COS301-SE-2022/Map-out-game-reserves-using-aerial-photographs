@@ -62,16 +62,16 @@ model Video_Collection {
   upload_date_time    DateTime              @default(now())
   Video_In_Collection Video_In_Collection[]
   completed           Boolean               @default(false)
-  
-  Message             Message[]
+
+  Message Message[]
 }
 
 model Message {
-  messageID           Int                   @id @default(autoincrement())
+  messageID           Int              @id @default(autoincrement())
   message_status      String
   message_description String
   collectionID        Int
-  Video_Collection    Video_Collection      @relation(fields: [collectionID], references: [collectionID])
+  Video_Collection    Video_Collection @relation(fields: [collectionID], references: [collectionID])
 }
 
 model Video_In_Collection {
@@ -79,9 +79,14 @@ model Video_In_Collection {
   videoID      Int
   video_order  Int
 
-  Video_Collection Video_Collection       @relation(fields: [collectionID], references: [collectionID])
-  Video            Video                  @relation(fields: [videoID], references: [videoID])
+  Video_Collection Video_Collection @relation(fields: [collectionID], references: [collectionID])
+  Video            Video            @relation(fields: [videoID], references: [videoID])
 
   @@id([collectionID, videoID])
   @@unique([collectionID, videoID, video_order])
+}
+
+model Pending_Invites {
+  inviteID Int    @id @default(autoincrement())
+  invite_email    String @unique
 }

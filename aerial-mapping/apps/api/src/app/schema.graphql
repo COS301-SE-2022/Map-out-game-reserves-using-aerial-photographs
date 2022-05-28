@@ -11,6 +11,7 @@ type Query {
 }
 
 type Mutation {
+  invite(email: String): String
   createUser(firstname: String, lastname: String, email: String, password: String, role: String, approved: Boolean): String!
   createVideoCollection(parkID: Int, datetime: DateTime): String!
   login(email: String, password: String): String
@@ -79,4 +80,9 @@ type Flight_details {
   flight_height: Float
   flight_type: String
   pilotID:Int
+}
+
+type Pending_Invites {
+  inviteID: Int!
+  email: String
 }
