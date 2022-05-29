@@ -1,6 +1,6 @@
 import { PrismaService } from '@aerial-mapping/api/shared/services/prisma/data-access';
 import { Test, TestingModule } from '@nestjs/testing';
-import { LoginRepository } from '@aerial-mapping/api/login/repository/data-access';
+import { AuthGuard, LoginRepository } from '@aerial-mapping/api/login/repository/data-access';
 import { LoginResolver } from './api-login-api.resolver';
 
 //Run 'nx test api-login-api-feature'
@@ -11,7 +11,7 @@ describe('LoginResolver', () => {
     const module: TestingModule =
      await Test.createTestingModule({
       imports: [],
-      providers: [PrismaService, LoginResolver, LoginRepository],
+      providers: [PrismaService, LoginResolver, LoginRepository, AuthGuard],
     }).compile();
 
     resolver = module.get<LoginResolver>(LoginResolver);

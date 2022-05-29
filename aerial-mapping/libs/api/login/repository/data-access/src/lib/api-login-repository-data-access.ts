@@ -8,6 +8,14 @@ import bcrypt = require('bcrypt');
 export class LoginRepository {
   constructor(private prisma: PrismaService) { }
 
+  public async getUserByEmail(email: string): Promise<User|null> {
+    return this.prisma.user.findFirst({
+      where: {
+        user_email: email
+      }
+    });
+  }
+
   public async getAllUsers(): Promise<User[]|null> {
     return this.prisma.user.findMany({
       select: {
@@ -41,5 +49,25 @@ export class LoginRepository {
       });
     }
     return { access_token: null };
+  }
+
+  public async verifyToken(token: string) {
+    try {
+      const decoded = await jwt.verify(token, 'secret-key');
+      if(decoded){
+        if(decoded.sub){
+          const user = await this.getUserByEmail(decoded.sub.toString());
+          if(user){
+            return true;
+          }
+          return false;
+        }
+      }
+      return false;
+    }
+    catch(_e) {
+      console.log("jwt expired");
+      return false;
+    }
   }
 }

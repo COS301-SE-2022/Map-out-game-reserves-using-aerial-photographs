@@ -7,13 +7,33 @@ import { AuthGuard } from '@aerial-mapping/api/login/repository/data-access';
 export class LoginResolver {
   constructor(
     @Inject(forwardRef(() => LoginRepository))
-    private readonly repo: LoginRepository
+    private readonly repo: LoginRepository,
+    private readonly authGuard: AuthGuard
   ) { }
 
   @Query('test')
   @UseGuards(new AuthGuard())
   test() {
     return "Test";
+  }
+
+  @Query('getUserByEmail')
+  getUserByEmail(email: string) {
+    return this.repo.getUserByEmail(email);
+  }
+
+  @Query('getAuthStatus')
+  getAuthStatus(
+    @Context() ctx?: any
+  ) {
+    const arr = ctx.headers.authorization.split(' ');
+    if(arr.length == 2){
+      console.log(arr[1]);
+
+      this.authGuard.validateToken(arr[1]);
+      return true;
+    }
+    return false;
   }
 
   @Mutation('login')

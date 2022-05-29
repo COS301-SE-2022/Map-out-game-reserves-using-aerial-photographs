@@ -1,5 +1,5 @@
 import { forwardRef, Inject } from '@nestjs/common';
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { RegisterRepository } from '@aerial-mapping/api/register/repository/data-access';
 
 @Resolver('Register')
@@ -16,8 +16,9 @@ export class RegisterResolver {
     return await this.repo.invite(email);
   }
 
-  @Mutation(() => String, { name: 'createUser', nullable: true })
-  async createUser(
+  //should have a role guard so that only admin roles can create new users
+  @Mutation(() => String, { name: 'registerUser', nullable: true })
+  async registerUser(
     @Args('firstname', { type: () => String }) firstname: string,
     @Args('lastname') lastname: string,
     @Args('email') email: string,
@@ -26,7 +27,11 @@ export class RegisterResolver {
     @Args('role') role: string,
     @Args('approved', { type: () => Boolean }) approved: boolean) {
 
-    return await this.repo.createUser(firstname, lastname, email, hashedPassword, role, approved);
+    if(await this.repo.removePendingInvite(email)) {
+      return await this.repo.createUser(firstname, lastname, email, hashedPassword, role, approved);
+    }  else {
+      return "Invite does not exist.";
+    }
   }
 
 }
