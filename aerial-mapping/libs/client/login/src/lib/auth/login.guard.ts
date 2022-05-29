@@ -1,7 +1,6 @@
 import { ClientApiService } from "@aerial-mapping/client/shared/services";
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from "@angular/router";
-import { Observable } from "rxjs";
 
 @Injectable()
 export class LoginGuard implements CanActivate {
@@ -12,10 +11,13 @@ export class LoginGuard implements CanActivate {
     canActivate(
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
-    ): Observable<boolean> {
-        const isAuthenticated = this.apiService.getAuthStatus();
+    ): boolean {
+        let isAuthenticated = false;
+        this.apiService.getAuthStatus().subscribe((resp) => {
+          isAuthenticated = resp
+        });
         if (!isAuthenticated) {
-            this.router.navigate(['/login']);
+          this.router.navigate(['login']);
         }
         return isAuthenticated;
     }

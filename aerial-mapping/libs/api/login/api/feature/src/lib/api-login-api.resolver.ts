@@ -26,12 +26,12 @@ export class LoginResolver {
   getAuthStatus(
     @Context() ctx?: any
   ) {
-    const arr = ctx.headers.authorization.split(' ');
-    if(arr.length == 2){
-      console.log(arr[1]);
-
-      this.authGuard.validateToken(arr[1]);
-      return true;
+    if(ctx.headers.authorization){
+      const arr = ctx.headers.authorization.split(' ');
+      if(arr.length == 2){
+        this.authGuard.validateToken(arr[1]);
+        return true;
+      }
     }
     return false;
   }
