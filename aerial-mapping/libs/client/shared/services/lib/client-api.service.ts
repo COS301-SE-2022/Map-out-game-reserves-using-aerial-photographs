@@ -53,6 +53,10 @@ export class ClientApiService {
     return this.runQuery('query { getMessages { message_status, message_description,collectionID }}',null);
   }
 
+  getAuthStatus(): Observable<boolean> {
+    return this.runQuery('query { getAuthStatus }', null);
+  }
+
   // MUTATIONS //
 
   createVideoCollection(parkID: number): Observable<any> {

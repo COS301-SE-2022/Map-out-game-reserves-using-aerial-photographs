@@ -5,6 +5,8 @@ import { LoginRoutingModule } from './login-routing.module';
 import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { LoginGuard } from './auth/login.guard';
+import { ClientApiService } from '@aerial-mapping/client/shared/services';
 
 @NgModule({
   imports: [
@@ -15,6 +17,8 @@ import { MatInputModule } from '@angular/material/input';
     MatInputModule
   ],
   declarations: [LoginComponent],
+  exports: [],
+  providers: [LoginGuard, ClientApiService]
 })
 export class ClientLoginModule {}
 
