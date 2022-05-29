@@ -17,7 +17,7 @@
           <form class="form">
             <!-- <div class="form"> -->
             <mat-icon>search</mat-icon>
-            <input class="search" type="text" placeholder="Search" matInput />
+            <input class="search" type="text" placeholder="Search" matInput/>
             <!-- </div> -->
           </form>
           <mat-form-field appearance="fill">
@@ -29,28 +29,45 @@
             </select>
           </mat-form-field>
         </div>
+
         <div style="height: 85%; overflow-y: auto; margin-top: 2%">
           <mat-card *ngFor="let cat of Catalogues" id="{{ cat.id }}">
             <mat-card-header>
               <span style="float: left">{{ cat.name }}</span>
               <span style="float: right">{{ cat.date }}</span>
             </mat-card-header>
-            <mat-card-footer style="padding: 5px 10px">
-              <button (click)="enlarge()">View</button>
+            <br/>
+            <mat-card-content>
+              <img *ngFor='let img of Images | slice:0:3' style="width: 32%; display: inline-block; padding: 1%;"
+                  src="{{ img.path }}"
+                />
+            </mat-card-content>
+            <mat-card-footer style="padding: 0px 10px">
+              <button class="link" (click)="enlarge()">View</button>
             </mat-card-footer>
           </mat-card>
-          <mat-card class="popup" id="popup">
-            <img
-              class="image"
-              *ngFor="let img of Images"
-              src="{{ img.path }}"
-            />
+
+          <mat-card class="popup" id="popup" style="overflow-y: none;">
+            <div class="images" style="overflow-y: auto;">
+              <mat-card class="imageContainer" *ngFor="let img of Images">
+                <mat-card-content><img
+                  class="image"
+                  src="{{ img.path }}"
+                /></mat-card-content>
+                <mat-card-footer class="imageFooter">{{ img.name }}</mat-card-footer>
+              </mat-card>
+            </div>
             <!-- <a routerLink="/map-collection" class="button">
               <span class="icon"><mat-icon>add</mat-icon></span>
               <span class="text" style="cursor: pointer;">Create New Map</span>
             </a> -->
-            <button (click)="closePopup()">Close</button>
-            <button routerLink="/map-collection">Create New Map</button>
+            <div class="center">
+              <button class="link" routerLink="/map-collection" style="width: 190px;">
+                Create New Map
+              </button>
+              <span style="margin: 10px;"></span>
+              <button class="link" (click)="closePopup()" style="width: 190px;">Close</button>
+            </div>
           </mat-card>
         </div>
       </div>
