@@ -18,7 +18,7 @@ export class LoginResolver {
   }
 
   @Query('getUserByEmail')
-  getUserByEmail(email: string) {
+  getUserByEmail(@Args('email') email: string) {
     return this.repo.getUserByEmail(email);
   }
 
@@ -26,12 +26,17 @@ export class LoginResolver {
   getAuthStatus(
     @Context() ctx?: any
   ) {
-    if(ctx.headers.authorization){
-      const arr = ctx.headers.authorization.split(' ');
-      if(arr.length == 2){
-        this.authGuard.validateToken(arr[1]);
-        return true;
-      }
+    if(ctx){
+      return this.authGuard.validateToken(ctx.headers.authorization).then((resp) => {
+        if(resp != 'Invalid token.') {
+          return true;
+        }
+        console.log(resp)
+        return false;
+      });
+    }
+    else {
+      console.log("context doesn't exist")
     }
     return false;
   }
@@ -46,8 +51,8 @@ export class LoginResolver {
       if(obj.access_token == null){
         return "Invalid credentials";
       }
-      ctx.res.cookie('jwt', obj.access_token);
-      return 'Logged in!';
+      ctx.res.cookie('jwt', obj.access_token, { maxAge: 3600*1000 });
+      return obj.access_token;
     });
   }
 

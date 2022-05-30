@@ -7,6 +7,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { LoginGuard } from './auth/login.guard';
 import { ClientApiService } from '@aerial-mapping/client/shared/services';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { ClientApiService } from '@aerial-mapping/client/shared/services';
     LoginRoutingModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    ReactiveFormsModule
   ],
   declarations: [LoginComponent],
   exports: [],

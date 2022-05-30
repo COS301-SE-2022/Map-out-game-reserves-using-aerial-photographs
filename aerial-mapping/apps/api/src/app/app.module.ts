@@ -17,11 +17,11 @@ import { LoginRepositoryModule } from '@aerial-mapping/api/login/repository/data
       driver: ApolloDriver,
       cors: {
         credentials: true,
-        origin: true
+        origin: 'http://localhost:4200'
       },
       playground: {
         settings: {
-          'request.credentials': 'include',
+          'request.credentials': 'same-origin',
         },
       }
     })
