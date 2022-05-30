@@ -22,7 +22,27 @@ export class ImageCatalogueComponent  {
     {id:7, name:'img_7', path:"https://material.angular.io/assets/img/examples/shiba2.jpg"},
     {id:8, name:'img_8', path:"https://material.angular.io/assets/img/examples/shiba2.jpg"},
     {id:9, name:'img_9', path:"https://material.angular.io/assets/img/examples/shiba2.jpg"},
-    {id:10, name:'img_10', path:"https://material.angular.io/assets/img/examples/shiba2.jpg"}
+    {id:10, name:'img_10', path:"https://material.angular.io/assets/img/examples/shiba2.jpg"},
+    {id:1, name:'img_1', path:"https://material.angular.io/assets/img/examples/shiba2.jpg"},
+    {id:2, name:'img_2', path:"https://material.angular.io/assets/img/examples/shiba2.jpg"},
+    {id:3, name:'img_3', path:"https://material.angular.io/assets/img/examples/shiba2.jpg"},
+    {id:4, name:'img_4', path:"https://material.angular.io/assets/img/examples/shiba2.jpg"},
+    {id:5, name:'img_5', path:"https://material.angular.io/assets/img/examples/shiba2.jpg"},
+    {id:6, name:'img_6', path:"https://material.angular.io/assets/img/examples/shiba2.jpg"},
+    {id:7, name:'img_7', path:"https://material.angular.io/assets/img/examples/shiba2.jpg"},
+    {id:8, name:'img_8', path:"https://material.angular.io/assets/img/examples/shiba2.jpg"},
+    {id:9, name:'img_9', path:"https://material.angular.io/assets/img/examples/shiba2.jpg"},
+    {id:10, name:'img_10', path:"https://material.angular.io/assets/img/examples/shiba2.jpg"},
+    {id:1, name:'img_1', path:"https://material.angular.io/assets/img/examples/shiba2.jpg"},
+    {id:2, name:'img_2', path:"https://material.angular.io/assets/img/examples/shiba2.jpg"},
+    {id:3, name:'img_3', path:"https://material.angular.io/assets/img/examples/shiba2.jpg"},
+    {id:4, name:'img_4', path:"https://material.angular.io/assets/img/examples/shiba2.jpg"},
+    {id:5, name:'img_5', path:"https://material.angular.io/assets/img/examples/shiba2.jpg"},
+    {id:6, name:'img_6', path:"https://material.angular.io/assets/img/examples/shiba2.jpg"},
+    {id:7, name:'img_7', path:"https://material.angular.io/assets/img/examples/shiba2.jpg"},
+    {id:8, name:'img_8', path:"https://material.angular.io/assets/img/examples/shiba2.jpg"},
+    {id:9, name:'img_9', path:"https://material.angular.io/assets/img/examples/shiba2.jpg"},
+    {id:10, name:'img_10', path:"https://material.angular.io/assets/img/examples/shiba2.jpg"} 
 
   ];
   constructor() {
