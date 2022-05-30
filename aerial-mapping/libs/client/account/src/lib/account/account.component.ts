@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'aerial-mapping-account',
@@ -6,7 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./account.component.scss'],
 })
 export class AccountComponent  {
-  constructor(){
+  constructor(private router: Router){
     //blank
   }
 
@@ -63,6 +64,26 @@ export class AccountComponent  {
     const link = document.getElementById('myFormRegister');
     if(link!=null) {
       link.style.display='none';
+    }
+  }
+
+  logout() {
+    this.deleteCookie('jwt');
+    this.router.navigate(['login']);
+  }
+
+  getCookie(name: string) {
+    return document.cookie.split(';').some(c => {
+      return c.trim().startsWith(name + '=');
+    });
+  }
+
+  deleteCookie(name: string, path?: string, domain?: string) {
+    if (this.getCookie(name)) {
+      document.cookie = name + "=" +
+        ((path) ? ";path=" + path : "") +
+        ((domain) ? ";domain=" + domain : "") +
+        ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
     }
   }
 }
