@@ -2,7 +2,7 @@
   <body>
     <div id="id01" class="modal">
       <!-- <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span> -->
-      <form class="modal-content" action="/action_page.php">
+      <form [formGroup]="registerForm" (ngSubmit)="onRegisterFormSubmit()" class="modal-content" action="/action_page.php">
         <div class="image" style="display: inline-block">
           <img
             src="assets/erpngo-header-full.jpg"
@@ -19,45 +19,68 @@
             <div style="display: inline-block; width: 49%">
               <label for="name">Name</label>
               <input
+                formControlName="firstname"
                 type="text"
                 placeholder="Enter Name"
                 name="name"
                 required
               />
+              <div *ngIf="this.isSubmitted && firstname!.errors?.['required']" class="text-danger">
+                <small>Please enter your firstname</small>
+              </div>
             </div>
             <div style="display: inline-block; width: 50%; margin-left: 1%">
               <label for="surname">Surname</label>
               <input
+                formControlName="lastname"
                 type="text"
                 placeholder="Enter Surname"
                 name="surname"
                 required
               />
+              <div *ngIf="this.isSubmitted && lastname!.errors?.['required']" class="text-danger">
+                <small>Please enter your surname</small>
+              </div>
             </div>
             <br />
             <label for="email">Email</label>
             <input
+              formControlName="email"
               type="text"
               placeholder="Enter Email"
               name="email"
               required
             />
+            <div *ngIf="this.isSubmitted && email!.errors?.['required']" class="text-danger">
+              <small>Please enter your email</small>
+            </div>
+            <div *ngIf="this.isSubmitted && email!.errors?.['email']" class="text-danger">
+              <small>Please enter a valid email address</small>
+            </div>
 
             <label for="psw">Password</label>
             <input
+              formControlName="password"
               type="password"
               placeholder="Enter Password"
               name="psw"
               required
             />
+            <div *ngIf="this.isSubmitted && password!.errors?.['required']" class="text-danger">
+              <small>Please enter your password</small>
+            </div>
 
             <label for="psw-repeat">Repeat Password</label>
             <input
+              formControlName="repeatedPassword"
               type="password"
               placeholder="Repeat Password"
               name="psw-repeat"
               required
             />
+            <div *ngIf="this.isSubmitted && repeatedPassword!.errors?.['required']" class="text-danger">
+              <small>Please confirm your password</small>
+            </div>
 
             <div class="clearfix center">
               <button type="submit" class="button signupbtn">Sign Up</button>

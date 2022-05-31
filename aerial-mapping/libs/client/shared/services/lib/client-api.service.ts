@@ -56,4 +56,18 @@ export class ClientApiService {
   invite(email: string): Observable<any> {
     return this.runQuery('mutation ($email: String){ invite(email: $email) }', { email: email });
   }
+
+  registerUser(fname: string, lname: string, email: string, pass: string, role: string, approved: boolean): Observable<any> {
+    const variables = {
+      firstname: fname,
+      lastname: lname,
+      email: email,
+      password: pass,
+      role: role,
+      approved: approved
+    }
+
+    return this.runQuery('mutation ($firstname: String, $lastname: String, $email: String, $password: String, $role: String, $approved: Boolean){ registerUser(firstname: $firstname, lastname: $lastname, email: $email, password: $password, role: $role, approved: $approved) }', variables);
+  }
+
 }

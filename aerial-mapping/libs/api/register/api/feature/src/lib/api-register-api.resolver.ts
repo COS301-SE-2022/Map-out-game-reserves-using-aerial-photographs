@@ -23,14 +23,13 @@ export class RegisterResolver {
     @Args('lastname') lastname: string,
     @Args('email') email: string,
     @Args('password') hashedPassword: string,
-    @Args('passwordSalt') passwordSalt: string,
     @Args('role') role: string,
     @Args('approved', { type: () => Boolean }) approved: boolean) {
 
     if(await this.repo.removePendingInvite(email)) {
       return await this.repo.createUser(firstname, lastname, email, hashedPassword, role, approved);
     }  else {
-      return "Invite does not exist.";
+      return "This email address has not been invited.";
     }
   }
 
