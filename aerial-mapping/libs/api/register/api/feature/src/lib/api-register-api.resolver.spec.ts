@@ -37,7 +37,7 @@ describe('RegisterResolver', () => {
       .spyOn(resolver, 'registerUser')
       .mockImplementation(() => Promise.resolve("Created user!"));
 
-      expect(await resolver.registerUser("Dylan", "Smith", "email@email.com", "sdazdf", "salt", "user", true)).toBe("Created user!")
+      expect(await resolver.registerUser("Dylan", "Smith", "email@email.com", "sdazdf", "user", true)).toBe("Created user!")
     })
   });
 
