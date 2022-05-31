@@ -106,7 +106,7 @@ mat-icon {
 mat-card {
   width: 30%;
   margin: 1%;
-  height: 40%;
+  height: auto;
   box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
     0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
   transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -119,6 +119,16 @@ mat-card {
   align-content: center;
 }
 
+mat-card-content {
+  margin: 0;
+  padding: 0;
+}
+
+mat-card-footer {
+  margin:0;
+  padding: 0;
+}
+
 mat-form-field {
   height: auto;
   margin: 0;
@@ -128,18 +138,18 @@ mat-form-field {
   width: 26%;
 }
 
-button {
-  background-color: $primary-background;
-  color: $primary-dark;
-  text-decoration: none;
-  border-radius: 10px;
-  height: 35px;
-  display: inline-flex;
-  align-items: center;
-  overflow: hidden;
-  width: auto;
-  padding: 0 20px;
-}
+// button {
+//   background-color: $primary-background;
+//   color: $primary-dark;
+//   text-decoration: none;
+//   border-radius: 10px;
+//   height: 35px;
+//   display: inline-flex;
+//   align-items: center;
+//   overflow: hidden;
+//   width: auto;
+//   padding: 0 20px;
+// }
 
 mat-card-header {
   display: flex;
@@ -147,28 +157,28 @@ mat-card-header {
   flex-wrap: nowrap;
 }
 
-.button {
-  position: fixed; /* Fixed/sticky position */
-  bottom: 20px; /* Place the button at the bottom of the page */
-  right: 50px; /* Place the button 30px from the right */
-  z-index: 99; /* Make sure it does not overlap */
-  background-color: $primary-background;
-  color: $primary-dark;
-  text-decoration: none;
-  border-radius: 60px;
-  height: 35px;
-  display: inline-flex;
-  align-items: center;
-  overflow: hidden;
-  width: auto;
-  max-width: 35px; /** I'm animating max-width because width needs to be auto, and auto can't be animated **/
-  -webkit-transition: max-width 0.5s;
-  transition: max-width 0.5s;
-}
+// .button {
+//   position: fixed; /* Fixed/sticky position */
+//   bottom: 20px; /* Place the button at the bottom of the page */
+//   right: 50px; /* Place the button 30px from the right */
+//   z-index: 99; /* Make sure it does not overlap */
+//   background-color: $primary-background;
+//   color: $primary-dark;
+//   text-decoration: none;
+//   border-radius: 60px;
+//   height: 35px;
+//   display: inline-flex;
+//   align-items: center;
+//   overflow: hidden;
+//   width: auto;
+//   max-width: 35px; /** I'm animating max-width because width needs to be auto, and auto can't be animated **/
+//   -webkit-transition: max-width 0.5s;
+//   transition: max-width 0.5s;
+// }
 
-.button:hover {
-  max-width: 300px;
-}
+// .button:hover {
+//   max-width: 300px;
+// }
 
 .icon {
   font-family: 'Font Awesome 5 Free';
@@ -196,8 +206,62 @@ mat-card-header {
   overflow-y: auto;
 }
 
+.imageContainer {
+  width: 17%;
+  margin: 1%;
+  height: auto;
+  display: inline-block;
+  position: relative;
+  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
+    0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 5px;
+  border-radius: 4px;
+  background: #fff;
+  color: rgba(0, 0, 0, 0.87);
+  align-content: center;
+}
+
+.imageFooter {
+  padding: 5px;
+  margin-bottom: 2px;
+  margin-left: 2px;
+}
+
 .image {
-  width: 10%;
+  width: 100%;
   display: inline-block;
   margin: 2%;
+}
+
+.link {
+  background-color: $primary-brown;
+  width: max-content;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-top: 10%;
+  cursor: pointer;
+}
+
+.link:hover{
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.center {
+  margin: 0;
+  width: 50%;
+  position: fixed;
+  top: 85%;
+  left: 65%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.images {
+  height:80%;
 }
