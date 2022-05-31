@@ -1,4 +1,7 @@
+import { ClientApiService } from '@aerial-mapping/client/shared/services';
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,8 +10,35 @@ import { Router } from '@angular/router';
   styleUrls: ['./account.component.scss'],
 })
 export class AccountComponent  {
-  constructor(private router: Router){
-    //blank
+  registerForm: FormGroup;
+
+  constructor(private router: Router, private apiService: ClientApiService, private snackBar: MatSnackBar){
+    this.registerForm = new FormGroup({
+      inviteEmail: new FormControl('', [Validators.required, Validators.email]),
+    });
+  }
+
+  onSubmitRegisterForm() {
+    const email = this.registerForm.controls['inviteEmail'].value;
+
+    //TODO:perform basic email validation first
+
+    //send invite to submitted email
+    this.apiService.invite(email).subscribe({
+      next: (res) => {
+        if(res.data.invite == "Created invite!") {
+          //replace with nice angular-notifier notification
+          alert(res.data.invite);
+          return;
+        }
+        alert(res.data.invite);
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+
+    //TODO: close register popup
   }
 
   changeName () {

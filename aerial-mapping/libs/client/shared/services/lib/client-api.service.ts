@@ -52,4 +52,8 @@ export class ClientApiService {
   login(email: string, password: string) {
     return this.runQuery('mutation ($email: String, $password: String){ login(email: $email, password: $password) }', { email: email, password: password });
   }
+
+  invite(email: string): Observable<any> {
+    return this.runQuery('mutation ($email: String){ invite(email: $email) }', { email: email });
+  }
 }

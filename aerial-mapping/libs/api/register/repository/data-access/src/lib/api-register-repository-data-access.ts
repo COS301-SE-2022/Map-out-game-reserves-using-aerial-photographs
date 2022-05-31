@@ -10,7 +10,7 @@ export class RegisterRepository {
   emailHtml: string;
 
   constructor(private prisma: PrismaService) {
-    this.url = 'http://localhost';
+    this.url = 'http://localhost:4200';
     this.ourEmail = 'thedylpickles1@gmail.com';
     this.emailHtml = `<!DOCTYPE html>
     <html lang="en" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml">
@@ -144,58 +144,56 @@ export class RegisterRepository {
   }
 
   public async invite(email: string) {
-    //if email is already a user or already invited, do not invite again
+    //if email is already a user do not invite
     const user = await this.prisma.user.findFirst({
       where: {
         user_email: email
       }
     });
 
-    if(!user) {
+    if(user == null) {
+      //check if invite exists
       const invite = await this.prisma.pending_Invites.findFirst({
         where: {
           invite_email: email
         }
       });
-      if(!invite){
-        //invite does not exist, send email to user and create invite
-        const mailTransporter = nodemailer.createTransport({
-          service: 'gmail',
-          auth: {
-            user: this.ourEmail,
-            pass: 'somethingeasy#1'
-          }
-        });
 
-        const mailDetails = {
-          from: this.ourEmail,
-          to: email,
-          subject: 'Aerial Mapper Registration Link',
-          html: this.emailHtml
-        };
-
-        let sent = false;
-        mailTransporter.sendMail(mailDetails, function (err) {
-          if (err) {
-            console.log('Email not sent. Error occurred.');
-            sent = true;
-          } else {
-            console.log('Email sent successfully');
-          }
-        });
-
-        //add invite to database
-        if (sent) {
-          await this.prisma.pending_Invites.create({
-            data: {
-              invite_email: email
-            }
-          });
-          return "Created invite!";
+      //send an invite email to the email address regardless of whether an invite already exists
+      const mailTransporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: this.ourEmail,
+          pass: 'somethingeasy#1'
         }
-        return "Email not sent. Error occurred.";
+      });
+
+      const mailDetails = {
+        from: this.ourEmail,
+        to: email,
+        subject: 'Aerial Mapper Registration Link',
+        html: this.emailHtml
+      };
+
+      mailTransporter.sendMail(mailDetails, function (err) {
+        if (err) {
+          console.log('Email not sent. Error occurred when sending email using nodemailer.');
+          console.log(err);
+
+        } else {
+          console.log('Email sent successfully');
+        }
+      });
+
+      if(invite == null){
+        //invite does not exist in db, create invite
+        await this.prisma.pending_Invites.create({
+          data: {
+            invite_email: email
+          }
+        });
       }
-      return "Email is already invited to register.";
+      return "Created invite!";
     }
     return "User is already registered.";
   }

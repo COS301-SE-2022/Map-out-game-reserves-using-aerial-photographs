@@ -118,14 +118,15 @@
                       </div>
 
                       <div class="form-popupRegister" id="myFormRegister">
-                        <form class="form-container">
+                        <form [formGroup]="registerForm" (ngSubmit)="onSubmitRegisterForm()" class="form-container">
                           <h3>SEND OUT A REGISTRATION LINK</h3>
 
                           <label for="email" class="label" style="width:100%;"><b>Send the link to</b></label>
-                          <input type="text" placeholder="Enter the email" name="email" required>
+                          <input formControlName="inviteEmail" type="text" placeholder="Enter the email" name="email" required>
 
+                          <!-- TODO: consider whether we need password field -->
                           <label for="psw" class ="label"><b>Password</b></label>
-                          <input type="password" placeholder="Enter Password" name="psw" required>
+                          <input type="password" placeholder="Enter Password" name="psw" >
 
                           <button type="submit" class="btn">Send Email</button>
                           <button type="button" class="btn" (click)="closeFormRegister()">Close</button>

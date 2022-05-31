@@ -6,6 +6,8 @@ import { AccountRoutingModule } from './account-routing.module';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -14,8 +16,10 @@ import {MatButtonModule} from '@angular/material/button';
     ComponentsNavbarModule,
     AccountRoutingModule,
     MatCardModule,
-    MatIconModule, 
-    MatButtonModule
+    MatIconModule,
+    MatButtonModule,
+    MatSnackBarModule,
+    ReactiveFormsModule
   ],
   declarations: [AccountComponent],
   exports: [AccountComponent]
