@@ -1,6 +1,5 @@
 import { ClientApiService } from '@aerial-mapping/client/shared/services';
 import { Component } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -12,7 +11,7 @@ import { Router } from '@angular/router';
 export class AccountComponent  {
   registerForm: FormGroup;
 
-  constructor(private router: Router, private apiService: ClientApiService, private snackBar: MatSnackBar){
+  constructor(private router: Router, private apiService: ClientApiService){
     this.registerForm = new FormGroup({
       inviteEmail: new FormControl('', [Validators.required, Validators.email]),
     });
