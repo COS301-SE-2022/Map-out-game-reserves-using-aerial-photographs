@@ -1,3 +1,4 @@
+import { LoginGuard } from '@aerial-mapping/client/login';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -13,6 +14,7 @@ const routes: Routes = [
       import('@aerial-mapping/client/dashboard').then(
         (x) => x.ClientDashboardModule
       ),
+    canActivate: [LoginGuard]
   },
   {
     path: 'login',
@@ -61,6 +63,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [],
+  providers: [LoginGuard],
 })
 export class AppRoutingModule {}

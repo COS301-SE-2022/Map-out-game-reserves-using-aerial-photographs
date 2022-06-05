@@ -6,24 +6,26 @@ import * as jwt from 'jsonwebtoken';
 export class AuthGuard implements CanActivate {
   async canActivate(context: ExecutionContext) {
     const ctx = GqlExecutionContext.create(context).getContext();
-    if(!ctx.headers.authorization) {
-      return false;
+    if(await this.validateToken(ctx.headers.authorization) != 'Invalid token.') {
+      return true;
     }
-    ctx.user = await this.validateToken(ctx.headers.authorization);
-    return true;
+    return false;
   }
 
-  async validateToken(auth: string) {
-    if(auth.split(' ')[0] !== 'Bearer') {
-      throw new HttpException('Invalid token.', HttpStatus.UNAUTHORIZED);
-    }
+  public async validateToken(auth: string) {
+    if(auth != undefined && auth != ''){
+      if(auth.split(' ')[0] !== 'Bearer') {
+        return "Invalid token.";
+      }
 
-    const token = auth.split(' ')[1];
-    try {
-      return jwt.verify(token, 'secret-key');
+      const token = auth.split(' ')[1];
+      try {
+        return jwt.verify(token, 'secret-key');
+      }
+      catch(err) {
+        return 'Invalid token.';
+      }
     }
-    catch(err) {
-      throw new HttpException('Invalid token.', HttpStatus.UNAUTHORIZED);
-    }
+    return 'Invalid token.';
   }
 }

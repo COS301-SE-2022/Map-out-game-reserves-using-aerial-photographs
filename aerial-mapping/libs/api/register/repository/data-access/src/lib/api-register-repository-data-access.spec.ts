@@ -19,22 +19,33 @@ describe('RegisterRepository', () => {
   });
 
   describe('@createUser', () => {
-    it('should return "Created User!"', async () => {
+    it('should return "Created user!"', async () => {
       jest
         .spyOn(repository, 'createUser')
-        .mockImplementation(() => Promise.resolve("Created User!"));
+        .mockImplementation(() => Promise.resolve("Created user!"));
 
-      expect(await repository.createUser("Dylan", "Smith", "email@email.com", "sdazdf", "user", true)).toBe("Created User!")
+      expect(await repository.createUser("Dylan", "Smith", "email@email.com", "sdazdf", "user", true)).toBe("Created user!")
     })
   });
 
   describe('@invite', () => {
-    it('should return "Created Invite!"', async () => {
+    it('should return "Created invite!"', async () => {
       jest
         .spyOn(repository, 'invite')
-        .mockImplementation(() => Promise.resolve("Created Invite!"));
+        .mockImplementation(() => Promise.resolve("Created invite!"));
 
-      expect(await repository.invite("example@email.com")).toBe("Created Invite!")
+      expect(await repository.invite("example@email.com")).toBe("Created invite!")
     })
   });
+
+  describe('@removePendingInvite', () => {
+    it('should return true', async () => {
+      jest
+        .spyOn(repository, 'removePendingInvite')
+        .mockImplementation(() => Promise.resolve(true));
+
+      expect(await repository.removePendingInvite("example@email.com")).toBe(true)
+    })
+  });
+
 });

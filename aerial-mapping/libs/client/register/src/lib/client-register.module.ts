@@ -8,6 +8,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDividerModule} from '@angular/material/divider';
+import { ClientApiService } from '@aerial-mapping/client/shared/services';
 
 @NgModule({
   imports: [
@@ -22,5 +23,6 @@ import {MatDividerModule} from '@angular/material/divider';
     MatDividerModule
   ],
   declarations: [RegisterComponent],
+  providers: [ClientApiService]
 })
 export class ClientRegisterModule {}

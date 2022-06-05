@@ -1,11 +1,12 @@
 import { async, TestBed } from '@angular/core/testing';
 import { ClientRegisterModule } from './client-register.module';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ClientApiService } from '@aerial-mapping/client/shared/services';
 
 describe('ClientRegisterModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, ClientRegisterModule],
+      imports: [RouterTestingModule, ClientRegisterModule]
     }).compileComponents();
   }));
 

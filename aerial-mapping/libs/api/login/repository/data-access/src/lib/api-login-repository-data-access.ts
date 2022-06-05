@@ -8,35 +8,12 @@ import bcrypt = require('bcrypt');
 export class LoginRepository {
   constructor(private prisma: PrismaService) { }
 
-  public async createUser(firstname: string, lastname: string, email: string, password: string, role: string, approved: boolean) {
-    let error: Error|null = null;
-
-    bcrypt.genSalt(10, (err, salt) => {
-      if(err){
-        error = err;
+  public async getUserByEmail(email: string): Promise<User|null> {
+    return this.prisma.user.findFirst({
+      where: {
+        user_email: email
       }
-      bcrypt.hash(password, salt, async(_rr, hash) => {
-        if(err){
-          error = err;
-        }
-        await this.prisma.user.create({
-          data: {
-            user_name: firstname,
-            user_surname: lastname,
-            user_email: email,
-            user_password: hash,
-            user_password_salt: salt,
-            user_role: role,
-            user_approved: approved
-          }
-        });
-      });
     });
-
-    if(error == null){
-      return "Created User!";
-    }
-    return error
   }
 
   public async getAllUsers(): Promise<User[]|null> {
@@ -54,21 +31,7 @@ export class LoginRepository {
     });
   }
 
-  public async validateUser(email: string, pass: string) {
-    const user = await this.prisma.user.findFirst({
-      where: {
-        user_email: email
-      }
-    });
-
-    if (user && user.user_password === pass) {
-      const { user_password, ...result } = user;
-      return result;
-    }
-    return null;
-  }
-
-  public async validate(email: string, pass: string) {
+  public async login(email: string, password: string) {
     const user = await this.prisma.user.findFirst({
       where: {
         user_email: email
@@ -76,21 +39,35 @@ export class LoginRepository {
     })
 
     if(user){
-      if(await bcrypt.compare(pass, user.user_password)){
-        return user;
-      }
+      return bcrypt.compare(password, user.user_password).then((res) => {
+        if(res){
+          return {
+            access_token: jwt.sign({ name: email, sub: email }, 'secret-key', { expiresIn: '3600s' })
+          }
+        }
+        return { access_token: null };
+      });
     }
-    return null;
+    return { access_token: null };
   }
 
-  public async login(email: string, password: string) {
-    if(await this.validate(email, password) != null) {
-      return {
-        access_token: jwt.sign({ name: email, sub: email }, 'secret-key', { expiresIn: '3600s' })
+  public async verifyToken(token: string) {
+    try {
+      const decoded = await jwt.verify(token, 'secret-key');
+      if(decoded){
+        if(decoded.sub){
+          const user = await this.getUserByEmail(decoded.sub.toString());
+          if(user){
+            return true;
+          }
+          return false;
+        }
       }
+      return false;
     }
-    return {
-      access_token: null
+    catch(_e) {
+      console.log("jwt expired");
+      return false;
     }
   }
 }

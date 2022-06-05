@@ -21,14 +21,25 @@ describe('RegisterResolver', () => {
     expect(resolver).toBeDefined();
   });
 
-  describe('@createUser', () => {
-    it('should return "Created User!"',async () => {
+  describe('@invite', () => {
+    it('should return "Created invite!"',async () => {
       jest
-      .spyOn(resolver, 'createUser')
-      .mockImplementation(() => Promise.resolve("Created User!"));
+      .spyOn(resolver, 'invite')
+      .mockImplementation(() => Promise.resolve("Created invite!"));
 
-      expect(await resolver.createUser("Dylan", "Smith", "email@email.com", "sdazdf", "4rr", "user", true)).toBe("Created User!")
+      expect(await resolver.invite("email@email.com")).toBe("Created invite!")
     })
   });
+
+  describe('@registerUser', () => {
+    it('should return "Created user!"',async () => {
+      jest
+      .spyOn(resolver, 'registerUser')
+      .mockImplementation(() => Promise.resolve("Created user!"));
+
+      expect(await resolver.registerUser("Dylan", "Smith", "email@email.com", "sdazdf", "user", true)).toBe("Created user!")
+    })
+  });
+
 });
 
