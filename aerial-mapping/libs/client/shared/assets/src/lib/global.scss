@@ -1,9 +1,14 @@
 //Colours
-$primary: #74685c;
-$primary-background: #f8f8f8;
-$primary-background-opaque: #f8f8f8e7;
+$primary: #757575;
+$primary-background: #ffffff;
+$primary-background-opaque: #ebebeb;
 $primary-dark: #12172a;
-$primary-brown: #8b745b;
+$primary-epi-dark: #001744;
+$primary-red: #ca1a20;
+$primary-suber-dark: #222222;
+$primary-epi-white: #ebebeb;
+$primary-grey: #e8e8e8;
+$primary-brown: #5f5f5f;
 //Body
 * {
     -moz-box-sizing: border-box;
@@ -19,4 +24,23 @@ body {
 body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+::-webkit-scrollbar {
+    width: 20px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #d6dee1;
+    border-radius: 20px;
+    border: 6px solid transparent;
+    background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #a8bbbf;
 }
