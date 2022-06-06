@@ -18,4 +18,24 @@ describe('S3UploadRepository', () => {
     expect(repository).toBeDefined();
   });
 
+  describe('@S3Upload', () => {
+    it('should return "Success!"', async () => {
+      jest
+        .spyOn(repository, 'S3Upload')
+        .mockImplementation(() => Promise.resolve('Success!'));
+
+      expect(await repository.S3Upload("dylpickles-image-bucket/test.jpg")).toBe("Success!")
+    })
+  });
+
+  describe('@S3Download', () => {
+    it('should return a path', async () => {
+      jest
+        .spyOn(repository, 'S3Upload')
+        .mockImplementation(() => Promise.resolve('dylpickles-image-bucket/test.jpg'));
+
+      expect(await repository.S3Upload("dylpickles-image-bucket/test.jpg")).toBe("dylpickles-image-bucket/test.jpg")
+    })
+  });
+
 });

@@ -2,7 +2,6 @@ import { Injectable } from "@nestjs/common";
 import { PrismaService } from "@aerial-mapping/api/shared/services/prisma/data-access";
 import dotenv=require('dotenv');
 import aws=require('aws-sdk');
-
 import { randomBytes } from 'crypto';
 
 dotenv.config();
@@ -47,7 +46,34 @@ generateUploadURL(){
     console.log(url);
   })
  */
-  public S3Upload() {
-    return "S3Upload Called Succesfully";
+  public async S3Upload(path: string) {
+    //add path to db
+    await this.prisma.images.create({
+      data: {
+        videoID: 1,
+        file_location: path,
+        imagescol: ""
+      }
+    })
+
+    return "Success!";
   }
+
+  public async S3Download(path: string) {
+    //add path to db
+    const image = await this.prisma.images.findFirst({
+      select: {
+        imageID: true,
+        videoID: true,
+        file_location: true,
+        imagescol: true
+      },
+      where: {
+        file_location: path
+      }
+    })
+
+    return image;
+  }
+
 }

@@ -10,6 +10,7 @@ type Query {
   getVideoCollections: [Video_Collection]
   getNumOfVidsPerDate: Int!
   getAuthStatus: Boolean!
+  S3Download(path: String): String
 }
 
 type Mutation {
