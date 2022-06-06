@@ -1,6 +1,6 @@
 import { forwardRef, Inject } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { User, Video_Collection, Game_Park, Message } from '@prisma/client';
+import { User, Image_Collection, Game_Park, Message } from '@prisma/client';
 import { DashboardRepository } from '@aerial-mapping/api/dashboard/repository/data-access';
 
 @Resolver('User')
@@ -19,9 +19,9 @@ export class DashboardResolver {
     return this.repo.getParks();
   }
 
-  @Query('getVideoCollections')
-  getVideoCollections(): Promise<Video_Collection[]|null> {
-    return this.repo.getVideoCollections();
+  @Query('getImageCollection')
+  getImageCollection(): Promise<Image_Collection[]|null> {
+    return this.repo.getImageCollection();
   }
 
   @Query('getMessages')
@@ -29,16 +29,17 @@ export class DashboardResolver {
     return this.repo.getMessages();
   }
 
-  @Query('getNumOfVidsPerDate')
-  getNumOfVidsPerDate(): Promise<number> {
-    return this.repo.getNumOfVidsPerDate();
-  }
+  // @Query('getNumOfVidsPerDate')
+  // getNumOfVidsPerDate(): Promise<number> {
+  //   return this.repo.getNumOfVidsPerDate();
+  // }
 
   // Mutations //
-  @Mutation('createVideoCollection')
-  async createVideoCollection(
+  @Mutation('createImage_Collection')
+  async createImage_Collection(
     @Args('parkID') parkID: number,
-    @Args('datetime') datetime: string) {
-    return await this.repo.createVideoCollection(parkID, datetime);
+    @Args('datetime') datetime: string,
+    @Args('flightID') flightID: number){
+    return await this.repo.createImageCollection(parkID, datetime, flightID);
   }
 }
