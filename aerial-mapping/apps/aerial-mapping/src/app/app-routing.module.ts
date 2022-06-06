@@ -14,7 +14,7 @@ const routes: Routes = [
       import('@aerial-mapping/client/dashboard').then(
         (x) => x.ClientDashboardModule
       ),
-    canActivate: [LoginGuard]
+    // canActivate: [LoginGuard]
   },
   {
     path: 'login',
