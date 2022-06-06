@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "@aerial-mapping/api/shared/services/prisma/data-access";
-import { Game_Park, User, Video_Collection, Message, Prisma } from "@prisma/client";
+import { Game_Park, User, Image_Collection, Message, Prisma } from "@prisma/client";
 
 @Injectable()
 export class DashboardRepository {
@@ -21,8 +21,8 @@ export class DashboardRepository {
     });
   }
 
-  public async getVideoCollections(): Promise<Video_Collection[]|null> {
-    return this.prisma.video_Collection.findMany({})
+  public async getImageCollection(): Promise<Image_Collection[]|null> {
+    return this.prisma.image_Collection.findMany({})
   }
 
   public async getParks(): Promise<Game_Park[]|null> {
@@ -36,21 +36,21 @@ export class DashboardRepository {
     })
   }
 
-  public async getNumOfVidsPerDate(): Promise<number> {
-    const arr = await this.prisma.video.findMany({
-      select: {
-        filmed_date_time: true
-      }
-    })
+  // public async getNumOfVidsPerDate(): Promise<number> {
+  //   const arr = await this.prisma.video.findMany({
+  //     select: {
+  //       filmed_date_time: true
+  //     }
+  //   })
 
-    return new Promise((resolve, reject) => {
-      let count = 0;
-      arr.forEach(element => {
-        count++
-      })
-      resolve(count);
-    })
-  }
+  //   return new Promise((resolve, reject) => {
+  //     let count = 0;
+  //     arr.forEach(element => {
+  //       count++
+  //     })
+  //     resolve(count);
+  //   })
+  // }
 
   public async getMessages(): Promise<Message[]|null> {
     return this.prisma.message.findMany({})
@@ -58,13 +58,14 @@ export class DashboardRepository {
 
   //public async login
 
-  public async createVideoCollection(parkID: number, dateTime: string) {
+  public async createVideoCollection(parkID: number, dateTime: string, flightID: number) {
     //validation
     try {
-      const x = await this.prisma.video_Collection.create({
+      const x = await this.prisma.image_Collection.create({
         data: {
           parkID: parkID,
-          upload_date_time: dateTime
+          upload_date_time: dateTime,
+          flightID: flightID
         }
       });
       return "Created Video Collection!";

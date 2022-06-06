@@ -2,7 +2,7 @@ import { PrismaService } from '@aerial-mapping/api/shared/services/prisma/data-a
 import { Test, TestingModule } from '@nestjs/testing';
 import { DashboardRepository } from '@aerial-mapping/api/dashboard/repository/data-access';
 import { DashboardResolver } from './api-dashboard-api.resolver';
-import { Game_Park, Message, User, Video_Collection } from '@prisma/client';
+import { Game_Park, Message, User, Image_Collection } from '@prisma/client';
 
 //Run 'yarn nx test api-dashboard'
 describe('DashboardResolver', () => {
@@ -47,7 +47,7 @@ describe('DashboardResolver', () => {
   });
 
   describe('@getVideoCollections', () => {
-    const collectionArr: Video_Collection[] =[
+    const collectionArr: Image_Collection[] =[
       {
         collectionID: expect.any(Number),
         parkID: expect.any(Number),
@@ -59,7 +59,7 @@ describe('DashboardResolver', () => {
     it('should return an array with all the video collections',async () => {
       jest
       .spyOn(resolver, 'getVideoCollections')
-      .mockImplementation((): Promise<Video_Collection[]> => Promise.resolve(collectionArr));
+      .mockImplementation((): Promise<Image_Collection[]> => Promise.resolve(collectionArr));
 
       expect(await resolver.getVideoCollections()).toEqual(
         expect.objectContaining(collectionArr)

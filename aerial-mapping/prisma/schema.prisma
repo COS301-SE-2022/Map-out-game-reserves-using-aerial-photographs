@@ -11,16 +11,16 @@ datasource db {
 }
 
 model User {
-  userID             Int              @id @unique @default(autoincrement())
-  user_email         String           @unique
+  userID             Int     @id @unique @default(autoincrement())
+  user_email         String  @unique
   user_password      String
   user_password_salt String
   user_name          String
   user_surname       String
-  user_role          String           @default("user")
-  user_approved      Boolean          @default(false)
-  
-  Flight_Details     Flight_Details[]
+  user_role          String  @default("user")
+  user_approved      Boolean @default(false)
+
+  Flight_Details Flight_Details[]
 }
 
 model Images {
@@ -31,11 +31,11 @@ model Images {
 }
 
 model Flight_Details {
-  flightID         Int                @id @unique @default(autoincrement())
-  flight_height    Float
-  flight_type      String             @db.VarChar(45)
-  pilotID          Int
-  pilot            User               @relation(fields: [pilotID], references: [userID])
+  flightID      Int    @id @unique @default(autoincrement())
+  flight_height Float
+  flight_type   String @db.VarChar(45)
+  pilotID       Int
+  pilot         User   @relation(fields: [pilotID], references: [userID])
 
   Image_Collection Image_Collection[]
 }
