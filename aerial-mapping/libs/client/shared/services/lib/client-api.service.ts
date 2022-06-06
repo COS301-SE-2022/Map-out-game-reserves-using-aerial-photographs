@@ -29,8 +29,8 @@ export class ClientApiService {
   }
 
 
-  getVideoCollections(): Observable<any> {
-    return this.runQuery('query { getVideoCollections { collectionID, parkID, completed }}',null, this.token);
+  getImageCollections(): Observable<any> {
+    return this.runQuery('query { getImageCollection { collectionID, parkID, completed, flightID }}',null, this.token);
   }
 
   getMessages(): Observable<any> {
@@ -43,10 +43,10 @@ export class ClientApiService {
 
   // MUTATIONS //
 
-  createVideoCollection(parkID: number): Observable<any> {
+  createImageCollection(parkID: number): Observable<any> {
     const now = new Date().toISOString();
 
-    return this.runQuery('mutation ($parkID: Int, $datetime: DateTime){ createVideoCollection(parkID: $parkID, datetime: $datetime) }', { parkID: parkID, datetime: now });
+    return this.runQuery('mutation ($parkID: Int, $datetime: DateTime){ createImageCollection(parkID: $parkID, datetime: $datetime, flightID: $flightID) }', { parkID: parkID, datetime: now });
   }
 
   login(email: string, password: string) {
