@@ -80,7 +80,7 @@ export class FileUploadComponent {
 
   submitBtnPressed() {
     if (this.file) {
-      // this.uploadToS3(this.file);
+      this.uploadToS3(this.file);
       this.imageSplitting(this.file);
     }
     this.submitPressed = true;
@@ -161,8 +161,6 @@ export class FileUploadComponent {
       video.currentTime = 10000000 * Math.random();
     }
     const duration = video.duration;
-    const fps = video.getVideoPlaybackQuality();
-    console.log(fps);
 
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
