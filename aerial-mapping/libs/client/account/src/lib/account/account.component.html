@@ -22,11 +22,11 @@
                     <label class="label">
                         NAME
                     </label>
-                    <mat-card id = "name" class="info">
+                    <mat-card id = "name" class="info" (click)="changeName()">
                         <div class = "fill">
                             The Dylpickles
                         </div>
-                        <button mat-button class="editButt" id="editName" (click)="changeName()">
+                        <button mat-button class="editButt" id="editName">
                             <mat-icon>edit</mat-icon>
                         </button>
                     </mat-card>
@@ -54,19 +54,23 @@
                     <label class="label">
                         PASSWORD
                     </label>
-                    <mat-card id = "password" class="info" type="password">
+                    <mat-card id = "password" class="info" type="password" (click)="changePassword()">
                         <!--will need to fill out using the session-->
                         <input type="password" value="somethingeasy#1" readonly style="border:none; font-size: 18px; padding: 16px;">
-                        <button mat-button class="editButt" (click)="changePassword()">
+                        <button mat-button class="editButt">
                             <mat-icon>edit</mat-icon>
                         </button>
                     </mat-card>
 
-                    <!--button only appears for administrators-->
                     <div class="contains">
                         <div class="center">
+                            <!--button only appears for administrators-->
                             <button id="link" class="btn" (click)="sendLink()">
                                 Send out a registration link
+                            </button>
+                            
+                            <button class = "btn" (click)="logout()">
+                                Logout
                             </button>
                         </div>
 
@@ -132,9 +136,6 @@
                           <button type="button" class="btn" (click)="closeFormRegister()">Close</button>
                         </form>
                       </div>
-
-                      <button (click)="logout()">LOGOUT</button>
-
                 </div>
             </div>
         </div>
