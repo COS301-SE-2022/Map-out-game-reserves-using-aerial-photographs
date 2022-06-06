@@ -41,6 +41,10 @@ export class ClientApiService {
     return this.runQuery('query { getAuthStatus }', null, token);
   }
 
+  getCatalogues(): Observable<any> {
+    return this.runQuery('query { getCatalogues { collectionID, parkID, upload_date_time, completed, flightID } }', null, null);
+  }
+
   // MUTATIONS //
 
   createVideoCollection(parkID: number): Observable<any> {

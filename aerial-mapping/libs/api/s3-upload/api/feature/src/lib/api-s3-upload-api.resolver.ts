@@ -14,8 +14,13 @@ export class S3UploadResolver {
   };
 
   @Mutation('S3Upload')
-  async S3Upload(path: string) {
-    return await this.repo.S3Upload(path);
+  async S3Upload(collectionId: number, path: string) {
+    return await this.repo.S3Upload(collectionId, path);
   };
+
+  @Query('getCatalogues')
+  async getCatalogues() {
+    return await this.repo.getCatalogues();
+  }
 
 }

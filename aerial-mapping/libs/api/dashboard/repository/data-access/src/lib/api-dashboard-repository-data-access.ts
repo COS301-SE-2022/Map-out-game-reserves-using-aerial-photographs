@@ -22,7 +22,15 @@ export class DashboardRepository {
   }
 
   public async getImageCollection(): Promise<Image_Collection[]|null> {
-    return this.prisma.image_Collection.findMany({})
+    return this.prisma.image_Collection.findMany({
+      select: {
+        collectionID: true,
+        parkID: true,
+        upload_date_time: true,
+        completed: true,
+        flightID: true
+      }
+    })
   }
 
   public async getParks(): Promise<Game_Park[]|null> {
