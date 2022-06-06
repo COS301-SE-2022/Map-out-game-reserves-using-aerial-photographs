@@ -16,9 +16,9 @@ import { ClientApiService } from '@aerial-mapping/client/shared/services';
   styleUrls: ['./dashboard-view.component.scss'],
 })
 export class DashboardViewComponent implements OnInit{
-  videoCollectionsData: Video_Collection[] = [];
-  completed: Video_Collection[] = [];
-  processing: Video_Collection[] = [];
+  ImageCollectionsData: Image_Collection[] = [];
+  completed: Image_Collection[] = [];
+  processing: Image_Collection[] = [];
 
   messagesData: Message[] = [];
   messages: Dashboard_Message[] = [];
@@ -85,19 +85,19 @@ export class DashboardViewComponent implements OnInit{
 
   ngOnInit(): void {
     //make API call to access status of resources for particular company
-    this.apiService.getVideoCollections().subscribe({
+    this.apiService.getImageCollections().subscribe({
       next: (_res) => {
-        this.videoCollectionsData = _res.data.getVideoCollections;
+        this.ImageCollectionsData = _res.data.getImageCollections;
 
         let completed_count = 0;
         let processing_count = 0;
-        for(let i = 0; i< this.videoCollectionsData.length;i++){
-          if(this.videoCollectionsData[i].completed){
-            this.completed[completed_count] = this.videoCollectionsData[i];
+        for(let i = 0; i< this.ImageCollectionsData.length;i++){
+          if(this.ImageCollectionsData[i].completed){
+            this.completed[completed_count] = this.ImageCollectionsData[i];
             completed_count++;
           }
           else{
-            this.processing[processing_count] = this.videoCollectionsData[i];
+            this.processing[processing_count] = this.ImageCollectionsData[i];
             processing_count++;
           }
         }
@@ -151,7 +151,7 @@ export class DashboardViewComponent implements OnInit{
   }
 }
 
-interface  Video_Collection {
+interface  Image_Collection {
   collectionID: number;
   parkID: number;
   // upload_date_time: DateTime

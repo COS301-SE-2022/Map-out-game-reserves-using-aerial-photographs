@@ -7,7 +7,7 @@ type Query {
   getParks: [Game_Park]
   pingAuthentication: String!
   getMessages: [Message]
-  getVideoCollections: [Video_Collection]
+  getImageCollection: [Image_Collection]
   getNumOfVidsPerDate: Int!
   getAuthStatus: Boolean!
   S3Download(path: String): String
@@ -16,7 +16,7 @@ type Query {
 type Mutation {
   invite(email: String): String
   registerUser(firstname: String, lastname: String, email: String, password: String, role: String, approved: Boolean): String!
-  createVideoCollection(parkID: Int, datetime: DateTime): String!
+  createImageCollection(parkID: Int, datetime: DateTime, flightID: Int): String!
   login(email: String, password: String): String
   logout: String
   S3Upload: String
@@ -40,23 +40,25 @@ type Game_Park {
   park_address: String
 }
 
-type Video {
-  videoID: Int!
-  flightID: Int
-  #video_title: String
-  #video_description: String
-  file_location: String
-  #video_thumbnail: String
-  duration: String
-  filmed_date_time: DateTime
-  #video_user: User
-}
+# type Video {
+#   videoID: Int!
+#   flightID: Int
+#   #video_title: String
+#   #video_description: String
+#   file_location: String
+#   #video_thumbnail: String
+#   duration: String
+#   filmed_date_time: DateTime
+#   #video_user: User
+# }
 
-type Video_Collection {
+
+type Image_Collection {
   collectionID: Int!
   parkID: Int
   upload_date_time: DateTime
   completed: Boolean
+  flightID: Int
 }
 
 type Message {
@@ -64,18 +66,18 @@ type Message {
   message_status: String
   message_description: String
   collectionID: Int
-  Video_Collection: Video_Collection
+  Image_Collection: Image_Collection
 }
 
-type Video_In_Collection {
-  collectionID: Int!
-  videoID: Int!
-  video_order: Int!
-}
+# type Video_In_Collection {
+#   collectionID: Int!
+#   videoID: Int!
+#   video_order: Int!
+# }
 
 type Images {
   imageID: Int!
-  videoID: Int
+  ImageID: Int
   file_location: String
 }
 

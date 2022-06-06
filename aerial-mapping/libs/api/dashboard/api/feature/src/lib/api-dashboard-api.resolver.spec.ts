@@ -123,18 +123,18 @@ describe('DashboardResolver', () => {
   describe('@createImageCollection', () => {
     it('should return "Created Image Collection!"',async () => {
       jest
-      .spyOn(resolver, 'createImage_Collection')
-      .mockImplementation((parkID: number, dateTime: string, flightID: number) => Promise.resolve("Created Image Collection!"));
+      .spyOn(resolver, 'createImageCollection')
+      .mockImplementation(() => Promise.resolve("Created Image Collection!"));
 
-      expect(await resolver.createImage_Collection(1, new Date().toISOString(),1)).toBe("Created Image Collection!")
+      expect(await resolver.createImageCollection(1, new Date().toISOString(),1)).toBe("Created Image Collection!")
     })
 
     it('should return "There is a foreign key constraint violation"',async () => {
       jest
-      .spyOn(resolver, 'createImage_Collection')
-      .mockImplementation((parkID: number, dateTime: string, flightID: number) => Promise.resolve("There is a foreign key constraint violation"));
+      .spyOn(resolver, 'createImageCollection')
+      .mockImplementation(() => Promise.resolve("There is a foreign key constraint violation"));
 
-      expect(await resolver.createImage_Collection(-1, "",-1)).toBe("There is a foreign key constraint violation")
+      expect(await resolver.createImageCollection(-1, "",-1)).toBe("There is a foreign key constraint violation")
     })
   });
 });
