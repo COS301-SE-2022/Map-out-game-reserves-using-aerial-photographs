@@ -35,8 +35,8 @@ export class DashboardResolver {
   // }
 
   // Mutations //
-  @Mutation('createImage_Collection')
-  async createImage_Collection(
+  @Mutation('createImageCollection')
+  async createImageCollection(
     @Args('parkID') parkID: number,
     @Args('datetime') datetime: string,
     @Args('flightID') flightID: number){
