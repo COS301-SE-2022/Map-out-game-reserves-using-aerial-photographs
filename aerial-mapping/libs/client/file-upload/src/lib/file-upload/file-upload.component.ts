@@ -115,46 +115,59 @@ export class FileUploadComponent {
     const img = new Image();
     img.crossOrigin = 'anonymous';
     img.src = URL.createObjectURL(file);
-    const frames = this.extractFramesFromVideo(img.src);
-    console.log(frames);
+    const frames = this.extractFramesFromVideo(img.src, 1.0, 1920, 1080);
+    frames.then((frames) => {
+      console.log(frames);
+      for (let i = 0; i < frames.length; i++) {
+        // console.log(URL.createObjectURL(frames[i]));
+        console.log(frames[i]);
+      }
+    });
   }
 
-  extractFramesFromVideo = async (videoUrl: string, fps = 25) => {
-      // fully download it first (no buffering):
-      const videoBlob = await fetch(videoUrl).then((r) => r.blob());
-      const videoObjectUrl = URL.createObjectURL(videoBlob);
-      const video = document.createElement('video');
+  extractFramesFromVideo = async (videoUrl: string, quality: number, width: number, height: number) => {
+    const video = document.createElement('video');
 
-      video.src = videoObjectUrl;
+    let seekResolve: any;
+    video.addEventListener('seeked', async function () {
+      if (seekResolve) seekResolve();
+    });
 
-      while (
-        (video.duration === Infinity || isNaN(video.duration)) &&
-        video.readyState < 2
-      ) {
-        await new Promise((r) => setTimeout(r, 1000));
-        video.currentTime = 10000000 * Math.random();
+    video.src = videoUrl;
+
+    while (
+      (video.duration === Infinity || isNaN(video.duration)) &&
+      video.readyState < 2
+    ) {
+      await new Promise((r) => setTimeout(r, 1000));
+      video.currentTime = 10000000 * Math.random();
+    }
+    const duration = video.duration;
+
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    const [w, h] = [video.videoWidth, video.videoHeight];
+    canvas.width = width;
+    canvas.height = height;
+
+    const frames = [];
+    //Every how many seconds?
+    const interval = 10;
+    let currentTime = 0;
+
+    while (currentTime < duration) {
+      video.currentTime = currentTime;
+      await new Promise((r) => (seekResolve = r));
+      if (context) {
+        context.drawImage(video, 0, 0, w, h, 0, 0, width, height);
+        const base64ImageData = canvas.toDataURL('image/png', quality);
+        // const imageBlob = await fetch(base64ImageData).then((r) => r.blob());
+        // frames.push(imageBlob);
+        console.log(base64ImageData);
+        frames.push(base64ImageData);
       }
-      const duration = video.duration;
-
-      const canvas = document.createElement('canvas');
-      const context = canvas.getContext('2d');
-      const [w, h] = [video.videoWidth, video.videoHeight];
-      canvas.width = w;
-      canvas.height = h;
-
-      const frames = [];
-      const interval = 50 / fps;
-      let currentTime = 0;
-
-      while (currentTime < duration) {
-        video.currentTime = currentTime;
-        if (context) {
-          context.drawImage(video, 0, 0, w, h);
-          const base64ImageData = canvas.toDataURL();
-          frames.push(base64ImageData);
-        }
-        currentTime += interval;
-      }
-      return frames;
+      currentTime += interval;
+    }
+    return frames;
   };
 }
