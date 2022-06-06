@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { interval, Subscription } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
@@ -18,6 +18,7 @@ export class FileUploadComponent {
   uploadSub: Subscription | undefined;
   file: File | undefined;
   formData = new FormData();
+  frames = [];
 
   constructor(private http: HttpClient) {
     /*     const imageForm = document.querySelector("#imageForm");
@@ -112,20 +113,37 @@ export class FileUploadComponent {
   }
 
   imageSplitting(file: File) {
+    //Load video
     const img = new Image();
     img.crossOrigin = 'anonymous';
     img.src = URL.createObjectURL(file);
-    const frames = this.extractFramesFromVideo(img.src, 1.0, 1920, 1080);
+
+    // extract frames (video, interval(time), quality(0-1), final width, final height)
+    const interval = 1.0;
+    const quality = 1.0;
+    const finalWidth = 1920;
+    const finalHeight = 1080;
+    const frames = this.extractFramesFromVideo(
+      img.src,
+      interval,
+      quality,
+      finalWidth,
+      finalHeight
+    );
+
+    //Do after frames are extracted
     frames.then((frames) => {
       console.log(frames);
-      for (let i = 0; i < frames.length; i++) {
-        // console.log(URL.createObjectURL(frames[i]));
-        console.log(frames[i]);
-      }
     });
   }
 
-  extractFramesFromVideo = async (videoUrl: string, quality: number, width: number, height: number) => {
+  extractFramesFromVideo = async (
+    videoUrl: string,
+    interval: number,
+    quality: number,
+    width: number,
+    height: number
+  ) => {
     const video = document.createElement('video');
 
     let seekResolve: any;
@@ -143,6 +161,8 @@ export class FileUploadComponent {
       video.currentTime = 10000000 * Math.random();
     }
     const duration = video.duration;
+    const fps = video.getVideoPlaybackQuality();
+    console.log(fps);
 
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
@@ -151,8 +171,6 @@ export class FileUploadComponent {
     canvas.height = height;
 
     const frames = [];
-    //Every how many seconds?
-    const interval = 10;
     let currentTime = 0;
 
     while (currentTime < duration) {
@@ -163,7 +181,6 @@ export class FileUploadComponent {
         const base64ImageData = canvas.toDataURL('image/png', quality);
         // const imageBlob = await fetch(base64ImageData).then((r) => r.blob());
         // frames.push(imageBlob);
-        console.log(base64ImageData);
         frames.push(base64ImageData);
       }
       currentTime += interval;
