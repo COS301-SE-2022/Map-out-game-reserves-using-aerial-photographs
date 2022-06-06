@@ -37,7 +37,7 @@ export class DashboardRepository {
   }
 
   // public async getNumOfVidsPerDate(): Promise<number> {
-  //   const arr = await this.prisma.video.findMany({
+  //   const arr = await this.prisma.Image.findMany({
   //     select: {
   //       filmed_date_time: true
   //     }
@@ -58,7 +58,7 @@ export class DashboardRepository {
 
   //public async login
 
-  public async createVideoCollection(parkID: number, dateTime: string, flightID: number) {
+  public async createImageCollection(parkID: number, dateTime: string, flightID: number) {
     //validation
     try {
       const x = await this.prisma.image_Collection.create({
@@ -68,7 +68,7 @@ export class DashboardRepository {
           flightID: flightID
         }
       });
-      return "Created Video Collection!";
+      return "Created Image Collection!";
     }
     catch(e) {
       if(e instanceof Prisma.PrismaClientKnownRequestError) {

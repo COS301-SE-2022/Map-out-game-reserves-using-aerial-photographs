@@ -46,22 +46,23 @@ describe('DashboardResolver', () => {
     })
   });
 
-  describe('@getVideoCollections', () => {
+  describe('@getImageCollections', () => {
     const collectionArr: Image_Collection[] =[
       {
         collectionID: expect.any(Number),
         parkID: expect.any(Number),
         completed: expect.any(Boolean),
-        upload_date_time: expect.any(String)
+        upload_date_time: expect.any(String),
+        flightID: expect.any(String)
       }
     ]
 
-    it('should return an array with all the video collections',async () => {
+    it('should return an array with all the Image collections',async () => {
       jest
-      .spyOn(resolver, 'getVideoCollections')
+      .spyOn(resolver, 'getImageCollection')
       .mockImplementation((): Promise<Image_Collection[]> => Promise.resolve(collectionArr));
 
-      expect(await resolver.getVideoCollections()).toEqual(
+      expect(await resolver.getImageCollection()).toEqual(
         expect.objectContaining(collectionArr)
       )
     })
@@ -87,17 +88,17 @@ describe('DashboardResolver', () => {
     })
   });
 
-  describe('@getNumOfVidsPerDate', () => {
-    it('should return the number of videos for a provided date',async () => {
-      jest
-        .spyOn(resolver, 'getNumOfVidsPerDate')
-        .mockImplementation((): Promise<number> => Promise.resolve(3));
+  // describe('@getNumOfVidsPerDate', () => {
+  //   it('should return the number of Images for a provided date',async () => {
+  //     jest
+  //       .spyOn(resolver, 'getNumOfVidsPerDate')
+  //       .mockImplementation((): Promise<number> => Promise.resolve(3));
 
-      expect(await resolver.getNumOfVidsPerDate()).toEqual(
-        expect.any(Number)
-      )
-    })
-  });
+  //     expect(await resolver.getNumOfVidsPerDate()).toEqual(
+  //       expect.any(Number)
+  //     )
+  //   })
+  // });
 
   describe('@getMessages', () => {
     const msgArr = [
@@ -119,22 +120,21 @@ describe('DashboardResolver', () => {
     })
   });
 
-  describe('@createVideoCollection', () => {
-    it('should return "Created Video Collection!"',async () => {
+  describe('@createImageCollection', () => {
+    it('should return "Created Image Collection!"',async () => {
       jest
-      .spyOn(resolver, 'createVideoCollection')
-      .mockImplementation((parkID: number, dateTime: string) => Promise.resolve("Created Video Collection!"));
+      .spyOn(resolver, 'createImage_Collection')
+      .mockImplementation((parkID: number, dateTime: string, flightID: number) => Promise.resolve("Created Image Collection!"));
 
-      expect(await resolver.createVideoCollection(1, new Date().toISOString())).toBe("Created Video Collection!")
+      expect(await resolver.createImage_Collection(1, new Date().toISOString(),1)).toBe("Created Image Collection!")
     })
 
     it('should return "There is a foreign key constraint violation"',async () => {
       jest
-      .spyOn(resolver, 'createVideoCollection')
-      .mockImplementation((parkID: number, dateTime: string) => Promise.resolve("There is a foreign key constraint violation"));
+      .spyOn(resolver, 'createImage_Collection')
+      .mockImplementation((parkID: number, dateTime: string, flightID: number) => Promise.resolve("There is a foreign key constraint violation"));
 
-      expect(await resolver.createVideoCollection(-1, "")).toBe("There is a foreign key constraint violation")
+      expect(await resolver.createImage_Collection(-1, "",-1)).toBe("There is a foreign key constraint violation")
     })
   });
-
 });
