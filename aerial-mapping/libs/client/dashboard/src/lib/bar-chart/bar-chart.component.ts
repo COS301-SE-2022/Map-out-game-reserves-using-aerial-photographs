@@ -1,41 +1,31 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { BarChart } from './bar-chart.model';
+import { ChartOptions, ChartData } from 'chart.js';
 
 @Component({
   selector: 'aerial-mapping-bar-chart',
   templateUrl: './bar-chart.component.html',
   styleUrls: ['./bar-chart.component.scss'],
 })
-export class BarChartComponent implements OnInit {
+export class BarChartComponent {
   @Input()
   List!: Array<BarChart>;
 
-  public Total = 0;
-  public largest = 0;
+  barChartData: ChartData<'bar'> = {
+    labels: ['week 1', 'week 2', 'week 3', 'week 4', 'week 5', 'week 6', 'week 7', 'week 8'],
+    datasets: [
+      { data: [33, 33, 33, 44, 55, 33, 22, 11] }
+    ]
+  };
 
-
-  // constructor() { }
-
-  ngOnInit(): void {
-    this.Chart();
-  }
-
-  Chart() {
-    if(this.List){
-      this.List.forEach((element) => {
-        this.Total += element.Value;
-        if (this.largest < element.Value){
-          this.largest = element.Value;
-        }
-      });
+  barChartOptions: ChartOptions = {
+    responsive: true,
+    plugins: {
+      title: {
+        display: true,
+        text: 'Stitched Map Count for The Last 8 Weeks',
+      }
     }
+  };
 
-    if(this.List)
-    {
-      this.List.forEach((element) => {
-        element.Size =
-          Math.round((element.Value * 100) / this.largest) + '%';
-      });
-    }
-  }
 }

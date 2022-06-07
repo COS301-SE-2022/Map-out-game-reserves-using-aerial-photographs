@@ -10,6 +10,7 @@ type Query {
   getImagesByCollectionId(id: Int): [Images]
   getNumOfVidsPerDate: Int!
   getAuthStatus: Boolean!
+  getImageCollections: [Image_Collection]
   getImage(bucket_name: Stringm, file_name: String): [Images]
   getCatalogues: [Image_Collection]
 }

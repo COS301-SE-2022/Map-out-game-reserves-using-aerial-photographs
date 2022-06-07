@@ -41,10 +41,21 @@ export class FileUploadComponent {
     this.submitPressed = false;
     console.log('File staged!');
     this.file = event.target.files[0];
+    this.fileName="";
 
-    if (this.file) {
-      this.fileName = this.file.name;
-      this.formData.append('thumbnail', this.file);
+    for (let index = 0; index < event.target.files.length; index++) {
+      this.file = event.target.files[index];
+      
+      if (this.file) {
+        //go through
+        if (index==event.target.files.length-1){
+          this.fileName += this.file.name;
+        } else {
+          this.fileName += this.file.name+", ";
+        }
+        this.formData.append('thumbnail', this.file);
+        
+      }
     }
     /*
         const upload$ = this.http.post("/api/thumbnail-upload", formData, {
