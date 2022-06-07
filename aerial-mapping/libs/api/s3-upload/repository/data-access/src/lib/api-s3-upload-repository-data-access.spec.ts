@@ -18,4 +18,24 @@ describe('S3UploadRepository', () => {
     expect(repository).toBeDefined();
   });
 
+  describe('@createImageCollection', () => {
+    it('should return "Created Image Collection!"',async () => {
+      jest
+      .spyOn(repository, 'createImageCollection')
+      .mockImplementation(() => Promise.resolve("Created Image Collection!"));
+
+      expect(await repository.createImageCollection(1, new Date().toISOString(),1)).toBe("Created Image Collection!")
+    })
+  });
+
+  describe('@createImageCollection', () => {
+    it('should return "Created Image Collection!"',async () => {
+      jest
+      .spyOn(repository, 'createImageCollection')
+      .mockImplementation(() => Promise.resolve("There is a foreign key constraint violation"));
+
+      expect(await repository.createImageCollection(-1, "",-1)).toBe("There is a foreign key constraint violation")
+    })
+  });
+
 });

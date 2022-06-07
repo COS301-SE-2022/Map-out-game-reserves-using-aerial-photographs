@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { PrismaService } from "@aerial-mapping/api/shared/services/prisma/data-access";
 import dotenv=require('dotenv');
 import aws=require('aws-sdk');
+import { Prisma } from "@prisma/client";
 
 import { randomBytes } from 'crypto';
 
@@ -49,5 +50,30 @@ generateUploadURL(){
  */
   public S3Upload() {
     return "S3Upload Called Succesfully";
+  }
+
+  public async createImageCollection(parkID: number, dateTime: string, flightID: number) {
+    //validation
+    try {
+      const x = await this.prisma.image_Collection.create({
+        data: {
+          parkID: parkID,
+          upload_date_time: dateTime,
+          flightID: flightID
+        }
+      });
+      return "Created Image Collection!";
+    }
+    catch(e) {
+      if(e instanceof Prisma.PrismaClientKnownRequestError) {
+        if(e.code === 'P2002') {
+          return "There is a unique constraint violation";
+        }
+        else if (e.code === 'P2003') {
+          return "There is a foreign key constraint violation";
+        }
+      }
+      return "Prisma error";
+    }
   }
 }
