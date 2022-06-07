@@ -1,0 +1,35 @@
+@import 'libs/client/shared/assets/src/lib/global';
+body,
+html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+.imageContainer {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: -1;
+}
+
+.image {
+    position: fixed;
+}
+
+.image:hover {
+    cursor: grab;
+}
+
+.image:active {
+    cursor: grabbing;
+}
+
+.other {
+    top: 0;
+    left: 0;
+    position: absolute;
+    z-index: 1;
+}

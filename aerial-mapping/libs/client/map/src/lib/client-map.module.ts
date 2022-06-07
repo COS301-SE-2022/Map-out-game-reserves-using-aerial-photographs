@@ -6,7 +6,7 @@ import { MapRoutingModule } from './map-routing.module';
 @NgModule({
   imports: [
     CommonModule,
-    MapRoutingModule
+    MapRoutingModule,
   ],
   declarations: [MapViewComponent],
 })

@@ -1,1 +1,21 @@
-<p>map-view works!</p>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="component" content="Map" />
+</head>
+
+<body>
+    <div class="imageContainer">
+        <img #map draggable="false" class="image" height="100%" src="https://wittlock.github.io/ngx-image-zoom/assets/fullres.jpg" [ngStyle]="
+        {transform: 'scale(' + scale / 100 + ')',
+        'transform-origin': left + 'px ' + top + 'px'
+        }" />
+    </div>
+    <div class="other">
+        HELLO
+    </div>
+
+</body>
+
+</html>
