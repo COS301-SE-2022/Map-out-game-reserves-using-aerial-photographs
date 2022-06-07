@@ -1,6 +1,5 @@
 import { forwardRef, Inject } from '@nestjs/common';
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { User, Video, Video_Collection} from '@prisma/client';
+import { Mutation, Resolver } from '@nestjs/graphql';
 import { S3UploadRepository } from "@aerial-mapping/api/s3-upload/repository/data-access";
 
 @Resolver('User')
