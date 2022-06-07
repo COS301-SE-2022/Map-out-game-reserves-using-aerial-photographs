@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { interval, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
@@ -19,6 +19,7 @@ export class FileUploadComponent {
   file: File | undefined;
   formData = new FormData();
   frames = [];
+  splittingProgress = 0;
 
   constructor(private http: HttpClient) {
     /*     const imageForm = document.querySelector("#imageForm");
@@ -181,8 +182,10 @@ export class FileUploadComponent {
         // frames.push(imageBlob);
         frames.push(base64ImageData);
       }
+      this.splittingProgress = Math.round((currentTime / duration) * 100);
       currentTime += interval;
     }
+    this.splittingProgress = 100;
     return frames;
   };
 }
