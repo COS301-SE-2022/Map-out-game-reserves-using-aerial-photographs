@@ -9,6 +9,11 @@
     "build": "nx build",
     "test": "nx test"
   },
+  "jest": {
+    "transformIgnorePatterns": [
+      "/!node_modules\\/lodash-es/"
+    ]
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "^13.0.0",

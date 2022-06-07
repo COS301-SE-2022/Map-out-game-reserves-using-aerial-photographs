@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faCamera as camera, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faCamera as camera } from '@fortawesome/free-solid-svg-icons';
 import { faExclamationTriangle as warning } from '@fortawesome/free-solid-svg-icons';
 import { faExclamationCircle as error } from '@fortawesome/free-solid-svg-icons';
 import { faCheck as good } from '@fortawesome/free-solid-svg-icons';
