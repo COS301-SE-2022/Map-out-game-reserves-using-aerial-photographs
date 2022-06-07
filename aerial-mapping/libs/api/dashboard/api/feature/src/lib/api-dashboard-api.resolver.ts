@@ -19,27 +19,19 @@ export class DashboardResolver {
     return this.repo.getParks();
   }
 
-  @Query('getImageCollection')
-  getImageCollection(): Promise<Image_Collection[]|null> {
-    return this.repo.getImageCollection();
-  }
-
   @Query('getMessages')
   getMessages(): Promise<Message[]|null> {
     return this.repo.getMessages();
   }
 
-  // @Query('getNumOfVidsPerDate')
-  // getNumOfVidsPerDate(): Promise<number> {
-  //   return this.repo.getNumOfVidsPerDate();
-  // }
-
   // Mutations //
   @Mutation('createImageCollection')
   async createImageCollection(
     @Args('parkID') parkID: number,
+    @Args('name') name: string,
     @Args('datetime') datetime: string,
+    @Args('completed') completed: boolean,
     @Args('flightID') flightID: number){
-    return await this.repo.createImageCollection(parkID, datetime, flightID);
+    return await this.repo.createImageCollection(parkID, name, datetime, completed, flightID);
   }
 }

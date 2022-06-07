@@ -7,10 +7,11 @@ type Query {
   getParks: [Game_Park]
   pingAuthentication: String!
   getMessages: [Message]
-  getImageCollection: [Image_Collection]
+  getImagesByCollectionId(id: Int): [Images]
   getNumOfVidsPerDate: Int!
   getAuthStatus: Boolean!
   S3Download(path: String): String
+  getCatalogues: [Image_Collection]
 }
 
 type Mutation {
@@ -77,7 +78,8 @@ type Message {
 
 type Images {
   imageID: Int!
-  ImageID: Int
+  collectionID: Int
+  name: String
   file_location: String
 }
 

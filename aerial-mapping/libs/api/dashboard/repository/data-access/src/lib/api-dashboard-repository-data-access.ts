@@ -26,6 +26,7 @@ export class DashboardRepository {
       select: {
         collectionID: true,
         parkID: true,
+        name: true,
         upload_date_time: true,
         completed: true,
         flightID: true
@@ -44,35 +45,18 @@ export class DashboardRepository {
     })
   }
 
-  // public async getNumOfVidsPerDate(): Promise<number> {
-  //   const arr = await this.prisma.Image.findMany({
-  //     select: {
-  //       filmed_date_time: true
-  //     }
-  //   })
-
-  //   return new Promise((resolve, reject) => {
-  //     let count = 0;
-  //     arr.forEach(element => {
-  //       count++
-  //     })
-  //     resolve(count);
-  //   })
-  // }
-
   public async getMessages(): Promise<Message[]|null> {
     return this.prisma.message.findMany({})
   }
 
-  //public async login
-
-  public async createImageCollection(parkID: number, dateTime: string, flightID: number) {
-    //validation
+  public async createImageCollection(parkID: number, name: string, dateTime: string, completed: boolean, flightID: number) {
     try {
-      const x = await this.prisma.image_Collection.create({
+      await this.prisma.image_Collection.create({
         data: {
           parkID: parkID,
+          name: name,
           upload_date_time: dateTime,
+          completed: completed,
           flightID: flightID
         }
       });

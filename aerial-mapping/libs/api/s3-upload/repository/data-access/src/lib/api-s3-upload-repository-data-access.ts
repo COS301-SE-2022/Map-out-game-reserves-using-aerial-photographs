@@ -38,10 +38,11 @@ export class S3UploadRepository {
     return uploadURL;
   }
 
-  public async S3Upload(collectionId: number, path: string) {
+  public async S3Upload(collectionId: number, name: string, path: string) {
     await this.prisma.images.create({
       data: {
         collectionID: collectionId,
+        name: name,
         file_location: path
       }
     })
@@ -54,6 +55,7 @@ export class S3UploadRepository {
       select: {
         imageID: true,
         collectionID: true,
+        name: true,
         file_location: true
       },
       where: {
@@ -63,13 +65,13 @@ export class S3UploadRepository {
   }
 
   public async getCatalogues() {
-    return this.prisma.image_Collection.findMany({
-      select: {
-        collectionID: true,
-        parkID: true,
-        upload_date_time: true,
-        completed: true,
-        flightID: true
+    return this.prisma.image_Collection.findMany({});
+  }
+
+  public async getImagesByCollectionId(id: number) {
+    return this.prisma.images.findMany({
+      where: {
+        collectionID: id
       }
     });
   }

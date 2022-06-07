@@ -33,6 +33,10 @@ export class ClientApiService {
     return this.runQuery('query { getImageCollection { collectionID, parkID, completed, flightID }}',null, this.token);
   }
 
+  getImagesByCollectionId(id: number): Observable<any> {
+    return this.runQuery('query ($collectionID: Int){ getImagesByCollectionId(id: $collectionID) { imageID, collectionID, name, file_location } }', { collectionID: id });
+  }
+
   getMessages(): Observable<any> {
     return this.runQuery('query { getMessages { message_status, message_description,collectionID }}',null, this.token);
   }
@@ -42,7 +46,7 @@ export class ClientApiService {
   }
 
   getCatalogues(): Observable<any> {
-    return this.runQuery('query { getCatalogues { collectionID, parkID, upload_date_time, completed, flightID } }', null, null);
+    return this.runQuery('query { getCatalogues { collectionID, parkID, upload_date_time, completed, flightID } }', null);
   }
 
   // MUTATIONS //
