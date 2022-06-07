@@ -1,7 +1,6 @@
 import { forwardRef, Inject } from '@nestjs/common';
 import { Mutation, Query, Resolver } from '@nestjs/graphql';
 import { S3UploadRepository } from "@aerial-mapping/api/s3-upload/repository/data-access";
-import { Image_Collection } from '@prisma/client';
 import { Args } from '@nestjs/graphql';
 
 @Resolver('s3-upload')
@@ -14,11 +13,6 @@ export class S3UploadResolver {
   async S3Download(path: string) {
     return await this.repo.S3Download(path);
   };
-
-  @Query('getCatalogues')
-  async getCatalogues(): Promise<Image_Collection[]|null>{
-    return await this.repo.getCatalogues();
-  }
 
   @Mutation('S3Upload')
   async S3Upload(collectionId: number, name: string, path: string) {
