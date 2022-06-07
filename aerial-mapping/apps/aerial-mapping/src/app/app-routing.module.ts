@@ -59,7 +59,7 @@ const routes: Routes = [
       )
   },
   {
-    path: 'dashboard',
+    path: 'map',
     loadChildren: () =>
       import('@aerial-mapping/client/map').then(
         (x) => x.ClientMapModule
