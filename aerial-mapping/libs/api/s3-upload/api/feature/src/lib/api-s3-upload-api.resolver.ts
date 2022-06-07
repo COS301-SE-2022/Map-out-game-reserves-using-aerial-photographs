@@ -10,9 +10,9 @@ export class S3UploadResolver {
   private readonly repo: S3UploadRepository
   ) { }
 
-  @Query('S3Download')
-  async S3Download(path: string) {
-    return await this.repo.S3Download(path);
+  @Query('getImage')
+  async getImage(bucket_name: string, file_name: string) {
+    return await this.repo.getImage(bucket_name,file_name);
   };
 
   @Query('getCatalogues')
@@ -20,10 +20,11 @@ export class S3UploadResolver {
     return await this.repo.getCatalogues();
   }
 
-  @Mutation('S3Upload')
+  @Mutation('createImage')
   async S3Upload(collectionId: number, name: string, path: string) {
-    return await this.repo.S3Upload(collectionId, name, path);
+    return await this.repo.createImage(collectionId, name, path);
   };
+
   @Mutation('createImageCollection')
   async createImageCollection(
     @Args('parkID') parkID: number,
