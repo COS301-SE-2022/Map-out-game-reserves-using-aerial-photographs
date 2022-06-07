@@ -7,6 +7,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatListModule } from '@angular/material/list';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BarChartModule } from './bar-chart/bar-chart.module';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { BarChartModule } from './bar-chart/bar-chart.module';
     MatListModule,
     HttpClientModule,
     BarChartModule,
-    DashboardViewModule
+    DashboardViewModule,
+    NgChartsModule
   ],
   declarations: [],
   providers: [ HttpClient ]

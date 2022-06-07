@@ -1,12 +1,8 @@
-<div class="chart">
-    <div class="content">
-        <div class="bars" *ngFor="let item of List">
-            <span>{{item.Value}}</span>
-            <div class="bar" [style.height]='item.Size'></div>
-        </div>
-    </div>
-    <div class="line"></div>
-    <div class="legends">
-        <span *ngFor="let item of List">{{item.Legend}}</span>
-    </div>
+<div class="chartContainer">
+  <canvas
+    baseChart
+    [data]="barChartData"
+    [type]="'bar'"
+    [options]="barChartOptions">
+  </canvas>
 </div>
