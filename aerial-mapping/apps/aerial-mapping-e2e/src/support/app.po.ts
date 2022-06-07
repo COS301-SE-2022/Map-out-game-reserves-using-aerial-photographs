@@ -1,1 +1,10 @@
-export const getGreeting = () => cy.get('h1');
+export const getLoginButton = () => cy.get('#loginBtn');
+export const getLogoutButton = () => cy.get('#logoutBtn');
+export const getLoginPasswordPrompt = () => cy.get('#loginPasswordPrompt');
+export const getLoginEmailPrompt = () => cy.get('#loginEmailPrompt');
+export const getLoginEmailInput = () => cy.get('#loginEmailInput');
+export const getLoginPasswordInput = () => cy.get('#loginPasswordInput');
+export const getNavAccount = () => cy.get('#navAccount');
+export const getNavMapCollections = () => cy.get('#navMapCollections');
+export const getNavImageCatalogue = () => cy.get('#navImageCatalogues');
+export const getNavFileUpload = () => cy.get('#navFileUpload');

@@ -14,6 +14,9 @@
       "/!node_modules\\/lodash-es/"
     ]
   },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "^13.0.0",
@@ -49,6 +52,7 @@
     "aws-sdk": "^2.1143.0",
     "bcrypt": "^5.0.1",
     "chart.js": "^3.8.0",
+    "cypress": "9.1.0",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "express-graphql": "^0.12.0",
@@ -93,7 +97,6 @@
     "@types/passport-local": "^1.0.34",
     "@typescript-eslint/eslint-plugin": "~5.18.0",
     "@typescript-eslint/parser": "~5.18.0",
-    "cypress": "^9.1.0",
     "eslint": "~8.12.0",
     "eslint-config-prettier": "8.1.0",
     "eslint-plugin-cypress": "^2.10.3",

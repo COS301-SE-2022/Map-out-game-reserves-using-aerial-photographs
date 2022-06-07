@@ -23,8 +23,8 @@
           <mat-form-field appearance="fill">
             <input matInput>
             <label id="right" class="sort">Sort By</label>
-            <select id="left" class="sort" required style="display: inline">
-              <option value="date">Upload Date</option>
+            <select onchange="onChangeSort(this)" id="left" class="sort" required style="display: inline">
+              <option value="date" selected>Upload Date</option>
               <option value="time">Upload Time</option>
               <option value="park">Park</option>
             </select>

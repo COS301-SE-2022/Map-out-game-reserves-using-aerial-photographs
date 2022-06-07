@@ -11,7 +11,7 @@ type Query {
   getNumOfVidsPerDate: Int!
   getAuthStatus: Boolean!
   getImageCollections: [Image_Collection]
-  getImage(bucket_name: Stringm, file_name: String): [Images]
+  getImage(bucket_name: String, file_name: String): [Images]
   getCatalogues: [Image_Collection]
 }
 
