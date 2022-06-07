@@ -1,7 +1,14 @@
 import { ComponentsNavbarModule } from '@aerial-mapping/client/shared/components/navbar';
+import { ClientApiService } from '@aerial-mapping/client/shared/services';
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ImageCatalogueComponent } from './image-catalogue.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ImageCatalogueComponent', () => {
   let component: ImageCatalogueComponent;
@@ -9,7 +16,8 @@ describe('ImageCatalogueComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ComponentsNavbarModule, RouterTestingModule],
+      imports: [BrowserAnimationsModule, ComponentsNavbarModule, RouterTestingModule, HttpClientModule, MatIconModule, MatFormFieldModule, MatCardModule, MatFormFieldModule, MatInputModule],
+      providers: [ClientApiService],
       declarations: [ImageCatalogueComponent],
     }).compileComponents();
   });
