@@ -6,6 +6,7 @@ import { ComponentsNavbarModule } from '@aerial-mapping/client/shared/components
 import { DashboardViewComponent } from './dashboard-view.component';
 import { BarChartModule } from '../bar-chart/bar-chart.module';
 import { MatListModule } from '@angular/material/list';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   imports: [
@@ -18,6 +19,6 @@ import { MatListModule } from '@angular/material/list';
     MatListModule
   ],
   declarations: [DashboardViewComponent],
-  providers: [HttpClient]
+  providers: [HttpClient, NgChartsModule]
 })
 export class DashboardViewModule {}

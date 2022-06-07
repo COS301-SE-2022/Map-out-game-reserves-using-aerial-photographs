@@ -30,7 +30,7 @@ export class ClientApiService {
 
 
   getImageCollections(): Observable<any> {
-    return this.runQuery('query { getImageCollection { collectionID, parkID, completed, flightID }}',null, this.token);
+    return this.runQuery('query { getImageCollection { collectionID, parkID, upload_date_time, completed, flightID }}',null, this.token);
   }
 
   getImagesByCollectionId(id: number): Observable<any> {
@@ -43,10 +43,6 @@ export class ClientApiService {
 
   getAuthStatus(token: string): Observable<any> {
     return this.runQuery('query { getAuthStatus }', null, token);
-  }
-
-  getCatalogues(): Observable<any> {
-    return this.runQuery('query { getCatalogues { collectionID, parkID, upload_date_time, completed, flightID } }', null);
   }
 
   // MUTATIONS //

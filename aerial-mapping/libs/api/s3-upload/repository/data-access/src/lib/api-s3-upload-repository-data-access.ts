@@ -67,10 +67,6 @@ export class S3UploadRepository {
     });
   }
 
-  public async getCatalogues() {
-    return this.prisma.image_Collection.findMany({});
-  }
-
   public async getImagesByCollectionId(id: number) {
     return this.prisma.images.findMany({
       where: {
