@@ -53,6 +53,7 @@
     "nodemailer": "^6.7.5",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
+    "primeng": "^13.4.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~7.4.0",
     "tslib": "^2.0.0",

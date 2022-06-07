@@ -26,9 +26,9 @@ model User {
 model Images {
   imageID          Int              @id @unique @default(autoincrement())
   collectionID     Int
-  name             String
   Image_Collection Image_Collection @relation(fields: [collectionID], references: [collectionID])
-  file_location    String           @db.VarChar(100)
+  bucket_name      String           @db.VarChar(100)
+  file_name        String           @db.VarChar(100)
 }
 
 model Flight_Details {

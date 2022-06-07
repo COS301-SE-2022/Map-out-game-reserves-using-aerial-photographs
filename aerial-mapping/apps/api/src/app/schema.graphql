@@ -10,7 +10,7 @@ type Query {
   getImagesByCollectionId(id: Int): [Images]
   getNumOfVidsPerDate: Int!
   getAuthStatus: Boolean!
-  S3Download(path: String): String
+  getImage(bucket_name: Stringm, file_name: String): [Images]
   getCatalogues: [Image_Collection]
 }
 
@@ -20,7 +20,7 @@ type Mutation {
   createImageCollection(parkID: Int, datetime: DateTime, flightID: Int): String!
   login(email: String, password: String): String
   logout: String
-  S3Upload: String
+  createImage(collectionID: Int ,bucket_name: String, file_name: String): String
 }
 
 type User {
@@ -80,7 +80,8 @@ type Images {
   imageID: Int!
   collectionID: Int
   name: String
-  file_location: String
+  bucket_name: String
+  file_name: String
 }
 
 type Flight_details {
