@@ -2,6 +2,11 @@ import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+interface Park {
+  value: string;
+  viewValue: string;
+}
+
 @Component({
   selector: 'aerial-mapping-file-upload',
   templateUrl: './file-upload.component.html',
@@ -20,6 +25,12 @@ export class FileUploadComponent {
   formData = new FormData();
   frames = [];
   splittingProgress = 0;
+
+  parks: Park[] = [
+    {value: 'Somkhanda-0', viewValue: 'Somkhanda'},
+    {value: 'RietVlei-1', viewValue: 'Riet Vlei'},
+  ];
+  
 
   constructor(private http: HttpClient) {
     /*     const imageForm = document.querySelector("#imageForm");
@@ -40,6 +51,7 @@ export class FileUploadComponent {
   onFileSelected(event: any) {
     this.submitPressed = false;
     console.log('File staged!');
+    console.log(this.parks[0].viewValue);
     this.file = event.target.files[0];
     this.fileName="";
 

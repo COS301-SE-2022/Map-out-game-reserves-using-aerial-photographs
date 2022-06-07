@@ -80,6 +80,7 @@
     justify-content: center;
     align-items: center;
     height: 60px;
+    border-radius: 0px;
 }
 
 .variable {
@@ -90,4 +91,16 @@
     margin: 10px;
     color: $primary;
     font-weight: bolder;
+}
+
+.parks{
+    width: 70%;
+    background: $primary-background-opaque;
+    border:none;
+    left: 0;
+    padding: 1rem;
+    margin: 0;
+    box-sizing: border-box;
+    border-radius: 5px;
+    overflow-y: auto;
 }
