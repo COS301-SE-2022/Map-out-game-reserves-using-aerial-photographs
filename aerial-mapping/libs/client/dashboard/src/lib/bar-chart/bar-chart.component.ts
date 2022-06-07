@@ -23,7 +23,7 @@ export class BarChartComponent {
     plugins: {
       title: {
         display: true,
-        text: 'Stitched Map Count for The Last 8 Weeks',
+        text: 'Stitched Map Count For The Last 8 Weeks',
       }
     }
   };

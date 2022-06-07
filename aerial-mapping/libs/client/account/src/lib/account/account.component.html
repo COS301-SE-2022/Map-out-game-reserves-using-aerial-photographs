@@ -28,7 +28,7 @@
                         </div>
                         <button mat-button class="editButt tooltip" id="editName">
                             <mat-icon>edit</mat-icon>
-                            <span class="tooltiptext" style="right: 0; left: auto;" >Test text</span>
+                            <span class="tooltiptext" style="right: 0; left: auto;" >Change name</span>
                         </button>
                     </mat-card>
                     <label class="label">
@@ -39,8 +39,9 @@
                         <div class = "fill">
                             thedylpickles1@gmail.com
                         </div>
-                        <button mat-button class="editButt">
+                        <button mat-button class="editButt tooltip">
                             <mat-icon>edit</mat-icon>
+                            <span class="tooltiptext" style="right: 0; left: auto;" >Change email</span>
                         </button>
                     </mat-card>
                     <label class="label">
@@ -58,17 +59,17 @@
                     <mat-card id = "password" class="info" type="password" (click)="changePassword()">
                         <!--will need to fill out using the session-->
                         <input type="password" value="somethingeasy#1" readonly style="border:none; font-size: 18px; padding: 16px;">
-                        <button mat-button class="editButt">
+                        <button mat-button class="editButt tooltip">
                             <mat-icon>edit</mat-icon>
+                            <span class="tooltiptext" style="right: 0; left: auto;" >Change password</span>
                         </button>
                     </mat-card>
 
                     <div class="contains">
                         <div class="center">
                             <!--button only appears for administrators-->
-                            <button id="link" class="btn tooltip" (click)="sendLink()">
+                            <button id="link" class="btn" (click)="sendLink()">
                                 Send out a registration link
-                                <span class="tooltiptext">Test text</span>
                             </button>
                             
                             <button class = "btn" (click)="logout()">
