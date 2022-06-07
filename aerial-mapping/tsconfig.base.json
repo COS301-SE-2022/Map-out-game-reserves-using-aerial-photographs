@@ -38,6 +38,7 @@
       "@aerial-mapping/client/shared/assets": ["libs/client/shared/assets/src/index.ts"],
       "@aerial-mapping/client/shared/components/footer": ["libs/client/shared/components/footer/src/index.ts"],
       "@aerial-mapping/client/shared/components/navbar": ["libs/client/shared/components/navbar/src/index.ts"],
+      "@aerial-mapping/client/shared/components/tooltip": ["libs/client/shared/components/tooltip/src/index.ts"],
       "@aerial-mapping/data": ["libs/data/src/index.ts"],
       "@aerial-mapping/client/shared/services":["libs/client/shared/services/index.ts"]
     }
