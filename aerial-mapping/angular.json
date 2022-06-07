@@ -25,7 +25,6 @@
     "client-register": "libs/client/register",
     "client-shared-assets": "libs/client/shared/assets",
     "client-shared-components-footer": "libs/client/shared/components/footer",
-    "client-shared-components-navbar": "libs/client/shared/components/navbar",
-    "client-shared-components-tooltip": "libs/client/shared/components/tooltip"
+    "client-shared-components-navbar": "libs/client/shared/components/navbar"
   }
 }
