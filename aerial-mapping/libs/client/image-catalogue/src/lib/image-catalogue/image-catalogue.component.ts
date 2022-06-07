@@ -51,7 +51,7 @@ export class ImageCatalogueComponent  {
   constructor(public apiService: ClientApiService) {
     this.selected = 'option1';
 
-    this.apiService.getCatalogues().subscribe({
+    this.apiService.getImageCollections().subscribe({
       next: (resp) => {
         this.catalogues = resp.data.getCatalogues;
 
