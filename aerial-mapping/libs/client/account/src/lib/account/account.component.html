@@ -26,8 +26,9 @@
                         <div class = "fill">
                             The Dylpickles
                         </div>
-                        <button mat-button class="editButt" id="editName">
+                        <button mat-button class="editButt tooltip" id="editName">
                             <mat-icon>edit</mat-icon>
+                            <span class="tooltiptext" style="right: 0; left: auto;" >Test text</span>
                         </button>
                     </mat-card>
                     <label class="label">
@@ -65,8 +66,9 @@
                     <div class="contains">
                         <div class="center">
                             <!--button only appears for administrators-->
-                            <button id="link" class="btn" (click)="sendLink()">
+                            <button id="link" class="btn tooltip" (click)="sendLink()">
                                 Send out a registration link
+                                <span class="tooltiptext">Test text</span>
                             </button>
                             
                             <button class = "btn" (click)="logout()">

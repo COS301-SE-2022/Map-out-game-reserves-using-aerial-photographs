@@ -1,3 +1,10 @@
+// @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+// @import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+// @use '@angular/material' as mat;
+
+// $my-palette: mat.$indigo-palette;
+
 //Colours
 $primary: #757575;
 $primary-background: #ffffff;
@@ -5,7 +12,7 @@ $primary-background-opaque: #ebebeb;
 $primary-dark: #12172a;
 $primary-epi-dark: #001744;
 $primary-red: #ca1a20;
-$primary-suber-dark: #222222;
+$primary-super-dark: #222222;
 $primary-epi-white: #ebebeb;
 $primary-grey: #e8e8e8;
 $primary-brown: #5f5f5f;
@@ -26,6 +33,7 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+//scrollbar
 ::-webkit-scrollbar {
     width: 20px;
 }
@@ -44,3 +52,38 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background-color: #a8bbbf;
 }
+
+//tooltip
+.tooltip {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    font-size: 14px;
+    width: 120px;
+    height: max-content;
+    background-color: $primary-super-dark;
+    color: #fff;
+    text-align: center;
+    border-radius: 3px;
+    padding: 5px 0;
+  
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: 105%;
+    //   bottom:25%;
+    left: 0;
+  //   right: 0%;
+    opacity: 0;
+    transition: opacity 1s;
+  }
+  
+  .tooltip:hover .tooltiptext {
+    transition-delay: 1s;
+    -moz-transition-delay: 1s;
+    visibility: visible;
+    opacity: 1;
+  }
