@@ -21,7 +21,7 @@ export class DashboardRepository {
     });
   }
 
-  public async getImageCollection(): Promise<Image_Collection[]|null> {
+  public async getImageCollections(): Promise<Image_Collection[]|null> {
     return this.prisma.image_Collection.findMany({
       select: {
         collectionID: true,

@@ -50,6 +50,7 @@ describe('DashboardResolver', () => {
     const collectionArr: Image_Collection[] =[
       {
         collectionID: expect.any(Number),
+        name: expect.any(String),
         parkID: expect.any(Number),
         completed: expect.any(Boolean),
         upload_date_time: expect.any(String),
@@ -59,10 +60,10 @@ describe('DashboardResolver', () => {
 
     it('should return an array with all the Image collections',async () => {
       jest
-      .spyOn(resolver, 'getImageCollection')
+      .spyOn(resolver, 'getImageCollections')
       .mockImplementation((): Promise<Image_Collection[]> => Promise.resolve(collectionArr));
 
-      expect(await resolver.getImageCollection()).toEqual(
+      expect(await resolver.getImageCollections()).toEqual(
         expect.objectContaining(collectionArr)
       )
     })
@@ -88,18 +89,6 @@ describe('DashboardResolver', () => {
     })
   });
 
-  // describe('@getNumOfVidsPerDate', () => {
-  //   it('should return the number of Images for a provided date',async () => {
-  //     jest
-  //       .spyOn(resolver, 'getNumOfVidsPerDate')
-  //       .mockImplementation((): Promise<number> => Promise.resolve(3));
-
-  //     expect(await resolver.getNumOfVidsPerDate()).toEqual(
-  //       expect.any(Number)
-  //     )
-  //   })
-  // });
-
   describe('@getMessages', () => {
     const msgArr = [
       {
@@ -120,5 +109,5 @@ describe('DashboardResolver', () => {
     })
   });
 
-  
+
 });

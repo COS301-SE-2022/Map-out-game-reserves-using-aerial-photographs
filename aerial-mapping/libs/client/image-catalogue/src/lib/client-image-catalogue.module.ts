@@ -12,6 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { ClientApiService } from '@aerial-mapping/client/shared/services';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { ClientApiService } from '@aerial-mapping/client/shared/services';
     MatFormFieldModule,
     MatOptionModule,
     MatSelectModule,
-    ComponentsNavbarModule
+    ComponentsNavbarModule,
+    HttpClientModule
   ],
   declarations: [ImageCatalogueComponent],
   providers: [ClientApiService],

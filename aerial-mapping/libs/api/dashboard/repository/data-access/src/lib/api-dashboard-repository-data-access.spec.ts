@@ -47,6 +47,7 @@ describe('DashboardRepository', () => {
       const collectionArr: Image_Collection[] =[
         {
           collectionID: expect.any(Number),
+          name: expect.any(String),
           parkID: expect.any(Number),
           completed: expect.any(Boolean),
           upload_date_time: expect.any(String),
@@ -56,10 +57,10 @@ describe('DashboardRepository', () => {
 
       it('should return an array with all the Image collections',async () => {
         jest
-        .spyOn(repository, 'getImageCollection')
+        .spyOn(repository, 'getImageCollections')
         .mockImplementation((): Promise<Image_Collection[]> => Promise.resolve(collectionArr));
 
-        expect(await repository.getImageCollection()).toEqual(
+        expect(await repository.getImageCollections()).toEqual(
           expect.objectContaining(collectionArr)
         )
       })

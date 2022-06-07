@@ -19,6 +19,11 @@ export class DashboardResolver {
     return this.repo.getParks();
   }
 
+  @Query('getImageCollections')
+  getImageCollections(): Promise<Image_Collection[]|null> {
+    return this.repo.getImageCollections();
+  }
+
   @Query('getMessages')
   getMessages(): Promise<Message[]|null> {
     return this.repo.getMessages();
