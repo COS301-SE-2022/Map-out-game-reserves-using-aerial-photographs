@@ -25,6 +25,15 @@
                         <h4 class="variable">File Uploaded Successfully</h4>
                     </div>
                     <h4 class="variable">{{ fileName || 'No file uploaded yet.' }}</h4>
+                    <div id="metadata" class="tooltip" style="width: 100%; margin-bottom:5%">
+                      <select ng-model="selectedPark" class = "parks tooltip">
+                        <option *ngFor="let park of parks" [value]="park.value">
+                          {{park.viewValue}}
+                        </option>
+                      </select>
+                      <span class="tooltiptext" style="left:15%">Select park</span>
+                    </div>
+                    <br/>
                     <button class="clearbtn" mat-flat-button (click)="clearSelection()">
                         <h3 class="uploadHeading">Clear Selection</h3>
                     </button>
@@ -36,6 +45,7 @@
                         <br>
                     </div>
                 </div>
+                
                 <div class="progress">
                     <mat-progress-bar class="progress-bar" mode="determinate" [value]="uploadProgress" *ngIf="uploadProgress"></mat-progress-bar>
                     <div class="videoSplitting" *ngIf="splittingProgress">

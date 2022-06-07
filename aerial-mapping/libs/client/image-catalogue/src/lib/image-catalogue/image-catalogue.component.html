@@ -46,7 +46,9 @@
               /> -->
             </mat-card-content>
             <mat-card-footer style="padding: 0px 10px">
-              <button class="link" (click)="enlarge()">View</button>
+              <button class="link tooltip" (click)="enlarge()">View
+                <span class="tooltiptext">View images & create maps</span>
+              </button>
             </mat-card-footer>
           </mat-card>
 
@@ -67,11 +69,12 @@
             </a> -->
             <div class="center">
               <button
-                class="link"
+                class="link tooltip"
                 routerLink="/map-collection"
                 style="width: 190px"
               >
                 Create New Map
+                <span class="tooltiptext">Start image stitching</span>
               </button>
               <span style="margin: 10px"></span>
               <button class="link" (click)="closePopup()" style="width: 190px">

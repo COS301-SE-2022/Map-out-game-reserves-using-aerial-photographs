@@ -1,13 +1,13 @@
 {
   "projectType": "library",
-  "sourceRoot": "libs/client/shared/components/tooltip/src",
+  "sourceRoot": "libs/client/map/src",
   "prefix": "aerial-mapping",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/client/shared/components/tooltip"],
+      "outputs": ["coverage/libs/client/map"],
       "options": {
-        "jestConfig": "libs/client/shared/components/tooltip/jest.config.ts",
+        "jestConfig": "libs/client/map/jest.config.ts",
         "passWithNoTests": true
       }
     },
@@ -15,8 +15,8 @@
       "executor": "@nrwl/linter:eslint",
       "options": {
         "lintFilePatterns": [
-          "libs/client/shared/components/tooltip/**/*.ts",
-          "libs/client/shared/components/tooltip/**/*.html"
+          "libs/client/map/**/*.ts",
+          "libs/client/map/**/*.html"
         ]
       }
     }

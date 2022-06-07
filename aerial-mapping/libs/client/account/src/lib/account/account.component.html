@@ -26,8 +26,9 @@
                         <div class = "fill">
                             The Dylpickles
                         </div>
-                        <button mat-button class="editButt" id="editName">
+                        <button mat-button class="editButt tooltip" id="editName">
                             <mat-icon>edit</mat-icon>
+                            <span class="tooltiptext" style="right: 0; left: auto;" >Change name</span>
                         </button>
                     </mat-card>
                     <label class="label">
@@ -38,8 +39,9 @@
                         <div class = "fill">
                             thedylpickles1@gmail.com
                         </div>
-                        <button mat-button class="editButt">
+                        <button mat-button class="editButt tooltip">
                             <mat-icon>edit</mat-icon>
+                            <span class="tooltiptext" style="right: 0; left: auto;" >Change email</span>
                         </button>
                     </mat-card>
                     <label class="label">
@@ -57,8 +59,9 @@
                     <mat-card id = "password" class="info" type="password" (click)="changePassword()">
                         <!--will need to fill out using the session-->
                         <input type="password" value="somethingeasy#1" readonly style="border:none; font-size: 18px; padding: 16px;">
-                        <button mat-button class="editButt">
+                        <button mat-button class="editButt tooltip">
                             <mat-icon>edit</mat-icon>
+                            <span class="tooltiptext" style="right: 0; left: auto;" >Change password</span>
                         </button>
                     </mat-card>
 

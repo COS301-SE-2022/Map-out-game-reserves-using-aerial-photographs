@@ -1,6 +1,7 @@
-module.exports = {
-  displayName: 'client-shared-components-tooltip',
-  preset: '../../../../../jest.preset.ts',
+/* eslint-disable */
+export default {
+  displayName: 'client-map',
+  preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
@@ -8,8 +9,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory:
-    '../../../../../coverage/libs/client/shared/components/tooltip',
+  coverageDirectory: '../../../coverage/libs/client/map',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },
