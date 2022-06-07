@@ -40,28 +40,29 @@ export class S3UploadRepository {
     return uploadURL;
   }
 
-  public async S3Upload(collectionId: number, name: string, path: string) {
+  public async createImage(collectionId: number, bucket_name: string, file_name: string) {
     await this.prisma.images.create({
       data: {
         collectionID: collectionId,
-        name: name,
-        file_location: path
+        bucket_name: bucket_name,
+        file_name: file_name
       }
     })
 
     return "Success!";
   }
 
-  public async S3Download(path: string) {
+  public async getImage(bucket_name: string, file_name: string) {
     return this.prisma.images.findFirst({
       select: {
         imageID: true,
         collectionID: true,
-        name: true,
-        file_location: true
+        bucket_name: true,
+        file_name: true
       },
       where: {
-        file_location: path
+        bucket_name: bucket_name,
+        file_name: file_name
       }
     });
   }

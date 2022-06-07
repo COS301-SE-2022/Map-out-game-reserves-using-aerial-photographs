@@ -18,23 +18,29 @@ describe('S3UploadRepository', () => {
     expect(repository).toBeDefined();
   });
 
-  describe('@S3Upload', () => {
+  describe('@createImage', () => {
     it('should return "Success!"', async () => {
       jest
-        .spyOn(repository, 'S3Upload')
+        .spyOn(repository, 'createImage')
         .mockImplementation(() => Promise.resolve('Success!'));
 
-      expect(await repository.S3Upload(1, "ImageName", "dylpickles-image-bucket/test.jpg")).toBe("Success!")
+      expect(await repository.createImage(1, "dylpickles-image-bucket", "test.jpg")).toBe("Success!")
     })
   });
 
-  describe('@S3Download', () => {
+  describe('@getImage', () => {
+    const IMAGE = {
+      imageID:expect.any(Number),
+      collectionID:expect.any(Number),
+      bucket_name:expect.any(String),
+      file_name:expect.any(String)
+    };
     it('should return a path', async () => {
       jest
-        .spyOn(repository, 'S3Upload')
-        .mockImplementation(() => Promise.resolve('dylpickles-image-bucket/test.jpg'));
+        .spyOn(repository, 'getImage')
+        .mockImplementation(() => Promise.resolve(IMAGE));
 
-      expect(await repository.S3Upload(1, "ImageName", "dylpickles-image-bucket/test.jpg")).toBe("dylpickles-image-bucket/test.jpg")
+      expect(await repository.getImage("dylpickles-image-bucket", "test.jpg")).toEqual(expect.objectContaining(IMAGE))
     });
   });
 
