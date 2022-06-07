@@ -9054,6 +9054,13 @@ pretty-format@^27.0.0, pretty-format@^27.5.1:
     ansi-styles "^5.0.0"
     react-is "^17.0.1"
 
+primeng@^13.4.1:
+  version "13.4.1"
+  resolved "https://registry.yarnpkg.com/primeng/-/primeng-13.4.1.tgz#a5bdaf3373ac100462c8911601ae3e97c76652c7"
+  integrity sha512-Dp72Yt7ORwoVYXr5r4oNTacQHUyLAdTuvXXNg9ZNjjxCdIfYZsVjTFBHBVzgEo9BpPy+/5twYy1JP/eXXDNPHg==
+  dependencies:
+    tslib "^2.3.0"
+
 prisma@^3.14.0:
   version "3.14.0"
   resolved "https://registry.yarnpkg.com/prisma/-/prisma-3.14.0.tgz#dd67ece37d7b5373e9fd9588971de0024b49be81"
