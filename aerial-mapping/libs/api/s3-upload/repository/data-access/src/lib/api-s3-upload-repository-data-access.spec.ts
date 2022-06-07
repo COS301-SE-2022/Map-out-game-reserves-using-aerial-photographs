@@ -18,23 +18,43 @@ describe('S3UploadRepository', () => {
     expect(repository).toBeDefined();
   });
 
-  describe('@createImageCollection', () => {
-    it('should return "Created Image Collection!"',async () => {
+  describe('@S3Upload', () => {
+    it('should return "Success!"', async () => {
       jest
-      .spyOn(repository, 'createImageCollection')
-      .mockImplementation(() => Promise.resolve("Created Image Collection!"));
+        .spyOn(repository, 'S3Upload')
+        .mockImplementation(() => Promise.resolve('Success!'));
 
-      expect(await repository.createImageCollection(1, new Date().toISOString(),1)).toBe("Created Image Collection!")
+      expect(await repository.S3Upload(1, "ImageName", "dylpickles-image-bucket/test.jpg")).toBe("Success!")
+    })
+  });
+
+  describe('@S3Download', () => {
+    it('should return a path', async () => {
+      jest
+        .spyOn(repository, 'S3Upload')
+        .mockImplementation(() => Promise.resolve('dylpickles-image-bucket/test.jpg'));
+
+      expect(await repository.S3Upload(1, "ImageName", "dylpickles-image-bucket/test.jpg")).toBe("dylpickles-image-bucket/test.jpg")
+    });
+  });
+
+  describe('@createImageCollection', () => {
+    it('should return "Created Image Collection!"', async () => {
+      jest
+        .spyOn(repository, 'createImageCollection')
+        .mockImplementation(() => Promise.resolve("Created Image Collection!"));
+
+      expect(await repository.createImageCollection(1, "CollectionName", new Date().toISOString(), true, 1)).toBe("Created Image Collection!")
     })
   });
 
   describe('@createImageCollection', () => {
-    it('should return "Created Image Collection!"',async () => {
+    it('should return "Created Image Collection!"', async () => {
       jest
-      .spyOn(repository, 'createImageCollection')
-      .mockImplementation(() => Promise.resolve("There is a foreign key constraint violation"));
+        .spyOn(repository, 'createImageCollection')
+        .mockImplementation(() => Promise.resolve("There is a foreign key constraint violation"));
 
-      expect(await repository.createImageCollection(-1, "",-1)).toBe("There is a foreign key constraint violation")
+      expect(await repository.createImageCollection(-1, "", "-1", false, 2121212)).toBe("There is a foreign key constraint violation")
     })
   });
 
