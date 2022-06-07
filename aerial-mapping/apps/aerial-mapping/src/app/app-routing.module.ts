@@ -57,6 +57,13 @@ const routes: Routes = [
     import('@aerial-mapping/client/image-catalogue').then(
         (x) => x.ClientImageCatalogueModule
       )
+  },
+  {
+    path: 'dashboard',
+    loadChildren: () =>
+      import('@aerial-mapping/client/map').then(
+        (x) => x.ClientMapModule
+      ),
   }
 ];
 
