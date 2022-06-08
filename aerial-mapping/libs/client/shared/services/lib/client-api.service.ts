@@ -30,7 +30,7 @@ export class ClientApiService {
 
 
   getImageCollections(): Observable<any> {
-    return this.runQuery('query { getImageCollection { collectionID, parkID, upload_date_time, completed, flightID }}',null, this.token);
+    return this.runQuery('query { getImageCollections { collectionID, parkID, upload_date_time, completed, flightID }}',null, this.token);
   }
 
   getImagesByCollectionId(id: number): Observable<any> {
@@ -44,6 +44,37 @@ export class ClientApiService {
   getAuthStatus(token: string): Observable<any> {
     return this.runQuery('query { getAuthStatus }', null, token);
   }
+
+  getImage(imageID: number): Observable<any> {
+    return this.runQuery('query ($imageID: Int){ getImage(imageID: $imageID) { imageID, collectionID, bucket_name, file_name }}', {imageID: imageID});
+  }
+
+  getImageData(imageID: number): Observable<any> {
+    let bucket_name = "";
+    let file_name = "";
+    
+    this.getImage(imageID).subscribe({
+      next: (_res) => {
+        bucket_name = _res.data.getImage.bucket_name;
+        file_name = _res.data.getImage.file_name;
+      },
+      error: (err) => { console.log(err); }
+    });
+
+    bucket_name = "dylpickles-image-bucket";
+    file_name = "new_image_4";
+
+    const options = {
+      headers: new HttpHeaders({
+        "Content-Type": "image/png",
+      }),
+    };
+
+    return this.http.get(
+      " https://3dxg59qzw5.execute-api.us-east-1.amazonaws.com/test_stage/"+bucket_name+"/"+file_name,options
+    );
+  }
+
 
   // MUTATIONS //
 
