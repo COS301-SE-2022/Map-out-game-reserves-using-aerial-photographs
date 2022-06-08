@@ -9,6 +9,9 @@
 # dependencies
 node_modules
 
+# cypress
+cypress
+
 # IDEs and editors
 /.idea
 .project

@@ -13,21 +13,21 @@
       <form [formGroup]="loginForm" (ngSubmit)="login()">
         <label for="email">Email</label>
         <mat-form-field appearance="fill" required>
-          <input formControlName="email" placeholder="Enter your email" matInput>
+          <input id="loginEmailInput" formControlName="email" placeholder="Enter your email" matInput>
         </mat-form-field>
-        <div *ngIf="this.isSubmitted && email!.errors?.['required']" class="text-danger">
+        <div id="loginEmailPrompt" *ngIf="this.isSubmitted && email!.errors?.['required']" class="text-danger">
           Please enter your email
         </div>
         <label>Password</label>
         <mat-form-field appearance="fill">
-          <input formControlName="password" placeholder="Enter your password" matInput>
+          <input id="loginPasswordInput" formControlName="password" placeholder="Enter your password" matInput>
         </mat-form-field>
-        <div *ngIf="this.isSubmitted && password!.errors?.['required']" class="text-danger">
+        <div id="loginPasswordPrompt" *ngIf="this.isSubmitted && password!.errors?.['required']" class="text-danger">
           Please enter your password
         </div>
         <br />
         <div class="center">
-          <a class="center"><button type="submit" mat-flat-button>LOGIN</button></a>
+          <a class="center"><button id="loginBtn" type="submit" mat-flat-button>LOGIN</button></a>
         </div>
       </form>
 
