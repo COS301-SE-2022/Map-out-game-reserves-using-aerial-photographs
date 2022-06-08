@@ -1,6 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpContext, HttpContextToken, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+
+export const IS_CACHE_ENABLED = new HttpContextToken<boolean>(() => false);
 
 @Injectable()
 export class ClientApiService {
@@ -30,7 +32,7 @@ export class ClientApiService {
 
 
   getImageCollections(): Observable<any> {
-    return this.runQuery('query { getImageCollection { collectionID, parkID, upload_date_time, completed, flightID }}',null, this.token);
+    return this.runQuery('query { getImageCollections { collectionID, parkID, upload_date_time, completed, flightID }}',null, this.token);
   }
 
   getImagesByCollectionId(id: number): Observable<any> {
@@ -52,7 +54,7 @@ export class ClientApiService {
   getImageData(imageID: number): Observable<any> {
     let bucket_name = "";
     let file_name = "";
-    
+
     this.getImage(imageID).subscribe({
       next: (_res) => {
         bucket_name = _res.data.getImage.bucket_name;
@@ -66,16 +68,15 @@ export class ClientApiService {
 
     const options = {
       headers: new HttpHeaders({
-        "Content-Type": "image/png",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With",
-        "responseType": "blob"
+        "Content-Type": "image/png"
       }),
     };
 
-    return this.http.get<any>(
-      "https://3dxg59qzw5.execute-api.us-east-1.amazonaws.com/test_stage/"+bucket_name+"/"+file_name,options
+    return this.http.get(
+      "https://3dxg59qzw5.execute-api.us-east-1.amazonaws.com/test_stage/"+bucket_name+"/"+file_name, {
+        headers: { 'Content-Type': 'image/png' },
+        responseType: 'blob'
+      }
     );
   }
 

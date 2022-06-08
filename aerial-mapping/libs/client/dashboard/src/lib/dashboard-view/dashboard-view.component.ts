@@ -7,7 +7,7 @@ import { faCheckCircle as complete } from '@fortawesome/free-solid-svg-icons';
 import { faSpinner as progress } from '@fortawesome/free-solid-svg-icons';
 import { BarChart } from '../bar-chart/bar-chart.model';
 import { ClientApiService } from '@aerial-mapping/client/shared/services';
-//import { HttpClientModule } from '@angular/common/http';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 @Component({
@@ -37,7 +37,7 @@ export class DashboardViewComponent implements OnInit{
   count = 0;
   d = new Date().getDay();
 
-  constructor(private apiService:ClientApiService) {
+  constructor(private apiService:ClientApiService, private sanitizer: DomSanitizer) {
     this.pastWeek = [3, 5, 2, 3, 2, 1, 7];
     this.total = 0;
     this.pastWeek.forEach(element => {
@@ -85,15 +85,20 @@ export class DashboardViewComponent implements OnInit{
 
   ngOnInit(): void {
     this.apiService.getImageData(1).subscribe({
-      next: (_res) => {
-        console.log(_res);
+      next: (blob) => {
+        const obj = new Image();
+        obj.src = URL.createObjectURL(blob);
+        document.getElementById('outer')?.appendChild(obj);
+
+        console.log(blob);
+        console.log(obj.src);
       },
       error: (err) => { console.log(err); }
     });
     //make API call to access status of resources for particular company
     this.apiService.getImageCollections().subscribe({
       next: (_res) => {
-        this.collectionData = _res.data.getImageCollection;
+        this.collectionData = _res.data.getImageCollections;
 
         let completed_count = 0;
         let processing_count = 0;
