@@ -1,6 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpContext, HttpContextToken, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+
+export const IS_CACHE_ENABLED = new HttpContextToken<boolean>(() => false);
 
 @Injectable()
 export class ClientApiService {
@@ -52,7 +54,7 @@ export class ClientApiService {
   getImageData(imageID: number): Observable<any> {
     let bucket_name = "";
     let file_name = "";
-    
+
     this.getImage(imageID).subscribe({
       next: (_res) => {
         bucket_name = _res.data.getImage.bucket_name;
@@ -71,7 +73,10 @@ export class ClientApiService {
     };
 
     return this.http.get(
-      " https://3dxg59qzw5.execute-api.us-east-1.amazonaws.com/test_stage/"+bucket_name+"/"+file_name,options
+      "https://3dxg59qzw5.execute-api.us-east-1.amazonaws.com/test_stage/"+bucket_name+"/"+file_name, {
+        headers: { 'Content-Type': 'image/png' },
+        responseType: 'blob'
+      }
     );
   }
 
