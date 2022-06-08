@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faCamera as camera } from '@fortawesome/free-solid-svg-icons';
+import { faMap as mapIcon } from '@fortawesome/free-solid-svg-icons';
 import { faExclamationTriangle as warning } from '@fortawesome/free-solid-svg-icons';
 import { faExclamationCircle as error } from '@fortawesome/free-solid-svg-icons';
 import { faCheck as good } from '@fortawesome/free-solid-svg-icons';
@@ -23,64 +23,34 @@ export class DashboardViewComponent implements OnInit{
   messagesData: Message[] = [];
   messages: Dashboard_Message[] = [];
 
-  pastWeek: number[];
   total: number;
-  public photos: Array<BarChart>;
+  public maps!: Array<BarChart>;
 
-  camera = camera;
+  mapIcon = mapIcon;
   error = error;
   warning = warning;
   good = good;
   complete = complete;
   progress = progress;
 
-  count = 0;
-  d = new Date().getDay();
+  values = [3, 5, 2, 3, 2, 1, 7, 4];
 
   constructor(private apiService:ClientApiService) {
-    this.pastWeek = [3, 5, 2, 3, 2, 1, 7];
-    this.total = 0;
-    this.pastWeek.forEach(element => {
-      this.total+=element;
-    });
-
-    this.photos = [
-      {
-        Value: this.pastWeek[this.count++],
-        Size: '',
-        Legend: this.getDayOfWeek(),
-      },
-      {
-        Value: this.pastWeek[this.count++],
-        Size: '',
-        Legend: this.getDayOfWeek(),
-      },
-      {
-        Value: this.pastWeek[this.count++],
-        Size: '',
-        Legend: this.getDayOfWeek(),
-      },
-      {
-        Value: this.pastWeek[this.count++],
-        Size: '',
-        Legend: this.getDayOfWeek(),
-      },
-      {
-        Value: this.pastWeek[this.count++],
-        Size: '',
-        Legend: this.getDayOfWeek(),
-      },
-      {
-        Value: this.pastWeek[this.count++],
-        Size: '',
-        Legend: this.getDayOfWeek(),
-      },
-      {
-        Value: this.pastWeek[this.count++],
-        Size: '',
-        Legend: this.getDayOfWeek(),
-      },
+    this.maps = [
+      {Value: this.values[0]},
+      {Value: this.values[1]},
+      {Value: this.values[2]},
+      {Value: this.values[3]},
+      {Value: this.values[4]},
+      {Value: this.values[5]},
+      {Value: this.values[6]},
+      {Value: this.values[7]}
     ];
+    console.log("Maps: ",this.maps);
+    this.total = 0;
+    this.maps.forEach(element => {
+      this.total+=element.Value;
+    });
   }
 
   ngOnInit(): void {
@@ -139,21 +109,6 @@ export class DashboardViewComponent implements OnInit{
       },
       error: (err) => { console.log(err); }
     });
-  }
-
-  getDayOfWeek(): string {
-    if (this.d == new Date().getDay() - 1) {
-      this.d++;
-      return 'Today';
-    }
-    const weekday = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-
-    if (this.d == 6) {
-      this.d = this.d - 6;
-      return weekday[6];
-    } else {
-      return weekday[this.d++];
-    }
   }
 }
 

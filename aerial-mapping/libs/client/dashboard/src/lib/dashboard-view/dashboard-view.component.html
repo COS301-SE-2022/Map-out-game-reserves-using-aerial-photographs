@@ -19,20 +19,16 @@
                         <div class="flights cont">
                             <div class="total">
                                 <div class="num">
-                                    <fa-icon class="camera" [icon]="camera"></fa-icon>
+                                    <fa-icon class="camera" [icon]="mapIcon"></fa-icon>
                                     {{total}}
                                 </div>
                                 <div class="label">
-                                    New Images
+                                    New Maps
                                 </div>
                             </div>
                             <div class="barChart">
-                                <aerial-mapping-bar-chart [List]='photos'></aerial-mapping-bar-chart>
+                                <aerial-mapping-bar-chart [List]='maps'></aerial-mapping-bar-chart>
                             </div>
-                        </div>
-                        <div class="gap"></div>
-                        <div class="videoImage cont">
-                            <button class="upload" mat-raised-button routerLink="/file-upload">File Upload</button>
                         </div>
                     </td>
                     <td>

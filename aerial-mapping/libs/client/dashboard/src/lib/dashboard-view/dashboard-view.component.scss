@@ -21,8 +21,8 @@
     position: relative;
     z-index: 99;
     background-color: $primary-dark;
-    box-shadow: 0 5px 16px 0 rgba(0,0,0,0.24), 0 5px 50px 0 rgba(0,0,0,0.19);
-  }
+    box-shadow: 0 5px 16px 0 rgba(0, 0, 0, 0.24), 0 5px 50px 0 rgba(0, 0, 0, 0.19);
+}
 
 // .content {
 //     border-radius: 3px;
@@ -34,7 +34,6 @@
 //     vertical-align: top;
 //     float: left;
 // }
-
 .content {
     // border-radius: 3px;
     background: $primary-background-opaque;
@@ -44,10 +43,10 @@
     height: 90%;
     vertical-align: top;
     position: absolute;
-    left:12%;
+    left: 12%;
     // float: right;
     overflow-y: auto;
-  }
+}
 
 table {
     width: 100%;
@@ -105,7 +104,7 @@ td {
 }
 
 .flights {
-    height: 64%;
+    height: 95%;
 }
 
 .videoImage {
@@ -122,7 +121,7 @@ td {
 }
 
 .progress {
-    height: 98%;
+    height: 95%;
 }
 
 .camera {
@@ -150,7 +149,7 @@ td {
 .barChart {
     position: absolute;
     bottom: 37%;
-    height: 30%;
+    height: 38%;
     width: 28%;
 }
 
