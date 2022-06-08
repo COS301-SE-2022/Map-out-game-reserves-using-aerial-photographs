@@ -113,11 +113,11 @@ td {
 }
 
 .gap {
-    height: 1%;
+    height: 3%;
 }
 
 .completed {
-    height: 54%;
+    height: 52%;
 }
 
 .progress {
@@ -151,29 +151,6 @@ td {
     bottom: 37%;
     height: 38%;
     width: 28%;
-}
-
-.upload {
-    margin: 15%;
-    padding: 2%;
-    font-family: 'Segoe UI', sans-serif;
-    font-weight: 500;
-    font-style: normal;
-    font-size: 40px;
-    color: $primary-dark;
-    border: 1px solid $primary;
-    border-radius: 3px;
-    background: $primary-background;
-}
-
-.upload:hover {
-    cursor: pointer;
-    box-shadow: 0px 0px 5px $primary;
-}
-
-img {
-    float: right;
-    margin-right: 2.5%;
 }
 
 .scrollableMessage {

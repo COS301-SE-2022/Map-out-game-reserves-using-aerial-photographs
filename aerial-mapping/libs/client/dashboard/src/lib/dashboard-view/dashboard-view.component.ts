@@ -58,7 +58,7 @@ export class DashboardViewComponent implements OnInit{
       next: (blob) => {
         const obj = new Image();
         obj.src = URL.createObjectURL(blob);
-        document.getElementById('outer')?.appendChild(obj);
+        // document.getElementById('outer')?.appendChild(obj);
 
         console.log(blob);
         console.log(obj.src);
