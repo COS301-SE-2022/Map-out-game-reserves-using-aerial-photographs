@@ -93,7 +93,7 @@ export class DashboardViewComponent implements OnInit{
     //make API call to access status of resources for particular company
     this.apiService.getImageCollections().subscribe({
       next: (_res) => {
-        this.collectionData = _res.data.getImageCollection;
+        this.collectionData = _res.data.getImageCollections;
 
         let completed_count = 0;
         let processing_count = 0;

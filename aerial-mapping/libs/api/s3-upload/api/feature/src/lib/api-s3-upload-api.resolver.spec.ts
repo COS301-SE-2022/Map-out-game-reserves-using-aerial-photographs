@@ -43,7 +43,7 @@ describe('S3UploadResolver', () => {
         .spyOn(resolver, 'getImage')
         .mockImplementation(() => Promise.resolve(IMAGE));
 
-      expect(await resolver.getImage("dylpickles-image-bucket","test.jpg")).toEqual(expect.objectContaining(IMAGE))
+      expect(await resolver.getImage(1)).toEqual(expect.objectContaining(IMAGE))
     })
   });
 
