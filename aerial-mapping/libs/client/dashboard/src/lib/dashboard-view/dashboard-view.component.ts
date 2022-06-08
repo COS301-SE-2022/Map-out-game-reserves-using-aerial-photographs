@@ -15,7 +15,7 @@ import { ClientApiService } from '@aerial-mapping/client/shared/services';
   styleUrls: ['./dashboard-view.component.scss'],
 })
 export class DashboardViewComponent implements OnInit{
-  ImageCollectionsData: Image_Collection[] = [];
+  catalogData: Image_Collection[] = [];
   completed: Image_Collection[] = [];
   processing: Image_Collection[] = [];
 
@@ -83,20 +83,26 @@ export class DashboardViewComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    //make API call to access status of resources for particular company
-    this.apiService.getImageCollections().subscribe({
+    this.apiService.getImageData(1).subscribe({
       next: (_res) => {
-        this.ImageCollectionsData = _res.data.getImageCollections;
+        console.log(_res);
+      },
+      error: (err) => { console.log(err); }
+    });
+    //make API call to access status of resources for particular company
+    this.apiService.getCatalogues().subscribe({
+      next: (_res) => {
+        this.catalogData = _res.data.getCatalogues;
 
         let completed_count = 0;
         let processing_count = 0;
-        for(let i = 0; i< this.ImageCollectionsData.length;i++){
-          if(this.ImageCollectionsData[i].completed){
-            this.completed[completed_count] = this.ImageCollectionsData[i];
+        for(let i = 0; i< this.catalogData.length;i++){
+          if(this.catalogData[i].completed){
+            this.completed[completed_count] = this.catalogData[i];
             completed_count++;
           }
           else{
-            this.processing[processing_count] = this.ImageCollectionsData[i];
+            this.processing[processing_count] = this.catalogData[i];
             processing_count++;
           }
         }
