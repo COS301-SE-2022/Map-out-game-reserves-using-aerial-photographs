@@ -67,15 +67,11 @@ export class ClientApiService {
     const options = {
       headers: new HttpHeaders({
         "Content-Type": "image/png",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With",
-        "responseType": "blob"
       }),
     };
 
-    return this.http.get<any>(
-      "https://3dxg59qzw5.execute-api.us-east-1.amazonaws.com/test_stage/"+bucket_name+"/"+file_name,options
+    return this.http.get(
+      " https://3dxg59qzw5.execute-api.us-east-1.amazonaws.com/test_stage/"+bucket_name+"/"+file_name,options
     );
   }
 
