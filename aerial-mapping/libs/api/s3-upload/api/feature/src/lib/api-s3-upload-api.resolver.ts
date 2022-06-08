@@ -10,8 +10,8 @@ export class S3UploadResolver {
   ) { }
 
   @Query('getImage')
-  async getImage(bucket_name: string, file_name: string) {
-    return await this.repo.getImage(bucket_name,file_name);
+  async getImage(imageID: number) {
+    return await this.repo.getImage(imageID);
   };
 
   @Mutation('createImage')

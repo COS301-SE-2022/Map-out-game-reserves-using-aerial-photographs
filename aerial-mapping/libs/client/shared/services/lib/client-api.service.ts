@@ -30,7 +30,7 @@ export class ClientApiService {
 
 
   getImageCollections(): Observable<any> {
-    return this.runQuery('query { getImageCollection { collectionID, parkID, upload_date_time, completed, flightID }}',null, this.token);
+    return this.runQuery('query { getImageCollections { collectionID, parkID, upload_date_time, completed, flightID }}',null, this.token);
   }
 
   getImagesByCollectionId(id: number): Observable<any> {
