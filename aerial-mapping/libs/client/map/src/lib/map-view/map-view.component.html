@@ -8,14 +8,27 @@
 <body>
     <img class="background" src="assets/bg_test.png" />
     <div class="imageContainer">
-        <img #map draggable="false" class="image" height="100%" src="assets/test_map.jpg" [ngStyle]="
+        <img #map draggable="false" class="image" width="100%" src="assets/test_map.jpg" [ngStyle]="
         {transform: 'scale(' + scale / 100 + ')',
         'transform-origin': left + 'px ' + top + 'px'
         }" />
     </div>
-    <button routerLink="/map-collection" class="exit" mat-button>
-            <fa-icon class="xIcon" [icon]="exit"></fa-icon>
+
+    <button #menu class="menu" (click)="menuToggle()" mat-button>
+        <fa-icon class="bars" [icon]="bars" *ngIf="!isMenuOpen"></fa-icon>
+        <fa-icon class="bars" [icon]="leftArrow" *ngIf="isMenuOpen"></fa-icon>
     </button>
+
+    <button routerLink="/map-collection" class="exit">
+        <fa-icon class="xIcon" [icon]="exit"></fa-icon>
+    </button>
+
+    <div class="menu-container" *ngIf="isMenuOpen">
+        <div class="menu-content">
+            <h1>Menu</h1>
+        </div>
+    </div>
+
 
 </body>
 

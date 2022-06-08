@@ -57,10 +57,48 @@ html {
     height: 45px;
     width: 45px;
     border-radius: 50%;
-    background-color: #757575b7;
+    background-color: #757575de;
     border: 0;
 }
 
 .exit:hover {
     cursor: pointer;
+}
+
+.bars {
+    color: white;
+    font-size: 20px;
+}
+
+.menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 30px;
+    padding: 5px;
+    line-height: 14px;
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+    background-color: #757575de;
+    border: 0;
+}
+
+.menu:hover {
+    cursor: pointer;
+}
+
+.menu-container {
+    position: absolute;
+    top: 25%;
+    left: 0;
+    width: 150px;
+    height: 50%;
+    border-radius: 0 10px 10px 0;
+    background-color: #757575de;
+}
+
+.menu-content {
+    color: white;
+    text-align: center;
 }

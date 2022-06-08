@@ -1,5 +1,7 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { faXmark as exit } from '@fortawesome/free-solid-svg-icons';
+import { faBars as bars } from '@fortawesome/free-solid-svg-icons';
+import { faAngleLeft as leftArrow } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'aerial-mapping-map-view',
@@ -16,11 +18,14 @@ export class MapViewComponent implements AfterViewInit {
   startY = 0;
   d = false;
   exit = exit;
+  bars = bars;
+  leftArrow = leftArrow;
+  isMenuOpen = false;
 
   @ViewChild('map') map!: ElementRef;
+  @ViewChild('menu') menu!: ElementRef;
 
   scroll = (ev: WheelEvent) => {
-    console.log(ev.clientX, ev.clientY);
     const newScale = this.scale - ev.deltaY * 0.2;
     this.scale = Math.max(newScale, 100);
     this.left = Math.max(ev.clientX + this.scale / 2, 0);
@@ -45,6 +50,10 @@ export class MapViewComponent implements AfterViewInit {
       this.top = Math.max(this.originalY + (this.startY - ev.clientY), 0);
     }
   };
+
+  menuToggle() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
 
   ngAfterViewInit() {
     if (this.map) {
