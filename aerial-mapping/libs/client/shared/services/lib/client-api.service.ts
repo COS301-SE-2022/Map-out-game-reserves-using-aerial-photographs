@@ -68,7 +68,7 @@ export class ClientApiService {
 
     const options = {
       headers: new HttpHeaders({
-        "Content-Type": "image/png"
+        "Content-Type": "image/png",
       }),
     };
 
