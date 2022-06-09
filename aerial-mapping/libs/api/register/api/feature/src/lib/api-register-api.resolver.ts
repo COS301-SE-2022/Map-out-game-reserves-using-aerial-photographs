@@ -1,6 +1,7 @@
-import { forwardRef, Inject } from '@nestjs/common';
+import { forwardRef, Inject, UseGuards } from '@nestjs/common';
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { RegisterRepository } from '@aerial-mapping/api/register/repository/data-access';
+import { AuthGuard } from '@aerial-mapping/api/login/repository/data-access';
 
 @Resolver('Register')
 export class RegisterResolver {
@@ -10,6 +11,7 @@ export class RegisterResolver {
   ) { }
 
   @Mutation(() => String, { name: 'invite' })
+  @UseGuards(new AuthGuard())
   async invite(
     @Args('email', { type: () => String }) email: string,
   ) {
@@ -18,6 +20,7 @@ export class RegisterResolver {
 
   //should have a role guard so that only admin roles can create new users
   @Mutation(() => String, { name: 'registerUser', nullable: true })
+  @UseGuards(new AuthGuard())
   async registerUser(
     @Args('name') name: string,
     @Args('email') email: string,
@@ -27,9 +30,8 @@ export class RegisterResolver {
 
     if(await this.repo.removePendingInvite(email)) {
       return await this.repo.createUser(name, email, hashedPassword, role, approved);
-    }  else {
-      return "This email address has not been invited.";
     }
+    return null;
   }
 
 }

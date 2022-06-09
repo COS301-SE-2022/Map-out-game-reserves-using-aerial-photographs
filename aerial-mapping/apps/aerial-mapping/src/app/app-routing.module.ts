@@ -14,7 +14,7 @@ const routes: Routes = [
       import('@aerial-mapping/client/dashboard').then(
         (x) => x.ClientDashboardModule
       ),
-    // canActivate: [LoginGuard]
+    canActivate: [LoginGuard]
   },
   {
     path: 'login',
@@ -35,28 +35,32 @@ const routes: Routes = [
     loadChildren: () =>
       import('@aerial-mapping/client/file-upload').then(
         (x) => x.ClientFileUploadModule
-      )
+      ),
+    canActivate: [LoginGuard]
   },
   {
     path: 'account',
     loadChildren: () =>
     import('@aerial-mapping/client/account').then(
         (x) => x.ClientAccountModule
-      )
+      ),
+    canActivate: [LoginGuard]
   },
   {
     path: 'map-collection',
     loadChildren: () =>
     import('@aerial-mapping/client/mapcollection').then(
         (x) => x.ClientMapcollectionModule
-      )
+      ),
+    canActivate: [LoginGuard]
   },
   {
     path: 'image-catalogue',
     loadChildren: () =>
     import('@aerial-mapping/client/image-catalogue').then(
         (x) => x.ClientImageCatalogueModule
-      )
+      ),
+    canActivate: [LoginGuard]
   },
   {
     path: 'map',
@@ -64,6 +68,11 @@ const routes: Routes = [
       import('@aerial-mapping/client/map').then(
         (x) => x.ClientMapModule
       ),
+    canActivate: [LoginGuard]
+  },
+  {
+    path: '**',
+    redirectTo: 'login'
   }
 ];
 

@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { PrismaService } from "@aerial-mapping/api/shared/services/prisma/data-access";
 import bcrypt = require('bcrypt');
 import nodemailer = require('nodemailer');
+import { User } from "@prisma/client";
 
 @Injectable()
 export class RegisterRepository {
@@ -218,17 +219,9 @@ export class RegisterRepository {
     }
   }
 
-  public async createUser(name: string, email: string, password: string, role: string, approved: boolean) {
-    let error: Error | null = null;
-
-    bcrypt.genSalt(10, (err, salt) => {
-      if (err) {
-        error = err;
-      }
+  public async createUser(name: string, email: string, password: string, role: string, approved: boolean): Promise<string> {
+    bcrypt.genSalt(10, (_err, salt) => {
       bcrypt.hash(password, salt, async (_rr, hash) => {
-        if (err) {
-          error = err;
-        }
         await this.prisma.user.create({
           data: {
             user_name: name,
@@ -242,10 +235,7 @@ export class RegisterRepository {
       });
     });
 
-    if (error == null) {
-      return "Created user!";
-    }
-    return error;
+    return "Success!";
   }
 
 }
