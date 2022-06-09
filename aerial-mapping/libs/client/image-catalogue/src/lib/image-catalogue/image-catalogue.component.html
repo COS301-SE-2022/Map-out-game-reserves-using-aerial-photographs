@@ -14,36 +14,38 @@
       <aerial-mapping-side-navbar></aerial-mapping-side-navbar>
       <div class="content">
         <div>
-          <form class="form">
+          <form (submit)="$event.preventDefault()" class="form">
             <!-- <div class="form"> -->
             <mat-icon>search</mat-icon>
-            <input class="search" type="text" placeholder="Search" matInput />
+            <input (keyup)="searchCatalogues($event)" (change)="searchCatalogues($event)" id="searchInput" class="search" type="text" placeholder="Search" value="" matInput />
             <!-- </div> -->
           </form>
           <mat-form-field appearance="fill">
-            <input matInput>
+            <input matInput style="display: none;">
             <label id="right" class="sort">Sort By</label>
-            <select onchange="onChangeSort(this)" id="left" class="sort" required style="display: inline">
+            <select (change)="onChangeSort($event)" id="left" class="sort" required style="display: inline">
               <option value="date" selected>Upload Date</option>
-              <option value="time">Upload Time</option>
               <option value="park">Park</option>
             </select>
           </mat-form-field>
         </div>
 
         <div style="height: 85%; overflow-y: auto; margin-top: 2%">
-          <mat-card *ngFor="let cat of catalogues" id="{{ cat.collection.collectionID }}">
+          <mat-card *ngFor="let cat of catalogues" id="{{ cat.collectionID }}">
             <mat-card-header>
-              <span style="float: left">{{ cat.collection.name }}</span>
-              <span style="float: right">{{ cat.collection.upload_date_time }}</span>
+              <span style="float: left">{{ cat.name }}</span>
+              <span style="float: right">{{ cat.upload_date_time | date }}</span>
             </mat-card-header>
             <br />
             <mat-card-content>
-              <img
-                *ngFor="let img of cat.images | slice: 0:3"
-                style="width: 32%; display: inline-block; padding: 1%"
-                src="{{ img.url }}"
-              />
+              <ng-container *ngFor="let img of images | slice: 0:3">
+                <img
+                  *ngIf="img.image.collectionID === cat.collectionID"
+                  style="width: 32%; display: inline-block; padding: 1%"
+                  [src]="img.url"
+                  alt="{{ img.image.file_name }}"
+                />
+              </ng-container>
             </mat-card-content>
             <mat-card-footer style="padding: 0px 10px">
               <button class="link tooltip" (click)="enlarge()">View

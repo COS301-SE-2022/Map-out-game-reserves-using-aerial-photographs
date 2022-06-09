@@ -36,7 +36,7 @@ export class ClientApiService {
   }
 
   getImagesByCollectionId(id: number): Observable<any> {
-    return this.runQuery('query ($collectionID: Int){ getImagesByCollectionId(id: $collectionID) { imageID, collectionID, name } }', { collectionID: id });
+    return this.runQuery('query ($collectionID: Int){ getImagesByCollectionId(id: $collectionID) { imageID, collectionID, bucket_name, file_name } }', { collectionID: id });
   }
 
   getMessages(): Observable<any> {
@@ -51,21 +51,7 @@ export class ClientApiService {
     return this.runQuery('query ($imageID: Int){ getImage(imageID: $imageID) { imageID, collectionID, bucket_name, file_name }}', {imageID: imageID});
   }
 
-  getImageData(imageID: number): Observable<any> {
-    let bucket_name = "";
-    let file_name = "";
-
-    this.getImage(imageID).subscribe({
-      next: (_res) => {
-        bucket_name = _res.data.getImage.bucket_name;
-        file_name = _res.data.getImage.file_name;
-      },
-      error: (err) => { console.log(err); }
-    });
-
-    bucket_name = "dylpickles-image-bucket";
-    file_name = "drone.png";
-
+  getImageData(bucket_name: string, file_name: string): Observable<any> {
     const options = {
       headers: new HttpHeaders({
         "Content-Type": "image/png",

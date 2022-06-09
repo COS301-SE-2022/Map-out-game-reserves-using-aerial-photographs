@@ -1,6 +1,7 @@
 import { ClientApiService } from '@aerial-mapping/client/shared/services';
 import { Component } from '@angular/core';
 import { Images, Image_Collection } from '@prisma/client';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'aerial-mapping-image-catalogue',
@@ -9,28 +10,47 @@ import { Images, Image_Collection } from '@prisma/client';
 })
 export class ImageCatalogueComponent {
   selected: string;
-  catalogueData: Image_Collection[] = [];
-  catalogues: CollectionData[] = [];
-  images: Images[][] = [];
+  tempCatalogues: Image_Collection[] = [];
+  catalogues: Image_Collection[] = [];
+  images: ImageData[] = [];
 
-  constructor(public apiService: ClientApiService) {
+  constructor(public apiService: ClientApiService, private sanitizer: DomSanitizer) {
     this.selected = 'date';
+
+    this.getAllCatalogues();
   }
 
-  async ngOnInit(): Promise<void> {
-    await this.get_catalogs();
-    await this.get_images();
-    this.get_image_url();
-  }
-
-  async get_catalogs() {
-    return this.apiService.getImageCollections().subscribe({
+  getAllCatalogues() {
+    this.apiService.getImageCollections().subscribe({
       next: (resp) => {
-        console.log(resp);
-        let i = 0;
-        for (const r of resp.data.getImageCollections) {
-          this.catalogues[i] = { collection: r, images: [] };
-          i++;
+        this.catalogues = resp.data.getImageCollections;
+
+        for (const catalog of this.catalogues) {
+          this.apiService.getImagesByCollectionId(catalog.collectionID).subscribe({
+            next: (res) => {
+              for (const i of res.data.getImagesByCollectionId) {
+                this.images.push({ image: i, url: '' });
+              }
+
+              for (const i of this.images) {
+                //pull image data from s3 for each image
+                this.apiService.getImageData(i.image.bucket_name, i.image.file_name).subscribe({
+                  next: (resp) => {
+                    const tempUrl = 'data:image/png;base64,' + resp;
+                    i.url = this.sanitizer.bypassSecurityTrustUrl(tempUrl);
+                  },
+                  error: (err) => {
+                    console.log(err);
+                  }
+                });
+              }
+              this.sortByDate();
+              this.tempCatalogues = this.catalogues;
+            },
+            error: (err) => {
+              console.log(err)
+            }
+          });
         }
         return resp.data.getImageCollections;
       },
@@ -40,62 +60,43 @@ export class ImageCatalogueComponent {
     });
   }
 
-  async get_images() {
-    let count_1 = 0;
-    console.log(this.catalogues);
-    for (const catalog of this.catalogues) {
-      console.log(catalog.collection.collectionID);
-      this.apiService
-        .getImagesByCollectionId(catalog.collection.collectionID)
-        .subscribe({
-          next: (res) => {
-            console.log(res);
-            this.images[count_1] = res.data.getImagesByCollectionId;
-            count_1++;
-          },
-          error: (err) => {
-            console.log(err);
-          },
-        });
-    }
-    return;
+  sanitizeImageUrl(imageUrl: string): SafeUrl {
+    return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
   }
 
-  get_image_url() {
-    let count_1 = 0;
-    for (const catalog of this.catalogues) {
-      for (const img of this.images[count_1]) {
-        this.apiService.getImageData(img.imageID).subscribe({
-          next: (base64) => {
-            const url = 'data:image/png;base64,' + base64;
-            this.catalogues[count_1].images.push({ image: img, url: url });
-            console.log(url);
-          },
-          error: (err) => {
-            console.log(err);
-          },
-        });
-      }
-      count_1++;
+  searchCatalogues(e: Event) {
+    //search for either a matching date string or a collection name
+    //or a park name?
+    const searchTerm = (<HTMLInputElement>document.getElementById('searchInput')).value.toLowerCase();
+    if(searchTerm != '') {
+      this.catalogues = this.tempCatalogues;
+      this.catalogues =  this.catalogues.filter((c) => {
+        const date = new Date(c.upload_date_time).toDateString().toLowerCase()
+        return date.includes(searchTerm)
+      })
     }
-    return;
+    else {
+      this.getAllCatalogues();
+    }
   }
 
-  onChangeSort(selectedOption: HTMLSelectElement) {
-    return this.apiService
-      .getImageCollections()
-      .toPromise()
-      .then(() => {
-        return '';
-      });
-    // const val = selectedOption.value;
-    // alert(val);
-    // if(val == 'date'){
-    //   this.catalogues.sort((a,b) => { return b.upload_date_time.getTime() - a.upload_date_time.getTime() })
-    // }
-    // else if(val == 'park') {
-    //   this.catalogues.sort((a,b) => { return a.name.localeCompare(b.name) })
-    // }
+  onChangeSort(selectedOption: any) {
+    this.selected = selectedOption.target.value;
+    if (this.selected == 'date') {
+      this.sortByDate()
+    } else if (this.selected == 'park') {
+      this.sortByPark()
+    }
+  }
+
+  sortByDate() {
+    this.catalogues.sort((a, b) => {
+      return new Date(a.upload_date_time).getTime() - new Date(b.upload_date_time).getTime();
+    });
+  }
+
+  sortByPark() {
+    this.catalogues.sort((a, b) => a.parkID - b.parkID);
   }
 
   enlarge() {
@@ -115,10 +116,5 @@ export class ImageCatalogueComponent {
 
 interface ImageData {
   image: Images;
-  url: string;
-}
-
-interface CollectionData {
-  collection: Image_Collection;
-  images: ImageData[];
+  url: SafeUrl;
 }
