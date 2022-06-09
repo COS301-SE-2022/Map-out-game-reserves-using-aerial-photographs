@@ -35,6 +35,7 @@ h3{
   width: 100%;
   height: 100%;
   position: absolute;
+  //background-image: url("./../../../../../../apps/aerial-mapping/src/assets/mapwallpaperinverted.jpg");
 }
 
 .content {
@@ -55,7 +56,7 @@ h3{
   position: relative;
   top: 0.4rem;
   width: 100%;
-  height: 100%;
+  height: 86%;
   display: inline-block;
   border-style: solid;
   background-color: $primary-background;
@@ -140,7 +141,7 @@ h3{
     height: 30%;
     position: relative;
   }
-  
+
   .center {
     margin: 0;
     position: absolute;
@@ -157,7 +158,7 @@ h3{
     top:0px;
     width:1%;
   }
-  
+
   /* The popup form - hidden by default */
   .form-popupName, .form-popupEmail, .form-popupPassword, .form-popupRegister {
     display: none;
@@ -169,7 +170,7 @@ h3{
     margin:10px;
     height: auto;
   }
-  
+
   /* Add styles to the form container */
   .form-container {
     max-width: 500px;
@@ -178,7 +179,7 @@ h3{
     padding-right: 10%;
     background-color: white;
   }
-  
+
   /* Full-width input fields */
   .form-container input[type=text], .form-container input[type=password] {
     width: 100%;
@@ -187,13 +188,13 @@ h3{
     border: none;
     background: #f1f1f1;
   }
-  
+
   /* When the inputs get focus, do something */
   .form-container input[type=text]:focus, .form-container input[type=password]:focus {
     background-color: #ddd;
     outline: none;
   }
-  
+
   /* Set a style for the submit/login button */
   .form-container .btn {
     background-color: $primary;

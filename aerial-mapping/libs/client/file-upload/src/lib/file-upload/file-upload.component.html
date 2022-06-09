@@ -10,7 +10,7 @@
         <div class="heading">File Upload</div>
         <aerial-mapping-side-navbar></aerial-mapping-side-navbar>
 
-        <div class="content">
+        <div class="content" style="background-image: url('assets/mapwallpaper.jpg'); background-size: 100%; background-repeat:repeat; height:100%">
             <div class="drag-box" #imageForm>
                 <h3 class="uploadHeading">Select a file</h3>
                 <button mat-flat-button color="primary" class="clearbtn" (click)="fileUpload.click()">
@@ -35,7 +35,7 @@
                           </select>
                           <span class="tooltiptext" style="left:15%">Select park</span>
                         </div>
-                          
+
                           <select ng-model="selectedType" class = "types tooltip">
                             <option value="" disabled selected>Select a flight type</option>
                             <option *ngFor="let type of flight" [value]="type.value">
@@ -47,7 +47,7 @@
 
                           <input type="number" placeholder="Enter the height of the flight (metres)" id="height">
                     </div>
-                    
+
                     <br/>
                     <button class="clearbtn" mat-flat-button (click)="clearSelection()">
                         <h3 class="uploadHeading">Clear Selection</h3>
@@ -60,7 +60,7 @@
                         <br>
                     </div>
                 </div>
-                
+
                 <div class="progress">
                     <mat-progress-bar class="progress-bar" mode="determinate" [value]="uploadProgress" *ngIf="uploadProgress"></mat-progress-bar>
                     <div class="videoSplitting" *ngIf="splittingProgress">
