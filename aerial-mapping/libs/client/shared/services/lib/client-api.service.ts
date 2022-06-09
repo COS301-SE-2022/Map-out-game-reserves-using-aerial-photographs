@@ -52,10 +52,6 @@ export class ClientApiService {
   }
 
   getImageData(bucket_name: string, file_name: string): Observable<any> {
-
-    bucket_name = "dylpickles-image-bucket";
-    file_name = "drone.png";
-
     const options = {
       headers: new HttpHeaders({
         "Content-Type": "image/png",

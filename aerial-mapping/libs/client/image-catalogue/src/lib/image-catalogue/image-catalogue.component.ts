@@ -19,12 +19,10 @@ export class ImageCatalogueComponent {
     this.apiService.getImageCollections().subscribe({
       next: (resp) => {
         this.catalogues = resp.data.getImageCollections;
-        console.log(this.catalogues)
 
         for (const catalog of this.catalogues) {
           this.apiService.getImagesByCollectionId(catalog.collectionID).subscribe({
             next: (res) => {
-              console.log(res.data.getImagesByCollectionId)
               for(const i of res.data.getImagesByCollectionId) {
                 this.images.push({ image: i, url: ''});
               }
@@ -33,7 +31,6 @@ export class ImageCatalogueComponent {
                 //pull image data from s3 for each image
                 this.apiService.getImageData(i.image.bucket_name, i.image.file_name).subscribe({
                   next: (resp) => {
-                    console.log(resp)
                     const tempUrl = 'data:image/png;base64,' + resp;
                     i.url = this.sanitizer.bypassSecurityTrustUrl(tempUrl);
                   },
@@ -41,8 +38,6 @@ export class ImageCatalogueComponent {
                     console.log(err);
                   }
                 });
-
-                console.log(this.images)
               }
             },
             error: (err) => {
