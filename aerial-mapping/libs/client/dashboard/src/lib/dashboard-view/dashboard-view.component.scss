@@ -67,6 +67,7 @@ td {
     margin: 2%;
     padding: 5px;
     border-radius: 3px;
+    border-color: $primary-brown-opaque;
 }
 
 .cont:hover {
@@ -151,6 +152,8 @@ td {
     bottom: 37%;
     height: 38%;
     width: 28%;
+    // C&Z change
+    top:28%;
 }
 
 .scrollableMessage {

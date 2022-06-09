@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ClientApiService } from '@aerial-mapping/client/shared/services';
 
 interface Park {
   value: string;
@@ -42,9 +42,8 @@ export class FileUploadComponent {
     {value: 'Drone-0', viewValue: 'Drone'},
     {value: 'Propeller Plane-1', viewValue: 'Propeller Plane'},
   ];
-  
 
-  constructor(private http: HttpClient) {
+  constructor(private apiService: ClientApiService) {
     /*     const imageForm = document.querySelector("#imageForm");
     const imageInput = document.querySelector("#fileUpload");
 
@@ -65,20 +64,19 @@ export class FileUploadComponent {
     console.log('File staged!');
     console.log(this.parks[0].viewValue);
     this.file = event.target.files[0];
-    this.fileName="";
+    this.fileName = '';
 
     for (let index = 0; index < event.target.files.length; index++) {
       this.file = event.target.files[index];
-      
+
       if (this.file) {
         //go through
-        if (index==event.target.files.length-1){
+        if (index == event.target.files.length - 1) {
           this.fileName += this.file.name;
         } else {
-          this.fileName += this.file.name+", ";
+          this.fileName += this.file.name + ', ';
         }
         this.formData.append('thumbnail', this.file);
-        
       }
     }
     /*
@@ -116,36 +114,24 @@ export class FileUploadComponent {
 
   submitBtnPressed() {
     if (this.file) {
-      this.uploadToS3(this.file);
       this.imageSplitting(this.file);
     }
     this.submitPressed = true;
   }
 
-  async uploadToS3(file: any) {
-    this.fileName = file.name;
-
-    //get secure url from our server
-    const { url } = await fetch('http://localhost:4201/').then((res) =>
-      res.json()
-    );
-    console.log(url);
-
-    //Post directly to S3 bucket
-    if (file) {
-      await fetch(url, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'multipart/form-data' },
-        body: file,
+  async uploadToS3(
+    collectionID: number,
+    bucket_name: string,
+    file_name: string,
+    file: any
+  ) {
+    this.apiService
+      .uploadImage(collectionID, bucket_name, file_name, file)
+      .subscribe({
+        error: (err) => {
+          console.log(err);
+        },
       });
-    } else {
-      console.log('File Undefined!');
-    }
-
-    const imageURL = url.split('?')[0];
-    console.log(imageURL);
-
-    //post request to my server to store any extra data
   }
 
   imageSplitting(file: File) {
@@ -169,7 +155,35 @@ export class FileUploadComponent {
 
     //Do after frames are extracted
     frames.then((frames) => {
-      console.log(frames);
+      const frame = frames[1];
+      // this.apiService.createBucket(1,"",1,id).subscribe({
+      //   error: (err) => {
+      //     console.log(err);
+      //   }
+      // });
+      this.apiService.getImageCollections().subscribe({
+        next: (data) => {
+          console.log(data);
+          const id = data.data.getImageCollections.length+1;
+          this.apiService.createImageCollection(1, '', 1).subscribe({
+            error: (err) => {
+              console.log(err);
+            }
+          });
+    
+          const name = "test";
+          for(let i = 0; i < frames.length; i++) {
+            this.uploadToS3(id, "dylpickles-image-bucket", name+"-frame-"+i+".png", frame);
+          }
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      });
+
+
+      
+      // console.log(frames);
     });
   }
 

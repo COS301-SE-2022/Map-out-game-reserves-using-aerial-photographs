@@ -8,11 +8,74 @@ export class RegisterRepository {
   url: string;
   ourEmail: string;
   emailHtml: string;
+  recipientEmail: string;
 
   constructor(private prisma: PrismaService) {
     this.url = 'http://localhost:4200';
     this.ourEmail = 'thedylpickles1@gmail.com';
-    this.emailHtml = `<!DOCTYPE html>
+    this.recipientEmail = '';
+    this.emailHtml = '';
+  }
+
+  public async invite(email: string) {
+    this.recipientEmail = email;
+    this.emailHtml = this.getEmailHtml(email);
+    //if email is already a user do not invite
+    const user = await this.prisma.user.findFirst({
+      where: {
+        user_email: email
+      }
+    });
+
+    if(user == null) {
+      //check if invite exists
+      const invite = await this.prisma.pending_Invites.findFirst({
+        where: {
+          invite_email: email
+        }
+      });
+
+      //send an invite email to the email address regardless of whether an invite already exists
+      const mailTransporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: this.ourEmail,
+          pass: 'znoysycmaqkhvpgk'
+        }
+      });
+
+      const mailDetails = {
+        from: this.ourEmail,
+        to: email,
+        subject: 'Aerial Mapper Registration Link',
+        html: this.emailHtml
+      };
+
+      mailTransporter.sendMail(mailDetails, function (err) {
+        if (err) {
+          console.log('Email not sent. Error occurred when sending email using nodemailer.');
+          console.log(err);
+
+        } else {
+          console.log('Email sent successfully');
+        }
+      });
+
+      if(invite == null){
+        //invite does not exist in db, create invite
+        await this.prisma.pending_Invites.create({
+          data: {
+            invite_email: email
+          }
+        });
+      }
+      return "Created invite!";
+    }
+    return "User is already registered.";
+  }
+
+  public getEmailHtml(email: string) {
+    return `<!DOCTYPE html>
     <html lang="en" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml">
     <head>
     <title></title>
@@ -115,7 +178,7 @@ export class RegisterRepository {
     <tr>
     <td>
     <div style="color:#000000;font-size:14px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;font-weight:400;line-height:120%;text-align:left;direction:ltr;letter-spacing:0px;">
-    <p style="margin: 0;">Hi, user@email.com<br/><br/>You have been approved for registration to the Aerial Mapper by the administrator!🎉<br/><br/>Please click the button below and finish the registration process. 👇</p>
+    <p style="margin: 0;">Hi, ${email}<br/><br/>You have been approved for registration to the Aerial Mapper by the administrator!🎉<br/><br/>Please click the button below and finish the registration process. 👇</p>
     </div>
     </td>
     </tr>
@@ -124,7 +187,7 @@ export class RegisterRepository {
     <tr>
     <td>
     <div align="center">
-    <!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="${this.url}/register" style="height:42px;width:91px;v-text-anchor:middle;" arcsize="10%" stroke="false" fillcolor="#394aa7"><w:anchorlock/><v:textbox inset="0px,0px,0px,0px"><center style="color:#ffffff; font-family:Arial, sans-serif; font-size:16px"><![endif]--><a href="localhost/register" style="text-decoration:none;display:inline-block;color:#ffffff;background-color:#394aa7;border-radius:4px;width:auto;border-top:1px solid #394aa7;font-weight:700;border-right:1px solid #394aa7;border-bottom:1px solid #394aa7;border-left:1px solid #394aa7;padding-top:5px;padding-bottom:5px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;text-align:center;mso-border-alt:none;word-break:keep-all;" target="_blank"><span style="padding-left:20px;padding-right:20px;font-size:16px;display:inline-block;letter-spacing:normal;"><span style="font-size: 16px; line-height: 2; mso-line-height-alt: 32px;">Button</span></span></a>
+    <!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="${this.url}/register" style="height:42px;width:91px;v-text-anchor:middle;" arcsize="10%" stroke="false" fillcolor="#394aa7"><w:anchorlock/><v:textbox inset="0px,0px,0px,0px"><center style="color:#ffffff; font-family:Arial, sans-serif; font-size:16px"><![endif]--><a href="http://localhost:4200/register" style="text-decoration:none;display:inline-block;color:#ffffff;background-color:#394aa7;border-radius:4px;width:auto;border-top:1px solid #394aa7;font-weight:700;border-right:1px solid #394aa7;border-bottom:1px solid #394aa7;border-left:1px solid #394aa7;padding-top:5px;padding-bottom:5px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;text-align:center;mso-border-alt:none;word-break:keep-all;" target="_blank"><span style="padding-left:20px;padding-right:20px;font-size:16px;display:inline-block;letter-spacing:normal;"><span style="font-size: 16px; line-height: 2; mso-line-height-alt: 32px;">Register</span></span></a>
     <!--[if mso]></center></v:textbox></v:roundrect><![endif]-->
     </div>
     </td>
@@ -138,64 +201,8 @@ export class RegisterRepository {
     </tr>
     </tbody>
     </table>
-
     </body>
     </html>`
-  }
-
-  public async invite(email: string) {
-    //if email is already a user do not invite
-    const user = await this.prisma.user.findFirst({
-      where: {
-        user_email: email
-      }
-    });
-
-    if(user == null) {
-      //check if invite exists
-      const invite = await this.prisma.pending_Invites.findFirst({
-        where: {
-          invite_email: email
-        }
-      });
-
-      //send an invite email to the email address regardless of whether an invite already exists
-      const mailTransporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: this.ourEmail,
-          pass: 'somethingeasy#1'
-        }
-      });
-
-      const mailDetails = {
-        from: this.ourEmail,
-        to: email,
-        subject: 'Aerial Mapper Registration Link',
-        html: this.emailHtml
-      };
-
-      mailTransporter.sendMail(mailDetails, function (err) {
-        if (err) {
-          console.log('Email not sent. Error occurred when sending email using nodemailer.');
-          console.log(err);
-
-        } else {
-          console.log('Email sent successfully');
-        }
-      });
-
-      if(invite == null){
-        //invite does not exist in db, create invite
-        await this.prisma.pending_Invites.create({
-          data: {
-            invite_email: email
-          }
-        });
-      }
-      return "Created invite!";
-    }
-    return "User is already registered.";
   }
 
   public async removePendingInvite(email: string) {

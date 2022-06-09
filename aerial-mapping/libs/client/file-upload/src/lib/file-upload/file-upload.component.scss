@@ -21,7 +21,7 @@
     padding: 1%;
     // margin-left: 0.5%;
     width: 88%;
-    height: 90%;
+    height: 60%;
     vertical-align: top;
     position: absolute;
     left: 12%;
@@ -40,7 +40,7 @@
 
 .drag-box {
     width: 50%;
-    height: 80%;
+    height: 55%;
     background-color: $primary-background;
     align-items: center;
     justify-content: center;
@@ -63,7 +63,7 @@
     width: 90%;
     padding: 120px 0 0 0;
     height: 100px;
-    border: 4px dashed $primary-brown;
+    border: 4px dashed $primary-brown-opaque;
     overflow: hidden;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -106,9 +106,6 @@
 }
 
 #height{
-    margin: 20px;
+    margin: 5%;
 }
 
-h4{
-    color:red;
-}
