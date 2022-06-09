@@ -1,0 +1,23 @@
+{
+  "root": "libs/api/image-catalogue/api/feature",
+  "sourceRoot": "libs/api/image-catalogue/api/feature/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/api/image-catalogue/api/feature/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/api/image-catalogue/api/feature"],
+      "options": {
+        "jestConfig": "libs/api/image-catalogue/api/feature/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["type:feature"]
+}

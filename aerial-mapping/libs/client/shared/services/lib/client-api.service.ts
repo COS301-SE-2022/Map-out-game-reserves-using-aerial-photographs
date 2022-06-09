@@ -36,7 +36,7 @@ export class ClientApiService {
   }
 
   getImagesByCollectionId(id: number): Observable<any> {
-    return this.runQuery('query ($collectionID: Int){ getImagesByCollectionId(id: $collectionID) { imageID, collectionID, name, file_location } }', { collectionID: id });
+    return this.runQuery('query ($collectionID: Int){ getImagesByCollectionId(id: $collectionID) { imageID, collectionID, bucket_name, file_name } }', { collectionID: id });
   }
 
   getMessages(): Observable<any> {

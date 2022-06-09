@@ -17,12 +17,16 @@ export class ImageCatalogueComponent  {
 
     this.apiService.getImageCollections().subscribe({
       next: (resp) => {
-        this.catalogues = resp.data.getCatalogues;
+        this.catalogues = resp.data.getImageCollections;
+        console.log(this.catalogues)
 
         for (const catalog of this.catalogues){
           this.apiService.getImagesByCollectionId(catalog.collectionID).subscribe({
             next: (res) => {
+              console.log(res.data.getImagesByCollectionId)
               this.images.push(res.data.getImagesByCollectionId);
+
+              //pull from s3
             },
             error: (err) => {
               console.log(err)
