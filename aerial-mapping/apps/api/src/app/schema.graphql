@@ -4,6 +4,7 @@ type Query {
   test: String
   getUserByEmail(email: String): User
   getUsers: [User]
+  getCurrentUserEmail: String
   getParks: [Game_Park]
   pingAuthentication: String!
   getMessages: [Message]
@@ -17,7 +18,7 @@ type Query {
 
 type Mutation {
   invite(email: String): String
-  registerUser(firstname: String, lastname: String, email: String, password: String, role: String, approved: Boolean): String!
+  registerUser(name: String, email: String, password: String, role: String, approved: Boolean): String!
   createImageCollection(parkID: Int,  name: String, flightID: Int): String!
   login(email: String, password: String): String
   logout: String

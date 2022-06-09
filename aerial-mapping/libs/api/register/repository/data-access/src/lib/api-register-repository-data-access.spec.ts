@@ -24,7 +24,7 @@ describe('RegisterRepository', () => {
         .spyOn(repository, 'createUser')
         .mockImplementation(() => Promise.resolve("Created user!"));
 
-      expect(await repository.createUser("Dylan", "Smith", "email@email.com", "sdazdf", "user", true)).toBe("Created user!")
+      expect(await repository.createUser("Dylan Smith", "email@email.com", "sdazdf", "user", true)).toBe("Created user!")
     })
   });
 

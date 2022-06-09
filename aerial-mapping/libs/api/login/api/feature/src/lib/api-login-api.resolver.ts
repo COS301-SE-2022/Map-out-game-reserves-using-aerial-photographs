@@ -22,6 +22,24 @@ export class LoginResolver {
     return this.repo.getUserByEmail(email);
   }
 
+  @Query('getCurrentUserEmail')
+  getCurrentUserEmail(
+    @Context() ctx?: any
+  ) {
+    if(ctx){
+      return this.authGuard.getCurrentUserEmailFromJwt(ctx.headers.authorization).then((resp) => {
+        if(resp != 'Invalid token.' && resp != null) {
+          return JSON.parse(resp).email;
+        }
+        return "No current user.";
+      });
+    }
+    else {
+      console.log("context doesn't exist.")
+    }
+    return "No current user.";
+  }
+
   @Query('getAuthStatus')
   getAuthStatus(
     @Context() ctx?: any
@@ -31,7 +49,6 @@ export class LoginResolver {
         if(resp != 'Invalid token.') {
           return true;
         }
-        console.log(resp)
         return false;
       });
     }
