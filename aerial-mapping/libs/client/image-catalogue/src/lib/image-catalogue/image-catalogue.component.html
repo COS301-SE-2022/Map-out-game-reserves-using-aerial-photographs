@@ -40,7 +40,6 @@
             <mat-card-content>
               <ng-container *ngFor="let img of images | slice: 0:3">
                 <img
-                  *ngIf="img.image.collectionID === cat.collectionID"
                   style="width: 32%; display: inline-block; padding: 1%"
                   [src]="img.url"
                   alt="{{ img.image.file_name }}"
@@ -56,14 +55,13 @@
 
           <mat-card class="popup" id="popup" style="overflow-y: none">
             <div class="images" style="overflow-y: auto">
-              <!-- <mat-card class="imageContainer" *ngFor="let img of Images">
+              <mat-card class="imageContainer" *ngFor="let img of images">
                 <mat-card-content
-                  ><img class="image" src="{{ img.path }}"
+                  ><img
+                  [src]="img.url"
+                  alt="{{ img.image.file_name }}"
                 /></mat-card-content>
-                <mat-card-footer class="imageFooter">{{
-                  img.name
-                }}</mat-card-footer>
-              </mat-card> -->
+              </mat-card>
             </div>
             <!-- <a routerLink="/map-collection" class="button">
               <span class="icon"><mat-icon>add</mat-icon></span>
