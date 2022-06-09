@@ -30,9 +30,8 @@ export class RegisterResolver {
 
     if(await this.repo.removePendingInvite(email)) {
       return await this.repo.createUser(name, email, hashedPassword, role, approved);
-    }  else {
-      return "This email address has not been invited.";
     }
+    return null;
   }
 
 }

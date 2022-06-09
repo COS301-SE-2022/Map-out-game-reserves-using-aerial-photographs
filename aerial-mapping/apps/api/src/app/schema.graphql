@@ -33,7 +33,6 @@ type User {
   user_password: String
   user_password_salt: String
   user_name: String
-  user_surname: String
   user_role: String
   user_approved: Boolean
 }

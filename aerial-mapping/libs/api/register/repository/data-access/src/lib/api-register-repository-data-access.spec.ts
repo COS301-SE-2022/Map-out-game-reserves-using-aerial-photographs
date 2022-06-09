@@ -20,11 +20,21 @@ describe('RegisterRepository', () => {
 
   describe('@createUser', () => {
     it('should return "Created user!"', async () => {
+      const user = {
+        userID: expect.any(Number),
+        user_email: expect.any(String),
+        user_password: expect.any(String),
+        user_password_salt: expect.any(String),
+        user_name: expect.any(String),
+        user_role: expect.any(String),
+        user_approved: expect.any(Boolean)
+      }
+
       jest
         .spyOn(repository, 'createUser')
-        .mockImplementation(() => Promise.resolve("Created user!"));
+        .mockImplementation(() => Promise.resolve(user));
 
-      expect(await repository.createUser("Dylan Smith", "email@email.com", "sdazdf", "user", true)).toBe("Created user!")
+      expect(await repository.createUser("Dylan Smith", "email@email.com", "sdazdf", "user", true)).toBe(user);
     })
   });
 

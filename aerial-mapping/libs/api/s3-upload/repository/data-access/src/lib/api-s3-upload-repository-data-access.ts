@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@aerial-mapping/api/shared/services/prisma/data-access';
 import dotenv = require('dotenv');
-import { Prisma } from '@prisma/client';
+import { Image_Collection, Prisma } from '@prisma/client';
 
 dotenv.config();
 @Injectable()
 export class S3UploadRepository {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   public async createFlight(pilotID: number, height: number, type: string) {
     return this.prisma.flight_Details.create({
@@ -72,25 +72,13 @@ export class S3UploadRepository {
     parkID: number,
     name: string,
     flightID: number
-  ) {
-    //validation
-    try {
-      return this.prisma.image_Collection.create({
-        data: {
-          parkID: parkID,
-          name: name,
-          flightID: flightID,
-        },
-      });
-    } catch (e) {
-      if (e instanceof Prisma.PrismaClientKnownRequestError) {
-        if (e.code === 'P2002') {
-          return 'There is a unique constraint violation';
-        } else if (e.code === 'P2003') {
-          return 'There is a foreign key constraint violation';
-        }
-      }
-      return 'Prisma error';
-    }
+  ): Promise<Image_Collection|null> {
+    return this.prisma.image_Collection.create({
+      data: {
+        parkID: parkID,
+        name: name,
+        flightID: flightID,
+      },
+    });
   }
 }
