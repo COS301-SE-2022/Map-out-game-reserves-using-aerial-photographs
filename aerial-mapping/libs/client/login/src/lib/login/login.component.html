@@ -20,7 +20,7 @@
         </div>
         <label>Password</label>
         <mat-form-field appearance="fill">
-          <input id="loginPasswordInput" formControlName="password" placeholder="Enter your password" matInput>
+          <input id="loginPasswordInput" type="password" formControlName="password" placeholder="Enter your password" matInput>
         </mat-form-field>
         <div id="loginPasswordPrompt" *ngIf="this.isSubmitted && password!.errors?.['required']" class="text-danger">
           Please enter your password

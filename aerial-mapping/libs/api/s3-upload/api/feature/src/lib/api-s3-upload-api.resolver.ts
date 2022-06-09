@@ -30,10 +30,17 @@ export class S3UploadResolver {
   async createImageCollection(
     @Args('parkID') parkID: number,
     @Args('name') name: string,
-    @Args('datetime') datetime: string,
-    @Args('completed') completed: boolean,
     @Args('flightID') flightID: number
   ) {
-    return await this.repo.createImageCollection(parkID, name, datetime, completed, flightID);
+    return await this.repo.createImageCollection(parkID, name, flightID);
+  }
+
+  @Mutation('createImage')
+  async createImage(
+    @Args('collectionID') collectionID: number,
+    @Args('bucket_name') bucket_name: string,
+    @Args('file_name') file_name: string,
+  ) {
+    return await this.repo.createImage(collectionID, bucket_name, file_name);
   }
 }
