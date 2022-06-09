@@ -50,7 +50,7 @@ describe('S3UploadRepository', () => {
         .spyOn(repository, 'createImageCollection')
         .mockImplementation(() => Promise.resolve("Created Image Collection!"));
 
-      expect(await repository.createImageCollection(1, "CollectionName", new Date().toISOString(), true, 1)).toBe("Created Image Collection!")
+      expect(await repository.createImageCollection(1, "CollectionName", 1)).toBe("Created Image Collection!")
     })
   });
 
@@ -60,7 +60,7 @@ describe('S3UploadRepository', () => {
         .spyOn(repository, 'createImageCollection')
         .mockImplementation(() => Promise.resolve("There is a foreign key constraint violation"));
 
-      expect(await repository.createImageCollection(-1, "", "-1", false, 2121212)).toBe("There is a foreign key constraint violation")
+      expect(await repository.createImageCollection(-1, "", 2121212)).toBe("There is a foreign key constraint violation")
     })
   });
 

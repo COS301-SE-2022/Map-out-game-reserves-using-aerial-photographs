@@ -28,8 +28,10 @@ export class MapViewComponent implements AfterViewInit {
   scroll = (ev: WheelEvent) => {
     const newScale = this.scale - ev.deltaY * 0.2;
     this.scale = Math.max(newScale, 100);
-    this.left = Math.max(ev.clientX + this.scale / 2, 0);
-    this.top = Math.max(ev.clientY + this.scale / 2, 0);
+    // this.left = Math.max(ev.clientX + this.scale / 2, 0);
+    // this.top = Math.max(ev.clientY + this.scale / 2, 0);
+    this.left = Math.max(this.left - this.scale, 0);
+    this.top = Math.max(this.top - this.scale, 0);
   };
 
   downListener = (ev: MouseEvent) => {
@@ -46,8 +48,8 @@ export class MapViewComponent implements AfterViewInit {
 
   drag = (ev: MouseEvent) => {
     if (this.d == true) {
-      this.left = Math.max(this.originalX + (this.startX - ev.clientX), 0);
-      this.top = Math.max(this.originalY + (this.startY - ev.clientY), 0);
+      this.left = this.originalX + (this.startX - ev.clientX);
+      this.top = this.originalY + (this.startY - ev.clientY);
     }
   };
 

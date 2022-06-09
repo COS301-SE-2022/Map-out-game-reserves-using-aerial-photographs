@@ -36,7 +36,7 @@ export class ImageCatalogueComponent {
                 //pull image data from s3 for each image
                 this.apiService.getImageData(i.image.bucket_name, i.image.file_name).subscribe({
                   next: (resp) => {
-                    const tempUrl = 'data:image/png;base64,' + resp;
+                    const tempUrl = resp.observe;
                     i.url = this.sanitizer.bypassSecurityTrustUrl(tempUrl);
                   },
                   error: (err) => {
