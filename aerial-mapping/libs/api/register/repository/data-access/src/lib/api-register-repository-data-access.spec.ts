@@ -32,9 +32,9 @@ describe('RegisterRepository', () => {
 
       jest
         .spyOn(repository, 'createUser')
-        .mockImplementation(() => Promise.resolve(user));
+        .mockImplementation(() => Promise.resolve("Success!"));
 
-      expect(await repository.createUser("Dylan Smith", "email@email.com", "sdazdf", "user", true)).toBe(user);
+      expect(await repository.createUser("Dylan Smith", "email@email.com", "sdazdf", "user", true)).toBe("Success!");
     })
   });
 

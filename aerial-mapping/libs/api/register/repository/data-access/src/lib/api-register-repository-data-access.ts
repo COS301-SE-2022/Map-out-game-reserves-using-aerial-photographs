@@ -219,12 +219,10 @@ export class RegisterRepository {
     }
   }
 
-  public async createUser(name: string, email: string, password: string, role: string, approved: boolean): Promise<User> {
-   let user: User;
-
-    await bcrypt.genSalt(10, (_err, salt) => {
+  public async createUser(name: string, email: string, password: string, role: string, approved: boolean): Promise<string> {
+    bcrypt.genSalt(10, (_err, salt) => {
       bcrypt.hash(password, salt, async (_rr, hash) => {
-         user = await this.prisma.user.create({
+        await this.prisma.user.create({
           data: {
             user_name: name,
             user_email: email,
@@ -237,7 +235,7 @@ export class RegisterRepository {
       });
     });
 
-    return user;
+    return "Success!";
   }
 
 }
