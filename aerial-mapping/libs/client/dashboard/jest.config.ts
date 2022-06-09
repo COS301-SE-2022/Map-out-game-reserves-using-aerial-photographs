@@ -1,5 +1,8 @@
 /* eslint-disable */
 export default {
+  moduleNameMapper: {
+    "^lodash-es$": "lodash"
+  },
   displayName: 'client-dashboard',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
