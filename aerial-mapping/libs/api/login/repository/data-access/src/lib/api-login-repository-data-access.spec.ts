@@ -4,7 +4,6 @@ import { LoginRepository } from './api-login-repository-data-access';
 import { PrismaService } from "@aerial-mapping/api/shared/services/prisma/data-access";
 import { User } from '@prisma/client';
 import { AuthGuard } from './auth/guards/auth.guard';
-import { LoginRepositoryModule } from './api-login-repository-data-access.module';
 
 describe('LoginRepository', () => {
   let repository: LoginRepository;
