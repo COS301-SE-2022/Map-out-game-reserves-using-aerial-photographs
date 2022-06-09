@@ -21,7 +21,7 @@
     padding: 1%;
     // margin-left: 0.5%;
     width: 88%;
-    height: 60%;
+    height: 70%;
     vertical-align: top;
     position: absolute;
     left: 12%;
@@ -34,13 +34,13 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 91%;
+    height: 90.8%;      //Woud've been 91 but this is just to avoid scrollbar in Chrome based browsers
     position: absolute;
 }
 
 .drag-box {
     width: 50%;
-    height: 55%;
+    height: 60%;
     background-color: $primary-background;
     align-items: center;
     justify-content: center;
