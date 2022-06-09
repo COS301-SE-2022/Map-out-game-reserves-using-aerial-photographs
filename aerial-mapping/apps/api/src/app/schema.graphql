@@ -18,7 +18,7 @@ type Query {
 type Mutation {
   invite(email: String): String
   registerUser(firstname: String, lastname: String, email: String, password: String, role: String, approved: Boolean): String!
-  createImageCollection(parkID: Int, datetime: DateTime, flightID: Int): String!
+  createImageCollection(parkID: Int,  name: String, flightID: Int): String!
   login(email: String, password: String): String
   logout: String
   createImage(collectionID: Int ,bucket_name: String, file_name: String): String
