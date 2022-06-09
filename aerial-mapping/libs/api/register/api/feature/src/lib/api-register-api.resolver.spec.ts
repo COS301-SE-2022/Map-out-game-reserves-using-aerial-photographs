@@ -2,6 +2,7 @@ import { PrismaService } from '@aerial-mapping/api/shared/services/prisma/data-a
 import { Test, TestingModule } from '@nestjs/testing';
 import { RegisterRepository } from '@aerial-mapping/api/register/repository/data-access';
 import { RegisterResolver } from './api-register-api.resolver';
+import { Int } from '@nestjs/graphql';
 
 //Run 'nx test api-register-api-feature'
 describe('RegisterResolver', () => {
@@ -32,12 +33,22 @@ describe('RegisterResolver', () => {
   });
 
   describe('@registerUser', () => {
-    it('should return "Created user!"',async () => {
+    it('should return null, this email has not been invited.',async () => {
+      const user = {
+        userID: expect.any(Int),
+        user_email: expect.any(String),
+        user_password: expect.any(String),
+        user_password_salt: expect.any(String),
+        user_name: expect.any(String),
+        user_role: expect.any(String),
+        user_approved: expect.any(Boolean)
+      }
+
       jest
       .spyOn(resolver, 'registerUser')
-      .mockImplementation(() => Promise.resolve("Created user!"));
+      .mockImplementation(() => Promise.resolve(null));
 
-      expect(await resolver.registerUser("Dylan Smith", "email@email.com", "sdazdf", "user", true)).toBe("Created user!")
+      expect(await resolver.registerUser("Dylan Smith", "email@email.com", "sdazdf", "user", true)).toBe(null)
     })
   });
 
