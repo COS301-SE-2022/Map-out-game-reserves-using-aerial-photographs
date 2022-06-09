@@ -3,6 +3,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FileUploadComponent } from './file-upload.component';
+import { ClientApiService } from '@aerial-mapping/client/shared/services';
+
 
 describe('FileUploadComponent', () => {
   let component: FileUploadComponent;
@@ -12,7 +14,7 @@ describe('FileUploadComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ComponentsNavbarModule, HttpClientModule, RouterTestingModule],
       declarations: [FileUploadComponent],
-      providers: [HttpClient]
+      providers: [HttpClient, ClientApiService]
     }).compileComponents();
   });
 

@@ -9,13 +9,13 @@ export class S3UploadRepository {
   constructor(private prisma: PrismaService) {}
 
   public async createImage(
-    collectionId: number,
+    collectionID: number,
     bucket_name: string,
     file_name: string,
   ) {
     await this.prisma.images.create({
       data: {
-        collectionID: collectionId,
+        collectionID: collectionID,
         bucket_name: bucket_name,
         file_name: file_name,
       },
@@ -52,8 +52,6 @@ export class S3UploadRepository {
   public async createImageCollection(
     parkID: number,
     name: string,
-    dateTime: string,
-    completed: boolean,
     flightID: number
   ) {
     //validation
@@ -62,8 +60,6 @@ export class S3UploadRepository {
         data: {
           parkID: parkID,
           name: name,
-          upload_date_time: dateTime,
-          completed: completed,
           flightID: flightID,
         },
       });
