@@ -22,7 +22,6 @@ export class LoginRepository {
         userID: true,
         user_email: true,
         user_name: true,
-        user_surname: true,
         user_role: true,
         user_approved: true,
         user_password: true,

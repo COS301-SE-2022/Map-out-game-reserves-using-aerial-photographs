@@ -20,7 +20,25 @@ export class AuthGuard implements CanActivate {
 
       const token = auth.split(' ')[1];
       try {
+        console.log(jwt.decode(token));
         return jwt.verify(token, 'secret-key');
+      }
+      catch(err) {
+        return 'Invalid token.';
+      }
+    }
+    return 'Invalid token.';
+  }
+
+  public async getCurrentUserEmailFromJwt(auth: string) {
+    if(auth != undefined && auth != ''){
+      if(auth.split(' ')[0] !== 'Bearer') {
+        return "Invalid token.";
+      }
+
+      const token = auth.split(' ')[1];
+      try {
+        return JSON.stringify(JSON.parse(jwt.decode(token)!.toString()));
       }
       catch(err) {
         return 'Invalid token.';

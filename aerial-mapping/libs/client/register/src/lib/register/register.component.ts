@@ -17,8 +17,7 @@ export class RegisterComponent {
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required]),
       repeatedPassword: new FormControl('', [Validators.required]),
-      firstname: new FormControl('', [Validators.required]),
-      lastname: new FormControl('', [Validators.required]),
+      name: new FormControl('', [Validators.required])
     });
     this.isSubmitted = false;
   }
@@ -37,13 +36,12 @@ export class RegisterComponent {
     const email = this.registerForm.controls['email'].value;
     const password = this.registerForm.controls['password'].value;
     const repeatedPassword = this.registerForm.controls['repeatedPassword'].value;
-    const firstname = this.registerForm.controls['firstname'].value;
-    const lastname = this.registerForm.controls['lastname'].value;
+    const name = this.registerForm.controls['name'].value;
 
     // TODO: perform validation for email, password, repeatedPassword and check firstname and lastname aren't empty
     // TODO: replace alerts with a nice snackbar or something
 
-    if(firstname == '' || lastname == '' || email == '' || password == '' || repeatedPassword == '') {
+    if(name == '' || email == '' || password == '' || repeatedPassword == '') {
       return;
     }
 
@@ -56,7 +54,7 @@ export class RegisterComponent {
       return;
     }
 
-    this.apiService.registerUser(firstname, lastname, email, password, 'user', true).subscribe({
+    this.apiService.registerUser(name, email, password, 'user', true).subscribe({
       next: (resp) => {
         if(resp.data.registerUser == 'Created user!') {
           alert('Successfully registered!');

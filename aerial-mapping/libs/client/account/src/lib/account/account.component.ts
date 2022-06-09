@@ -1,5 +1,5 @@
 import { ClientApiService } from '@aerial-mapping/client/shared/services';
-import { Component } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -8,13 +8,41 @@ import { Router } from '@angular/router';
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.scss'],
 })
-export class AccountComponent  {
+export class AccountComponent implements OnInit {
+  @ViewChild("name") name!: ElementRef<HTMLInputElement>;
+  @ViewChild("email") email!: ElementRef<HTMLInputElement>;
+  @ViewChild("role") role!: ElementRef<HTMLInputElement>;
+
   registerForm: FormGroup;
 
   constructor(private router: Router, private apiService: ClientApiService){
     this.registerForm = new FormGroup({
       inviteEmail: new FormControl('', [Validators.required, Validators.email]),
     });
+  }
+
+  ngOnInit() {
+    // get name, pass, email, and admin status
+    this.apiService.getCurrentUserEmail().subscribe({
+      next: (res) => {
+        if(res != 'No current user.'){
+          this.apiService.getUserByEmail(res).subscribe({
+            next: (resp) => {
+              const user = resp.data.getUserByEmail;
+              this.name.nativeElement.innerHTML = user.user_name;
+              this.email.nativeElement.innerHTML = user.user_email;
+              this.role.nativeElement.innerHTML = user.user_role.charAt(0).toUpperCase() + user.user_role.slice(1);
+            },
+            error: (err) => {
+              console.log(err);
+            }
+          });
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
   }
 
   onSubmitRegisterForm() {

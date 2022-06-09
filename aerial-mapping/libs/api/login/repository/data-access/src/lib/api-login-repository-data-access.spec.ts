@@ -4,7 +4,6 @@ import { LoginRepository } from './api-login-repository-data-access';
 import { PrismaService } from "@aerial-mapping/api/shared/services/prisma/data-access";
 import { User } from '@prisma/client';
 import { AuthGuard } from './auth/guards/auth.guard';
-import { LoginRepositoryModule } from './api-login-repository-data-access.module';
 
 describe('LoginRepository', () => {
   let repository: LoginRepository;
@@ -29,7 +28,6 @@ describe('LoginRepository', () => {
         user_password: "password",
         user_password_salt: "salt",
         user_name: "name",
-        user_surname: "surname",
         user_role: "user",
         user_approved: true
       }
@@ -50,7 +48,6 @@ describe('LoginRepository', () => {
         user_password: "password",
         user_password_salt: "salt",
         user_name: "name",
-        user_surname: "surname",
         user_role: "user",
         user_approved: true
       }
