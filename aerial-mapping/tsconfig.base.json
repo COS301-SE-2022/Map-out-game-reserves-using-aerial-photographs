@@ -18,6 +18,7 @@
     "paths": {
       "@aerial-mapping/api/dashboard/api/feature": ["libs/api/dashboard/api/feature/src/index.ts"],
       "@aerial-mapping/api/dashboard/repository/data-access": ["libs/api/dashboard/repository/data-access/src/index.ts"],
+      "@aerial-mapping/api/image-catalogue/data-access": ["libs/api/image-catalogue/repository/data-access/src/index.ts"],
       "@aerial-mapping/api/login/api/feature": ["libs/api/login/api/feature/src/index.ts"],
       "@aerial-mapping/api/login/api/shared/interfaces/data-access": ["libs/api/login/api/shared/interfaces/data-access/src/index.ts"],
       "@aerial-mapping/api/login/repository/data-access": ["libs/api/login/repository/data-access/src/index.ts"],
