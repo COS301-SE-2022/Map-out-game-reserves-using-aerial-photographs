@@ -1,7 +1,8 @@
-module.exports = {
+/* eslint-disable */
+export default {
   displayName: 'client-login',
   preset: '../../../jest.preset.ts',
-  setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
+  setupFilesAfterEnv: ['<rootDir>/src/test-setup.js'],
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',
