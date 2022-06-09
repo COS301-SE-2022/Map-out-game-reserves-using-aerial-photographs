@@ -38,7 +38,7 @@ export class AuthGuard implements CanActivate {
 
       const token = auth.split(' ')[1];
       try {
-        return await JSON.stringify(JSON.parse(jwt.decode(token).toString()));
+        return JSON.stringify(JSON.parse(jwt.decode(token)!.toString()));
       }
       catch(err) {
         return 'Invalid token.';

@@ -28,7 +28,6 @@ describe('LoginRepository', () => {
         user_password: "password",
         user_password_salt: "salt",
         user_name: "name",
-        user_surname: "surname",
         user_role: "user",
         user_approved: true
       }
@@ -49,7 +48,6 @@ describe('LoginRepository', () => {
         user_password: "password",
         user_password_salt: "salt",
         user_name: "name",
-        user_surname: "surname",
         user_role: "user",
         user_approved: true
       }
