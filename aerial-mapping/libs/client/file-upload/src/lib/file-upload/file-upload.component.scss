@@ -93,7 +93,7 @@
     font-weight: bolder;
 }
 
-.parks{
+.parks, .types, #height{
     width: 70%;
     background: $primary-background-opaque;
     border:none;
@@ -103,4 +103,12 @@
     box-sizing: border-box;
     border-radius: 5px;
     overflow-y: auto;
+}
+
+#height{
+    margin: 20px;
+}
+
+h4{
+    color:red;
 }

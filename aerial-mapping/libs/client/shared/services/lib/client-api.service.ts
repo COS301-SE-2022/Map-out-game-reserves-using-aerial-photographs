@@ -30,6 +30,13 @@ export class ClientApiService {
     );
   }
 
+  getCurrentUserEmail(): Observable<any> {
+    return this.runQuery('query { getCurrentUserEmail }', null, this.token);
+  }
+
+  getUserByEmail(email: string): Observable<any> {
+    return this.runQuery('query ($email: String){ getUserByEmail(email: $email) { userID, user_email, user_name, , user_role, user_approved }}', { user_email: email }, this.token);
+  }
 
   getImageCollections(): Observable<any> {
     return this.runQuery('query { getImageCollections { collectionID, parkID, upload_date_time, completed, flightID }}',null, this.token);
@@ -83,17 +90,16 @@ export class ClientApiService {
     return this.runQuery('mutation ($email: String){ invite(email: $email) }', { email: email });
   }
 
-  registerUser(fname: string, lname: string, email: string, pass: string, role: string, approved: boolean): Observable<any> {
+  registerUser(name: string, email: string, pass: string, role: string, approved: boolean): Observable<any> {
     const variables = {
-      firstname: fname,
-      lastname: lname,
+      name: name,
       email: email,
       password: pass,
       role: role,
       approved: approved
     }
 
-    return this.runQuery('mutation ($firstname: String, $lastname: String, $email: String, $password: String, $role: String, $approved: Boolean){ registerUser(firstname: $firstname, lastname: $lastname, email: $email, password: $password, role: $role, approved: $approved) }', variables);
+    return this.runQuery('mutation ($name: String, $email: String, $password: String, $role: String, $approved: Boolean){ registerUser(name: $name, email: $email, password: $password, role: $role, approved: $approved) }', variables);
   }
 
 }

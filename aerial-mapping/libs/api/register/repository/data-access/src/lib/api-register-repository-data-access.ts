@@ -211,7 +211,7 @@ export class RegisterRepository {
     }
   }
 
-  public async createUser(firstname: string, lastname: string, email: string, password: string, role: string, approved: boolean) {
+  public async createUser(name: string, email: string, password: string, role: string, approved: boolean) {
     let error: Error | null = null;
 
     bcrypt.genSalt(10, (err, salt) => {
@@ -224,8 +224,7 @@ export class RegisterRepository {
         }
         await this.prisma.user.create({
           data: {
-            user_name: firstname,
-            user_surname: lastname,
+            user_name: name,
             user_email: email,
             user_password: hash,
             user_password_salt: salt,

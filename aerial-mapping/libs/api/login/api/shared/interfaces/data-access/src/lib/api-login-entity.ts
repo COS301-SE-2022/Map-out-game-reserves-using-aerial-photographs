@@ -9,9 +9,6 @@ export class User {
   user_name!: string;
 
   @Field(() => String)
-  user_surname!: string;
-
-  @Field(() => String)
   user_email!: string;
 
   @Field(() => String)

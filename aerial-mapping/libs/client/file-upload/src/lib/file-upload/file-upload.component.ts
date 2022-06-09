@@ -7,6 +7,11 @@ interface Park {
   viewValue: string;
 }
 
+interface FlightType {
+  value: string;
+  viewValue: string;
+}
+
 @Component({
   selector: 'aerial-mapping-file-upload',
   templateUrl: './file-upload.component.html',
@@ -27,8 +32,15 @@ export class FileUploadComponent {
   splittingProgress = 0;
 
   parks: Park[] = [
-    {value: 'Somkhanda-0', viewValue: 'Somkhanda'},
-    {value: 'RietVlei-1', viewValue: 'Riet Vlei'},
+    // {value: 'Default-0', viewValue: 'Choose a Park'},
+    {value: 'Somkhanda-1', viewValue: 'Somkhanda'},
+    {value: 'RietVlei-2', viewValue: 'Riet Vlei'},
+  ];
+
+  flight: FlightType[] = [
+    // {value: 'Default-0', viewValue: 'Choose a Park'},
+    {value: 'Drone-0', viewValue: 'Drone'},
+    {value: 'Propeller Plane-1', viewValue: 'Propeller Plane'},
   ];
   
 

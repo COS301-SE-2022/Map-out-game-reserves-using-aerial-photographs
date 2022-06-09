@@ -10,7 +10,6 @@ describe('ClientLoginModule', () => {
     }).compileComponents();
   }));
 
-  // TODO: Add real tests here.
   //
   // NB: This particular test does not do anything useful.
   //     It does NOT check for correct instantiation of the module.
