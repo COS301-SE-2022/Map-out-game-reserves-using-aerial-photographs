@@ -20,12 +20,13 @@ body {
 }
 
 .background {
-  background-color: $primary-dark;
+  //background-color: $primary-dark;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   position: absolute;
+  //background-image: url("./../../../../../../apps/aerial-mapping/src/assets/mapwallpaperinverted.jpg");
 }
 
 // .content {
