@@ -18,7 +18,6 @@ export class RegisterResolver {
     return await this.repo.invite(email);
   }
 
-  //should have a role guard so that only admin roles can create new users
   @Mutation(() => String, { name: 'registerUser', nullable: true })
   @UseGuards(new AuthGuard())
   async registerUser(

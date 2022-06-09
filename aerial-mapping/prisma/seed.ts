@@ -14,8 +14,7 @@ async function main() {
       user_email: 'correct@email.com',
       user_password: '$2b$10$xQnDMeFz9oQENCk.DqIiuOdiTjMqOeuCpFfzlo4Sk4q0.jSzOg40i',
       user_password_salt: '$2b$10$xQnDMeFz9oQENCk.DqIiuO',
-      user_name: 'Dylan',
-      user_surname: 'Pietersen',
+      user_name: 'Dylan Pietersen',
       user_role: 'user'
     }
   });
@@ -29,8 +28,7 @@ async function main() {
       user_email: 'admin@email.com',
       user_password: '$2b$10$xQnDMeFz9oQENCk.DqIiuOdiTjMqOeuCpFfzlo4Sk4q0.jSzOg40i',
       user_password_salt: '$2b$10$xQnDMeFz9oQENCk.DqIiuO',
-      user_name: 'Steven',
-      user_surname: 'Schormann',
+      user_name: 'Steven Schormann',
       user_role: 'admin'
     }
   });
