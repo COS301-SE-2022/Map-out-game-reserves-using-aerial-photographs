@@ -23,7 +23,7 @@
                         NAME
                     </label>
                     <mat-card id = "name" class="info" (click)="changeName()">
-                        <div class = "fill">
+                        <div #name class = "fill">
                             The Dylpickles
                         </div>
                         <button mat-button class="editButt tooltip" id="editName">
@@ -36,7 +36,7 @@
                     </label>
                     <mat-card id = "email" class="info" id ="editEmail" (click)="changeEmail()">
                         <!--will need to fill out using the session-->
-                        <div class = "fill">
+                        <div #email class = "fill">
                             thedylpickles1@gmail.com
                         </div>
                         <button mat-button class="editButt tooltip">
@@ -49,7 +49,7 @@
                     </label>
                     <mat-card id = "role" class="info">
                         <!--will need to fill out using the session-->
-                        <div class = "fill">
+                        <div #role class = "fill">
                             Administrator
                         </div>
                     </mat-card>
