@@ -8,19 +8,38 @@ dotenv.config();
 export class S3UploadRepository {
   constructor(private prisma: PrismaService) {}
 
+  public async createFlight(pilotID: number, height: number, type: string) {
+    return this.prisma.flight_Details.create({
+      data: {
+        flight_height: height,
+        flight_type: type,
+        pilotID: pilotID
+      }
+    });
+  }
+
+  public async getParkId(name: string) {
+    return this.prisma.game_Park.findFirst({
+      where: {
+        park_name: {
+          contains: name
+        }
+      },
+    });
+  }
+
   public async createImage(
     collectionID: number,
     bucket_name: string,
     file_name: string,
   ) {
-    await this.prisma.images.create({
+    return this.prisma.images.create({
       data: {
         collectionID: collectionID,
         bucket_name: bucket_name,
         file_name: file_name,
       },
     });
-    return 'Success!';
   }
 
   public async getImage(imageID: number) {
@@ -56,14 +75,13 @@ export class S3UploadRepository {
   ) {
     //validation
     try {
-      await this.prisma.image_Collection.create({
+      return this.prisma.image_Collection.create({
         data: {
           parkID: parkID,
           name: name,
           flightID: flightID,
         },
       });
-      return 'Created Image Collection!';
     } catch (e) {
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
         if (e.code === 'P2002') {

@@ -10,6 +10,12 @@ export class S3UploadResolver {
   private readonly repo: S3UploadRepository
   ) { }
 
+  @Query('getParkId')
+  @UseGuards(new AuthGuard())
+  async getParkId(name: string) {
+    return await this.repo.getParkId(name);
+  }
+
   @Query('getImage')
   @UseGuards(new AuthGuard())
   async getImage(imageID: number) {
@@ -22,6 +28,16 @@ export class S3UploadResolver {
     @Args('id') id: number
   ) {
     return await this.repo.getImagesByCollectionId(id);
+  }
+
+  @Mutation('createFlight')
+  @UseGuards(new AuthGuard())
+  async createFlight(
+    @Args('pilotID') pilotID: number,
+    @Args('height') height: number,
+    @Args('type') type: string
+  ) {
+    return await this.repo.createFlight(pilotID, height, type);
   }
 
   @Mutation('createImage')

@@ -6,6 +6,7 @@ type Query {
   getUsers: [User]
   getCurrentUserEmail: String
   getParks: [Game_Park]
+  getParkId(name: String): Int
   pingAuthentication: String!
   getMessages: [Message]
   getImagesByCollectionId(id: Int): [Images]
@@ -18,11 +19,12 @@ type Query {
 
 type Mutation {
   invite(email: String): String
-  registerUser(name: String, email: String, password: String, role: String, approved: Boolean): String!
-  createImageCollection(parkID: Int,  name: String, flightID: Int): String!
+  registerUser(name: String, email: String, password: String, role: String, approved: Boolean): User
+  createImageCollection(parkID: Int,  name: String, flightID: Int): Image_Collection
   login(email: String, password: String): String
   logout: String
-  createImage(collectionID: Int ,bucket_name: String, file_name: String): String
+  createFlight(pilotID: Int, height: Int, type: String): Flight_details
+  createImage(collectionID: Int ,bucket_name: String, file_name: String): Images
 }
 
 type User {

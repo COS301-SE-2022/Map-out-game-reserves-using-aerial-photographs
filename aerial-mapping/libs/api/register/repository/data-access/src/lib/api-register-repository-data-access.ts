@@ -229,7 +229,7 @@ export class RegisterRepository {
         if (err) {
           error = err;
         }
-        await this.prisma.user.create({
+        return this.prisma.user.create({
           data: {
             user_name: name,
             user_email: email,
@@ -242,9 +242,6 @@ export class RegisterRepository {
       });
     });
 
-    if (error == null) {
-      return "Created user!";
-    }
     return error;
   }
 
