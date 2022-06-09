@@ -14,6 +14,13 @@ export class S3UploadResolver {
     return await this.repo.getImage(imageID);
   };
 
+  @Query('getImagesByCollectionId')
+  async getImagesByCollectionId(
+    @Args('id') id: number
+  ) {
+    return await this.repo.getImagesByCollectionId(id);
+  }
+
   @Mutation('createImage')
   async S3Upload(collectionId: number, name: string, path: string) {
     return await this.repo.createImage(collectionId, name, path);

@@ -36,7 +36,7 @@ export class ClientApiService {
   }
 
   getImagesByCollectionId(id: number): Observable<any> {
-    return this.runQuery('query ($collectionID: Int){ getImagesByCollectionId(id: $collectionID) { imageID, collectionID, name, file_location } }', { collectionID: id });
+    return this.runQuery('query ($collectionID: Int){ getImagesByCollectionId(id: $collectionID) { imageID, collectionID, name } }', { collectionID: id });
   }
 
   getMessages(): Observable<any> {
@@ -64,7 +64,7 @@ export class ClientApiService {
     });
 
     bucket_name = "dylpickles-image-bucket";
-    file_name = "new_image_4";
+    file_name = "drone.png";
 
     const options = {
       headers: new HttpHeaders({
@@ -75,7 +75,7 @@ export class ClientApiService {
     return this.http.get(
       "https://3dxg59qzw5.execute-api.us-east-1.amazonaws.com/test_stage/"+bucket_name+"/"+file_name, {
         headers: { 'Content-Type': 'image/png' },
-        responseType: 'blob'
+        responseType: 'text'
       }
     );
   }
