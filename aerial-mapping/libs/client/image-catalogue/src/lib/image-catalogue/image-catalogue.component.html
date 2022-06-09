@@ -14,18 +14,17 @@
       <aerial-mapping-side-navbar></aerial-mapping-side-navbar>
       <div class="content">
         <div>
-          <form class="form">
+          <form (submit)="$event.preventDefault()" class="form">
             <!-- <div class="form"> -->
             <mat-icon>search</mat-icon>
-            <input class="search" type="text" placeholder="Search" matInput />
+            <input (keyup)="searchCatalogues($event)" (change)="searchCatalogues($event)" id="searchInput" class="search" type="text" placeholder="Search" value="" matInput />
             <!-- </div> -->
           </form>
           <mat-form-field appearance="fill">
             <input matInput style="display: none;">
             <label id="right" class="sort">Sort By</label>
-            <select onchange="onChangeSort(this)" id="left" class="sort" required style="display: inline">
+            <select (change)="onChangeSort($event)" id="left" class="sort" required style="display: inline">
               <option value="date" selected>Upload Date</option>
-              <option value="time">Upload Time</option>
               <option value="park">Park</option>
             </select>
           </mat-form-field>
@@ -35,7 +34,7 @@
           <mat-card *ngFor="let cat of catalogues" id="{{ cat.collectionID }}">
             <mat-card-header>
               <span style="float: left">{{ cat.name }}</span>
-              <span style="float: right">{{ cat.upload_date_time }}</span>
+              <span style="float: right">{{ cat.upload_date_time | date }}</span>
             </mat-card-header>
             <br />
             <mat-card-content>

@@ -10,12 +10,17 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 })
 export class ImageCatalogueComponent {
   selected: string;
+  tempCatalogues: Image_Collection[] = [];
   catalogues: Image_Collection[] = [];
   images: ImageData[] = [];
 
   constructor(public apiService: ClientApiService, private sanitizer: DomSanitizer) {
     this.selected = 'date';
 
+    this.getAllCatalogues();
+  }
+
+  getAllCatalogues() {
     this.apiService.getImageCollections().subscribe({
       next: (resp) => {
         this.catalogues = resp.data.getImageCollections;
@@ -23,11 +28,11 @@ export class ImageCatalogueComponent {
         for (const catalog of this.catalogues) {
           this.apiService.getImagesByCollectionId(catalog.collectionID).subscribe({
             next: (res) => {
-              for(const i of res.data.getImagesByCollectionId) {
-                this.images.push({ image: i, url: ''});
+              for (const i of res.data.getImagesByCollectionId) {
+                this.images.push({ image: i, url: '' });
               }
 
-              for(const i of this.images) {
+              for (const i of this.images) {
                 //pull image data from s3 for each image
                 this.apiService.getImageData(i.image.bucket_name, i.image.file_name).subscribe({
                   next: (resp) => {
@@ -39,6 +44,8 @@ export class ImageCatalogueComponent {
                   }
                 });
               }
+              this.sortByDate();
+              this.tempCatalogues = this.catalogues;
             },
             error: (err) => {
               console.log(err)
@@ -57,13 +64,39 @@ export class ImageCatalogueComponent {
     return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
   }
 
-  onChangeSort(selectedOption: HTMLSelectElement) {
-    return this.apiService
-      .getImageCollections()
-      .toPromise()
-      .then(() => {
-        return '';
-      });
+  searchCatalogues(e: Event) {
+    //search for either a matching date string or a collection name
+    //or a park name?
+    const searchTerm = (<HTMLInputElement>document.getElementById('searchInput')).value.toLowerCase();
+    if(searchTerm != '') {
+      this.catalogues = this.tempCatalogues;
+      this.catalogues =  this.catalogues.filter((c) => {
+        const date = new Date(c.upload_date_time).toDateString().toLowerCase()
+        return date.includes(searchTerm)
+      })
+    }
+    else {
+      this.getAllCatalogues();
+    }
+  }
+
+  onChangeSort(selectedOption: any) {
+    this.selected = selectedOption.target.value;
+    if (this.selected == 'date') {
+      this.sortByDate()
+    } else if (this.selected == 'park') {
+      this.sortByPark()
+    }
+  }
+
+  sortByDate() {
+    this.catalogues.sort((a, b) => {
+      return new Date(a.upload_date_time).getTime() - new Date(b.upload_date_time).getTime();
+    });
+  }
+
+  sortByPark() {
+    this.catalogues.sort((a, b) => a.parkID - b.parkID);
   }
 
   enlarge() {
