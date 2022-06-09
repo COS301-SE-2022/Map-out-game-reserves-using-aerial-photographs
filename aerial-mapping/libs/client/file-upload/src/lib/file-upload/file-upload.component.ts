@@ -141,10 +141,10 @@ export class FileUploadComponent {
     img.src = URL.createObjectURL(file);
 
     // extract frames (video, interval(time), quality(0-1), final width, final height)
-    const interval = 1.0;
+    const interval = 10;
     const quality = 1.0;
-    const finalWidth = 1920;
-    const finalHeight = 1080;
+    const finalWidth = 240;
+    const finalHeight = 180;
     const frames = this.extractFramesFromVideo(
       img.src,
       interval,
@@ -156,33 +156,29 @@ export class FileUploadComponent {
     //Do after frames are extracted
     frames.then((frames) => {
       const frame = frames[1];
-      // this.apiService.createBucket(1,"",1,id).subscribe({
-      //   error: (err) => {
-      //     console.log(err);
-      //   }
-      // });
       this.apiService.getImageCollections().subscribe({
         next: (data) => {
           console.log(data);
-          const id = data.data.getImageCollections.length+1;
           this.apiService.createImageCollection(1, '', 1).subscribe({
+            next: () => {
+              let id = 0;
+              if(data.data.getImageCollections.length != 0){
+                id = data.data.getImageCollections[data.data.getImageCollections.length-1].collectionID + 1;
+              }
+
+              for(let i = 0; i < frames.length; i++) {
+                this.uploadToS3(id, "dylpickles-image-bucket", id+"-frame-"+i+".png", frame);
+              }
+            },
             error: (err) => {
               console.log(err);
             }
           });
-    
-          const name = "test";
-          for(let i = 0; i < frames.length; i++) {
-            this.uploadToS3(id, "dylpickles-image-bucket", name+"-frame-"+i+".png", frame);
-          }
         },
         error: (err) => {
           console.log(err);
         }
       });
-
-
-      
       // console.log(frames);
     });
   }

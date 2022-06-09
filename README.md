@@ -25,7 +25,16 @@ Drones allow for a more up to date set of images of a landscape, this allows muc
 ## Link to Recorded Demo
 
 ## Link to Functional Requirements (SRS)
-https://drive.google.com/drive/folders/1JoNQ91bSYn3ZS6-2M2n6RF7q9CQvFz-D?usp=sharing
+https://drive.google.com/file/d/1hQEqsjVKGEA6bgIgqMEVHkNoJNtx4yqa/view?usp=sharing
+
+## Link to Architectural Requirements
+https://drive.google.com/file/d/1e-WkXni-e-zc_NSjDJw0AZE73m-PvhV-/view?usp=sharing
+
+## Link to Coding Standards Document
+https://drive.google.com/file/d/1JzXJ_9kVZoqfU8mCXWa-8tOkUgZt_YO6/view?usp=sharing
+
+## Link to User Manual
+https://drive.google.com/file/d/10GUkj-MJ_sZCM_SJ1v5H1Q3gyMxPlain/view?usp=sharing
 
 ## Link to Project Board
 https://github.com/COS301-SE-2022/Map-out-game-reserves-using-aerial-photographs/projects/1 
