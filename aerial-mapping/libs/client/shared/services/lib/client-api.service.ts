@@ -51,7 +51,7 @@ export class ClientApiService {
   }
 
   getImagesByCollectionId(id: number): Observable<any> {
-    return this.runQuery('query ($collectionID: Int){ getImagesByCollectionId(id: $collectionID) { imageID, collectionID, bucket_name, file_name } }', { collectionID: id });
+    return this.runQuery('query ($collectionID: Int){ getImagesByCollectionId(id: $collectionID) { imageID, collectionID, bucket_name, file_name } }', { collectionID: id }, this.token);
   }
 
   getMessages(): Observable<any> {
@@ -69,7 +69,8 @@ export class ClientApiService {
   getImage(imageID: number): Observable<any> {
     return this.runQuery(
       'query ($imageID: Int){ getImage(imageID: $imageID) { imageID, collectionID, bucket_name, file_name }}',
-      { imageID: imageID }
+      { imageID: imageID },
+      this.token
     );
   }
 
@@ -151,14 +152,16 @@ export class ClientApiService {
 
     return this.runQuery(
       'mutation ($collectionID: Int, $bucket_name: String, $file_name: String){ createImage(collectionID: $collectionID, bucket_name: $bucket_name, file_name: $file_name) }',
-      variables
+      variables,
+      this.token
     );
   }
 
   createImageCollection(parkID: number, name: string, flightID: number): Observable<any> {
     return this.runQuery(
       'mutation ($parkID: Int, $name: String, $flightID: Int){ createImageCollection(parkID: $parkID, name: $name, flightID: $flightID) }',
-      { parkID: parkID, name: name, flightID: flightID }
+      { parkID: parkID, name: name, flightID: flightID },
+      this.token
     );
   }
 
@@ -172,7 +175,7 @@ export class ClientApiService {
   invite(email: string): Observable<any> {
     return this.runQuery('mutation ($email: String){ invite(email: $email) }', {
       email: email,
-    });
+    }, this.token);
   }
 
   registerUser(name: string, email: string, pass: string, role: string, approved: boolean): Observable<any> {
@@ -184,6 +187,6 @@ export class ClientApiService {
       approved: approved,
     };
 
-    return this.runQuery('mutation ($name: String, $email: String, $password: String, $role: String, $approved: Boolean){ registerUser(name: $name, email: $email, password: $password, role: $role, approved: $approved) }', variables);
+    return this.runQuery('mutation ($name: String, $email: String, $password: String, $role: String, $approved: Boolean){ registerUser(name: $name, email: $email, password: $password, role: $role, approved: $approved) }', variables, this.token);
   }
 }

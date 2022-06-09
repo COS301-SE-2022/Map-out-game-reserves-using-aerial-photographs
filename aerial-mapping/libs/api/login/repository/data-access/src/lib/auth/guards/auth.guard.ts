@@ -20,7 +20,6 @@ export class AuthGuard implements CanActivate {
 
       const token = auth.split(' ')[1];
       try {
-        console.log(jwt.decode(token));
         return jwt.verify(token, 'secret-key');
       }
       catch(err) {
