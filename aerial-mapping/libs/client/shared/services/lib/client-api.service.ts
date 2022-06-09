@@ -34,6 +34,14 @@ export class ClientApiService {
     );
   }
 
+  getCurrentUserEmail(): Observable<any> {
+    return this.runQuery('query { getCurrentUserEmail }', null, this.token);
+  }
+
+  getUserByEmail(email: string): Observable<any> {
+    return this.runQuery('query ($email: String){ getUserByEmail(email: $email) { userID, user_email, user_name, , user_role, user_approved }}', { user_email: email }, this.token);
+  }
+
   getImageCollections(): Observable<any> {
     return this.runQuery(
       'query { getImageCollections { collectionID, parkID, upload_date_time, completed, flightID }}',
@@ -79,7 +87,7 @@ export class ClientApiService {
         file_name,
       {
         headers: { 'Content-Type': 'image/png' },
-        responseType: 'text',
+        responseType: 'json',
       }
     );
   }
