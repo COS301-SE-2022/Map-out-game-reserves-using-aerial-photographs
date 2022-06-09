@@ -54,7 +54,7 @@ export class DashboardViewComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.apiService.getImageData(1).subscribe({
+    this.apiService.getImageData("bucket name", "file name").subscribe({
       next: (blob) => {
         const obj = new Image();
         obj.src = URL.createObjectURL(blob);

@@ -51,20 +51,10 @@ export class ClientApiService {
     return this.runQuery('query ($imageID: Int){ getImage(imageID: $imageID) { imageID, collectionID, bucket_name, file_name }}', {imageID: imageID});
   }
 
-  getImageData(imageID: number): Observable<any> {
-    let bucket_name = "";
-    let file_name = "";
-
-    this.getImage(imageID).subscribe({
-      next: (_res) => {
-        bucket_name = _res.data.getImage.bucket_name;
-        file_name = _res.data.getImage.file_name;
-      },
-      error: (err) => { console.log(err); }
-    });
+  getImageData(bucket_name: string, file_name: string): Observable<any> {
 
     bucket_name = "dylpickles-image-bucket";
-    file_name = "new_image_4";
+    file_name = "drone.png";
 
     const options = {
       headers: new HttpHeaders({
@@ -75,7 +65,7 @@ export class ClientApiService {
     return this.http.get(
       "https://3dxg59qzw5.execute-api.us-east-1.amazonaws.com/test_stage/"+bucket_name+"/"+file_name, {
         headers: { 'Content-Type': 'image/png' },
-        responseType: 'blob'
+        responseType: 'text'
       }
     );
   }
