@@ -11,7 +11,7 @@ export class RegisterResolver {
   ) { }
 
   @Mutation(() => String, { name: 'invite' })
-  @UseGuards(new AuthGuard())
+  //@UseGuards(new AuthGuard())
   async invite(
     @Args('email', { type: () => String }) email: string,
   ) {
@@ -19,7 +19,7 @@ export class RegisterResolver {
   }
 
   @Mutation(() => String, { name: 'registerUser', nullable: true })
-  @UseGuards(new AuthGuard())
+  //@UseGuards(new AuthGuard())
   async registerUser(
     @Args('name') name: string,
     @Args('email') email: string,
