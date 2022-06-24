@@ -13,21 +13,27 @@
       <div class="heading">Image Catalogue</div>
       <aerial-mapping-side-navbar></aerial-mapping-side-navbar>
       <div class="content" style="background-image: url('assets/mapwallpaper.jpg'); background-size: 100%; background-repeat:repeat; height:100%">
-        <div>
-          <form (submit)="$event.preventDefault()" class="form">
-            <!-- <div class="form"> -->
-            <mat-icon>search</mat-icon>
-            <input (keyup)="searchCatalogues($event)" (change)="searchCatalogues($event)" id="searchInput" class="search" type="text" placeholder="Search" value="" matInput />
-            <!-- </div> -->
-          </form>
-          <mat-form-field appearance="fill">
-            <input matInput style="display: none;">
-            <label id="right" class="sort">Sort By</label>
-            <select (change)="onChangeSort($event)" id="left" class="sort" required style="display: inline">
-              <option value="date" selected>Upload Date</option>
-              <option value="park">Park</option>
-            </select>
-          </mat-form-field>
+        <div id="searchAndSortContainer">
+          <div id="searchBar">
+            <mat-form-field [ngStyle]="{ width: '100%', height: '50px'}" class="form">
+              <button id="searchBtn" matPrefix mat-icon-button aria-label="Search">
+                <mat-icon inline=true>search</mat-icon>
+              </button>
+
+              <input (keyup)="searchCatalogues($event)" (change)="searchCatalogues($event)" id="searchInput" class="search" type="text" placeholder="Search" value="" matInput />
+            </mat-form-field>
+          </div>
+
+          <span id="sortDropdown">
+            <mat-form-field [ngStyle]="{ width: '18%', height: '50px'}" appearance="fill">
+              <!--input matInput style="display: none;"-->
+              <mat-label id="right" class="sortLabel">Sort By</mat-label>
+              <mat-select (change)="onChangeSort($event)" id="left" class="sort" style="display: inline">
+                <mat-option [value]="sort.date" selected>Upload Date</mat-option>
+                <mat-option [value]="sort.park">Park</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </span>
         </div>
 
         <div style="height: 85%; overflow-y: auto; margin-top: 2%">
