@@ -28,7 +28,7 @@
             <mat-form-field [ngStyle]="{ width: '18%', height: '50px'}" appearance="fill">
               <!--input matInput style="display: none;"-->
               <mat-label id="right" class="sortLabel">Sort By</mat-label>
-              <mat-select (change)="onChangeSort($event)" id="left" class="sort" style="display: inline">
+              <mat-select matInput (change)="onChangeSort($event)" id="left" class="sort" style="display: inline">
                 <mat-option [value]="sort.date" selected>Upload Date</mat-option>
                 <mat-option [value]="sort.park">Park</mat-option>
               </mat-select>
