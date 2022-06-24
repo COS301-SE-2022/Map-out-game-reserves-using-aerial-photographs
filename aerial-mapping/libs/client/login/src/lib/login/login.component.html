@@ -5,8 +5,7 @@
     style="background-image: url('assets/erpngo-header-full.jpg'); background-size: 100%; background-repeat:no-repeat; height:100%">
     <!--added margin to show boarder-->
 
-    <div id="container"
-      style="background-color: #5f5f5f8a; width: 40%; margin-left: 30px; margin-top:0px;">
+    <div id="container" style="background-color: #5f5f5f8a; width: 40%; margin-left: 30px; margin-top:0px;">
       <h2>LOGIN</h2>
       <hr>
 
@@ -14,25 +13,35 @@
         <label for="email">Email</label>
         <mat-form-field appearance="fill" required>
           <input id="loginEmailInput" formControlName="email" placeholder="Enter your email" matInput>
+          <mat-hint id="loginEmailPrompt" align="start" *ngIf="this.isSubmitted && email!.errors?.['required']">
+            Please enter your email
+          </mat-hint>
         </mat-form-field>
-        <div id="loginEmailPrompt" *ngIf="this.isSubmitted && email!.errors?.['required']" class="text-danger">
-          Please enter your email
-        </div>
+
+        <br>
+
         <label>Password</label>
         <mat-form-field appearance="fill">
-          <input id="loginPasswordInput" type="password" formControlName="password" placeholder="Enter your password" matInput>
+          <input id="loginPasswordInput" type="password" formControlName="password" placeholder="Enter your password"
+            matInput>
+          <mat-hint id="loginPasswordPrompt" align="start" *ngIf="this.isSubmitted && password!.errors?.['required']"
+            class="text-danger">
+            Please enter your password
+          </mat-hint>
         </mat-form-field>
-        <div id="loginPasswordPrompt" *ngIf="this.isSubmitted && password!.errors?.['required']" class="text-danger">
-          Please enter your password
-        </div>
-        <br />
+
+        <br>
+
         <div class="center">
           <a class="center"><button id="loginBtn" type="submit" mat-flat-button>LOGIN</button></a>
         </div>
       </form>
 
-      <br />
+      <br>
+
     </div>
   </div>
-  <br />
+
+  <br>
+
 </div>

@@ -1,6 +1,6 @@
 import { ClientApiService } from '@aerial-mapping/client/shared/services';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,11 +13,11 @@ export class AccountComponent implements OnInit {
   @ViewChild("email") email!: ElementRef<HTMLInputElement>;
   @ViewChild("role") role!: ElementRef<HTMLInputElement>;
 
-  registerForm: FormGroup;
+  registerForm: UntypedFormGroup;
 
-  constructor(private router: Router, private apiService: ClientApiService){
-    this.registerForm = new FormGroup({
-      inviteEmail: new FormControl('', [Validators.required, Validators.email]),
+  constructor(private router: Router, private apiService: ClientApiService) {
+    this.registerForm = new UntypedFormGroup({
+      inviteEmail: new UntypedFormControl('', [Validators.required, Validators.email]),
     });
   }
 
@@ -25,7 +25,7 @@ export class AccountComponent implements OnInit {
     // get name, pass, email, and admin status
     this.apiService.getCurrentUserEmail().subscribe({
       next: (res) => {
-        if(res != 'No current user.'){
+        if (res != 'No current user.') {
           this.apiService.getUserByEmail(res).subscribe({
             next: (resp) => {
               const user = resp.data.getUserByEmail;
@@ -53,7 +53,7 @@ export class AccountComponent implements OnInit {
     //send invite to submitted email
     this.apiService.invite(email).subscribe({
       next: (res) => {
-        if(res.data.invite == "Created invite!") {
+        if (res.data.invite == "Created invite!") {
           //replace with nice angular-notifier notification
           alert(res.data.invite);
           return;
@@ -68,59 +68,59 @@ export class AccountComponent implements OnInit {
     //TODO: close register popup
   }
 
-  changeName () {
+  changeName() {
     const editName = document.getElementById('myFormName');
-    if(editName!=null) {
-      editName.style.display='block';
+    if (editName != null) {
+      editName.style.display = 'block';
     }
   }
 
-  changeEmail () {
+  changeEmail() {
     const editEmail = document.getElementById('myFormEmail');
-    if(editEmail!=null) {
-      editEmail.style.display='block';
+    if (editEmail != null) {
+      editEmail.style.display = 'block';
     }
   }
 
-  changePassword () {
+  changePassword() {
     const editPsw = document.getElementById('myFormPassword');
-    if(editPsw!=null) {
-      editPsw.style.display='block';
+    if (editPsw != null) {
+      editPsw.style.display = 'block';
     }
   }
 
-  sendLink () {
+  sendLink() {
     const link = document.getElementById('myFormRegister');
-    if(link!=null) {
-      link.style.display='block';
+    if (link != null) {
+      link.style.display = 'block';
     }
   }
 
   closeFormName() {
     const editName = document.getElementById('myFormName');
-    if(editName!=null) {
-      editName.style.display='none';
+    if (editName != null) {
+      editName.style.display = 'none';
     }
   }
 
   closeFormEmail() {
     const editEmail = document.getElementById('myFormEmail');
-    if(editEmail!=null) {
-      editEmail.style.display='none';
+    if (editEmail != null) {
+      editEmail.style.display = 'none';
     }
   }
 
-  closeFormPsw () {
+  closeFormPsw() {
     const editPsw = document.getElementById('myFormPassword');
-    if(editPsw!=null) {
-      editPsw.style.display='none';
+    if (editPsw != null) {
+      editPsw.style.display = 'none';
     }
   }
 
-  closeFormRegister () {
+  closeFormRegister() {
     const link = document.getElementById('myFormRegister');
-    if(link!=null) {
-      link.style.display='none';
+    if (link != null) {
+      link.style.display = 'none';
     }
   }
 
