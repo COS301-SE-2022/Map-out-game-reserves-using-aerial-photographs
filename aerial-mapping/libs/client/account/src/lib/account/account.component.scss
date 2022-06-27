@@ -40,32 +40,39 @@ h3{
 
 .content {
   // border-radius: 3px;
-  background: $primary-background-opaque;
-  padding: 1%;
-  // margin-left: 0.5%;
-  width: 88%;
-  height: 100%;
+  //background: $primary-background-opaque;
+  background-color: transparentize($primary-background-opaque, 0.1);
+  //backdrop-filter: blur(1px);
+  //padding: 1%;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 0.5%;
+  border-radius: 15px;
+  //border: 1px solid green;
+  width: 86%;
+  height: 85vh;
   vertical-align: top;
   position: absolute;
-  left:12%;
+  left: 200px;
   // float: right;
-  overflow-y: hidden;
+  overflow-y: auto;
 }
 
-.form {
-  position: relative;
-  top: 0.4rem;
-  width: 100%;
-  height: 90%;
-  display: inline-block;
-  border-style: solid;
-  background-color: $primary-background;
-  border-color: $primary-background;
-  border-radius: 20px;
-  padding: 2px;
-  margin: 0;
-  overflow: hidden;
-}
+// .form {
+//   position: relative;
+//   //top: 0.4rem;
+//   width: 100%;
+//   height: 90%;
+//   display: inline-block;
+//   border-style: solid;
+//   background-color: transparentize($primary-background, 1);
+//   border-color: $primary-background;
+//   border-radius: 20px;
+//   padding: 2px;
+//   margin-top: 10px;
+//   margin-left: 10px;
+//   overflow: hidden;
+// }
 
 #left {
   border-start-end-radius: 10px;
