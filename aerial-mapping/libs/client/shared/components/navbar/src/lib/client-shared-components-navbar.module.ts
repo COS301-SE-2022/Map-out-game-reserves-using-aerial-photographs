@@ -4,16 +4,19 @@ import { SideNavbarComponent } from './side-navbar/side-navbar.component';
 
 // import { HttpClientModule} from '@angular/common/http';
 // import { MatToolbarModule } from '@angular/material/toolbar';
-// import { MatIconModule } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 // import { MatSidenavModule } from '@angular/material/sidenav';
 // import { MatListModule } from '@angular/material/list';
 // import { MatButtonModule } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
+
 
 @NgModule({
   imports: [
-    RouterModule
+    RouterModule,
     // MatToolbarModule,
-    // MatIconModule,
+    MatIconModule,
+    MatButtonModule
     // MatSidenavModule,
     // MatListModule,
     // MatButtonModule,
