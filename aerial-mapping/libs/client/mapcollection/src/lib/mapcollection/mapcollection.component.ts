@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Image_Collection } from '@prisma/client';
 
 interface Sort {
   value: string;
@@ -11,16 +12,54 @@ interface Sort {
   styleUrls: ['./mapcollection.component.scss'],
 })
 export class MapcollectionComponent implements OnInit {
-  sort: Sort[] = [
-    {value: 'date-0', viewValue: 'Upload Date'},
-    {value: 'area-1', viewValue: 'Area'},
-    {value: 'time-2', viewValue: 'Upload Time'},
-  ];
-  constructor() {
-    //code
+  selected: string;
+  tempCatalogues: Image_Collection[] = [];
+  catalogues: Image_Collection[] = [];
+  images: ImageData[] = [];
+
+  sort = {
+    date: 'date',
+    park: 'park'
   }
 
-  
+  constructor() {
+    this.selected = 'date';
+  }
+
+  searchMapCollections(e: Event) {
+    //search for either a matching date string or a collection name
+    //or a park name?
+    const searchTerm = (<HTMLInputElement>document.getElementById('searchInput')).value.toLowerCase();
+    if(searchTerm != '') {
+      this.catalogues = this.tempCatalogues;
+      this.catalogues =  this.catalogues.filter((c) => {
+        const date = new Date(c.upload_date_time).toDateString().toLowerCase()
+        return date.includes(searchTerm)
+      })
+    }
+    else {
+      //this.getAllMapCollections();
+    }
+  }
+
+  onChangeSort(selectedOption: any) {
+    this.selected = selectedOption.target.value;
+    if (this.selected == 'date') {
+      this.sortByDate()
+    } else if (this.selected == 'park') {
+      this.sortByPark()
+    }
+  }
+
+  sortByDate() {
+    this.catalogues.sort((a, b) => {
+      return new Date(a.upload_date_time).getTime() - new Date(b.upload_date_time).getTime();
+    });
+  }
+
+  sortByPark() {
+    this.catalogues.sort((a, b) => a.parkID - b.parkID);
+  }
 
   ngOnInit(): void {
 console.log('Component Initialised');
