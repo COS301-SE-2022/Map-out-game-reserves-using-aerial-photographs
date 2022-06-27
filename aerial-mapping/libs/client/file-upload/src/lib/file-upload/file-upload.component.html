@@ -6,11 +6,11 @@
 </head>
 
 <body>
-    <div class="background">
+    <div class="background" style="background-image: url('assets/mapwallpaper.jpg'); background-size: 86vh; background-repeat:repeat; height:100%">
         <div class="heading">File Upload</div>
         <aerial-mapping-side-navbar></aerial-mapping-side-navbar>
 
-        <div class="content" style="background-image: url('assets/mapwallpaper.jpg'); background-size: 100%; background-repeat:repeat; height:100%">
+        <div class="content">
             <div class="drag-box" #imageForm>
                 <h3 class="uploadHeading">Select a file</h3>
                 <button mat-flat-button color="primary" class="clearbtn" (click)="fileUpload.click()">
