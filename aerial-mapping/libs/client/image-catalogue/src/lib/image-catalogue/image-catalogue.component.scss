@@ -42,22 +42,22 @@ body {
 // }
 
 .content {
-  // border-radius: 3px;
-  background: $primary-background-opaque;
+  background-color: transparentize($primary-background-opaque, 0.1);
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 0.5%;
   padding: 1%;
-  // margin-left: 0.5%;
-  width: 88%;
-  height: 90%;
+  border-radius: 15px;
+  width: 86%;
+  height: 85vh;
   vertical-align: top;
   position: absolute;
-  left:12%;
-  // float: right;
+  left: 200px;
   overflow-y: auto;
 }
 
 .form {
   position: relative;
-  //top: 0.4rem;
   width: 70%;
   height: auto;
   display: inline-block;
@@ -86,8 +86,6 @@ button {
 
 mat-icon {
   padding: 1%;
-  //vertical-align: middle;
-  //   line-height: 16px;
   top: 50%;
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);

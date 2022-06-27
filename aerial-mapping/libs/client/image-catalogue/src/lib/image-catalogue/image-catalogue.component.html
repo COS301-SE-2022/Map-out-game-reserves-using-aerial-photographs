@@ -9,10 +9,13 @@
   </head>
 
   <body>
-    <div class="background">
-      <div class="heading">Image Catalogue</div>
+    <div class="background" style="background-image: url('assets/mapwallpaper.jpg'); background-size: 86vh; background-repeat:repeat; height:100%">
+      <div class="heading">
+        Image Catalogue
+      </div>
       <aerial-mapping-side-navbar></aerial-mapping-side-navbar>
-      <div class="content" style="background-image: url('assets/mapwallpaper.jpg'); background-size: 100%; background-repeat:repeat; height:100%">
+      <div class="content">
+
         <div id="searchAndSortContainer">
           <div id="searchBar">
             <mat-form-field [ngStyle]="{ width: '100%', height: '50px'}" class="form">
@@ -26,7 +29,6 @@
 
           <span id="sortDropdown">
             <mat-form-field [ngStyle]="{ width: '18%', height: '50px'}" appearance="fill">
-              <!--input matInput style="display: none;"-->
               <mat-label id="right" class="sortLabel">Sort By</mat-label>
               <mat-select matInput (change)="onChangeSort($event)" id="left" class="sort" style="display: inline">
                 <mat-option [value]="sort.date" selected>Upload Date</mat-option>
