@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ImageCatalogueComponent } from './image-catalogue.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSelectModule } from '@angular/material/select';
 
 describe('ImageCatalogueComponent', () => {
   let component: ImageCatalogueComponent;
@@ -16,7 +17,7 @@ describe('ImageCatalogueComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BrowserAnimationsModule, ComponentsNavbarModule, RouterTestingModule, HttpClientModule, MatIconModule, MatFormFieldModule, MatCardModule, MatFormFieldModule, MatInputModule],
+      imports: [BrowserAnimationsModule, ComponentsNavbarModule, RouterTestingModule, HttpClientModule, MatIconModule, MatFormFieldModule, MatCardModule, MatFormFieldModule, MatInputModule, MatSelectModule],
       providers: [ClientApiService],
       declarations: [ImageCatalogueComponent],
     }).compileComponents();

@@ -1,4 +1,5 @@
 {
+  "$schema": "..\\..\\node_modules\\nx\\schemas\\project-schema.json",
   "projectType": "application",
   "sourceRoot": "apps/aerial-mapping/src",
   "prefix": "aerial-mapping",
@@ -17,7 +18,10 @@
           "apps/aerial-mapping/src/favicon.ico",
           "apps/aerial-mapping/src/assets"
         ],
-        "styles": ["apps/aerial-mapping/src/styles.scss"],
+        "styles": [
+          "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+          "apps/aerial-mapping/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {

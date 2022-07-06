@@ -1,6 +1,6 @@
 import { ClientApiService } from '@aerial-mapping/client/shared/services';
 import { Component } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,15 +9,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent {
-  registerForm: FormGroup;
+  registerForm: UntypedFormGroup;
   isSubmitted: boolean;
 
   constructor(private apiService: ClientApiService, private router: Router) {
-    this.registerForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required]),
-      repeatedPassword: new FormControl('', [Validators.required]),
-      name: new FormControl('', [Validators.required])
+    this.registerForm = new UntypedFormGroup({
+      email: new UntypedFormControl('', [Validators.required, Validators.email]),
+      password: new UntypedFormControl('', [Validators.required]),
+      repeatedPassword: new UntypedFormControl('', [Validators.required]),
+      name: new UntypedFormControl('', [Validators.required])
     });
     this.isSubmitted = false;
   }
@@ -41,22 +41,22 @@ export class RegisterComponent {
     // TODO: perform validation for email, password, repeatedPassword and check firstname and lastname aren't empty
     // TODO: replace alerts with a nice snackbar or something
 
-    if(name == '' || email == '' || password == '' || repeatedPassword == '') {
+    if (name == '' || email == '' || password == '' || repeatedPassword == '') {
       return;
     }
 
-    if(this.registerForm.controls['email'].errors?.['email']){
+    if (this.registerForm.controls['email'].errors?.['email']) {
       return;
     }
 
-    if(password !== repeatedPassword) {
+    if (password !== repeatedPassword) {
       alert('Passwords do not match');
       return;
     }
 
     this.apiService.registerUser(name, email, password, 'user', true).subscribe({
       next: (resp) => {
-        if(resp.data.registerUser == 'Created user!') {
+        if (resp.data.registerUser == 'Created user!') {
           alert('Successfully registered!');
           //now login
           this.apiService.login(email, password).subscribe((response) => {

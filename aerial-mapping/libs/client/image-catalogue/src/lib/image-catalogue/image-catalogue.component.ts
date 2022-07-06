@@ -14,6 +14,11 @@ export class ImageCatalogueComponent {
   catalogues: Image_Collection[] = [];
   images: ImageData[] = [];
 
+  sort = {
+    date: 'date',
+    park: 'park'
+  }
+
   constructor(public apiService: ClientApiService, private sanitizer: DomSanitizer) {
     this.selected = 'date';
 
