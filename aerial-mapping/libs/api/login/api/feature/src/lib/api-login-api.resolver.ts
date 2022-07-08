@@ -18,13 +18,13 @@ export class LoginResolver {
   }
 
   @Query('getUserByEmail')
-  @UseGuards(new AuthGuard())
+  //@UseGuards(new AuthGuard())
   getUserByEmail(@Args('email') email: string) {
     return this.repo.getUserByEmail(email);
   }
 
   @Query('getCurrentUserEmail')
-  @UseGuards(new AuthGuard())
+  //@UseGuards(new AuthGuard())
   getCurrentUserEmail(
     @Context() ctx?: any
   ) {

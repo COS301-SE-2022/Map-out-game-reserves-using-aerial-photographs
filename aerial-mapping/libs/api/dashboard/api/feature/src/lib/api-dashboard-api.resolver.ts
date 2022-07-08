@@ -11,32 +11,32 @@ export class DashboardResolver {
   ) { }
 
   @Query('getUsers')
-  @UseGuards(new AuthGuard())
+  //@UseGuards(new AuthGuard())
   getUsers(): Promise<User[]|null> {
     return this.repo.getAllUsers();
   };
 
   @Query('getParks')
-  @UseGuards(new AuthGuard())
+  //@UseGuards(new AuthGuard())
   getParks(): Promise<Game_Park[]|null> {
     return this.repo.getParks();
   }
 
   @Query('getImageCollections')
-  @UseGuards(new AuthGuard())
+  //@UseGuards(new AuthGuard())
   getImageCollections(): Promise<Image_Collection[]|null> {
     return this.repo.getImageCollections();
   }
 
   @Query('getMessages')
-  @UseGuards(new AuthGuard())
+  //@UseGuards(new AuthGuard())
   getMessages(): Promise<Message[]|null> {
     return this.repo.getMessages();
   }
 
   // Mutations //
   @Mutation('createImageCollection')
-  @UseGuards(new AuthGuard())
+  //@UseGuards(new AuthGuard())
   async createImageCollection(
     @Args('parkID') parkID: number,
     @Args('name') name: string,

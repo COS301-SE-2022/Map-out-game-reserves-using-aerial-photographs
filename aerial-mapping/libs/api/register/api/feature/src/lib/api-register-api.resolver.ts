@@ -11,16 +11,15 @@ export class RegisterResolver {
   ) { }
 
   @Mutation(() => String, { name: 'invite' })
-  @UseGuards(new AuthGuard())
+  //@UseGuards(new AuthGuard())
   async invite(
     @Args('email', { type: () => String }) email: string,
   ) {
     return await this.repo.invite(email);
   }
 
-  //should have a role guard so that only admin roles can create new users
   @Mutation(() => String, { name: 'registerUser', nullable: true })
-  @UseGuards(new AuthGuard())
+  //@UseGuards(new AuthGuard())
   async registerUser(
     @Args('name') name: string,
     @Args('email') email: string,

@@ -24,6 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatProgressBarModule,
     MatIconModule,
     MatFormFieldModule,
+    MatSelectModule,
     MatOptionModule,
     MatSelectModule,
     ComponentsNavbarModule,

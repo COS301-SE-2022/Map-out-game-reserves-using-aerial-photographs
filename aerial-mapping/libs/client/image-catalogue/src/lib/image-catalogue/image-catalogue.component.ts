@@ -14,6 +14,11 @@ export class ImageCatalogueComponent {
   catalogues: Image_Collection[] = [];
   images: ImageData[] = [];
 
+  sort = {
+    date: 'date',
+    park: 'park'
+  }
+
   constructor(public apiService: ClientApiService, private sanitizer: DomSanitizer) {
     this.selected = 'date';
 
@@ -23,6 +28,7 @@ export class ImageCatalogueComponent {
   getAllCatalogues() {
     this.apiService.getImageCollections().subscribe({
       next: (resp) => {
+        console.log(resp)
         this.catalogues = resp.data.getImageCollections;
 
         for (const catalog of this.catalogues) {

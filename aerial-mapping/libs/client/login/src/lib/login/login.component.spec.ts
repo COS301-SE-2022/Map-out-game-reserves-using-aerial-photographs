@@ -6,6 +6,7 @@ import { ClientApiService } from '@aerial-mapping/client/shared/services';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { FormBuilder } from '@angular/forms';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -15,7 +16,7 @@ describe('LoginComponent', () => {
     await TestBed.configureTestingModule({
       imports: [BrowserAnimationsModule, RouterTestingModule, HttpClientModule, MatFormFieldModule, MatInputModule],
       declarations: [LoginComponent],
-      providers: [ClientApiService, HttpClient]
+      providers: [ClientApiService, HttpClient, FormBuilder]
     }).compileComponents();
   });
 
