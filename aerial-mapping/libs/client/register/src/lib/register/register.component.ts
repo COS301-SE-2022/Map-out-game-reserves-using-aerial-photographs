@@ -1,6 +1,6 @@
 import { ClientApiService } from '@aerial-mapping/client/shared/services';
 import { Component } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,15 +9,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent {
-  registerForm: UntypedFormGroup;
+  registerForm: FormGroup;
   isSubmitted: boolean;
 
   constructor(private apiService: ClientApiService, private router: Router) {
-    this.registerForm = new UntypedFormGroup({
-      email: new UntypedFormControl('', [Validators.required, Validators.email]),
-      password: new UntypedFormControl('', [Validators.required]),
-      repeatedPassword: new UntypedFormControl('', [Validators.required]),
-      name: new UntypedFormControl('', [Validators.required])
+    this.registerForm = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required]),
+      repeatedPassword: new FormControl('', [Validators.required]),
+      name: new FormControl('', [Validators.required])
     });
     this.isSubmitted = false;
   }
