@@ -1,6 +1,6 @@
 import { ClientApiService } from '@aerial-mapping/client/shared/services';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,11 +13,11 @@ export class AccountComponent implements OnInit {
   @ViewChild("email") email!: ElementRef<HTMLInputElement>;
   @ViewChild("role") role!: ElementRef<HTMLInputElement>;
 
-  registerForm: UntypedFormGroup;
+  registerForm: FormGroup;
 
   constructor(private router: Router, private apiService: ClientApiService) {
-    this.registerForm = new UntypedFormGroup({
-      inviteEmail: new UntypedFormControl('', [Validators.required, Validators.email]),
+    this.registerForm = new FormGroup({
+      inviteEmail: new FormControl('', [Validators.required, Validators.email]),
     });
   }
 
