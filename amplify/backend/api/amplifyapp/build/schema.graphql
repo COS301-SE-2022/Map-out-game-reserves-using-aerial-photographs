@@ -1,0 +1,610 @@
+
+type Query {
+  test: String
+  getUserByEmail(email: String): User
+  getUsers: [User]
+  getCurrentUserEmail: String
+  getParks: [GamePark]
+  getParkId(name: String): String
+  pingAuthentication: String
+  getMessages: [Message]
+  getImagesByCollectionId(id: String): [Images]
+  getNumOfVidsPerDate: Int
+  getAuthStatus: Boolean
+  getImageCollections: [ImageCollection]
+  getImage(imageID: String): Images
+  getCatalogues: [ImageCollection]
+  getUser(userID: String!): User
+  listUsers(userID: String, filter: ModelUserFilterInput, limit: Int, nextToken: String, sortDirection: ModelSortDirection): ModelUserConnection
+  syncUsers(filter: ModelUserFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelUserConnection
+  getGamePark(parkID: String!): GamePark
+  listGameParks(parkID: String, filter: ModelGameParkFilterInput, limit: Int, nextToken: String, sortDirection: ModelSortDirection): ModelGameParkConnection
+  syncGameParks(filter: ModelGameParkFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelGameParkConnection
+  getImageCollection(collectionID: String!): ImageCollection
+  listImageCollections(collectionID: String, filter: ModelImageCollectionFilterInput, limit: Int, nextToken: String, sortDirection: ModelSortDirection): ModelImageCollectionConnection
+  syncImageCollections(filter: ModelImageCollectionFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelImageCollectionConnection
+  getMessage(messageID: String!): Message
+  listMessages(messageID: String, filter: ModelMessageFilterInput, limit: Int, nextToken: String, sortDirection: ModelSortDirection): ModelMessageConnection
+  syncMessages(filter: ModelMessageFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelMessageConnection
+  getImages(imageID: String!): Images
+  listImages(imageID: String, filter: ModelImagesFilterInput, limit: Int, nextToken: String, sortDirection: ModelSortDirection): ModelImagesConnection
+  syncImages(filter: ModelImagesFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelImagesConnection
+  getFlightDetails(flightID: String!): FlightDetails
+  listFlightDetails(flightID: String, filter: ModelFlightDetailsFilterInput, limit: Int, nextToken: String, sortDirection: ModelSortDirection): ModelFlightDetailsConnection
+  syncFlightDetails(filter: ModelFlightDetailsFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelFlightDetailsConnection
+  getPendingInvites(inviteID: String!): PendingInvites
+  listPendingInvites(inviteID: String, filter: ModelPendingInvitesFilterInput, limit: Int, nextToken: String, sortDirection: ModelSortDirection): ModelPendingInvitesConnection
+  syncPendingInvites(filter: ModelPendingInvitesFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelPendingInvitesConnection
+  pendingInvitesByEmail(email: String!, sortDirection: ModelSortDirection, filter: ModelPendingInvitesFilterInput, limit: Int, nextToken: String): ModelPendingInvitesConnection
+}
+
+type Mutation {
+  invite(email: String): String
+  registerUser(name: String, email: String, password: String, role: String, approved: Boolean): User
+  login(email: String, password: String): String
+  logout: String
+  createFlight(pilotID: String, height: Int, type: String): FlightDetails
+  createImage(collectionID: String, bucket_name: String, file_name: String): Images
+  createUser(input: CreateUserInput!, condition: ModelUserConditionInput): User
+  updateUser(input: UpdateUserInput!, condition: ModelUserConditionInput): User
+  deleteUser(input: DeleteUserInput!, condition: ModelUserConditionInput): User
+  createGamePark(input: CreateGameParkInput!, condition: ModelGameParkConditionInput): GamePark
+  updateGamePark(input: UpdateGameParkInput!, condition: ModelGameParkConditionInput): GamePark
+  deleteGamePark(input: DeleteGameParkInput!, condition: ModelGameParkConditionInput): GamePark
+  createImageCollection(input: CreateImageCollectionInput!, condition: ModelImageCollectionConditionInput): ImageCollection
+  updateImageCollection(input: UpdateImageCollectionInput!, condition: ModelImageCollectionConditionInput): ImageCollection
+  deleteImageCollection(input: DeleteImageCollectionInput!, condition: ModelImageCollectionConditionInput): ImageCollection
+  createMessage(input: CreateMessageInput!, condition: ModelMessageConditionInput): Message
+  updateMessage(input: UpdateMessageInput!, condition: ModelMessageConditionInput): Message
+  deleteMessage(input: DeleteMessageInput!, condition: ModelMessageConditionInput): Message
+  createImages(input: CreateImagesInput!, condition: ModelImagesConditionInput): Images
+  updateImages(input: UpdateImagesInput!, condition: ModelImagesConditionInput): Images
+  deleteImages(input: DeleteImagesInput!, condition: ModelImagesConditionInput): Images
+  createFlightDetails(input: CreateFlightDetailsInput!, condition: ModelFlightDetailsConditionInput): FlightDetails
+  updateFlightDetails(input: UpdateFlightDetailsInput!, condition: ModelFlightDetailsConditionInput): FlightDetails
+  deleteFlightDetails(input: DeleteFlightDetailsInput!, condition: ModelFlightDetailsConditionInput): FlightDetails
+  createPendingInvites(input: CreatePendingInvitesInput!, condition: ModelPendingInvitesConditionInput): PendingInvites
+  updatePendingInvites(input: UpdatePendingInvitesInput!, condition: ModelPendingInvitesConditionInput): PendingInvites
+  deletePendingInvites(input: DeletePendingInvitesInput!, condition: ModelPendingInvitesConditionInput): PendingInvites
+}
+
+type User {
+  userID: String!
+  user_email: String
+  user_password: String
+  user_password_salt: String
+  user_name: String
+  user_role: String
+  user_approved: Boolean
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+type GamePark {
+  parkID: String!
+  park_name: String
+  park_location: String
+  park_address: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+type ImageCollection {
+  collectionID: String!
+  parkID: String
+  GamePark: GamePark
+  upload_date_time: AWSDateTime
+  completed: Boolean
+  flightID: String
+  FlightDetails: FlightDetails
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+type Message {
+  messageID: String!
+  message_status: String
+  message_description: String
+  ImageCollection: ImageCollection
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+  messageImageCollectionId: ID
+}
+
+type Images {
+  imageID: String!
+  collectionID: String
+  name: String
+  bucket_name: String
+  file_name: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+type FlightDetails {
+  flightID: String!
+  flight_height: Float
+  flight_type: String
+  pilotID: String
+  Pilot: User
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+type PendingInvites {
+  inviteID: String!
+  email: String!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelUserConnection {
+  items: [User]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelUserFilterInput {
+  userID: ModelStringInput
+  user_email: ModelStringInput
+  user_password: ModelStringInput
+  user_password_salt: ModelStringInput
+  user_name: ModelStringInput
+  user_role: ModelStringInput
+  user_approved: ModelBooleanInput
+  and: [ModelUserFilterInput]
+  or: [ModelUserFilterInput]
+  not: ModelUserFilterInput
+}
+
+input ModelUserConditionInput {
+  user_email: ModelStringInput
+  user_password: ModelStringInput
+  user_password_salt: ModelStringInput
+  user_name: ModelStringInput
+  user_role: ModelStringInput
+  user_approved: ModelBooleanInput
+  and: [ModelUserConditionInput]
+  or: [ModelUserConditionInput]
+  not: ModelUserConditionInput
+}
+
+input CreateUserInput {
+  userID: String!
+  user_email: String
+  user_password: String
+  user_password_salt: String
+  user_name: String
+  user_role: String
+  user_approved: Boolean
+  _version: Int
+}
+
+input UpdateUserInput {
+  userID: String!
+  user_email: String
+  user_password: String
+  user_password_salt: String
+  user_name: String
+  user_role: String
+  user_approved: Boolean
+  _version: Int
+}
+
+input DeleteUserInput {
+  userID: String!
+  _version: Int
+}
+
+type Subscription {
+  onCreateUser: User @aws_subscribe(mutations: ["createUser"])
+  onUpdateUser: User @aws_subscribe(mutations: ["updateUser"])
+  onDeleteUser: User @aws_subscribe(mutations: ["deleteUser"])
+  onCreateGamePark: GamePark @aws_subscribe(mutations: ["createGamePark"])
+  onUpdateGamePark: GamePark @aws_subscribe(mutations: ["updateGamePark"])
+  onDeleteGamePark: GamePark @aws_subscribe(mutations: ["deleteGamePark"])
+  onCreateImageCollection: ImageCollection @aws_subscribe(mutations: ["createImageCollection"])
+  onUpdateImageCollection: ImageCollection @aws_subscribe(mutations: ["updateImageCollection"])
+  onDeleteImageCollection: ImageCollection @aws_subscribe(mutations: ["deleteImageCollection"])
+  onCreateMessage: Message @aws_subscribe(mutations: ["createMessage"])
+  onUpdateMessage: Message @aws_subscribe(mutations: ["updateMessage"])
+  onDeleteMessage: Message @aws_subscribe(mutations: ["deleteMessage"])
+  onCreateImages: Images @aws_subscribe(mutations: ["createImages"])
+  onUpdateImages: Images @aws_subscribe(mutations: ["updateImages"])
+  onDeleteImages: Images @aws_subscribe(mutations: ["deleteImages"])
+  onCreateFlightDetails: FlightDetails @aws_subscribe(mutations: ["createFlightDetails"])
+  onUpdateFlightDetails: FlightDetails @aws_subscribe(mutations: ["updateFlightDetails"])
+  onDeleteFlightDetails: FlightDetails @aws_subscribe(mutations: ["deleteFlightDetails"])
+  onCreatePendingInvites: PendingInvites @aws_subscribe(mutations: ["createPendingInvites"])
+  onUpdatePendingInvites: PendingInvites @aws_subscribe(mutations: ["updatePendingInvites"])
+  onDeletePendingInvites: PendingInvites @aws_subscribe(mutations: ["deletePendingInvites"])
+}
+
+type ModelGameParkConnection {
+  items: [GamePark]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelGameParkFilterInput {
+  parkID: ModelStringInput
+  park_name: ModelStringInput
+  park_location: ModelStringInput
+  park_address: ModelStringInput
+  and: [ModelGameParkFilterInput]
+  or: [ModelGameParkFilterInput]
+  not: ModelGameParkFilterInput
+}
+
+input ModelGameParkConditionInput {
+  park_name: ModelStringInput
+  park_location: ModelStringInput
+  park_address: ModelStringInput
+  and: [ModelGameParkConditionInput]
+  or: [ModelGameParkConditionInput]
+  not: ModelGameParkConditionInput
+}
+
+input CreateGameParkInput {
+  parkID: String!
+  park_name: String
+  park_location: String
+  park_address: String
+  _version: Int
+}
+
+input UpdateGameParkInput {
+  parkID: String!
+  park_name: String
+  park_location: String
+  park_address: String
+  _version: Int
+}
+
+input DeleteGameParkInput {
+  parkID: String!
+  _version: Int
+}
+
+type ModelImageCollectionConnection {
+  items: [ImageCollection]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelImageCollectionFilterInput {
+  collectionID: ModelStringInput
+  parkID: ModelStringInput
+  upload_date_time: ModelStringInput
+  completed: ModelBooleanInput
+  flightID: ModelStringInput
+  and: [ModelImageCollectionFilterInput]
+  or: [ModelImageCollectionFilterInput]
+  not: ModelImageCollectionFilterInput
+}
+
+input ModelImageCollectionConditionInput {
+  parkID: ModelStringInput
+  upload_date_time: ModelStringInput
+  completed: ModelBooleanInput
+  flightID: ModelStringInput
+  and: [ModelImageCollectionConditionInput]
+  or: [ModelImageCollectionConditionInput]
+  not: ModelImageCollectionConditionInput
+}
+
+input CreateImageCollectionInput {
+  collectionID: String!
+  parkID: String
+  upload_date_time: AWSDateTime
+  completed: Boolean
+  flightID: String
+  _version: Int
+}
+
+input UpdateImageCollectionInput {
+  collectionID: String!
+  parkID: String
+  upload_date_time: AWSDateTime
+  completed: Boolean
+  flightID: String
+  _version: Int
+}
+
+input DeleteImageCollectionInput {
+  collectionID: String!
+  _version: Int
+}
+
+type ModelMessageConnection {
+  items: [Message]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelMessageFilterInput {
+  messageID: ModelStringInput
+  message_status: ModelStringInput
+  message_description: ModelStringInput
+  and: [ModelMessageFilterInput]
+  or: [ModelMessageFilterInput]
+  not: ModelMessageFilterInput
+  messageImageCollectionId: ModelIDInput
+}
+
+input ModelMessageConditionInput {
+  message_status: ModelStringInput
+  message_description: ModelStringInput
+  and: [ModelMessageConditionInput]
+  or: [ModelMessageConditionInput]
+  not: ModelMessageConditionInput
+  messageImageCollectionId: ModelIDInput
+}
+
+input CreateMessageInput {
+  messageID: String!
+  message_status: String
+  message_description: String
+  _version: Int
+  messageImageCollectionId: ID
+}
+
+input UpdateMessageInput {
+  messageID: String!
+  message_status: String
+  message_description: String
+  _version: Int
+  messageImageCollectionId: ID
+}
+
+input DeleteMessageInput {
+  messageID: String!
+  _version: Int
+}
+
+type ModelImagesConnection {
+  items: [Images]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelImagesFilterInput {
+  imageID: ModelStringInput
+  collectionID: ModelStringInput
+  name: ModelStringInput
+  bucket_name: ModelStringInput
+  file_name: ModelStringInput
+  and: [ModelImagesFilterInput]
+  or: [ModelImagesFilterInput]
+  not: ModelImagesFilterInput
+}
+
+input ModelImagesConditionInput {
+  collectionID: ModelStringInput
+  name: ModelStringInput
+  bucket_name: ModelStringInput
+  file_name: ModelStringInput
+  and: [ModelImagesConditionInput]
+  or: [ModelImagesConditionInput]
+  not: ModelImagesConditionInput
+}
+
+input CreateImagesInput {
+  imageID: String!
+  collectionID: String
+  name: String
+  bucket_name: String
+  file_name: String
+  _version: Int
+}
+
+input UpdateImagesInput {
+  imageID: String!
+  collectionID: String
+  name: String
+  bucket_name: String
+  file_name: String
+  _version: Int
+}
+
+input DeleteImagesInput {
+  imageID: String!
+  _version: Int
+}
+
+type ModelFlightDetailsConnection {
+  items: [FlightDetails]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelFlightDetailsFilterInput {
+  flightID: ModelStringInput
+  flight_height: ModelFloatInput
+  flight_type: ModelStringInput
+  pilotID: ModelStringInput
+  and: [ModelFlightDetailsFilterInput]
+  or: [ModelFlightDetailsFilterInput]
+  not: ModelFlightDetailsFilterInput
+}
+
+input ModelFlightDetailsConditionInput {
+  flight_height: ModelFloatInput
+  flight_type: ModelStringInput
+  pilotID: ModelStringInput
+  and: [ModelFlightDetailsConditionInput]
+  or: [ModelFlightDetailsConditionInput]
+  not: ModelFlightDetailsConditionInput
+}
+
+input CreateFlightDetailsInput {
+  flightID: String!
+  flight_height: Float
+  flight_type: String
+  pilotID: String
+  _version: Int
+}
+
+input UpdateFlightDetailsInput {
+  flightID: String!
+  flight_height: Float
+  flight_type: String
+  pilotID: String
+  _version: Int
+}
+
+input DeleteFlightDetailsInput {
+  flightID: String!
+  _version: Int
+}
+
+type ModelPendingInvitesConnection {
+  items: [PendingInvites]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelPendingInvitesFilterInput {
+  inviteID: ModelStringInput
+  email: ModelStringInput
+  and: [ModelPendingInvitesFilterInput]
+  or: [ModelPendingInvitesFilterInput]
+  not: ModelPendingInvitesFilterInput
+}
+
+input ModelPendingInvitesConditionInput {
+  email: ModelStringInput
+  and: [ModelPendingInvitesConditionInput]
+  or: [ModelPendingInvitesConditionInput]
+  not: ModelPendingInvitesConditionInput
+}
+
+input CreatePendingInvitesInput {
+  inviteID: String!
+  email: String!
+  _version: Int
+}
+
+input UpdatePendingInvitesInput {
+  inviteID: String!
+  email: String
+  _version: Int
+}
+
+input DeletePendingInvitesInput {
+  inviteID: String!
+  _version: Int
+}
+
