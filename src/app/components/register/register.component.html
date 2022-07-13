@@ -1,0 +1,81 @@
+<div id="id01" class="modal">
+  <!-- <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span> -->
+  <form [formGroup]="registerForm" (ngSubmit)="onRegisterFormSubmit(registerForm.value)" class="modal-content" action="/action_page.php">
+    <div class="image" style="display: inline-block">
+      <img
+        src="../../assets/erpngo-header-full.jpg"
+        alt="Image"
+        width="100%"
+        height="auto"
+      />
+    </div>
+    <div class="container">
+      <div class="container2">
+        <h2>REGISTER</h2>
+        <hr />
+        <!-- <mat-divider></mat-divider> -->
+        <div style="display: inline-block; width: 50%; margin-left: 1%">
+          <label for="user_name">Name</label>
+          <input
+            formControlName="user_name"
+            type="text"
+            placeholder="Enter Name"
+            name="name"
+            required
+          />
+          <div *ngIf="this.isSubmitted && name!.errors?.['required']" class="text-danger">
+            <small>Please enter your name</small>
+          </div>
+        </div>
+        <br />
+        <label for="user_email">Email</label>
+        <input
+          formControlName="user_email"
+          type="text"
+          placeholder="Enter Email"
+          name="email"
+          required
+        />
+        <div *ngIf="this.isSubmitted && email!.errors?.['required']" class="text-danger">
+          <small>Please enter your email</small>
+        </div>
+        <div *ngIf="this.isSubmitted && email!.errors?.['email']" class="text-danger">
+          <small>Please enter a valid email address</small>
+        </div>
+
+        <label for="user_password">Password</label>
+        <input
+          formControlName="user_password"
+          type="password"
+          placeholder="Enter Password"
+          name="user_password"
+          required
+        />
+        <div *ngIf="this.isSubmitted && password!.errors?.['required']" class="text-danger">
+          <small>Please enter your password</small>
+        </div>
+
+        <label for="psw-repeat">Repeat Password</label>
+        <input
+          formControlName="repeatedPassword"
+          type="password"
+          placeholder="Repeat Password"
+          name="psw-repeat"
+          required
+        />
+        <div *ngIf="this.isSubmitted && repeatedPassword!.errors?.['required']" class="text-danger">
+          <small>Please confirm your password</small>
+        </div>
+
+        <div class="clearfix center">
+          <button type="submit" class="button signupbtn">Sign Up</button>
+        </div>
+        <div class="clearfix center" style="height: 40px">
+          <a routerLink="/login" class="button2" aria-current="page"
+            >Already have an account</a
+          >
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
