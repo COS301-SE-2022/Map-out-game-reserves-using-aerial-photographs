@@ -1,0 +1,240 @@
+@import 'src/styles.scss';
+
+body {
+  overflow: auto;
+}
+
+.heading {
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+  font-weight: 505;
+  font-style: normal;
+  font-size: 40px;
+  line-height: 100%;
+  width: 100%;
+  height: 10%;
+  padding: 1%;
+  position: relative;
+  z-index: 99;
+  background-color: transparentize($primary-dark, 0.2);
+  box-shadow: 0 5px 16px 0 rgba(0, 0, 0, 0.24), 0 5px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+.background {
+  background-repeat: no-repeat;
+  background-size: 100vw;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.content {
+  background-color: transparentize($primary-background-opaque, 0.1);
+  padding: 1%;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 0.5%;
+  border-radius: 15px;
+  width: 86%;
+  height: 85vh;
+  vertical-align: top;
+  position: relative;
+  left: 200px;
+  overflow-y: auto;
+
+  position: relative;
+}
+
+.form {
+  position: relative;
+  width: 70%;
+  height: auto;
+  display: inline-block;
+  border-style: solid;
+  background-color: $primary-background;
+  border-color: $primary-background;
+  border-radius: 20px;
+  padding: 2px;
+  margin: 0;
+
+  overflow: hidden;
+}
+
+mat-icon {
+  padding: 1%;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  transform: scale(2);
+}
+
+button {
+  margin-top: auto;
+  margin-bottom: auto;
+  vertical-align: middle;
+}
+
+.search {
+  padding: 0;
+  margin: 0;
+  width: 90%;
+  border: none;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.search:active {
+  border: none;
+}
+
+.search:focus {
+  outline: none;
+}
+
+#right {
+  border-start-start-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10x;
+}
+
+mat-card {
+  width: 30%;
+  margin: 1%;
+  height: 30%;
+  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-block;
+  position: relative;
+  padding: 16px;
+  border-radius: 4px;
+  background: #fff;
+  color: rgba(0, 0, 0, .87);
+  align-content: center;
+}
+
+mat-form-field {
+  height: auto;
+  margin: 0;
+  margin-left: 2%;
+  align-content: center;
+  align-items: center;
+  width: 26%;
+
+  background-color: white;
+  height: 50px;
+  border-radius: 15px;
+  border-bottom: none;
+  caret-color: transparent;
+}
+
+mat-option, mat-form-field {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+::ng-deep .mat-form-field-underline {
+  display: none;
+}
+
+.button {
+  position: fixed;
+  /* Fixed/sticky position */
+  bottom: 20px;
+  /* Place the button at the bottom of the page */
+  right: 50px;
+  /* Place the button 30px from the right */
+  z-index: 99;
+  /* Make sure it does not overlap */
+  background-color: $primary-background;
+  color: $primary-dark;
+  text-decoration: none;
+  border-radius: 60px;
+  height: 35px;
+  display: inline-flex;
+  align-items: center;
+  overflow: hidden;
+  width: auto;
+  max-width: 35px;
+  /** I'm animating max-width because width needs to be auto, and auto can't be animated **/
+  -webkit-transition: max-width 0.5s;
+  transition: max-width 0.5s;
+}
+
+.button:hover {
+  max-width: 300px;
+}
+
+.icon {
+  font-family: "Font Awesome 5 Free";
+  font-size: 16px;
+  margin-right: 15px;
+  padding: 10px 5px;
+  display: flex;
+  align-items: center;
+}
+
+.text {
+  white-space: nowrap;
+  padding-right: 15px;
+}
+
+#searchAndSortContainer {
+  display: block;
+  height: 50px;
+  vertical-align: middle;
+}
+
+.mat-form-field-type-mat-select {
+
+  width: 18%;
+}
+
+.mat-form-field-infix {
+  margin: 0%;
+  border: none;
+  padding: 0%;
+
+}
+
+.search {
+  margin: 0;
+  padding: 0;
+  width: 90%;
+  border: none;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.search:active {
+  border: none;
+}
+
+.search:focus {
+  outline: none;
+}
+
+#searchBar
+{
+  display: inline-block;
+  width: 80%;
+}
+
+.sortLabel {
+
+  font-size: 16px;
+  line-height: 16px;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+#searchBtn {
+  width: 25px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#sortDropdown {
+  vertical-align: top;
+}
