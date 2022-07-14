@@ -102,55 +102,56 @@
 #           token: ${{ secrets.CODECOV_TOKEN }}
 #           directory: ./coverage
 
-name: 'Default Test'
-
-#Reusable workflow with input parameters to choose a type of test
-on:
-  workflow_call:
-    inputs:
-      test:
-        description: 'Type of test being run'
-        required: true
-        type: string
-      testtype:
-        description: 'Type of test (lint, build, test)'
-        required: false
-        type: string
+name: 'Amplify Deploy'
+on: [push]
 
 jobs:
-  build:
-    name: Generate cache
+  test:
+    name: test amplify-cli-action
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x]
+
     steps:
-        #Checking out to the develop branch
-      - name: Checkout develop
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+    - uses: actions/checkout@v1
 
-        #Generates the hashes for the comparison between the origin branch and the upstream development branch
-      - name: Derive appropriate SHAs for base and head for `nx affected` commands
-        uses: nrwl/nx-set-shas@v2
-        with:
-          main-branch-name: 'develop'
+    - name: use node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
 
-        #Installs node.js
-      - name: Use Node.js 16
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16'
+    - name: configure amplify
+      uses: ambientlight/amplify-cli-action@0.3.0
+      with:
+        amplify_command: configure
+        amplify_env: prod
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: us-east-1
 
-        #installs the yarn lockfile
-      - name: Install packages
-        run: npm install
+    - name: install, build and test
+      run: |
+        npm install
+        # build and test
+        # npm run build
+        # npm run test
+    
+    - name: deploy
+      uses: ambientlight/amplify-cli-action@0.3.0
+      with:
+        amplify_command: publish
+        amplify_env: prod
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: us-east-1
 
-        #run tests on the entire repository
-      - name: Unit Test all
-        if: inputs.testtype == 'unit'
-        run: npx ng test --code-coverage
-
-      - uses: codecov/codecov-action@v2
-        if: inputs.testtype == 'unit'
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          directory: ./coverage
+    - name: CodeCov
+      uses: codecov/codecov-action@v2
+      if: inputs.testtype == 'unit'
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        directory: ./coverage
