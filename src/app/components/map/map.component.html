@@ -1,1 +1,22 @@
-<p>map works!</p>
+<img class="background" src="assets/bg_test.png" />
+<div class="imageContainer">
+  <img #map draggable="false" class="image" height="100%" src="assets/example.png" [ngStyle]="
+        {transform: 'scale(' + scale / 100 + ')',
+        'transform-origin': left + 'px ' + top + 'px'
+        }" />
+</div>
+
+<button #menu class="menu" (click)="menuToggle()" mat-button>
+  <fa-icon class="bars" [icon]="bars" *ngIf="!isMenuOpen"></fa-icon>
+  <fa-icon class="bars" [icon]="leftArrow" *ngIf="isMenuOpen"></fa-icon>
+</button>
+
+<button routerLink="/map-collection" class="exit">
+  <fa-icon class="xIcon" [icon]="exit"></fa-icon>
+</button>
+
+<div class="menu-container" *ngIf="isMenuOpen">
+  <div class="menu-content">
+    <h1>Menu</h1>
+  </div>
+</div>
