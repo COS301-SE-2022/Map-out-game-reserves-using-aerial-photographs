@@ -147,7 +147,7 @@ jobs:
         #run tests on the entire repository
       - name: Unit Test all
         if: inputs.testtype == 'unit'
-        run: npx ng test -- --watch=false --browsers=ChromeHeadless --code-coverage
+        run: npx ng test --watch=false --browsers=ChromeHeadless --code-coverage
 
       - uses: codecov/codecov-action@v2
         if: inputs.testtype == 'unit'
