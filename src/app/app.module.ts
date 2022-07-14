@@ -22,6 +22,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { AccountModule } from './components/account/account.module';
 import { NavbarModule } from './components/shared/navbar/navbar.module';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { NavbarModule } from './components/shared/navbar/navbar.module';
     MatSnackBarModule,
     MatListModule,
     MatFormFieldModule,
+    MatProgressBarModule,
     NgChartsModule
   ],
   providers: [ HttpClient ],
