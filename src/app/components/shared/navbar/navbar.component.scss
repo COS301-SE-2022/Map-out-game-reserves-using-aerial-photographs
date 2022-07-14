@@ -1,0 +1,70 @@
+@import 'src/styles.scss';
+
+.nav {
+    background-color: $primary-brown;
+    background-color: transparentize($primary-brown, .1);
+    border-radius: 15px;
+    height: 85vh;//97%;
+    width: 12%;
+    min-width: 190px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    // border-radius: 0px 3px 0px 0px;
+    padding: 10px;
+    float: left;
+    // z-index: 9;
+    position: absolute;
+}
+
+ul {
+    padding: 0;
+    width: 100%;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.nav a {
+    text-decoration: none;
+    font-size: 12pt;
+    color: $primary-background;
+    transition: 0.3s;
+
+    position: absolute;
+    top: 10%;
+}
+
+.navText {
+  font-size: 12pt;
+  color: $primary-background;
+  transition: 0.3s;
+}
+
+.navText:hover {
+  color: $primary-dark;
+}
+
+li {
+  width: 100%;
+  padding: 0%;
+  display: list-item;
+  position: relative;
+  text-align: left;
+}
+
+mat-icon {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.menu-button {
+  position: relative;
+  text-align: left !important;
+}
+
+@media only screen and (max-width: 768px) {
+  .nav {
+    display: none;
+  }
+}
