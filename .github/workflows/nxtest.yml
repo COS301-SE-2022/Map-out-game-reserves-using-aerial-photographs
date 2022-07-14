@@ -147,7 +147,7 @@ jobs:
         #run tests on the entire repository
       - name: Unit Test all
         if: inputs.testtype == 'unit'
-        run: npm run test --code-coverage
+        run: npm run test --browsers=ChromeHeadless --code-coverage
 
       - uses: codecov/codecov-action@v2
         if: inputs.testtype == 'unit'
