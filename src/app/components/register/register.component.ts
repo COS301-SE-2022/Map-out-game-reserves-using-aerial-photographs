@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ControllerService } from 'src/app/api/controller/controller.service';
 import { APIService, User } from 'src/app/API.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +16,7 @@ export class RegisterComponent implements OnInit {
   users: Array<User> = [];
 
 
-  constructor(private apiController: ControllerService, private repo: APIService, private router: Router) {
+  constructor(private apiController: ControllerService, private router: Router, private snackBar: MatSnackBar) {
     this.registerForm = new FormGroup({
       user_email: new FormControl('', [Validators.required, Validators.email]),
       user_password: new FormControl('', [Validators.required]),
@@ -48,7 +49,7 @@ export class RegisterComponent implements OnInit {
     const repeatedPassword = this.registerForm.controls['repeatedPassword'].value;
     const name = this.registerForm.controls['user_name'].value;
 
-    // TODO: perform validation for email, password, repeatedPassword
+    // TODO: perform validation for email, password
     // TODO: replace alerts with a nice snackbar or something
 
     if (name == '' || email == '' || password == '' || repeatedPassword == '') {
@@ -70,6 +71,7 @@ export class RegisterComponent implements OnInit {
       }
       else {
         alert('Successfully registered user :)');
+        this.router.navigate(['dashboard']);
       }
     });
 
