@@ -61,16 +61,16 @@ export class RegisterComponent implements OnInit {
     }
 
     if (password !== repeatedPassword) {
-      alert('Passwords do not match');
+      this.snackBar.open("Passwords do not match.", "❌");
       return;
     }
 
     this.apiController.tryRegister(user).then((resp) => {
       if(resp == -1) {
-        alert('Your email has not been invited.');
+        this.snackBar.open("Your email has not been invited.", "❌");
       }
       else {
-        alert('Successfully registered user :)');
+        this.snackBar.open("Successfully Registered!", "✔️", { duration: 3000 });
         this.router.navigate(['dashboard']);
       }
     });
