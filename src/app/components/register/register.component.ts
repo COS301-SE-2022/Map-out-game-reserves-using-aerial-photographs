@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ControllerService } from 'src/app/api/controller/controller.service';
 import { APIService, User } from 'src/app/API.service';
@@ -11,17 +11,17 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  registerForm: FormGroup;
+  registerForm: UntypedFormGroup;
   isSubmitted: boolean;
   users: Array<User> = [];
 
 
   constructor(private apiController: ControllerService, private router: Router, private snackBar: MatSnackBar) {
-    this.registerForm = new FormGroup({
-      user_email: new FormControl('', [Validators.required, Validators.email]),
-      user_password: new FormControl('', [Validators.required]),
-      repeatedPassword: new FormControl('', [Validators.required]),
-      user_name: new FormControl('', [Validators.required])
+    this.registerForm = new UntypedFormGroup({
+      user_email: new UntypedFormControl('', [Validators.required, Validators.email]),
+      user_password: new UntypedFormControl('', [Validators.required]),
+      repeatedPassword: new UntypedFormControl('', [Validators.required]),
+      user_name: new UntypedFormControl('', [Validators.required])
     });
     this.isSubmitted = false;
   }
