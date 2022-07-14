@@ -1,26 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ControllerService } from 'src/app/api/controller/controller.service';
 import { APIService, User } from 'src/app/API.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-register',
+  selector: 'aerial-mapping-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  registerForm: FormGroup;
+  registerForm: UntypedFormGroup;
   isSubmitted: boolean;
   users: Array<User> = [];
 
 
-  constructor(private apiController: ControllerService, private repo: APIService, private router: Router) {
-    this.registerForm = new FormGroup({
-      user_email: new FormControl('', [Validators.required, Validators.email]),
-      user_password: new FormControl('', [Validators.required]),
-      repeatedPassword: new FormControl('', [Validators.required]),
-      user_name: new FormControl('', [Validators.required])
+  constructor(private apiController: ControllerService, private router: Router, private snackBar: MatSnackBar) {
+    this.registerForm = new UntypedFormGroup({
+      user_email: new UntypedFormControl('', [Validators.required, Validators.email]),
+      user_password: new UntypedFormControl('', [Validators.required]),
+      repeatedPassword: new UntypedFormControl('', [Validators.required]),
+      user_name: new UntypedFormControl('', [Validators.required])
     });
     this.isSubmitted = false;
   }
@@ -48,7 +49,7 @@ export class RegisterComponent implements OnInit {
     const repeatedPassword = this.registerForm.controls['repeatedPassword'].value;
     const name = this.registerForm.controls['user_name'].value;
 
-    // TODO: perform validation for email, password, repeatedPassword
+    // TODO: perform validation for email, password
     // TODO: replace alerts with a nice snackbar or something
 
     if (name == '' || email == '' || password == '' || repeatedPassword == '') {
@@ -60,16 +61,17 @@ export class RegisterComponent implements OnInit {
     }
 
     if (password !== repeatedPassword) {
-      alert('Passwords do not match');
+      this.snackBar.open("Passwords do not match.", "❌");
       return;
     }
 
     this.apiController.tryRegister(user).then((resp) => {
       if(resp == -1) {
-        alert('Your email has not been invited.');
+        this.snackBar.open("Your email has not been invited.", "❌");
       }
       else {
-        alert('Successfully registered user :)');
+        this.snackBar.open("Successfully Registered!", "✔️", { duration: 3000 });
+        this.router.navigate(['dashboard']);
       }
     });
 

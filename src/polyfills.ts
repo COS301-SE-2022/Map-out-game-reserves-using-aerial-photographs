@@ -3,8 +3,8 @@
   env: { DEBUG: undefined },
 };
 
-import 'core-js/es/typed-array';
-import 'core-js/es/object';
+//import 'core-js/es/typed-array';
+//import 'core-js/es/object';
 
 /**
  * This file includes polyfills needed by Angular and is loaded before the app.

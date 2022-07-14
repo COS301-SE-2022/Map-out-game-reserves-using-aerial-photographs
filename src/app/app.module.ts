@@ -1,14 +1,22 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
 
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterModule } from './components/register/register.module';
+import { DashboardModule } from './components/dashboard/dashboard.module';
 
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatListModule } from '@angular/material/list';
+import { NgChartsModule } from 'ng2-charts';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { LoginModule } from './components/login/login.module';
 
 @NgModule({
   declarations: [
@@ -16,13 +24,21 @@ import { RegisterModule } from './components/register/register.module';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     AmplifyAuthenticatorModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    RegisterModule
+    RegisterModule,
+    DashboardModule,
+    LoginModule,
+    MatSnackBarModule,
+    MatListModule,
+    MatFormFieldModule,
+    NgChartsModule
   ],
-  providers: [],
+  providers: [ HttpClient ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
