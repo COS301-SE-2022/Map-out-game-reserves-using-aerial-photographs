@@ -6,7 +6,7 @@ import { APIService, User } from 'src/app/API.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-register',
+  selector: 'aerial-mapping-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
