@@ -1,4 +1,4 @@
-@import 'libs/client/shared/assets/src/lib/global';
+@import 'src/styles.scss';
 .heading {
     color: white;
     font-family: 'Segoe UI', sans-serif;
@@ -16,18 +16,18 @@
 }
 
 .content {
-  background-color: transparentize($primary-background-opaque, 0.1);
-  padding: 1%;
-  margin-top: 10px;
-  margin-left: 10px;
-  margin-right: 0.5%;
-  border-radius: 15px;
-  width: 86%;
-  height: 85vh;
-  vertical-align: top;
-  position: absolute;
-  left: 200px;
-  overflow-y: auto;
+    background-color: transparentize($primary-background-opaque, 0.1);
+    padding: 1%;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 0.5%;
+    border-radius: 15px;
+    width: 86%;
+    height: 85vh;
+    vertical-align: top;
+    position: absolute;
+    left: 200px;
+    overflow-y: auto;
 }
 
 .background {
@@ -96,10 +96,12 @@
     font-weight: bolder;
 }
 
-.parks, .types, #height{
+.parks,
+.types,
+#height {
     width: 70%;
     background: $primary-background-opaque;
-    border:none;
+    border: none;
     left: 0;
     padding: 1rem;
     margin: 0;
@@ -108,7 +110,6 @@
     overflow-y: auto;
 }
 
-#height{
+#height {
     margin: 5%;
 }
-
