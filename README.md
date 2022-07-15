@@ -25,19 +25,33 @@ Drones allow for a more up to date set of images of a landscape, this allows muc
 ## Link to Recorded Demo
 
 ## Link to Functional Requirements (SRS)
-https://drive.google.com/file/d/1hQEqsjVKGEA6bgIgqMEVHkNoJNtx4yqa/view?usp=sharing
+Version 1: https://drive.google.com/file/d/1A-zZJGLOnGaVaDLI2wWaVRxTWAIY9--m/view?usp=sharing
+
+Version 2: https://drive.google.com/file/d/1hQEqsjVKGEA6bgIgqMEVHkNoJNtx4yqa/view?usp=sharing
+
+Version 3: 
 
 ## Link to Architectural Requirements
-https://drive.google.com/file/d/1e-WkXni-e-zc_NSjDJw0AZE73m-PvhV-/view?usp=sharing
+Version 1: https://drive.google.com/file/d/1e-WkXni-e-zc_NSjDJw0AZE73m-PvhV-/view?usp=sharing
+
+Version 2: 
 
 ## Link to Coding Standards Document
-https://drive.google.com/file/d/1JzXJ_9kVZoqfU8mCXWa-8tOkUgZt_YO6/view?usp=sharing
+Version 1: https://drive.google.com/file/d/1JzXJ_9kVZoqfU8mCXWa-8tOkUgZt_YO6/view?usp=sharing
+
+Version 2:
 
 ## Link to User Manual
-https://drive.google.com/file/d/10GUkj-MJ_sZCM_SJ1v5H1Q3gyMxPlain/view?usp=sharing
+Version 1: https://drive.google.com/file/d/10GUkj-MJ_sZCM_SJ1v5H1Q3gyMxPlain/view?usp=sharing
 
-## Link to Project Board
+Version 2:
+
+## Project Management
+### Link to Project Board
 https://github.com/COS301-SE-2022/Map-out-game-reserves-using-aerial-photographs/projects/1 
+
+### Link to Pert Charts
+https://drive.google.com/drive/folders/1ViOZM8pTN3BRzcnq7dvTfDCxHX95ooWK?usp=sharing
 
 ## Short Profile Description of Each Team Member
 ### Ben Pietersen
