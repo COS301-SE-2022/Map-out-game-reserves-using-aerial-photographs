@@ -17,7 +17,7 @@ export class ControllerService {
   }
 
   async tryRegister(u: User): Promise<number> {
-    return this.repo.GetPendingInvitesByEmail(u.user_email!).then((resp:any) => {
+    return this.repo.PendingInvitesByEmail(u.user_email!).then((resp:any) => {
       if(resp.items.length != 0) {
         console.log(resp.items[0]);
         const toDelete = {
