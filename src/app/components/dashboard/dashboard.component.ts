@@ -49,6 +49,7 @@ export class DashboardComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    //--------------------still to do----------------------
     // this.apiService.getImageData("bucket name", "file name").subscribe({
     //   next: (blob) => {
     //     const obj = new Image();
@@ -63,12 +64,16 @@ export class DashboardComponent implements OnInit{
 
 
     //make API call to access status of resources for particular company
-    this.api.GetImageCollections().then((resp:any) => {
-      if (resp.items.length != 0) {
-        console.log(resp.items[0]);
-        this.collectionData = resp.items.getImageCollections;
+    this.api.ListImageCollections().then((event) => {
+      if (event.items.length != 0) {
+        console.log(event.items[0]);
+        // this.collectionData = event.items.getImageCollections;
         let completed_count = 0;
         let processing_count = 0;
+        for (let i = 0; i < event.items.length; i++) {
+          const element = event.items[i];
+          this.collectionData.push({collectionID: element?.collectionID, parkID: element?.parkID, completed: element?.completed})
+        }
         for (let i = 0; i < this.collectionData.length; i++) {
           if(this.collectionData[i].completed){
             this.completed[completed_count] = this.collectionData[i];
@@ -106,6 +111,37 @@ export class DashboardComponent implements OnInit{
     //   error: (err) => { console.log(err); }
     // });
 
+    this.api.ListMessages().then((event) => {
+      if (event.items.length != 0) {
+        console.log(event)
+        // console.log(event.items[0]);
+        for (let i = 0; i < event.items.length; i++) {
+          const element = event.items[i];
+          this.messagesData.push({message_status: element?.message_status, message_description: element?.message_description, collectionID: element?.messageImageCollectionId})
+        }
+        for (let i = 0; i < this.messagesData.length; i++) {
+          let status = good;
+          let status_color = 'green-icon';
+          if (this.messagesData[i].message_status == 'warning') {
+            status = warning;
+            status_color = 'orange-icon';
+          } else if (this.messagesData[i].message_status == 'alert') {
+            status = error;
+            status_color = 'red-icon';
+          }
+          this.messages[i] = {
+            message_status: status,
+            color: status_color,
+            message_description: this.messagesData[i].message_description,
+            collectionID: this.messagesData[i].collectionID,
+          };
+
+          console.log(this.messages[i]);
+        }
+      }
+      
+      return -1;
+    }).catch(()=> {return -1;});
     // this.apiService.getMessages().subscribe({
     //   next: (_res) => {
     //     this.messagesData = _res.data.getMessages;
@@ -137,21 +173,21 @@ export class DashboardComponent implements OnInit{
 }
 
 interface  Image_Collection {
-  collectionID: number;
-  parkID: number;
+  collectionID: string|null|undefined;
+  parkID: string|null|undefined;
   // upload_date_time: DateTime
-  completed: boolean;
+  completed: boolean|null|undefined;
 }
 
 interface Message{
-  message_status: string,
-  message_description: string,
-  collectionID: number
+  message_status: string|null|undefined,
+  message_description: string|null|undefined,
+  collectionID: string|null|undefined
 }
 
 class Dashboard_Message{
   message_status = good;
   color = 'green-icon';
-  message_description = "";
-  collectionID = 0;
+  message_description: string|null|undefined = "";
+  collectionID: string|null|undefined = "";
 }
