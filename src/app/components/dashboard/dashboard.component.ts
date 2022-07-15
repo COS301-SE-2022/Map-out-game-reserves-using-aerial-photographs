@@ -3,6 +3,7 @@ import { faMap as mapIcon, faExclamationTriangle as warning, faExclamationCircle
 import { BarChart } from './bar-chart/bar-chart.model';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ControllerService } from 'src/app/api/controller/controller.service';
+import { APIService } from 'src/app/API.service';
 
 @Component({
   selector: 'aerial-mapping-dashboard',
@@ -29,7 +30,7 @@ export class DashboardComponent implements OnInit{
 
   values = [3, 5, 2, 3, 2, 1, 7, 4];
 
-  constructor(private apiController: ControllerService, private sanitizer: DomSanitizer) {
+  constructor(private apiController: ControllerService, private sanitizer: DomSanitizer, private api:APIService) {
     this.maps = [
       {Value: this.values[0]},
       {Value: this.values[1]},
@@ -59,7 +60,31 @@ export class DashboardComponent implements OnInit{
     //   },
     //   error: (err) => { console.log(err); }
     // });
-    // //make API call to access status of resources for particular company
+
+
+    //make API call to access status of resources for particular company
+    this.api.GetImageCollections().then((resp:any) => {
+      if (resp.items.length != 0) {
+        console.log(resp.items[0]);
+        this.collectionData = resp.items.getImageCollections;
+        let completed_count = 0;
+        let processing_count = 0;
+        for (let i = 0; i < this.collectionData.length; i++) {
+          if(this.collectionData[i].completed){
+            this.completed[completed_count] = this.collectionData[i];
+            completed_count++;
+          }
+          else{
+            this.processing[processing_count] = this.collectionData[i];
+            processing_count++;
+          }
+        }
+        console.log(completed_count);
+        console.log(processing_count);
+      }
+      
+      return -1;
+    }).catch(()=> {return -1;});
     // this.apiService.getImageCollections().subscribe({
     //   next: (_res) => {
     //     this.collectionData = _res.data.getImageCollections;
