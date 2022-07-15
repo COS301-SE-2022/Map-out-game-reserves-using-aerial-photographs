@@ -23,6 +23,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { AccountModule } from './components/account/account.module';
 import { NavbarModule } from './components/shared/navbar/navbar.module';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MapModule } from './components/map/map.module';
+import { FileUploadModule } from './components/file-upload/file-upload.module';
+import { MapCollectionsModule } from './components/map-collections/map-collections.module';
 
 @NgModule({
   declarations: [
@@ -47,7 +50,10 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatListModule,
     MatFormFieldModule,
     MatProgressBarModule,
-    NgChartsModule
+    NgChartsModule,
+    MapCollectionsModule,
+    MapModule,
+    FileUploadModule
   ],
   providers: [ HttpClient ],
   bootstrap: [AppComponent]
