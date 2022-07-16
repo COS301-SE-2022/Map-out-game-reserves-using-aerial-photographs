@@ -18,11 +18,17 @@ import { LoginModule } from './components/login/login.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatListModule } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { AccountModule } from './components/account/account.module';
 import { NavbarModule } from './components/shared/navbar/navbar.module';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MapModule } from './components/map/map.module';
+import { MapCollectionsModule } from './components/map-collections/map-collections.module';
+import { FileUploadModule } from './components/file-upload/file-upload.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -41,13 +47,19 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     LoginModule,
     AccountModule,
     NavbarModule,
+    MapModule,
+    MapCollectionsModule,
+    FileUploadModule,
     MatCardModule,
+    MatDialogModule,
     MatIconModule,
     MatSnackBarModule,
     MatListModule,
     MatFormFieldModule,
     MatProgressBarModule,
-    NgChartsModule
+    MatButtonModule,
+    NgChartsModule,
+    FontAwesomeModule
   ],
   providers: [ HttpClient ],
   bootstrap: [AppComponent]

@@ -47,14 +47,26 @@
       <label class="label">
         PASSWORD
       </label>
-      <mat-card id="password" class="info" type="password" (click)="changePassword()">
-        <!--will need to fill out using the session-->
-        <input type="password" value="somethingeasy#1" readonly style="border:none; font-size: 18px; padding: 16px;">
-        <button mat-button class="editButt tooltip">
-          <mat-icon>edit</mat-icon>
-          <span class="tooltiptext" style="right: 0; left: auto;">Change password</span>
-        </button>
-      </mat-card>
+
+      <!-- Password field -->
+      <form [formGroup]="passwordForm">
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input formControlName="password" #password type="password" value="somethingeasy#1" matInput>
+          <div matSuffix style="height: 100% !important; margin: 0;">
+            <button mat-button class=" tooltip" (click)="viewPassword()">
+              <span #closedEyeIcon id="closedEyeIcon" class="material-symbols-outlined">
+                visibility_off
+              </span>
+            </button>
+            <button mat-button class=" tooltip" (click)="changePassword()">
+              <span class="material-symbols-outlined">
+                edit
+              </span>
+            </button>
+          </div>
+        </mat-form-field>
+      </form>
 
       <div class="contains">
         <div class="center">
@@ -130,7 +142,7 @@
           <button type="button" class="btn" (click)="closeFormRegister()">Close</button>
         </form>
       </div>
+
     </div>
-    <!-- </div> -->
   </div>
 </div>
