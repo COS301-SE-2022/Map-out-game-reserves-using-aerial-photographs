@@ -3,6 +3,7 @@ import { faMap as mapIcon, faExclamationTriangle as warning, faExclamationCircle
 import { BarChart } from './bar-chart/bar-chart.model';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ControllerService } from 'src/app/api/controller/controller.service';
+import { APIService } from 'src/app/API.service';
 
 @Component({
   selector: 'aerial-mapping-dashboard',
@@ -29,7 +30,7 @@ export class DashboardComponent implements OnInit{
 
   values = [3, 5, 2, 3, 2, 1, 7, 4];
 
-  constructor(private apiController: ControllerService, private sanitizer: DomSanitizer) {
+  constructor(private apiController: ControllerService, private sanitizer: DomSanitizer, private api:APIService) {
     this.maps = [
       {Value: this.values[0]},
       {Value: this.values[1]},
@@ -48,6 +49,7 @@ export class DashboardComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    //--------------------still to do----------------------
     // this.apiService.getImageData("bucket name", "file name").subscribe({
     //   next: (blob) => {
     //     const obj = new Image();
@@ -59,7 +61,35 @@ export class DashboardComponent implements OnInit{
     //   },
     //   error: (err) => { console.log(err); }
     // });
-    // //make API call to access status of resources for particular company
+
+
+    //make API call to access status of resources for particular company
+    this.api.ListImageCollections().then((event) => {
+      if (event.items.length != 0) {
+        console.log(event.items[0]);
+        // this.collectionData = event.items.getImageCollections;
+        let completed_count = 0;
+        let processing_count = 0;
+        for (let i = 0; i < event.items.length; i++) {
+          const element = event.items[i];
+          this.collectionData.push({collectionID: element?.collectionID, parkID: element?.parkID, completed: element?.completed})
+        }
+        for (let i = 0; i < this.collectionData.length; i++) {
+          if(this.collectionData[i].completed){
+            this.completed[completed_count] = this.collectionData[i];
+            completed_count++;
+          }
+          else{
+            this.processing[processing_count] = this.collectionData[i];
+            processing_count++;
+          }
+        }
+        console.log(completed_count);
+        console.log(processing_count);
+      }
+      
+      return -1;
+    }).catch(()=> {return -1;});
     // this.apiService.getImageCollections().subscribe({
     //   next: (_res) => {
     //     this.collectionData = _res.data.getImageCollections;
@@ -81,6 +111,37 @@ export class DashboardComponent implements OnInit{
     //   error: (err) => { console.log(err); }
     // });
 
+    this.api.ListMessages().then((event) => {
+      if (event.items.length != 0) {
+        console.log(event)
+        // console.log(event.items[0]);
+        for (let i = 0; i < event.items.length; i++) {
+          const element = event.items[i];
+          this.messagesData.push({message_status: element?.message_status, message_description: element?.message_description, collectionID: element?.messageImageCollectionId})
+        }
+        for (let i = 0; i < this.messagesData.length; i++) {
+          let status = good;
+          let status_color = 'green-icon';
+          if (this.messagesData[i].message_status == 'warning') {
+            status = warning;
+            status_color = 'orange-icon';
+          } else if (this.messagesData[i].message_status == 'alert') {
+            status = error;
+            status_color = 'red-icon';
+          }
+          this.messages[i] = {
+            message_status: status,
+            color: status_color,
+            message_description: this.messagesData[i].message_description,
+            collectionID: this.messagesData[i].collectionID,
+          };
+
+          console.log(this.messages[i]);
+        }
+      }
+      
+      return -1;
+    }).catch(()=> {return -1;});
     // this.apiService.getMessages().subscribe({
     //   next: (_res) => {
     //     this.messagesData = _res.data.getMessages;
@@ -112,21 +173,21 @@ export class DashboardComponent implements OnInit{
 }
 
 interface  Image_Collection {
-  collectionID: number;
-  parkID: number;
+  collectionID: string|null|undefined;
+  parkID: string|null|undefined;
   // upload_date_time: DateTime
-  completed: boolean;
+  completed: boolean|null|undefined;
 }
 
 interface Message{
-  message_status: string,
-  message_description: string,
-  collectionID: number
+  message_status: string|null|undefined,
+  message_description: string|null|undefined,
+  collectionID: string|null|undefined
 }
 
 class Dashboard_Message{
   message_status = good;
   color = 'green-icon';
-  message_description = "";
-  collectionID = 0;
+  message_description: string|null|undefined = "";
+  collectionID: string|null|undefined = "";
 }
