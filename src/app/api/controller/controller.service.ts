@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Auth } from 'aws-amplify';
-import { APIService, User } from '../../API.service';
+import { APIService, CreateUserInput, DeletePendingInvitesInput, User } from '../../API.service';
 import { v4 as uuidv4 } from 'uuid';
 const bcrypt = require('bcryptjs');
 
@@ -17,10 +17,10 @@ export class ControllerService {
   }
 
   async tryRegister(u: User): Promise<number> {
-    return this.repo.PendingInvitesByEmail(u.user_email!).then((resp) => {
+    return this.repo.GetPendingInvitesByEmail(u.user_email!).then((resp: any) => {
       if(resp.items.length != 0) {
         console.log(resp.items[0]);
-        const toDelete = {
+        const toDelete: DeletePendingInvitesInput = {
           inviteID: resp.items[0]!.inviteID,
           _version: 1
         }
@@ -33,10 +33,10 @@ export class ControllerService {
     }).catch(() => { return -1; });
   }
 
-  private async registerUser(u: User): Promise<number> {
+  async registerUser(u: User): Promise<number> {
     return bcrypt.genSalt(this.saltRounds, (_err: any, salt: string) => {
       bcrypt.hash(u.user_password, salt, async (_error: any, hash: string) => {
-        const newUser: User = {
+        const newUser: CreateUserInput = {
           userID: uuidv4(),
           user_name: u.user_name,
           user_email: u.user_email,
