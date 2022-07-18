@@ -11,9 +11,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PasswordDialogComponent } from './password-dialog/password-dialog.component';
+import { NameDialogComponent } from './name-dialog/name-dialog.component';
+import { EmailDialogComponent } from './email-dialog/email-dialog.component';
+import { RegisterLinkDialogComponent } from './register-link-dialog/register-link-dialog.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
-  declarations: [ AccountComponent, PasswordDialogComponent ],
+  declarations: [ AccountComponent, PasswordDialogComponent, NameDialogComponent, EmailDialogComponent, RegisterLinkDialogComponent ],
   imports: [
     CommonModule,
     NavbarModule,
@@ -23,6 +27,7 @@ import { PasswordDialogComponent } from './password-dialog/password-dialog.compo
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatSnackBarModule,
     FormsModule,
     ReactiveFormsModule,
     FontAwesomeModule

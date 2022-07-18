@@ -132,16 +132,18 @@ h3 {
   background-color: $primary-brown;
   border: none;
   color: white;
-  padding: 10px 30px;
+  //padding: 10px 30px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  padding-top: 5%;
-  padding-bottom: 5%;
-  margin-top: 5%;
+  //padding-top: 5%;
+  //padding-bottom: 5%;
+  margin: 10px;
+  //margin-top: 5%;
   cursor: pointer;
-  width: 100%;
+  width: 225px;
+  height: 40px;
 }
 
 .btn:hover {
@@ -155,11 +157,15 @@ h3 {
 
 .center {
   margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+  padding: 0;
+  //position: relative;
+  display: block;
+  margin: auto;
+  //top: 50%;
+  //left: 50%;
+  //-ms-transform: translate(-50%, -50%);
+  //transform: translate(-50%, -50%);
+  width: fit-content;
 }
 
 .editButt {
@@ -290,4 +296,21 @@ mat-form-field {
 ::ng-deep.mat-form-field-ripple {
  /*change color of underline when focused*/
  background-color: $primary-epi-dark !important;
+}
+
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: green;
+}
+
+input {
+  pointer-events: none !important;
+  z-index: 1;
+}
+
+label {
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
 }

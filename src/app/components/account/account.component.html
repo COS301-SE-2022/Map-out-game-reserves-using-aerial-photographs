@@ -10,10 +10,8 @@
       <hr>
     </div>
     <div style="height: 80%; margin-top: 2%;">
-      <label class="label">
-        NAME
-      </label>
-      <mat-card id="name" class="info" (click)="changeName()">
+
+      <!-- <mat-card id="name" class="info" (click)="changeName()">
         <div #name class="fill">
           The Dylpickles
         </div>
@@ -21,45 +19,19 @@
           <mat-icon>edit</mat-icon>
           <span class="tooltiptext" style="right: 0; left: auto;">Change name</span>
         </button>
-      </mat-card>
+      </mat-card> -->
+      <!-- Name field -->
       <label class="label">
-        EMAIL
+        NAME
       </label>
-      <mat-card id="email" class="info" id="editEmail" (click)="changeEmail()">
-        <!--will need to fill out using the session-->
-        <div #email class="fill">
-          thedylpickles1@gmail.com
-        </div>
-        <button mat-button class="editButt tooltip">
-          <mat-icon>edit</mat-icon>
-          <span class="tooltiptext" style="right: 0; left: auto;">Change email</span>
-        </button>
-      </mat-card>
-      <label class="label">
-        ROLE
-      </label>
-      <mat-card id="role" class="info">
-        <!--will need to fill out using the session-->
-        <div #role class="fill">
-          Administrator
-        </div>
-      </mat-card>
-      <label class="label">
-        PASSWORD
-      </label>
-
-      <!-- Password field -->
-      <form [formGroup]="passwordForm">
-        <mat-form-field appearance="outline">
-          <mat-label>Password</mat-label>
-          <input formControlName="password" #password type="password" value="somethingeasy#1" matInput>
+      <form [formGroup]="nameForm">
+        <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+          <mat-label>Name</mat-label>
+          <label>
+            <input readonly #name matInput style="user-select: none;">
+          </label>
           <div matSuffix style="height: 100% !important; margin: 0;">
-            <button mat-button class=" tooltip" (click)="viewPassword()">
-              <span #closedEyeIcon id="closedEyeIcon" class="material-symbols-outlined">
-                visibility_off
-              </span>
-            </button>
-            <button mat-button class=" tooltip" (click)="changePassword()">
+            <button mat-button class="tooltip" (click)="openNameDialog()">
               <span class="material-symbols-outlined">
                 edit
               </span>
@@ -68,20 +40,107 @@
         </mat-form-field>
       </form>
 
+      <!-- Email field -->
+      <label class="label">
+        EMAIL
+      </label>
+      <form [formGroup]="emailForm">
+        <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+          <mat-label>Email</mat-label>
+          <label>
+            <input readonly #email matInput style="user-select: none;">
+          </label>
+          <div matSuffix style="height: 100% !important; margin: 0;">
+            <button mat-button class="tooltip" (click)="openEmailDialog()">
+              <span class="material-symbols-outlined">
+                edit
+              </span>
+            </button>
+          </div>
+        </mat-form-field>
+      </form>
+      <!-- <mat-card id="email" class="info" id="editEmail" (click)="changeEmail()">
+        <div #email class="fill">
+          thedylpickles1@gmail.com
+        </div>
+        <button mat-button class="editButt tooltip">
+          <mat-icon>edit</mat-icon>
+          <span class="tooltiptext" style="right: 0; left: auto;">Change email</span>
+        </button>
+      </mat-card> -->
+
+      <!-- Role field -->
+      <label class="label">
+        ROLE
+      </label>
+      <form [formGroup]="roleForm">
+        <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+          <mat-label>Role</mat-label>
+          <label>
+            <input readonly #role matInput style="user-select: none;">
+          </label>
+          <!-- <div matSuffix style="height: 100% !important; margin: 0;">
+            <button mat-button class="tooltip">
+              <span class="material-symbols-outlined">
+                edit
+              </span>
+            </button>
+          </div> -->
+        </mat-form-field>
+      </form>
+      <!-- <mat-card id="role" class="info">
+        <div #role class="fill">
+          Administrator
+        </div>
+      </mat-card> -->
+
+      <!-- Password field -->
+      <!-- <label class="label">
+        PASSWORD
+      </label> -->
+      <!-- <form [formGroup]="passwordForm">
+        <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+          <mat-label>Password</mat-label>
+          <label>
+            <input readonly #password type="password" value="somethingeasy#1" matInput>
+          </label>
+          <div matSuffix style="height: 100% !important; margin: 0;">
+            <button mat-button class=" tooltip" (click)="viewPassword()">
+              <span #closedEyeIcon id="closedEyeIcon" class="material-symbols-outlined">
+                visibility_off
+              </span>
+            </button>
+            <button mat-button class=" tooltip" (click)="openPasswordDialog()">
+              <span class="material-symbols-outlined">
+                edit
+              </span>
+            </button>
+          </div>
+        </mat-form-field>
+      </form> -->
+
       <div class="contains">
         <div class="center">
-          <!--button only appears for administrators-->
-          <button id="link" class="btn" (click)="sendLink()">
-            Send out a registration link
+          <button (click)="openPasswordDialog()" class="btn" mat-raised-button >
+            Change Password
           </button>
-
-          <button id="logoutBtn" class="btn" (click)="logout()">
+          <button (click)="openRegisterLinkDialog()" *ngIf="this.admin" class="btn" mat-raised-button>
+            Send Registration Link
+          </button>
+          <button (click)="logout()" class="btn" mat-raised-button color="warn">
+            <mat-icon>logout</mat-icon>
             Logout
           </button>
+          <!-- <button *ngIf="this.admin" id="link" class="btn" (click)="sendLink()">
+            Send out a registration link
+          </button> -->
+          <!-- <button id="logoutBtn" class="btn" (click)="logout()">
+            Logout
+          </button> -->
         </div>
-
       </div>
-      <div class="form-popupName" id="myFormName">
+
+      <!-- <div class="form-popupName" id="myFormName">
         <form class="form-container">
           <h3>CHANGE NAME</h3>
           <h4 style="font-weight: 300;">If no change, leave field blank</h4>
@@ -98,8 +157,9 @@
           <button type="submit" class="btn">Update Name</button>
           <button type="button" class="btn" (click)="closeFormName()">Close</button>
         </form>
-      </div>
-      <div class="form-popupEmail" id="myFormEmail">
+      </div> -->
+
+      <!-- <div class="form-popupEmail" id="myFormEmail">
         <form class="form-container">
           <h3>CHANGE EMAIL</h3>
 
@@ -112,8 +172,9 @@
           <button type="submit" class="btn">Update Email</button>
           <button type="button" class="btn" (click)="closeFormEmail()">Close</button>
         </form>
-      </div>
-      <div class="form-popupPassword" id="myFormPassword">
+      </div> -->
+
+      <!-- <div class="form-popupPassword" id="myFormPassword">
         <form class="form-container">
           <h3>CHANGE PASSWORD</h3>
 
@@ -129,9 +190,9 @@
           <button type="password" class="btn">Update Password</button>
           <button type="button" class="btn" (click)="closeFormPsw()">Close</button>
         </form>
-      </div>
+      </div> -->
 
-      <div class="form-popupRegister" id="myFormRegister">
+      <!-- <div class="form-popupRegister" id="myFormRegister">
         <form [formGroup]="registerForm" (ngSubmit)="onSubmitRegisterForm()" class="form-container">
           <h3>SEND OUT A REGISTRATION LINK</h3>
 
@@ -141,7 +202,7 @@
           <button type="submit" class="btn">Send Email</button>
           <button type="button" class="btn" (click)="closeFormRegister()">Close</button>
         </form>
-      </div>
+      </div> -->
 
     </div>
   </div>
