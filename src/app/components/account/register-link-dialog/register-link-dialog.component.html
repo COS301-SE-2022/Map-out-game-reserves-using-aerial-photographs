@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Send Registration Invite</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label for="new">Recipient Email Address</mat-label>
+    <input matInput [(ngModel)]="data.recipient" name="new" cdkFocusInitial>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()" color="warn">Cancel</button>
+  <button mat-button [disabled]="!data.recipient" (click)="onSubmit()" color="primary" type="button">Send Invite</button>
+</div>
