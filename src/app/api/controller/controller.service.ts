@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Auth } from 'aws-amplify';
-import { APIService, CreateFlightDetailsInput, CreateGameParkInput, CreateImageCollectionInput, CreateMessageInput, CreateUserInput, User } from '../../API.service';
+import { APIService, CreateFlightDetailsInput, CreateGameParkInput, CreateImageCollectionInput, CreateMessageInput, CreateUserInput, DeletePendingInvitesInput, User } from '../../API.service';
 import { v4 as uuidv4 } from 'uuid';
 const bcrypt = require('bcryptjs');
 
@@ -17,10 +17,10 @@ export class ControllerService {
   }
 
   async tryRegister(u: User): Promise<number> {
-    return this.repo.PendingInvitesByEmail(u.user_email!).then((resp:any) => {
+    return this.repo.GetPendingInvitesByEmail(u.user_email!).then((resp: any) => {
       if(resp.items.length != 0) {
         console.log(resp.items[0]);
-        const toDelete = {
+        const toDelete: DeletePendingInvitesInput = {
           inviteID: resp.items[0]!.inviteID,
           _version: 1
         }
@@ -33,7 +33,7 @@ export class ControllerService {
     }).catch(() => { return -1; });
   }
 
-  private async registerUser(u: User): Promise<number> {
+  async registerUser(u: User): Promise<number> {
     return bcrypt.genSalt(this.saltRounds, (_err: any, salt: string) => {
       bcrypt.hash(u.user_password, salt, async (_error: any, hash: string) => {
         const newUser: CreateUserInput = {
@@ -44,10 +44,10 @@ export class ControllerService {
           user_password_salt: salt,
           user_approved: true,
           user_role: "user"
-          // __typename, 
-          // createdAt, 
-          // updatedAt, 
-          // _version, 
+          // __typename,
+          // createdAt,
+          // updatedAt,
+          // _version,
           // _lastChangedAt
         }
 

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ControllerService } from 'src/app/api/controller/controller.service';
+import { Auth } from 'aws-amplify';
 
 @Component({
   selector: 'aerial-mapping-login',
@@ -21,15 +22,21 @@ export class LoginComponent {
     this.isSubmitted = false;
   }
 
-  login() {
+  async login() {
     const email = this.loginForm.controls['email'];
     const password = this.loginForm.controls['password'];
     this.isSubmitted = true;
 
-    // this.apiService.login(email.value, password.value).subscribe((response) => {
-    //   document.cookie = "jwt=" + response.data.login + "; path=/";
-    //   this.router.navigate(['dashboard']);
-    // });
+    if(email.value != '' && password.value != '') {
+      //Amplify Auth
+      try {
+        const user = await Auth.signIn(email.value, password.value);
+        this.router.navigate(['dashboard']);
+      } catch (error) {
+          console.log('error signing in', error);
+      }
+    }
+
   }
 
   get email() { return this.loginForm.get('email'); }

@@ -34,7 +34,7 @@ export type __SubscriptionContainer = {
 };
 
 export type User = {
-  __typename?: "User";
+  __typename: "User";
   userID: string;
   user_email?: string | null;
   user_password?: string | null;
@@ -42,11 +42,11 @@ export type User = {
   user_name?: string | null;
   user_role?: string | null;
   user_approved?: boolean | null;
-  createdAt?: string;
-  updatedAt?: string;
-  _version?: number;
+  createdAt: string;
+  updatedAt: string;
+  _version: number;
   _deleted?: boolean | null;
-  _lastChangedAt?: number;
+  _lastChangedAt: number;
 };
 
 export type FlightDetails = {
@@ -721,21 +721,6 @@ export type CreateImageCollectionMutation = {
     flight_height?: number | null;
     flight_type?: string | null;
     pilotID?: string | null;
-    Pilot?: {
-      __typename: "User";
-      userID: string;
-      user_email?: string | null;
-      user_password?: string | null;
-      user_password_salt?: string | null;
-      user_name?: string | null;
-      user_role?: string | null;
-      user_approved?: boolean | null;
-      createdAt: string;
-      updatedAt: string;
-      _version: number;
-      _deleted?: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -774,21 +759,6 @@ export type UpdateImageCollectionMutation = {
     flight_height?: number | null;
     flight_type?: string | null;
     pilotID?: string | null;
-    Pilot?: {
-      __typename: "User";
-      userID: string;
-      user_email?: string | null;
-      user_password?: string | null;
-      user_password_salt?: string | null;
-      user_name?: string | null;
-      user_role?: string | null;
-      user_approved?: boolean | null;
-      createdAt: string;
-      updatedAt: string;
-      _version: number;
-      _deleted?: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -827,21 +797,6 @@ export type DeleteImageCollectionMutation = {
     flight_height?: number | null;
     flight_type?: string | null;
     pilotID?: string | null;
-    Pilot?: {
-      __typename: "User";
-      userID: string;
-      user_email?: string | null;
-      user_password?: string | null;
-      user_password_salt?: string | null;
-      user_name?: string | null;
-      user_role?: string | null;
-      user_approved?: boolean | null;
-      createdAt: string;
-      updatedAt: string;
-      _version: number;
-      _deleted?: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -864,33 +819,9 @@ export type CreateMessageMutation = {
     __typename: "ImageCollection";
     collectionID: string;
     parkID?: string | null;
-    GamePark?: {
-      __typename: "GamePark";
-      parkID: string;
-      park_name?: string | null;
-      park_location?: string | null;
-      park_address?: string | null;
-      createdAt: string;
-      updatedAt: string;
-      _version: number;
-      _deleted?: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
     flightID?: string | null;
-    FlightDetails?: {
-      __typename: "FlightDetails";
-      flightID: string;
-      flight_height?: number | null;
-      flight_type?: string | null;
-      pilotID?: string | null;
-      createdAt: string;
-      updatedAt: string;
-      _version: number;
-      _deleted?: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -914,33 +845,9 @@ export type UpdateMessageMutation = {
     __typename: "ImageCollection";
     collectionID: string;
     parkID?: string | null;
-    GamePark?: {
-      __typename: "GamePark";
-      parkID: string;
-      park_name?: string | null;
-      park_location?: string | null;
-      park_address?: string | null;
-      createdAt: string;
-      updatedAt: string;
-      _version: number;
-      _deleted?: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
     flightID?: string | null;
-    FlightDetails?: {
-      __typename: "FlightDetails";
-      flightID: string;
-      flight_height?: number | null;
-      flight_type?: string | null;
-      pilotID?: string | null;
-      createdAt: string;
-      updatedAt: string;
-      _version: number;
-      _deleted?: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -964,33 +871,9 @@ export type DeleteMessageMutation = {
     __typename: "ImageCollection";
     collectionID: string;
     parkID?: string | null;
-    GamePark?: {
-      __typename: "GamePark";
-      parkID: string;
-      park_name?: string | null;
-      park_location?: string | null;
-      park_address?: string | null;
-      createdAt: string;
-      updatedAt: string;
-      _version: number;
-      _deleted?: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
     flightID?: string | null;
-    FlightDetails?: {
-      __typename: "FlightDetails";
-      flightID: string;
-      flight_height?: number | null;
-      flight_type?: string | null;
-      pilotID?: string | null;
-      createdAt: string;
-      updatedAt: string;
-      _version: number;
-      _deleted?: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1164,22 +1047,6 @@ export type DeletePendingInvitesMutation = {
   _lastChangedAt: number;
 };
 
-export type GetUserByEmailQuery = {
-  __typename: "User";
-  userID: string;
-  user_email?: string | null;
-  user_password?: string | null;
-  user_password_salt?: string | null;
-  user_name?: string | null;
-  user_role?: string | null;
-  user_approved?: boolean | null;
-  createdAt: string;
-  updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
-};
-
 export type GetUsersQuery = {
   __typename: "User";
   userID: string;
@@ -1218,33 +1085,9 @@ export type GetMessagesQuery = {
     __typename: "ImageCollection";
     collectionID: string;
     parkID?: string | null;
-    GamePark?: {
-      __typename: "GamePark";
-      parkID: string;
-      park_name?: string | null;
-      park_location?: string | null;
-      park_address?: string | null;
-      createdAt: string;
-      updatedAt: string;
-      _version: number;
-      _deleted?: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
     flightID?: string | null;
-    FlightDetails?: {
-      __typename: "FlightDetails";
-      flightID: string;
-      flight_height?: number | null;
-      flight_type?: string | null;
-      pilotID?: string | null;
-      createdAt: string;
-      updatedAt: string;
-      _version: number;
-      _deleted?: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1298,21 +1141,6 @@ export type GetImageCollectionsQuery = {
     flight_height?: number | null;
     flight_type?: string | null;
     pilotID?: string | null;
-    Pilot?: {
-      __typename: "User";
-      userID: string;
-      user_email?: string | null;
-      user_password?: string | null;
-      user_password_salt?: string | null;
-      user_name?: string | null;
-      user_role?: string | null;
-      user_approved?: boolean | null;
-      createdAt: string;
-      updatedAt: string;
-      _version: number;
-      _deleted?: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1365,21 +1193,6 @@ export type GetCataloguesQuery = {
     flight_height?: number | null;
     flight_type?: string | null;
     pilotID?: string | null;
-    Pilot?: {
-      __typename: "User";
-      userID: string;
-      user_email?: string | null;
-      user_password?: string | null;
-      user_password_salt?: string | null;
-      user_name?: string | null;
-      user_role?: string | null;
-      user_approved?: boolean | null;
-      createdAt: string;
-      updatedAt: string;
-      _version: number;
-      _deleted?: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1525,21 +1338,6 @@ export type GetImageCollectionQuery = {
     flight_height?: number | null;
     flight_type?: string | null;
     pilotID?: string | null;
-    Pilot?: {
-      __typename: "User";
-      userID: string;
-      user_email?: string | null;
-      user_password?: string | null;
-      user_password_salt?: string | null;
-      user_name?: string | null;
-      user_role?: string | null;
-      user_approved?: boolean | null;
-      createdAt: string;
-      updatedAt: string;
-      _version: number;
-      _deleted?: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1559,33 +1357,9 @@ export type ListImageCollectionsQuery = {
     __typename: "ImageCollection";
     collectionID: string;
     parkID?: string | null;
-    GamePark?: {
-      __typename: "GamePark";
-      parkID: string;
-      park_name?: string | null;
-      park_location?: string | null;
-      park_address?: string | null;
-      createdAt: string;
-      updatedAt: string;
-      _version: number;
-      _deleted?: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
     flightID?: string | null;
-    FlightDetails?: {
-      __typename: "FlightDetails";
-      flightID: string;
-      flight_height?: number | null;
-      flight_type?: string | null;
-      pilotID?: string | null;
-      createdAt: string;
-      updatedAt: string;
-      _version: number;
-      _deleted?: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1602,33 +1376,9 @@ export type SyncImageCollectionsQuery = {
     __typename: "ImageCollection";
     collectionID: string;
     parkID?: string | null;
-    GamePark?: {
-      __typename: "GamePark";
-      parkID: string;
-      park_name?: string | null;
-      park_location?: string | null;
-      park_address?: string | null;
-      createdAt: string;
-      updatedAt: string;
-      _version: number;
-      _deleted?: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
     flightID?: string | null;
-    FlightDetails?: {
-      __typename: "FlightDetails";
-      flightID: string;
-      flight_height?: number | null;
-      flight_type?: string | null;
-      pilotID?: string | null;
-      createdAt: string;
-      updatedAt: string;
-      _version: number;
-      _deleted?: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1648,33 +1398,9 @@ export type GetMessageQuery = {
     __typename: "ImageCollection";
     collectionID: string;
     parkID?: string | null;
-    GamePark?: {
-      __typename: "GamePark";
-      parkID: string;
-      park_name?: string | null;
-      park_location?: string | null;
-      park_address?: string | null;
-      createdAt: string;
-      updatedAt: string;
-      _version: number;
-      _deleted?: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
     flightID?: string | null;
-    FlightDetails?: {
-      __typename: "FlightDetails";
-      flightID: string;
-      flight_height?: number | null;
-      flight_type?: string | null;
-      pilotID?: string | null;
-      createdAt: string;
-      updatedAt: string;
-      _version: number;
-      _deleted?: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1696,19 +1422,6 @@ export type ListMessagesQuery = {
     messageID: string;
     message_status?: string | null;
     message_description?: string | null;
-    ImageCollection?: {
-      __typename: "ImageCollection";
-      collectionID: string;
-      parkID?: string | null;
-      upload_date_time?: string | null;
-      completed?: boolean | null;
-      flightID?: string | null;
-      createdAt: string;
-      updatedAt: string;
-      _version: number;
-      _deleted?: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1727,19 +1440,6 @@ export type SyncMessagesQuery = {
     messageID: string;
     message_status?: string | null;
     message_description?: string | null;
-    ImageCollection?: {
-      __typename: "ImageCollection";
-      collectionID: string;
-      parkID?: string | null;
-      upload_date_time?: string | null;
-      completed?: boolean | null;
-      flightID?: string | null;
-      createdAt: string;
-      updatedAt: string;
-      _version: number;
-      _deleted?: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1839,21 +1539,6 @@ export type ListFlightDetailsQuery = {
     flight_height?: number | null;
     flight_type?: string | null;
     pilotID?: string | null;
-    Pilot?: {
-      __typename: "User";
-      userID: string;
-      user_email?: string | null;
-      user_password?: string | null;
-      user_password_salt?: string | null;
-      user_name?: string | null;
-      user_role?: string | null;
-      user_approved?: boolean | null;
-      createdAt: string;
-      updatedAt: string;
-      _version: number;
-      _deleted?: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1872,21 +1557,6 @@ export type SyncFlightDetailsQuery = {
     flight_height?: number | null;
     flight_type?: string | null;
     pilotID?: string | null;
-    Pilot?: {
-      __typename: "User";
-      userID: string;
-      user_email?: string | null;
-      user_password?: string | null;
-      user_password_salt?: string | null;
-      user_name?: string | null;
-      user_role?: string | null;
-      user_approved?: boolean | null;
-      createdAt: string;
-      updatedAt: string;
-      _version: number;
-      _deleted?: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1940,7 +1610,47 @@ export type SyncPendingInvitesQuery = {
   startedAt?: number | null;
 };
 
-export type PendingInvitesByEmailQuery = {
+export type UserByEmailQuery = {
+  __typename: "ModelUserConnection";
+  items: Array<{
+    __typename: "User";
+    userID: string;
+    user_email?: string | null;
+    user_password?: string | null;
+    user_password_salt?: string | null;
+    user_name?: string | null;
+    user_role?: string | null;
+    user_approved?: boolean | null;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
+  } | null>;
+  nextToken?: string | null;
+  startedAt?: number | null;
+};
+
+export type ImagesByCollectionIdQuery = {
+  __typename: "ModelImagesConnection";
+  items: Array<{
+    __typename: "Images";
+    imageID: string;
+    collectionID?: string | null;
+    name?: string | null;
+    bucket_name?: string | null;
+    file_name?: string | null;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
+  } | null>;
+  nextToken?: string | null;
+  startedAt?: number | null;
+};
+
+export type GetPendingInvitesByEmailQuery = {
   __typename: "ModelPendingInvitesConnection";
   items: Array<{
     __typename: "PendingInvites";
@@ -2068,21 +1778,6 @@ export type OnCreateImageCollectionSubscription = {
     flight_height?: number | null;
     flight_type?: string | null;
     pilotID?: string | null;
-    Pilot?: {
-      __typename: "User";
-      userID: string;
-      user_email?: string | null;
-      user_password?: string | null;
-      user_password_salt?: string | null;
-      user_name?: string | null;
-      user_role?: string | null;
-      user_approved?: boolean | null;
-      createdAt: string;
-      updatedAt: string;
-      _version: number;
-      _deleted?: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -2121,21 +1816,6 @@ export type OnUpdateImageCollectionSubscription = {
     flight_height?: number | null;
     flight_type?: string | null;
     pilotID?: string | null;
-    Pilot?: {
-      __typename: "User";
-      userID: string;
-      user_email?: string | null;
-      user_password?: string | null;
-      user_password_salt?: string | null;
-      user_name?: string | null;
-      user_role?: string | null;
-      user_approved?: boolean | null;
-      createdAt: string;
-      updatedAt: string;
-      _version: number;
-      _deleted?: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -2174,21 +1854,6 @@ export type OnDeleteImageCollectionSubscription = {
     flight_height?: number | null;
     flight_type?: string | null;
     pilotID?: string | null;
-    Pilot?: {
-      __typename: "User";
-      userID: string;
-      user_email?: string | null;
-      user_password?: string | null;
-      user_password_salt?: string | null;
-      user_name?: string | null;
-      user_role?: string | null;
-      user_approved?: boolean | null;
-      createdAt: string;
-      updatedAt: string;
-      _version: number;
-      _deleted?: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -2211,33 +1876,9 @@ export type OnCreateMessageSubscription = {
     __typename: "ImageCollection";
     collectionID: string;
     parkID?: string | null;
-    GamePark?: {
-      __typename: "GamePark";
-      parkID: string;
-      park_name?: string | null;
-      park_location?: string | null;
-      park_address?: string | null;
-      createdAt: string;
-      updatedAt: string;
-      _version: number;
-      _deleted?: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
     flightID?: string | null;
-    FlightDetails?: {
-      __typename: "FlightDetails";
-      flightID: string;
-      flight_height?: number | null;
-      flight_type?: string | null;
-      pilotID?: string | null;
-      createdAt: string;
-      updatedAt: string;
-      _version: number;
-      _deleted?: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -2261,33 +1902,9 @@ export type OnUpdateMessageSubscription = {
     __typename: "ImageCollection";
     collectionID: string;
     parkID?: string | null;
-    GamePark?: {
-      __typename: "GamePark";
-      parkID: string;
-      park_name?: string | null;
-      park_location?: string | null;
-      park_address?: string | null;
-      createdAt: string;
-      updatedAt: string;
-      _version: number;
-      _deleted?: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
     flightID?: string | null;
-    FlightDetails?: {
-      __typename: "FlightDetails";
-      flightID: string;
-      flight_height?: number | null;
-      flight_type?: string | null;
-      pilotID?: string | null;
-      createdAt: string;
-      updatedAt: string;
-      _version: number;
-      _deleted?: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -2311,33 +1928,9 @@ export type OnDeleteMessageSubscription = {
     __typename: "ImageCollection";
     collectionID: string;
     parkID?: string | null;
-    GamePark?: {
-      __typename: "GamePark";
-      parkID: string;
-      park_name?: string | null;
-      park_location?: string | null;
-      park_address?: string | null;
-      createdAt: string;
-      updatedAt: string;
-      _version: number;
-      _deleted?: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
     flightID?: string | null;
-    FlightDetails?: {
-      __typename: "FlightDetails";
-      flightID: string;
-      flight_height?: number | null;
-      flight_type?: string | null;
-      pilotID?: string | null;
-      createdAt: string;
-      updatedAt: string;
-      _version: number;
-      _deleted?: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -2893,21 +2486,6 @@ export class APIService {
             flight_height
             flight_type
             pilotID
-            Pilot {
-              __typename
-              userID
-              user_email
-              user_password
-              user_password_salt
-              user_name
-              user_role
-              user_approved
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-            }
             createdAt
             updatedAt
             _version
@@ -2962,21 +2540,6 @@ export class APIService {
             flight_height
             flight_type
             pilotID
-            Pilot {
-              __typename
-              userID
-              user_email
-              user_password
-              user_password_salt
-              user_name
-              user_role
-              user_approved
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-            }
             createdAt
             updatedAt
             _version
@@ -3031,21 +2594,6 @@ export class APIService {
             flight_height
             flight_type
             pilotID
-            Pilot {
-              __typename
-              userID
-              user_email
-              user_password
-              user_password_salt
-              user_name
-              user_role
-              user_approved
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-            }
             createdAt
             updatedAt
             _version
@@ -3084,33 +2632,9 @@ export class APIService {
             __typename
             collectionID
             parkID
-            GamePark {
-              __typename
-              parkID
-              park_name
-              park_location
-              park_address
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-            }
             upload_date_time
             completed
             flightID
-            FlightDetails {
-              __typename
-              flightID
-              flight_height
-              flight_type
-              pilotID
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-            }
             createdAt
             updatedAt
             _version
@@ -3150,33 +2674,9 @@ export class APIService {
             __typename
             collectionID
             parkID
-            GamePark {
-              __typename
-              parkID
-              park_name
-              park_location
-              park_address
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-            }
             upload_date_time
             completed
             flightID
-            FlightDetails {
-              __typename
-              flightID
-              flight_height
-              flight_type
-              pilotID
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-            }
             createdAt
             updatedAt
             _version
@@ -3216,33 +2716,9 @@ export class APIService {
             __typename
             collectionID
             parkID
-            GamePark {
-              __typename
-              parkID
-              park_name
-              park_location
-              park_address
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-            }
             upload_date_time
             completed
             flightID
-            FlightDetails {
-              __typename
-              flightID
-              flight_height
-              flight_type
-              pilotID
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-            }
             createdAt
             updatedAt
             _version
@@ -3578,33 +3054,6 @@ export class APIService {
     const response = (await API.graphql(graphqlOperation(statement))) as any;
     return <string | null>response.data.test;
   }
-  async GetUserByEmail(email?: string): Promise<GetUserByEmailQuery> {
-    const statement = `query GetUserByEmail($email: String) {
-        getUserByEmail(email: $email) {
-          __typename
-          userID
-          user_email
-          user_password
-          user_password_salt
-          user_name
-          user_role
-          user_approved
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (email) {
-      gqlAPIServiceArguments.email = email;
-    }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
-    return <GetUserByEmailQuery>response.data.getUserByEmail;
-  }
   async GetUsers(): Promise<Array<GetUsersQuery>> {
     const statement = `query GetUsers {
         getUsers {
@@ -3682,33 +3131,9 @@ export class APIService {
             __typename
             collectionID
             parkID
-            GamePark {
-              __typename
-              parkID
-              park_name
-              park_location
-              park_address
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-            }
             upload_date_time
             completed
             flightID
-            FlightDetails {
-              __typename
-              flightID
-              flight_height
-              flight_type
-              pilotID
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-            }
             createdAt
             updatedAt
             _version
@@ -3796,21 +3221,6 @@ export class APIService {
             flight_height
             flight_type
             pilotID
-            Pilot {
-              __typename
-              userID
-              user_email
-              user_password
-              user_password_salt
-              user_name
-              user_role
-              user_approved
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-            }
             createdAt
             updatedAt
             _version
@@ -3879,21 +3289,6 @@ export class APIService {
             flight_height
             flight_type
             pilotID
-            Pilot {
-              __typename
-              userID
-              user_email
-              user_password
-              user_password_salt
-              user_name
-              user_role
-              user_approved
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-            }
             createdAt
             updatedAt
             _version
@@ -4174,21 +3569,6 @@ export class APIService {
             flight_height
             flight_type
             pilotID
-            Pilot {
-              __typename
-              userID
-              user_email
-              user_password
-              user_password_salt
-              user_name
-              user_role
-              user_approved
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-            }
             createdAt
             updatedAt
             _version
@@ -4224,33 +3604,9 @@ export class APIService {
             __typename
             collectionID
             parkID
-            GamePark {
-              __typename
-              parkID
-              park_name
-              park_location
-              park_address
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-            }
             upload_date_time
             completed
             flightID
-            FlightDetails {
-              __typename
-              flightID
-              flight_height
-              flight_type
-              pilotID
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-            }
             createdAt
             updatedAt
             _version
@@ -4295,33 +3651,9 @@ export class APIService {
             __typename
             collectionID
             parkID
-            GamePark {
-              __typename
-              parkID
-              park_name
-              park_location
-              park_address
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-            }
             upload_date_time
             completed
             flightID
-            FlightDetails {
-              __typename
-              flightID
-              flight_height
-              flight_type
-              pilotID
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-            }
             createdAt
             updatedAt
             _version
@@ -4361,33 +3693,9 @@ export class APIService {
             __typename
             collectionID
             parkID
-            GamePark {
-              __typename
-              parkID
-              park_name
-              park_location
-              park_address
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-            }
             upload_date_time
             completed
             flightID
-            FlightDetails {
-              __typename
-              flightID
-              flight_height
-              flight_type
-              pilotID
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-            }
             createdAt
             updatedAt
             _version
@@ -4425,19 +3733,6 @@ export class APIService {
             messageID
             message_status
             message_description
-            ImageCollection {
-              __typename
-              collectionID
-              parkID
-              upload_date_time
-              completed
-              flightID
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-            }
             createdAt
             updatedAt
             _version
@@ -4484,19 +3779,6 @@ export class APIService {
             messageID
             message_status
             message_description
-            ImageCollection {
-              __typename
-              collectionID
-              parkID
-              upload_date_time
-              completed
-              flightID
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-            }
             createdAt
             updatedAt
             _version
@@ -4696,21 +3978,6 @@ export class APIService {
             flight_height
             flight_type
             pilotID
-            Pilot {
-              __typename
-              userID
-              user_email
-              user_password
-              user_password_salt
-              user_name
-              user_role
-              user_approved
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-            }
             createdAt
             updatedAt
             _version
@@ -4757,21 +4024,6 @@ export class APIService {
             flight_height
             flight_type
             pilotID
-            Pilot {
-              __typename
-              userID
-              user_email
-              user_password
-              user_password_salt
-              user_name
-              user_role
-              user_approved
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-            }
             createdAt
             updatedAt
             _version
@@ -4907,15 +4159,111 @@ export class APIService {
     )) as any;
     return <SyncPendingInvitesQuery>response.data.syncPendingInvites;
   }
-  async PendingInvitesByEmail(
+  async UserByEmail(
+    user_email: string,
+    sortDirection?: ModelSortDirection,
+    filter?: ModelUserFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<UserByEmailQuery> {
+    const statement = `query UserByEmail($user_email: String!, $sortDirection: ModelSortDirection, $filter: ModelUserFilterInput, $limit: Int, $nextToken: String) {
+        userByEmail(user_email: $user_email, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
+          __typename
+          items {
+            __typename
+            userID
+            user_email
+            user_password
+            user_password_salt
+            user_name
+            user_role
+            user_approved
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          nextToken
+          startedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      user_email
+    };
+    if (sortDirection) {
+      gqlAPIServiceArguments.sortDirection = sortDirection;
+    }
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <UserByEmailQuery>response.data.userByEmail;
+  }
+  async ImagesByCollectionId(
+    collectionID: string,
+    sortDirection?: ModelSortDirection,
+    filter?: ModelImagesFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<ImagesByCollectionIdQuery> {
+    const statement = `query ImagesByCollectionId($collectionID: String!, $sortDirection: ModelSortDirection, $filter: ModelImagesFilterInput, $limit: Int, $nextToken: String) {
+        imagesByCollectionId(collectionID: $collectionID, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
+          __typename
+          items {
+            __typename
+            imageID
+            collectionID
+            name
+            bucket_name
+            file_name
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          nextToken
+          startedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      collectionID
+    };
+    if (sortDirection) {
+      gqlAPIServiceArguments.sortDirection = sortDirection;
+    }
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <ImagesByCollectionIdQuery>response.data.imagesByCollectionId;
+  }
+  async GetPendingInvitesByEmail(
     email: string,
     sortDirection?: ModelSortDirection,
     filter?: ModelPendingInvitesFilterInput,
     limit?: number,
     nextToken?: string
-  ): Promise<PendingInvitesByEmailQuery> {
-    const statement = `query PendingInvitesByEmail($email: String!, $sortDirection: ModelSortDirection, $filter: ModelPendingInvitesFilterInput, $limit: Int, $nextToken: String) {
-        pendingInvitesByEmail(email: $email, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
+  ): Promise<GetPendingInvitesByEmailQuery> {
+    const statement = `query GetPendingInvitesByEmail($email: String!, $sortDirection: ModelSortDirection, $filter: ModelPendingInvitesFilterInput, $limit: Int, $nextToken: String) {
+        getPendingInvitesByEmail(email: $email, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
           __typename
           items {
             __typename
@@ -4949,7 +4297,9 @@ export class APIService {
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
-    return <PendingInvitesByEmailQuery>response.data.pendingInvitesByEmail;
+    return <GetPendingInvitesByEmailQuery>(
+      response.data.getPendingInvitesByEmail
+    );
   }
   OnCreateUserListener: Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateUser">>
@@ -5130,21 +4480,6 @@ export class APIService {
             flight_height
             flight_type
             pilotID
-            Pilot {
-              __typename
-              userID
-              user_email
-              user_password
-              user_password_salt
-              user_name
-              user_role
-              user_approved
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-            }
             createdAt
             updatedAt
             _version
@@ -5197,21 +4532,6 @@ export class APIService {
             flight_height
             flight_type
             pilotID
-            Pilot {
-              __typename
-              userID
-              user_email
-              user_password
-              user_password_salt
-              user_name
-              user_role
-              user_approved
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-            }
             createdAt
             updatedAt
             _version
@@ -5264,21 +4584,6 @@ export class APIService {
             flight_height
             flight_type
             pilotID
-            Pilot {
-              __typename
-              userID
-              user_email
-              user_password
-              user_password_salt
-              user_name
-              user_role
-              user_approved
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-            }
             createdAt
             updatedAt
             _version
@@ -5313,33 +4618,9 @@ export class APIService {
             __typename
             collectionID
             parkID
-            GamePark {
-              __typename
-              parkID
-              park_name
-              park_location
-              park_address
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-            }
             upload_date_time
             completed
             flightID
-            FlightDetails {
-              __typename
-              flightID
-              flight_height
-              flight_type
-              pilotID
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-            }
             createdAt
             updatedAt
             _version
@@ -5373,33 +4654,9 @@ export class APIService {
             __typename
             collectionID
             parkID
-            GamePark {
-              __typename
-              parkID
-              park_name
-              park_location
-              park_address
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-            }
             upload_date_time
             completed
             flightID
-            FlightDetails {
-              __typename
-              flightID
-              flight_height
-              flight_type
-              pilotID
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-            }
             createdAt
             updatedAt
             _version
@@ -5433,33 +4690,9 @@ export class APIService {
             __typename
             collectionID
             parkID
-            GamePark {
-              __typename
-              parkID
-              park_name
-              park_location
-              park_address
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-            }
             upload_date_time
             completed
             flightID
-            FlightDetails {
-              __typename
-              flightID
-              flight_height
-              flight_type
-              pilotID
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-            }
             createdAt
             updatedAt
             _version
