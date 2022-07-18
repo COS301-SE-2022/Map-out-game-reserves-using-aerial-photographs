@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export interface DialogData {
-  currentPassword: string,
   newPassword: string;
   confirmedPassword: string;
 }
@@ -18,25 +17,19 @@ export class PasswordDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<PasswordDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    private fb: FormBuilder
-  ) {
-    // this.changePasswordForm = fb.group({
-    //   newPassword: [data.currentPassword, [Validators.required, Validators.minLength(8)]],
-    //   confirmedPassword: [data.newPassword, [Validators.required, Validators.minLength(8)]]
-    // });
-  }
+    @Inject(MAT_DIALOG_DATA) public data: DialogData
+  ) {}
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
   onSubmit() {
-    // if(this.changePasswordForm.valid) {
-    //
-    // }
+    if(this.data.newPassword == '' || this.data.confirmedPassword == '') {
+      return;
+    }
     if(this.data.newPassword !== this.data.confirmedPassword) {
-      alert("Not matching!");
+      alert("Passwords do not match!");
       return;
     }
     this.dialogRef.close(this.data.newPassword);
