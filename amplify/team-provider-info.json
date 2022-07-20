@@ -27,6 +27,13 @@
     "categories": {
       "auth": {
         "amplifyappc10a5bb3": {}
+      },
+      "function": {
+        "registerlinkemailer": {
+          "deploymentBucketName": "amplify-amplifyapp-develop-115650-deployment",
+          "s3Key": "amplify-builds/registerlinkemailer-777545546176794d5761-build.zip",
+          "sesEmail": "thedylpickles1@gmail.com"
+        }
       }
     }
   }

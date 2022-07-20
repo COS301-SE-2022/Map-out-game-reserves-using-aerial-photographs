@@ -396,6 +396,7 @@ subscription OnCreatePendingInvites {
   onCreatePendingInvites {
     inviteID
     email
+    role
     createdAt
     updatedAt
     _version
@@ -407,6 +408,7 @@ subscription OnUpdatePendingInvites {
   onUpdatePendingInvites {
     inviteID
     email
+    role
     createdAt
     updatedAt
     _version
@@ -418,6 +420,7 @@ subscription OnDeletePendingInvites {
   onDeletePendingInvites {
     inviteID
     email
+    role
     createdAt
     updatedAt
     _version

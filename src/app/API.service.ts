@@ -392,11 +392,13 @@ export type DeleteFlightDetailsInput = {
 export type CreatePendingInvitesInput = {
   inviteID: string;
   email: string;
+  role: string;
   _version?: number | null;
 };
 
 export type ModelPendingInvitesConditionInput = {
   email?: ModelStringInput | null;
+  role?: ModelStringInput | null;
   and?: Array<ModelPendingInvitesConditionInput | null> | null;
   or?: Array<ModelPendingInvitesConditionInput | null> | null;
   not?: ModelPendingInvitesConditionInput | null;
@@ -406,6 +408,7 @@ export type PendingInvites = {
   __typename: "PendingInvites";
   inviteID: string;
   email: string;
+  role: string;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -416,6 +419,7 @@ export type PendingInvites = {
 export type UpdatePendingInvitesInput = {
   inviteID: string;
   email?: string | null;
+  role?: string | null;
   _version?: number | null;
 };
 
@@ -539,6 +543,7 @@ export type ModelFlightDetailsConnection = {
 export type ModelPendingInvitesFilterInput = {
   inviteID?: ModelStringInput | null;
   email?: ModelStringInput | null;
+  role?: ModelStringInput | null;
   and?: Array<ModelPendingInvitesFilterInput | null> | null;
   or?: Array<ModelPendingInvitesFilterInput | null> | null;
   not?: ModelPendingInvitesFilterInput | null;
@@ -1018,6 +1023,7 @@ export type CreatePendingInvitesMutation = {
   __typename: "PendingInvites";
   inviteID: string;
   email: string;
+  role: string;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -1029,6 +1035,7 @@ export type UpdatePendingInvitesMutation = {
   __typename: "PendingInvites";
   inviteID: string;
   email: string;
+  role: string;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -1040,6 +1047,7 @@ export type DeletePendingInvitesMutation = {
   __typename: "PendingInvites";
   inviteID: string;
   email: string;
+  role: string;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -1571,6 +1579,7 @@ export type GetPendingInvitesQuery = {
   __typename: "PendingInvites";
   inviteID: string;
   email: string;
+  role: string;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -1584,6 +1593,7 @@ export type ListPendingInvitesQuery = {
     __typename: "PendingInvites";
     inviteID: string;
     email: string;
+    role: string;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1600,6 +1610,7 @@ export type SyncPendingInvitesQuery = {
     __typename: "PendingInvites";
     inviteID: string;
     email: string;
+    role: string;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1650,12 +1661,13 @@ export type ImagesByCollectionIdQuery = {
   startedAt?: number | null;
 };
 
-export type GetPendingInvitesByEmailQuery = {
+export type PendingInvitesByEmailQuery = {
   __typename: "ModelPendingInvitesConnection";
   items: Array<{
     __typename: "PendingInvites";
     inviteID: string;
     email: string;
+    role: string;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -2075,6 +2087,7 @@ export type OnCreatePendingInvitesSubscription = {
   __typename: "PendingInvites";
   inviteID: string;
   email: string;
+  role: string;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -2086,6 +2099,7 @@ export type OnUpdatePendingInvitesSubscription = {
   __typename: "PendingInvites";
   inviteID: string;
   email: string;
+  role: string;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -2097,6 +2111,7 @@ export type OnDeletePendingInvitesSubscription = {
   __typename: "PendingInvites";
   inviteID: string;
   email: string;
+  role: string;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -2975,6 +2990,7 @@ export class APIService {
           __typename
           inviteID
           email
+          role
           createdAt
           updatedAt
           _version
@@ -3002,6 +3018,7 @@ export class APIService {
           __typename
           inviteID
           email
+          role
           createdAt
           updatedAt
           _version
@@ -3029,6 +3046,7 @@ export class APIService {
           __typename
           inviteID
           email
+          role
           createdAt
           updatedAt
           _version
@@ -4058,6 +4076,7 @@ export class APIService {
           __typename
           inviteID
           email
+          role
           createdAt
           updatedAt
           _version
@@ -4087,6 +4106,7 @@ export class APIService {
             __typename
             inviteID
             email
+            role
             createdAt
             updatedAt
             _version
@@ -4131,6 +4151,7 @@ export class APIService {
             __typename
             inviteID
             email
+            role
             createdAt
             updatedAt
             _version
@@ -4255,20 +4276,21 @@ export class APIService {
     )) as any;
     return <ImagesByCollectionIdQuery>response.data.imagesByCollectionId;
   }
-  async GetPendingInvitesByEmail(
+  async PendingInvitesByEmail(
     email: string,
     sortDirection?: ModelSortDirection,
     filter?: ModelPendingInvitesFilterInput,
     limit?: number,
     nextToken?: string
-  ): Promise<GetPendingInvitesByEmailQuery> {
-    const statement = `query GetPendingInvitesByEmail($email: String!, $sortDirection: ModelSortDirection, $filter: ModelPendingInvitesFilterInput, $limit: Int, $nextToken: String) {
-        getPendingInvitesByEmail(email: $email, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
+  ): Promise<PendingInvitesByEmailQuery> {
+    const statement = `query PendingInvitesByEmail($email: AWSEmail!, $sortDirection: ModelSortDirection, $filter: ModelPendingInvitesFilterInput, $limit: Int, $nextToken: String) {
+        pendingInvitesByEmail(email: $email, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
           __typename
           items {
             __typename
             inviteID
             email
+            role
             createdAt
             updatedAt
             _version
@@ -4297,9 +4319,7 @@ export class APIService {
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
-    return <GetPendingInvitesByEmailQuery>(
-      response.data.getPendingInvitesByEmail
-    );
+    return <PendingInvitesByEmailQuery>response.data.pendingInvitesByEmail;
   }
   OnCreateUserListener: Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateUser">>
@@ -4909,6 +4929,7 @@ export class APIService {
           __typename
           inviteID
           email
+          role
           createdAt
           updatedAt
           _version
@@ -4934,6 +4955,7 @@ export class APIService {
           __typename
           inviteID
           email
+          role
           createdAt
           updatedAt
           _version
@@ -4959,6 +4981,7 @@ export class APIService {
           __typename
           inviteID
           email
+          role
           createdAt
           updatedAt
           _version
