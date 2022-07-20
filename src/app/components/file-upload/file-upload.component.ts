@@ -185,13 +185,41 @@ export class FileUploadComponent {
       console.log(resp);
     }).catch(()=> {return -1;});
 
-    // this.apiService
-    //   .uploadImage(collectionID, bucket_name, file_name, file)
-    //   .subscribe({
-    //     error: (err) => {
-    //       console.log(err);
-    //     },
+
+    // async uploadToS3(file: any) {
+    //   code in lines 171-181 replace commented code in lines 183-189
+    //   const inp:CreateImagesInput = {
+    //     imageID: uuidv4(),
+    //     collectionID: collectionID,
+    //     bucket_name: bucket_name,
+    //     file_name: file_name
+    //   };
+  
+    //   this.api.CreateImages(inp).then((resp:any) => {
+    //     console.log(resp);
+    //   }).catch(()=> {return -1;});
+  
+    //   console.log('uploading this:');
+    //   console.log(file);
+    //   this.apiController.S3upload(file);
+  
+    //   this.apiService
+    //     .uploadImage(collectionID, bucket_name, file_name, file)
+    //     .subscribe({
+    //       error: (err) => {
+    //         console.log(err);
+    //       },
+    //     });
+    //   console.log('recieved this:');
+    //   this.apiController.S3download(file.name, false).then((signedURL) => {
+    //     console.log(signedURL);
+    //     var test = document.getElementById('test');
+    //     if (test) {
+    //       test.innerHTML +=
+    //         '<img src="'+signedURL+'" alt="Italian Trulli">';
+    //     }
     //   });
+    // }
   }
 
   imageSplitting(file: File, parkSel: string, flight : CreateFlightDetailsInput) {

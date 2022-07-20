@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Auth } from 'aws-amplify';
-import { APIService, CreateUserInput, DeletePendingInvitesInput, User } from '../../API.service';
+import { Auth, Storage } from 'aws-amplify';
+import { APIService, CreateFlightDetailsInput, CreateGameParkInput, CreateImageCollectionInput, CreateMessageInput, CreateUserInput, DeletePendingInvitesInput, User } from '../../API.service';
 import { v4 as uuidv4 } from 'uuid';
 const bcrypt = require('bcryptjs');
 
@@ -90,6 +90,22 @@ export class ControllerService {
         console.log('error creating user...', e);
         return -1;
       });
+  }
+
+  async S3upload(fileData: File){
+    const result = await Storage.put(fileData.name, fileData, {
+      contentType: fileData.type,
+    });
+    console.log(21, result);
+  };
+
+  async S3download(fileKey:string,fetch_data:boolean){
+    // Storage.list('public/') // for listing ALL files without prefix, pass '' instead
+    // .then(result => console.log(result))
+
+    const result = await Storage.get(fileKey, { download: fetch_data });
+    console.log(result);
+    return result;
   }
 
   //------------------------------------------------------------------------

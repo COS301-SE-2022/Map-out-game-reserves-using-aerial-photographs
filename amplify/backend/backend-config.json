@@ -56,7 +56,28 @@
           "resourceName": "amplifyapp",
           "attributes": [
             "GraphQLAPIIdOutput",
-            "GraphQLAPIEndpointOutput"
+            "GraphQLAPIEndpointOutput"]
+        }
+      ],
+    "S3Trigger3ac458d4": {
+      "service": "Lambda",
+      "providerPlugin": "awscloudformation",
+      "build": true
+      }
+    }
+  },
+  "storage": {
+    "S3Storage": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "S3Trigger3ac458d4",
+          "attributes": [
+            "Name",
+            "Arn",
+            "LambdaExecutionRole"
           ]
         }
       ]
