@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Auth } from 'aws-amplify';
-import { APIService, CreatePendingInvitesInput, UpdateUserInput, User } from 'src/app/API.service';
+import { APIService, CreatePendingInvitesInput, DeletePendingInvitesInput, ModelPendingInvitesFilterInput, UpdateUserInput, User } from 'src/app/API.service';
 import { faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { MatDialog } from '@angular/material/dialog';
@@ -76,6 +76,10 @@ export class AccountComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.api.UserByEmail("correct@email.com").then((res: any) => {
+      console.log(res);
+    })
+
     try {
       await Auth.currentAuthenticatedUser({ bypassCache: false }).then(async (res: any) => {
         console.log(res);
@@ -282,20 +286,27 @@ export class AccountComponent implements OnInit {
       data: { recipient: ''}
     });
 
-    dialogRef.afterClosed().subscribe(async recipient => {
-      if(recipient == undefined) {
+    dialogRef.afterClosed().subscribe(async obj => {
+      if(obj == undefined) {
         return;
       }
 
       //add invite in DynamoDB
+      let role;
+      if(obj.checked) {
+        role = "admin";
+      }
+      else {
+        role = "user";
+      }
       const newInvite: CreatePendingInvitesInput = {
         inviteID: uuidv4(),
-        email: recipient,
-        _version: 1
+        email: obj.recipient,
+        role: role
       }
       this.api.CreatePendingInvites(newInvite).then((res: any) => {
         //snackbar with success message (if successful?)
-        this.snackBar.open(`Invite sent to ${recipient}`, "✔️");
+        this.snackBar.open(`Invite sent to ${obj.recipient}`, "✔️");
         console.log(res);
       });
     });
