@@ -26,7 +26,7 @@ export class ImageCatalogueComponent {
     park: 'park'
   }
 
-  constructor(private api: APIService, private controller: ControllerService, private sanitizer: DomSanitizer, private snackbar: MatSnackBar) {
+  constructor(private api: APIService, private apiController: ControllerService, private sanitizer: DomSanitizer, private snackbar: MatSnackBar) {
     this.selected = 'date';
 
     this.getAllCatalogues();
@@ -44,20 +44,12 @@ export class ImageCatalogueComponent {
           }
 
           for(const i of this.images) {
-            i.image.file_name = "10-frame-6.png"; //temp mock
-            this.controller.getImageData(i.image.bucket_name!, i.image.file_name!)
-            .then((res: Observable<any>) => {
-              res.subscribe({
-                next: (data: any) => {
-                  console.log(data);
-                  const tempUrl = data.observe;
-                  i.url = this.sanitizer.bypassSecurityTrustUrl(tempUrl);
-                },
-                error: (err: any) => {
-                  console.log(err);
-                }
-              });
-            }).catch(e => console.log(e));
+            this.apiController.S3download(i.image.imageID, false).then((signedURL) => {
+              console.log('recieved this:');
+            console.log(i.image.imageID);
+              console.log(signedURL);
+              i.url = signedURL;
+            });
           }
           this.sortByDate();
           this.tempCatalogues = this.catalogues;
@@ -72,6 +64,47 @@ export class ImageCatalogueComponent {
         this.snackbar.open("Network error...", "❌", { verticalPosition: 'top' });
       }
     });
+
+
+    // this.api.ListImageCollections().then((data: ListImageCollectionsQuery) => {
+    //   console.log(data);
+    //   this.catalogues = data.items;
+
+    //   for(const catalog of this.catalogues) {
+    //     this.api.ImagesByCollectionId(catalog.collectionID).then((resp: any) => {
+    //       for(const image of resp.items) {
+    //         this.images.push({ image: image, url: '' });
+    //       }
+
+    //       for(const i of this.images) {
+    //         i.image.file_name = "10-frame-6.png"; //temp mock
+    //         this.controller.getImageData(i.image.bucket_name!, i.image.file_name!)
+    //         .then((res: Observable<any>) => {
+    //           res.subscribe({
+    //             next: (data: any) => {
+    //               console.log(data);
+    //               const tempUrl = data.observe;
+    //               i.url = this.sanitizer.bypassSecurityTrustUrl(tempUrl);
+    //             },
+    //             error: (err: any) => {
+    //               console.log(err);
+    //             }
+    //           });
+    //         }).catch(e => console.log(e));
+    //       }
+    //       this.sortByDate();
+    //       this.tempCatalogues = this.catalogues;
+
+    //     }).catch(e => console.log(e));
+    //   }
+
+    //   return data.items;
+    // }).catch(e => {
+    //   console.log(e)
+    //   if(e.errors[0].message == "Network Error"){
+    //     this.snackbar.open("Network error...", "❌", { verticalPosition: 'top' });
+    //   }
+    // });
   }
 
   sanitizeImageUrl(imageUrl: string): SafeUrl {
