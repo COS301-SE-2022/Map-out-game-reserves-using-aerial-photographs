@@ -1,13 +1,13 @@
 <div class="background" style="background-image: url('assets/mapwallpaper.jpg');">
   <div class="heading">
-    Image Catalogue
+    <h1>Image Catalogue</h1>
   </div>
   <aerial-mapping-side-navbar></aerial-mapping-side-navbar>
   <div class="content">
 
     <div id="searchAndSortContainer">
       <div id="searchBar">
-        <mat-form-field [ngStyle]="{ width: '100%', height: '50px'}" class="form">
+        <mat-form-field [ngStyle]="{ width: '100%', height: '60px'}" class="form">
           <button id="searchBtn" matPrefix mat-icon-button aria-label="Search">
             <mat-icon inline=true>search</mat-icon>
           </button>
@@ -18,9 +18,9 @@
       </div>
 
       <span id="sortDropdown">
-        <mat-form-field [ngStyle]="{ width: '18%', height: '50px'}" appearance="fill">
+        <mat-form-field [ngStyle]="{ width: '18%', height: '60px', backgroundColor: 'none'}">
           <mat-label id="right" class="sortLabel">Sort By</mat-label>
-          <mat-select matInput (change)="onChangeSort($event)" id="left" class="sort" style="display: inline">
+          <mat-select matInput (change)="onChangeSort($event)" id="left" class="sort" style="display: inline;">
             <mat-option [value]="sort.date" selected>Upload Date</mat-option>
             <mat-option [value]="sort.park">Park</mat-option>
           </mat-select>
@@ -42,29 +42,34 @@
           </ng-container>
         </mat-card-content>
         <mat-card-footer style="padding: 0px 10px">
-          <button class="link tooltip" (click)="enlarge()">View
+          <button mat-raised-button class="link tooltip" (click)="enlarge()">View
             <span class="tooltiptext">View images & create maps</span>
           </button>
         </mat-card-footer>
       </mat-card>
+
+      <!-- Add Angular Dialog Here Instead -->
 
       <mat-card class="popup" id="popup" style="overflow-y: none">
         <div class="images" style="overflow-y: auto">
           <mat-card class="imageContainer" *ngFor="let img of images">
             <mat-card-content><img [src]="img.url" alt="{{ img.image.file_name }}" /></mat-card-content>
           </mat-card>
+          <!-- <ng-container *ngFor="let img of images" class="imageContainer">
+            <img [src]="img.url" alt="{{ img.image.file_name }}" [style]="{ padding: '5px' }" />
+          </ng-container> -->
         </div>
         <!-- <a routerLink="/map-collection" class="button">
               <span class="icon"><mat-icon>add</mat-icon></span>
               <span class="text" style="cursor: pointer;">Create New Map</span>
             </a> -->
         <div class="center">
-          <button class="link tooltip" routerLink="/map-collection" style="width: 190px">
+          <button mat-raised-button class="link tooltip" routerLink="/map-collection" style="width: 190px">
             Create New Map
             <span class="tooltiptext">Start image stitching</span>
           </button>
           <span style="margin: 10px"></span>
-          <button class="link" (click)="closePopup()" style="width: 190px">
+          <button mat-raised-button color="warn" class="link" (click)="closePopup()" style="width: 190px">
             Close
           </button>
         </div>

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Auth, Storage } from 'aws-amplify';
-import { APIService, CreateFlightDetailsInput, CreateGameParkInput, CreateImageCollectionInput, CreateMessageInput, CreateUserInput, DeletePendingInvitesInput, User } from '../../API.service';
+import { APIService, CreateUserInput, DeletePendingInvitesInput, User } from '../../API.service';
 import { v4 as uuidv4 } from 'uuid';
-const bcrypt = require('bcryptjs');
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -10,28 +10,18 @@ const bcrypt = require('bcryptjs');
 export class ControllerService {
   saltRounds = 10;
 
-  constructor(private repo: APIService) {
-    console.log('Listing Pending Invites...');
-    this.repo.ListPendingInvites().then((event) => {
-      console.log(event.items);
-    })
-  }
+  constructor(private repo: APIService, private http: HttpClient) {}
 
   async tryRegister(u: User): Promise<number> {
     console.log('getting pending invite by email...');
     return this.repo.PendingInvitesByEmail(u.user_email!).then((resp: any) => {
-      let invite: any = null;
-      if(resp != null){
-        if(resp.items.length > 0) {
-          for(let item of resp.items) {
-            if(!item._deleted) {
-              invite = item;
-              break;
-            }
+      let invite: any;
+      if(resp != null && resp.items.length > 0) {
+        for(let item of resp.items) {
+          if(!item._deleted) {
+            invite = item;
+            break;
           }
-        }
-        else {
-          return -1;
         }
       }
       else {
@@ -55,9 +45,7 @@ export class ControllerService {
           return this.registerUser(u);
         }).catch(() => { return -1; });
       }
-      else {
-        return -1;
-      }
+      return -1;
     }).catch(() => { return -1; });
   }
 
@@ -106,6 +94,25 @@ export class ControllerService {
     const result = await Storage.get(fileKey, { download: fetch_data });
     console.log(result);
     return result;
+  }
+
+  async getImageData(bucket_name: string, file_name: string): Promise<any> {
+    // const options = {
+    //   headers: new HttpHeaders({
+    //     "Content-Type": "image/png",
+    //   }),
+    // };
+
+    return this.http.get(
+      'https://3dxg59qzw5.execute-api.us-east-1.amazonaws.com/test_stage/' +
+        bucket_name +
+        '/' +
+        file_name,
+      {
+        headers: { 'Content-Type': 'image/png' },
+        responseType: 'json',
+      }
+    );
   }
 
   //------------------------------------------------------------------------

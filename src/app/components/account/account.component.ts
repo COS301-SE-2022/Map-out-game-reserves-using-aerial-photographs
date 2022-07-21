@@ -12,9 +12,6 @@ import { EmailDialogComponent } from './email-dialog/email-dialog.component';
 import { RegisterLinkDialogComponent } from './register-link-dialog/register-link-dialog.component';
 import { v4 as uuidv4 } from 'uuid';
 import { MatSnackBar } from '@angular/material/snack-bar';
-const bcrypt = require('bcryptjs');
-
-
 
 export interface DialogData {
   currentPassword: string,
@@ -215,8 +212,8 @@ export class AccountComponent implements OnInit {
       }
       this.newPassword = result;
       Auth.currentAuthenticatedUser({ bypassCache: false }).then(async (user: any) => {
-        await Auth.changePassword(user, this.currPassword, this.newPassword).then(async (res: any) => {
-          alert("Password changed successfully!");
+        await Auth.changePassword(user, this.currPassword, this.newPassword).then(async () => {
+          this.snackBar.open("Password changed successfully!", "✔️");
           this.currPassword = this.newPassword;
         });
       });

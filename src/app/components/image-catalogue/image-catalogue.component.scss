@@ -3,24 +3,22 @@
 body {
   overflow: auto;
 }
-.heading {
+
+h1 {
   color: white;
   font-family: 'Segoe UI', sans-serif;
   font-weight: 505;
   font-style: normal;
-  font-size: 40px;
-  line-height: 100%;
-  width: 100%;
-  height: 10%;
-  padding: 1%;
-  position: relative;
-  z-index: 99;
-  background-color: transparentize($primary-dark, 0.2);
-  box-shadow: 0 5px 16px 0 rgba(0,0,0,0.24), 0 5px 50px 0 rgba(0,0,0,0.19);
+  font-size: 5vh;
+  line-height: 80%;
+  padding: 0;
+  padding-bottom: 5px;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .background {
-  background-repeat: no-repeat;
+  background-repeat: repeat-y;
   background-size: 100vw;
   top: 0;
   left: 0;
@@ -29,18 +27,6 @@ body {
   position: absolute;
 }
 
-// .content {
-//   border-radius: 3px;
-//   background: $primary-background-opaque;
-//   padding: 1%;
-//   margin-left: 0.5%;
-//   width: 87%;
-//   height: 89%;
-//   vertical-align: top;
-//   float: left;
-//   overflow-y: auto;
-// }
-
 .content {
   background-color: transparentize($primary-background-opaque, 0.1);
   margin-top: 10px;
@@ -48,7 +34,7 @@ body {
   margin-right: 0.5%;
   padding: 1%;
   border-radius: 15px;
-  width: 86%;
+  //width: 86%;
   height: 85vh;
   vertical-align: top;
   position: absolute;
@@ -64,24 +50,27 @@ body {
   border-style: solid;
   background-color: $primary-background;
   border-color: $primary-background;
-  border-radius: 20px;
-  padding: 2px;
+  border-radius: 10px;
+  //padding: 2px;
   margin: 0;
 
-  overflow: hidden;
+  //overflow: hidden;
 }
 
 #searchAndSortContainer
 {
   display: block;
   height:50px;
-  vertical-align: middle;
 }
 
 button {
   margin-top: auto;
-  margin-bottom: auto;
+  margin-bottom: 50px;
   vertical-align: middle;
+}
+
+.mat-button-base {
+  height: 40px;
 }
 
 mat-icon {
@@ -92,7 +81,7 @@ mat-icon {
 }
 
 .mat-form-field-type-mat-select {
-
+  padding: 10px;
   width: 18%;
 }
 
@@ -100,7 +89,10 @@ mat-icon {
   margin: 0%;
   border: none;
   padding: 0%;
+}
 
+.mat-form-field-flex{
+  padding: 10px;
 }
 
 #searchBar
@@ -195,8 +187,8 @@ mat-form-field {
   width: 26%;
 
   background-color: white;
-  height: 50px;
-  border-radius: 15px;
+  height: 40px;
+  border-radius: 10px;
   border-bottom: none;
   caret-color: transparent;
 }
@@ -214,9 +206,14 @@ mat-option, mat-form-field {
 }
 
 #searchBtn {
-  width: 25px;
+  width: 40px;
+  height: 40px;
+  top: -2px;
+  left: -8px;
   margin-left: 10px;
   margin-right: 10px;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 #sortDropdown {
@@ -296,7 +293,7 @@ mat-card-header {
 }
 
 .imageContainer {
-  width: 17%;
+  width: 20%;//17%;
   margin: 1%;
   height: auto;
   display: inline-block;
@@ -330,6 +327,7 @@ mat-card-header {
   color: white;
   padding: 15px 32px;
   text-align: center;
+  line-height: 50%;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;

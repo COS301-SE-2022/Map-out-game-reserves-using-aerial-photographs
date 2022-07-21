@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { APIService, Images, ListImageCollectionsQuery } from 'src/app/API.service';
@@ -25,7 +26,7 @@ export class ImageCatalogueComponent {
     park: 'park'
   }
 
-  constructor(private api: APIService, private controller: ControllerService, private sanitizer: DomSanitizer) {
+  constructor(private api: APIService, private controller: ControllerService, private sanitizer: DomSanitizer, private snackbar: MatSnackBar) {
     this.selected = 'date';
 
     this.getAllCatalogues();
@@ -65,7 +66,12 @@ export class ImageCatalogueComponent {
       }
 
       return data.items;
-    }).catch(e => console.log(e));
+    }).catch(e => {
+      console.log(e)
+      if(e.errors[0].message == "Network Error"){
+        this.snackbar.open("Network error...", "❌", { verticalPosition: 'top' });
+      }
+    });
   }
 
   sanitizeImageUrl(imageUrl: string): SafeUrl {
