@@ -18,11 +18,17 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "function": {
+        "registerlinkemailer": {
+          "Name": "string",
+          "Arn": "string",
+          "Region": "string",
+          "LambdaExecutionRole": "string"
+        },
         "S3Trigger3ac458d4": {
-            "Name": "string",
-            "Arn": "string",
-            "Region": "string",
-            "LambdaExecutionRole": "string"
+          "Name": "string",
+          "Arn": "string",
+          "Region": "string",
+          "LambdaExecutionRole": "string"
         }
     },
     "storage": {

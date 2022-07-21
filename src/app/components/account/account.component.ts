@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Auth } from 'aws-amplify';
-import { APIService, CreatePendingInvitesInput, UpdateUserInput, User } from 'src/app/API.service';
+import { APIService, CreatePendingInvitesInput, DeletePendingInvitesInput, ModelPendingInvitesFilterInput, UpdateUserInput, User } from 'src/app/API.service';
 import { faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { MatDialog } from '@angular/material/dialog';
@@ -12,9 +12,6 @@ import { EmailDialogComponent } from './email-dialog/email-dialog.component';
 import { RegisterLinkDialogComponent } from './register-link-dialog/register-link-dialog.component';
 import { v4 as uuidv4 } from 'uuid';
 import { MatSnackBar } from '@angular/material/snack-bar';
-const bcrypt = require('bcryptjs');
-
-
 
 export interface DialogData {
   currentPassword: string,
@@ -76,6 +73,10 @@ export class AccountComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.api.UserByEmail("correct@email.com").then((res: any) => {
+      console.log(res);
+    })
+
     try {
       await Auth.currentAuthenticatedUser({ bypassCache: false }).then(async (res: any) => {
         console.log(res);
@@ -93,7 +94,12 @@ export class AccountComponent implements OnInit {
             this.currPassword = this.user.user_password;
             this.currUserID = this.user.userID;
           }
-        }).catch(err => { console.log(err); })
+        }).catch(err => {
+          console.log(err);
+          if(err.errors[0].message == "Network Error"){
+            this.snackBar.open("Network error...", "❌", { verticalPosition: 'top' });
+          }
+        })
       });
     } catch(error) {
       console.log(error);
@@ -211,8 +217,8 @@ export class AccountComponent implements OnInit {
       }
       this.newPassword = result;
       Auth.currentAuthenticatedUser({ bypassCache: false }).then(async (user: any) => {
-        await Auth.changePassword(user, this.currPassword, this.newPassword).then(async (res: any) => {
-          alert("Password changed successfully!");
+        await Auth.changePassword(user, this.currPassword, this.newPassword).then(async () => {
+          this.snackBar.open("Password changed successfully!", "✔️");
           this.currPassword = this.newPassword;
         });
       });
@@ -282,20 +288,27 @@ export class AccountComponent implements OnInit {
       data: { recipient: ''}
     });
 
-    dialogRef.afterClosed().subscribe(async recipient => {
-      if(recipient == undefined) {
+    dialogRef.afterClosed().subscribe(async obj => {
+      if(obj == undefined) {
         return;
       }
 
       //add invite in DynamoDB
+      let role;
+      if(obj.checked) {
+        role = "admin";
+      }
+      else {
+        role = "user";
+      }
       const newInvite: CreatePendingInvitesInput = {
         inviteID: uuidv4(),
-        email: recipient,
-        _version: 1
+        email: obj.recipient,
+        role: role
       }
       this.api.CreatePendingInvites(newInvite).then((res: any) => {
         //snackbar with success message (if successful?)
-        this.snackBar.open(`Invite sent to ${recipient}`, "✔️");
+        this.snackBar.open(`Invite sent to ${obj.recipient}`, "✔️");
         console.log(res);
       });
     });

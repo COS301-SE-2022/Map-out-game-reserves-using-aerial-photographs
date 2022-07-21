@@ -1218,7 +1218,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "getPendingInvitesByEmail",
+          "name" : "pendingInvitesByEmail",
           "description" : null,
           "args" : [ {
             "name" : "email",
@@ -1228,7 +1228,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "SCALAR",
-                "name" : "String",
+                "name" : "AWSEmail",
                 "ofType" : null
               }
             },
@@ -3618,6 +3618,21 @@
             "name" : null,
             "ofType" : {
               "kind" : "SCALAR",
+              "name" : "AWSEmail",
+              "ofType" : null
+            }
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "role",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
               "name" : "String",
               "ofType" : null
             }
@@ -3701,6 +3716,15 @@
         "enumValues" : null,
         "possibleTypes" : null
       }, {
+        "kind" : "SCALAR",
+        "name" : "AWSEmail",
+        "description" : "The `AWSEmail` scalar type provided by AWS AppSync, represents an Email address string that complies with [RFC 822](https://www.ietf.org/rfc/rfc822.txt). For example, \"**username@example.com**\" is a valid Email address.",
+        "fields" : null,
+        "inputFields" : null,
+        "interfaces" : null,
+        "enumValues" : null,
+        "possibleTypes" : null
+      }, {
         "kind" : "OBJECT",
         "name" : "ModelPendingInvitesConnection",
         "description" : null,
@@ -3766,6 +3790,15 @@
           "defaultValue" : null
         }, {
           "name" : "email",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelStringInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "role",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -6175,6 +6208,19 @@
             "name" : null,
             "ofType" : {
               "kind" : "SCALAR",
+              "name" : "AWSEmail",
+              "ofType" : null
+            }
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "role",
+          "description" : null,
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
               "name" : "String",
               "ofType" : null
             }
@@ -6200,6 +6246,15 @@
         "fields" : null,
         "inputFields" : [ {
           "name" : "email",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelStringInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "role",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -6266,6 +6321,15 @@
           "defaultValue" : null
         }, {
           "name" : "email",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "AWSEmail",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "role",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
@@ -7540,6 +7604,14 @@
           },
           "defaultValue" : null
         } ],
+        "onOperation" : false,
+        "onFragment" : false,
+        "onField" : false
+      }, {
+        "name" : "aws_api_key",
+        "description" : "Tells the service this field/object has access authorized by an API key.",
+        "locations" : [ "OBJECT", "FIELD_DEFINITION" ],
+        "args" : [ ],
         "onOperation" : false,
         "onFragment" : false,
         "onField" : false

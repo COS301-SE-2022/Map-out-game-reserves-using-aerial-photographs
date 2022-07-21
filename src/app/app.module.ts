@@ -29,6 +29,10 @@ import { MapCollectionsModule } from './components/map-collections/map-collectio
 import { FileUploadModule } from './components/file-upload/file-upload.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { RouterModule } from '@angular/router';
+import { ImageCatalogueModule } from './components/image-catalogue/image-catalogue.module';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -43,6 +47,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     FormsModule,
     ReactiveFormsModule,
     RegisterModule,
+    RouterModule,
     DashboardModule,
     LoginModule,
     AccountModule,
@@ -50,9 +55,12 @@ import { MatDialogModule } from '@angular/material/dialog';
     MapModule,
     MapCollectionsModule,
     FileUploadModule,
+    ImageCatalogueModule,
     MatCardModule,
+    MatCheckboxModule,
     MatDialogModule,
     MatIconModule,
+    MatInputModule,
     MatSnackBarModule,
     MatListModule,
     MatFormFieldModule,

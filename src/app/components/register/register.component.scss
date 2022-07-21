@@ -130,20 +130,15 @@ hr {
 }
 
 .button2 {
-  position: absolute;
   text-align: center;
   vertical-align: center;
   background-color: rgba(116, 104, 92, 0);
   color: white;
-  padding: 10px auto 10px auto;
-  //margin-bottom: 20px;
-  border: none;
-  font-style: normal;
+  padding: 10px;
+  font-style: italic;
   font-weight: 400;
-  font-size: 14px;
-  line-height: 7px;
-  width: 10;
-  height: 14;
+  font-size: 16px;
+  line-height: 8px;
 }
 
 a {

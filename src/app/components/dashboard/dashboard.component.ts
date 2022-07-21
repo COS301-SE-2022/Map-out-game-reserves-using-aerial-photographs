@@ -4,6 +4,7 @@ import { BarChart } from './bar-chart/bar-chart.model';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ControllerService } from 'src/app/api/controller/controller.service';
 import { APIService } from 'src/app/API.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'aerial-mapping-dashboard',
@@ -30,7 +31,7 @@ export class DashboardComponent implements OnInit{
 
   values = [3, 5, 2, 3, 2, 1, 7, 4];
 
-  constructor(private apiController: ControllerService, private sanitizer: DomSanitizer, private api:APIService) {
+  constructor(private apiController: ControllerService, private sanitizer: DomSanitizer, private api:APIService, private snackbar: MatSnackBar) {
     this.maps = [
       {Value: this.values[0]},
       {Value: this.values[1]},
@@ -87,9 +88,15 @@ export class DashboardComponent implements OnInit{
         console.log(completed_count);
         console.log(processing_count);
       }
-      
+
       return -1;
-    }).catch(()=> {return -1;});
+    }).catch((err)=> {
+      if(err.errors[0].message == "Network Error"){
+        this.snackbar.open("Network error...", "❌", { verticalPosition: 'top' });
+      }
+
+      return -1;
+    });
     // this.apiService.getImageCollections().subscribe({
     //   next: (_res) => {
     //     this.collectionData = _res.data.getImageCollections;
@@ -139,7 +146,7 @@ export class DashboardComponent implements OnInit{
           console.log(this.messages[i]);
         }
       }
-      
+
       return -1;
     }).catch(()=> {return -1;});
     // this.apiService.getMessages().subscribe({

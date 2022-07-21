@@ -46,10 +46,24 @@
     }
   },
   "function": {
+    "registerlinkemailer": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "api",
+          "resourceName": "amplifyapp",
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput"]
+        }
+      ],
     "S3Trigger3ac458d4": {
       "service": "Lambda",
       "providerPlugin": "awscloudformation",
       "build": true
+      }
     }
   },
   "storage": {

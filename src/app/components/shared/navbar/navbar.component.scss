@@ -4,8 +4,9 @@
     background-color: $primary-brown;
     background-color: transparentize($primary-brown, .1);
     border-radius: 15px;
-    height: 85vh;//97%;
+    height: 86%;
     width: 12%;
+    min-height: 300px;
     min-width: 190px;
     margin-top: 10px;
     margin-left: 10px;
@@ -63,8 +64,13 @@ mat-icon {
   text-align: left !important;
 }
 
-@media only screen and (max-width: 768px) {
-  .nav {
-    display: none;
-  }
+.mat-button-base {
+  height: 11vh;
+  min-height: 50px;
 }
+
+// @media only screen and (max-width: 768px) {
+//   .nav {
+//     display: none;
+//   }
+// }
