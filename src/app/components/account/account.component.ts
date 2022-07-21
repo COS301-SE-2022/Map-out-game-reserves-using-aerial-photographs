@@ -94,7 +94,12 @@ export class AccountComponent implements OnInit {
             this.currPassword = this.user.user_password;
             this.currUserID = this.user.userID;
           }
-        }).catch(err => { console.log(err); })
+        }).catch(err => {
+          console.log(err);
+          if(err.errors[0].message == "Network Error"){
+            this.snackBar.open("Network error...", "❌", { verticalPosition: 'top' });
+          }
+        })
       });
     } catch(error) {
       console.log(error);
