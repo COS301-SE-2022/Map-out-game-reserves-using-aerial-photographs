@@ -80,8 +80,8 @@ export class ControllerService {
       });
   }
 
-  async S3upload(fileData: File){
-    const result = await Storage.put(fileData.name, fileData, {
+  async S3upload(fileKey:string, fileData: File){
+    const result = await Storage.put(fileKey, fileData, {
       contentType: fileData.type,
     });
     console.log(21, result);
