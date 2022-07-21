@@ -776,14 +776,14 @@ query ImagesByCollectionId(
     startedAt
   }
 }
-query PendingInvitesByEmail(
+query GetPendingInvitesByEmail(
   $email: AWSEmail!
   $sortDirection: ModelSortDirection
   $filter: ModelPendingInvitesFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  pendingInvitesByEmail(
+  getPendingInvitesByEmail(
     email: $email
     sortDirection: $sortDirection
     filter: $filter

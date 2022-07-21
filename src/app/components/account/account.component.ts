@@ -13,6 +13,7 @@ import { RegisterLinkDialogComponent } from './register-link-dialog/register-lin
 import { v4 as uuidv4 } from 'uuid';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+
 export interface DialogData {
   currentPassword: string,
   newPassword: string;
@@ -105,105 +106,6 @@ export class AccountComponent implements OnInit {
       console.log(error);
     }
   }
-
-  onSubmitRegisterForm() {
-    const email = this.registerForm.controls['inviteEmail'].value;
-
-    //TODO:perform basic email validation first
-
-
-
-    //send invite to submitted email
-    // this.apiService.invite(email).subscribe({
-    //   next: (res) => {
-    //     if (res.data.invite == "Created invite!") {
-    //       //replace with nice angular-notifier notification
-    //       alert(res.data.invite);
-    //       return;
-    //     }
-    //     alert(res.data.invite);
-    //   },
-    //   error: (err) => {
-    //     console.log(err);
-    //   }
-    // })
-
-    //TODO: close register popup
-  }
-
-  // changeName() {
-  //   const editName = document.getElementById('myFormName');
-  //   if (editName != null) {
-  //     editName.style.display = 'block';
-  //   }
-  // }
-
-  // changeEmail() {
-  //   const editEmail = document.getElementById('myFormEmail');
-  //   if (editEmail != null) {
-  //     editEmail.style.display = 'block';
-  //   }
-  // }
-
-  // changePassword() {
-  //  const editPsw = document.getElementById('myFormPassword');
-  //  if (editPsw != null) {
-  //    editPsw.style.display = 'block';
-  //  }
-  // }
-
-  // viewPassword() {
-  //   if(this.passwordVisible) {
-  //     this.passwordVisible = false;
-  //     //set DOM to change icon to openeye
-  //     const close = document.getElementById("closedEyeIcon");
-  //     close!.innerHTML = "visibility_off";
-  //     //set password value to invisible
-  //     this.password.nativeElement.type = "password";
-  //     return;
-  //   }
-  //   this.passwordVisible = true;
-  //   //set DOM to change icon to closedeye
-  //   const close = document.getElementById("closedEyeIcon");
-  //   close!.innerHTML = "visibility";
-  //   //set password value to visible
-  //   this.password.nativeElement.type = "text";
-  // }
-
-  // sendLink() {
-  //   const link = document.getElementById('myFormRegister');
-  //   if (link != null) {
-  //     link.style.display = 'block';
-  //   }
-  // }
-
-  // closeFormName() {
-  //   const editName = document.getElementById('myFormName');
-  //   if (editName != null) {
-  //     editName.style.display = 'none';
-  //   }
-  // }
-
-  // closeFormEmail() {
-  //   const editEmail = document.getElementById('myFormEmail');
-  //   if (editEmail != null) {
-  //     editEmail.style.display = 'none';
-  //   }
-  // }
-
-  // closeFormPsw() {
-  //   const editPsw = document.getElementById('myFormPassword');
-  //   if (editPsw != null) {
-  //     editPsw.style.display = 'none';
-  //   }
-  // }
-
-  // closeFormRegister() {
-  //   const link = document.getElementById('myFormRegister');
-  //   if (link != null) {
-  //     link.style.display = 'none';
-  //   }
-  // }
 
   openPasswordDialog(): void {
     const dialogRef = this.dialog.open(PasswordDialogComponent, {
@@ -301,6 +203,9 @@ export class AccountComponent implements OnInit {
       else {
         role = "user";
       }
+
+
+
       const newInvite: CreatePendingInvitesInput = {
         inviteID: uuidv4(),
         email: obj.recipient,

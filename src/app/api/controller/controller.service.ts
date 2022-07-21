@@ -14,7 +14,7 @@ export class ControllerService {
 
   async tryRegister(u: User): Promise<number> {
     console.log('getting pending invite by email...');
-    return this.repo.PendingInvitesByEmail(u.user_email!).then((resp: any) => {
+    return this.repo.GetPendingInvitesByEmail(u.user_email!).then((resp: any) => {
       let invite: any;
       if(resp != null && resp.items.length > 0) {
         for(let item of resp.items) {

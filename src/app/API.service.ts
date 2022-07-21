@@ -1661,7 +1661,7 @@ export type ImagesByCollectionIdQuery = {
   startedAt?: number | null;
 };
 
-export type PendingInvitesByEmailQuery = {
+export type GetPendingInvitesByEmailQuery = {
   __typename: "ModelPendingInvitesConnection";
   items: Array<{
     __typename: "PendingInvites";
@@ -4276,15 +4276,15 @@ export class APIService {
     )) as any;
     return <ImagesByCollectionIdQuery>response.data.imagesByCollectionId;
   }
-  async PendingInvitesByEmail(
+  async GetPendingInvitesByEmail(
     email: string,
     sortDirection?: ModelSortDirection,
     filter?: ModelPendingInvitesFilterInput,
     limit?: number,
     nextToken?: string
-  ): Promise<PendingInvitesByEmailQuery> {
-    const statement = `query PendingInvitesByEmail($email: AWSEmail!, $sortDirection: ModelSortDirection, $filter: ModelPendingInvitesFilterInput, $limit: Int, $nextToken: String) {
-        pendingInvitesByEmail(email: $email, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
+  ): Promise<GetPendingInvitesByEmailQuery> {
+    const statement = `query GetPendingInvitesByEmail($email: AWSEmail!, $sortDirection: ModelSortDirection, $filter: ModelPendingInvitesFilterInput, $limit: Int, $nextToken: String) {
+        getPendingInvitesByEmail(email: $email, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
           __typename
           items {
             __typename
@@ -4319,7 +4319,9 @@ export class APIService {
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
-    return <PendingInvitesByEmailQuery>response.data.pendingInvitesByEmail;
+    return <GetPendingInvitesByEmailQuery>(
+      response.data.getPendingInvitesByEmail
+    );
   }
   OnCreateUserListener: Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateUser">>

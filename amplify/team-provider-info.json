@@ -31,7 +31,7 @@
       "function": {
         "registerlinkemailer": {
           "deploymentBucketName": "amplify-amplifyapp-develop-115650-deployment",
-          "s3Key": "amplify-builds/registerlinkemailer-777545546176794d5761-build.zip",
+          "s3Key": "amplify-builds/registerlinkemailer-636c77325168376c4446-build.zip",
           "sesEmail": "thedylpickles1@gmail.com"
         },
         "S3Trigger3ac458d4": {
