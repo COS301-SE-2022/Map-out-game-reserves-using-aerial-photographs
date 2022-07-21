@@ -172,8 +172,6 @@ export class FileUploadComponent {
     file_name: string,
     file: any
   ) {
-
-    //code in lines 171-181 replace commented code in lines 183-189
     const inp:CreateImagesInput = {
       imageID: uuidv4(),
       collectionID: collectionID,
@@ -185,42 +183,27 @@ export class FileUploadComponent {
       console.log(resp);
     }).catch(()=> {return -1;});
 
-
-    // async uploadToS3(file: any) {
-    //   code in lines 171-181 replace commented code in lines 183-189
-    //   const inp:CreateImagesInput = {
-    //     imageID: uuidv4(),
-    //     collectionID: collectionID,
-    //     bucket_name: bucket_name,
-    //     file_name: file_name
-    //   };
-  
-    //   this.api.CreateImages(inp).then((resp:any) => {
-    //     console.log(resp);
-    //   }).catch(()=> {return -1;});
-  
-    //   console.log('uploading this:');
-    //   console.log(file);
-    //   this.apiController.S3upload(file);
-  
-    //   this.apiService
-    //     .uploadImage(collectionID, bucket_name, file_name, file)
-    //     .subscribe({
-    //       error: (err) => {
-    //         console.log(err);
-    //       },
-    //     });
-    //   console.log('recieved this:');
-    //   this.apiController.S3download(file.name, false).then((signedURL) => {
-    //     console.log(signedURL);
-    //     var test = document.getElementById('test');
-    //     if (test) {
-    //       test.innerHTML +=
-    //         '<img src="'+signedURL+'" alt="Italian Trulli">';
-    //     }
-    //   });
-    // }
+    //converting base64 to png
+    var newFile = this.convertDataUrlToPng(file,inp.imageID+".png");
+    
+    //upload png to S3
+    this.apiController.S3upload(inp.imageID,newFile);
   }
+
+convertDataUrlToPng(dataUrl:any, fileName:string): File {
+  const arr = dataUrl.split(',');
+  const mime = arr[0].match(/:(.*?);/)[1];
+  const bstr = atob(arr[1]);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
+
+  while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+  }
+
+  var blob =  new Blob([u8arr], {type: mime});
+  return new File([blob], fileName);
+}
 
   imageSplitting(file: File, parkSel: string, flight : CreateFlightDetailsInput) {
     //Load video
