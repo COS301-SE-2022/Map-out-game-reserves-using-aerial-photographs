@@ -28,11 +28,12 @@ import { MapModule } from './components/map/map.module';
 import { MapCollectionsModule } from './components/map-collections/map-collections.module';
 import { FileUploadModule } from './components/file-upload/file-upload.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { RouterModule } from '@angular/router';
 import { ImageCatalogueModule } from './components/image-catalogue/image-catalogue.module';
 import { MatInputModule } from '@angular/material/input';
+import { ControllerService } from './api/controller/controller.service';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,14 @@ import { MatInputModule } from '@angular/material/input';
     NgChartsModule,
     FontAwesomeModule
   ],
-  providers: [ HttpClient ],
+  providers: [
+    HttpClient,
+    MatDialog,
+    {
+      provide: MatDialogRef,
+      useValue: {}
+    }
+   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

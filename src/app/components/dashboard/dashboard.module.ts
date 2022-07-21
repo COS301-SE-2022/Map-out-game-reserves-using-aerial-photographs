@@ -16,8 +16,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     CommonModule,
     FontAwesomeModule,
     MatListModule,
-    NavbarModule,
     MatSnackBarModule,
+    NavbarModule,
     NgChartsModule
   ]
 })
