@@ -103,12 +103,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "amplifyappLambdaRole12a827af",
+            "amplifyappLambdaRole54b823a9",
             {
               "Fn::Join": [
                 "",
                 [
-                  "amplifyappLambdaRole12a827af",
+                  "amplifyappLambdaRole54b823a9",
                   "-",
                   {
                     "Ref": "env"
