@@ -101,5 +101,6 @@ type FlightDetails @model {
 
 type PendingInvites @model {
   inviteID: String! @primaryKey
-  email: String! @index(name: "byEmail", queryField: "getPendingInvitesByEmail")
+  email: AWSEmail! @index(name: "byEmail", queryField: "pendingInvitesByEmail")
+  role: String!
 }

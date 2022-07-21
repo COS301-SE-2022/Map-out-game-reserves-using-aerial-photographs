@@ -15,6 +15,7 @@ import { NameDialogComponent } from './name-dialog/name-dialog.component';
 import { EmailDialogComponent } from './email-dialog/email-dialog.component';
 import { RegisterLinkDialogComponent } from './register-link-dialog/register-link-dialog.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [ AccountComponent, PasswordDialogComponent, NameDialogComponent, EmailDialogComponent, RegisterLinkDialogComponent ],
@@ -22,6 +23,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     CommonModule,
     NavbarModule,
     MatCardModule,
+    MatCheckboxModule,
     MatDialogModule,
     MatIconModule,
     MatFormFieldModule,

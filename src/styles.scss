@@ -14,85 +14,98 @@ $primary-epi-white: #ebebeb;
 $primary-grey: #e8e8e8;
 $primary-brown: #5f5f5f;
 $primary-brown-opaque: #5f5f5fa9;
+
 //Body
 * {
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html,
 body {
-    height: 100%;
+  height: 100%;
+  width: 100%;
 }
 
 body {
-    margin: 0;
-    font-family: "Roboto", sans-serif;
+  margin: 0;
+  font-family: "Roboto", sans-serif;
 }
 
+.heading {
+  display: flex;
+  align-content: center;
+  width: 100%;
+  height: 10vh;
+  padding: 1%;
+  position: relative;
+  z-index: 99;
+  background-color: transparentize($primary-dark, 0.2);
+  box-shadow: 0 5px 16px 0 rgba(0, 0, 0, 0.24), 0 5px 50px 0 rgba(0, 0, 0, 0.19);
+}
 
 .material-symbols-outlined {
   font-variation-settings:
-  'FILL' 1,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 48
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
 }
 
 //scrollbar
 ::-webkit-scrollbar {
-    width: 20px;
+  width: 20px;
 }
 
 ::-webkit-scrollbar-track {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #d6dee1;
-    border-radius: 20px;
-    border: 6px solid transparent;
-    background-clip: content-box;
+  background-color: #d6dee1;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background-color: #a8bbbf;
+  background-color: #a8bbbf;
 }
 
 //tooltip
 .tooltip {
-    position: relative;
-    display: inline-block;
-    width:fit-content;
-    // margin: 5px;
+  position: relative;
+  display: inline-block;
+  width: fit-content;
+  // margin: 5px;
 }
 
 .tooltip .tooltiptext {
-    visibility: hidden;
-    font-size: 14px;
-    width: 120px;
-    height: max-content;
-    background-color: $primary-super-dark;
-    color: #fff;
-    text-align: center;
-    border-radius: 3px;
-    padding: 5px 0;
-    // margin: 5px;
-    /* Position the tooltip */
-    position: absolute;
-    z-index: 1;
-    top: 105%;
-    //   bottom:25%;
-    left: 0;
-    //   right: 0%;
-    opacity: 0;
-    transition: opacity 1s;
+  visibility: hidden;
+  font-size: 14px;
+  width: 120px;
+  height: max-content;
+  background-color: $primary-super-dark;
+  color: #fff;
+  text-align: center;
+  border-radius: 3px;
+  padding: 5px 0;
+  // margin: 5px;
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: 105%;
+  //   bottom:25%;
+  left: 0;
+  //   right: 0%;
+  opacity: 0;
+  transition: opacity 1s;
 }
 
 .tooltip:hover .tooltiptext {
-    transition-delay: 1s;
-    -moz-transition-delay: 1s;
-    visibility: visible;
-    opacity: 1;
+  transition-delay: 1s;
+  -moz-transition-delay: 1s;
+  visibility: visible;
+  opacity: 1;
 }

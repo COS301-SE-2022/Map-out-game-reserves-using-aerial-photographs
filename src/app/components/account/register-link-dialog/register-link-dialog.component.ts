@@ -1,4 +1,5 @@
-import { Component, Inject } from '@angular/core';
+import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
+import { MatCheckbox } from '@angular/material/checkbox';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export interface DialogData {
@@ -11,6 +12,8 @@ export interface DialogData {
   styleUrls: ['./register-link-dialog.component.scss']
 })
 export class RegisterLinkDialogComponent {
+  checkboxColor: string = "primary";
+  @ViewChild('checkbox') checkbox!: ElementRef<MatCheckbox>;
 
   constructor(
     public dialogRef: MatDialogRef<RegisterLinkDialogComponent>,
@@ -21,10 +24,11 @@ export class RegisterLinkDialogComponent {
     this.dialogRef.close();
   }
 
-  onSubmit() {
+  onSubmit(checked: boolean) {
     if(this.data.recipient == '') {
       return;
     }
-    this.dialogRef.close(this.data.recipient);
+
+    this.dialogRef.close({ "recipient": this.data.recipient, "checked": checked });
   }
 }

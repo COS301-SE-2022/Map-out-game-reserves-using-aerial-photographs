@@ -1,22 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ControllerService } from 'src/app/api/controller/controller.service';
-import { APIService, User } from 'src/app/API.service';
+import { User } from 'src/app/API.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { OtpDialogComponent } from './otp-dialog/otp-dialog.component';
+import { Auth } from 'aws-amplify';
 
 @Component({
   selector: 'aerial-mapping-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
   registerForm: UntypedFormGroup;
   isSubmitted: boolean;
   users: Array<User> = [];
 
 
-  constructor(private apiController: ControllerService, private router: Router, private snackBar: MatSnackBar) {
+  constructor(private apiController: ControllerService, private router: Router, private snackBar: MatSnackBar, public dialog: MatDialog) {
     this.registerForm = new UntypedFormGroup({
       user_email: new UntypedFormControl('', [Validators.required, Validators.email]),
       user_password: new UntypedFormControl('', [Validators.required]),
@@ -24,13 +27,6 @@ export class RegisterComponent implements OnInit {
       user_name: new UntypedFormControl('', [Validators.required])
     });
     this.isSubmitted = false;
-  }
-
-  ngOnInit() {
-    // this.repo.ListUsers().then((event) => {
-    //   this.users = event.items as User[];
-    //   console.log(this.users);
-    // });
   }
 
   getErrorMessage() {
@@ -50,7 +46,6 @@ export class RegisterComponent implements OnInit {
     const name = this.registerForm.controls['user_name'].value;
 
     // TODO: perform validation for email, password
-    // TODO: replace alerts with a nice snackbar or something
 
     if (name == '' || email == '' || password == '' || repeatedPassword == '') {
       return;
@@ -66,33 +61,41 @@ export class RegisterComponent implements OnInit {
     }
 
     this.apiController.tryRegister(user).then((resp) => {
-      if(resp == -1) {
-        this.snackBar.open("Your email has not been invited.", "❌");
+      if(resp === -1) {
+        this.snackBar.open("Your email has not been invited.", "❌", { verticalPosition: 'top' });
       }
       else {
-        this.snackBar.open("Successfully Registered!", "✔️", { duration: 3000 });
-        this.router.navigate(['dashboard']);
+        this.openOtpDialog(user);
       }
     });
+  }
 
-    // this.apiService.registerUser(name, email, password, 'user', true).subscribe({
-    //   next: (resp) => {
-    //     if (resp.data.registerUser == 'Created user!') {
-    //       alert('Successfully registered!');
-    //       //now login
-    //       this.apiService.login(email, password).subscribe((response) => {
-    //         document.cookie = "jwt=" + response.data.login + "; path=/";
-    //         this.router.navigate(['dashboard']);
-    //       });
-    //     }
-    //     else {
-    //       alert(resp.data.registerUser);
-    //     }
-    //   },
-    //   error: (err) => {
-    //     console.log(err);
-    //   }
-    // });
+  openOtpDialog(u: User): void {
+    const dialogRef = this.dialog.open(OtpDialogComponent, {
+      width: '500px',
+      data: { otp: ''},
+    });
+
+    dialogRef.afterClosed().subscribe(async code => {
+      if(code == undefined) {
+        return;
+      }
+
+      //confirm user if OTP is correct
+      try {
+        await Auth.confirmSignUp(u.user_email!, code);
+        try {
+          await Auth.signIn(u.user_email!, u.user_password!);
+          this.router.navigate(['dashboard']);
+          this.snackBar.open("Successfully Registered!", "✔️", { duration: 3000, verticalPosition: 'top' });
+        } catch (error) {
+            console.log('error signing in', error);
+        }
+      } catch (error) {
+          console.log('error confirming sign up', error);
+          this.snackBar.open("Invalid OTP.", "❌", { verticalPosition: 'top' });
+      }
+    });
   }
 
 

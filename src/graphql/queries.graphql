@@ -652,6 +652,7 @@ query GetPendingInvites($inviteID: String!) {
   getPendingInvites(inviteID: $inviteID) {
     inviteID
     email
+    role
     createdAt
     updatedAt
     _version
@@ -676,6 +677,7 @@ query ListPendingInvites(
     items {
       inviteID
       email
+      role
       createdAt
       updatedAt
       _version
@@ -701,6 +703,7 @@ query SyncPendingInvites(
     items {
       inviteID
       email
+      role
       createdAt
       updatedAt
       _version
@@ -773,14 +776,14 @@ query ImagesByCollectionId(
     startedAt
   }
 }
-query GetPendingInvitesByEmail(
-  $email: String!
+query PendingInvitesByEmail(
+  $email: AWSEmail!
   $sortDirection: ModelSortDirection
   $filter: ModelPendingInvitesFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  getPendingInvitesByEmail(
+  pendingInvitesByEmail(
     email: $email
     sortDirection: $sortDirection
     filter: $filter
@@ -790,6 +793,7 @@ query GetPendingInvitesByEmail(
     items {
       inviteID
       email
+      role
       createdAt
       updatedAt
       _version

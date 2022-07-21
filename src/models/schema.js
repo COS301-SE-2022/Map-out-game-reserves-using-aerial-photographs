@@ -563,6 +563,13 @@ export const schema = {
                 "email": {
                     "name": "email",
                     "isArray": false,
+                    "type": "AWSEmail",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "role": {
+                    "name": "role",
+                    "isArray": false,
                     "type": "String",
                     "isRequired": true,
                     "attributes": []
@@ -603,7 +610,7 @@ export const schema = {
                     "type": "key",
                     "properties": {
                         "name": "byEmail",
-                        "queryField": "getPendingInvitesByEmail",
+                        "queryField": "pendingInvitesByEmail",
                         "fields": [
                             "email"
                         ]
@@ -614,5 +621,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "d323af9efadc7646907f0eed9c2f975e"
+    "version": "7160e98cbd78e38837a666fb2f1e2f38"
 };
