@@ -14,9 +14,9 @@ exports.handler = async (event) => {
             },
             Source: process.env.SES_EMAIL,
             Message: {
-              Subject: { Data: 'Invite to Register on Aerial Mapper' },
+              Subject: { Data: 'Aerial Mapper: Invite to Register' },
               Body: {
-                Text: { Data: `Your email is ${candidateEmail}, and this is your invite to register!` }
+                Text: { Data: `You've been invited to register on the Aerial Mapper ${candidateEmail}!` },
               },
             },
           })
