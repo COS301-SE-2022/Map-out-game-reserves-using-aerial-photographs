@@ -6,6 +6,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatListModule } from '@angular/material/list';
 import { NavbarModule } from '../shared/navbar/navbar.module';
 import { NgChartsModule } from 'ng2-charts';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
@@ -16,6 +17,7 @@ import { NgChartsModule } from 'ng2-charts';
     FontAwesomeModule,
     MatListModule,
     NavbarModule,
+    MatSnackBarModule,
     NgChartsModule
   ]
 })
