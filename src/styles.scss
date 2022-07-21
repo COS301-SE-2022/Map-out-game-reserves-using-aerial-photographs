@@ -1,4 +1,6 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import '~material-icons/iconfont/material-icons.scss';
+@import "~material-design-icons-iconfont/dist/material-design-icons.css";
 
 //Colours
 $primary: #757575;
@@ -27,6 +29,15 @@ body {
 body {
     margin: 0;
     font-family: "Roboto", sans-serif;
+}
+
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
 }
 
 //scrollbar

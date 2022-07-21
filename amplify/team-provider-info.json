@@ -27,6 +27,12 @@
     "categories": {
       "auth": {
         "amplifyappc10a5bb3": {}
+      },
+      "function": {
+        "S3Trigger3ac458d4": {
+          "deploymentBucketName": "amplify-amplifyapp-develop-115650-deployment",
+          "s3Key": "amplify-builds/S3Trigger3ac458d4-6b4a6b4e435062616569-build.zip"
+        }
       }
     }
   }

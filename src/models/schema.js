@@ -90,6 +90,16 @@ export const schema = {
                             "userID"
                         ]
                     }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byEmail",
+                        "queryField": "userByEmail",
+                        "fields": [
+                            "user_email"
+                        ]
+                    }
                 }
             ]
         },
@@ -520,6 +530,16 @@ export const schema = {
                             "imageID"
                         ]
                     }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byCollectionId",
+                        "queryField": "imagesByCollectionId",
+                        "fields": [
+                            "collectionID"
+                        ]
+                    }
                 }
             ]
         },
@@ -583,7 +603,7 @@ export const schema = {
                     "type": "key",
                     "properties": {
                         "name": "byEmail",
-                        "queryField": "pendingInvitesByEmail",
+                        "queryField": "getPendingInvitesByEmail",
                         "fields": [
                             "email"
                         ]
