@@ -80,18 +80,18 @@ export class ControllerService {
       });
   }
 
-  async S3upload(fileKey:string, fileData: File){
-    const result = await Storage.put(fileKey, fileData, {
+  async S3upload(fileKey:string, collection:string, folder:string, fileData: File){
+    const result = await Storage.put(collection+"/"+folder+"/"+fileKey, fileData, {
       contentType: fileData.type,
     });
     console.log(21, result);
   };
 
-  async S3download(fileKey:string,fetch_data:boolean){
+  async S3download(fileKey:string, collection:string, folder:string, fetch_data:boolean){
     // Storage.list('public/') // for listing ALL files without prefix, pass '' instead
     // .then(result => console.log(result))
-
-    const result = await Storage.get(fileKey, { download: fetch_data });
+    console.log("sent: "+collection+"/"+folder+"/"+fileKey);
+    const result = await Storage.get(collection+"/"+folder+"/"+fileKey, { download: fetch_data });
     console.log(result);
     return result;
   }

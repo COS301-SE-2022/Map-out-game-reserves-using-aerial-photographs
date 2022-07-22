@@ -89,21 +89,6 @@ export class FileUploadComponent {
       }
 
     }
-    /*
-        const upload$ = this.http.post("/api/thumbnail-upload", formData, {
-            reportProgress: true,
-            observe: 'events'
-        })
-        .pipe(
-            finalize(() => this.reset())
-        );
-
-        this.uploadSub = upload$.subscribe(event => {
-          if (event.type == HttpEventType.UploadProgress && event.total) {
-            this.uploadProgress = Math.round(100 * (event.loaded / event.total));
-          }
-        })
-    } */
   }
 
   cancelUpload() {
@@ -187,7 +172,7 @@ export class FileUploadComponent {
     var newFile = this.convertDataUrlToPng(file,inp.imageID+".png");
     
     //upload png to S3
-    this.apiController.S3upload(inp.imageID,newFile);
+    this.apiController.S3upload(inp.imageID,collectionID,"images",newFile);
   }
 
 convertDataUrlToPng(dataUrl:any, fileName:string): File {
@@ -247,31 +232,9 @@ convertDataUrlToPng(dataUrl:any, fileName:string): File {
         for (let i = 0; i < frames.length; i++){
           this.uploadToS3(resp.collectionID, "dylpickles-image-bucket", resp.collectionID+"-frame-"+i+".png", frame);
         }
+
+        this.makeThumbnails(img.src,resp.collectionID);
       });
-
-      // this.apiService.getImageCollections().subscribe({
-      //   next: (data) => {
-      //     console.log(data);
-      //     this.apiService.createImageCollection(1, '', 1).subscribe({
-      //       next: () => {
-      //         let id = 0;
-      //         if(data.data.getImageCollections.length != 0){
-      //           id = data.data.getImageCollections[data.data.getImageCollections.length-1].collectionID + 1;
-      //         }
-
-      //         for(let i = 0; i < frames.length; i++) {
-      //           this.uploadToS3(id, "dylpickles-image-bucket", id+"-frame-"+i+".png", frame);
-      //         }
-      //       },
-      //       error: (err) => {
-      //         console.log(err);
-      //       }
-      //     });
-      //   },
-      //   error: (err) => {
-      //     console.log(err);
-      //   }
-      // });
     });
   }
 
@@ -325,4 +288,33 @@ convertDataUrlToPng(dataUrl:any, fileName:string): File {
     this.splittingProgress = 100;
     return frames;
   };
+
+  async makeThumbnails(videoUrl:string, collectionID:string){
+    const video = document.createElement('video');
+    video.src = videoUrl;
+    while (
+      (video.duration === Infinity || isNaN(video.duration)) &&
+      video.readyState < 2
+    ) {
+      await new Promise((r) => setTimeout(r, 1000));
+      video.currentTime = 10000000 * Math.random();
+    }
+    const duration = video.duration;
+    console.log(duration);
+
+    var thumbnails = this.extractFramesFromVideo(
+      videoUrl,
+      duration/3.0,
+      1,
+      50,
+      60
+    );
+
+    thumbnails.then((thumbnails)=>{
+      for(var i = 0;i<3;i++){
+        var newFile = this.convertDataUrlToPng(thumbnails[i],"thumbnail_"+i+".png");
+        this.apiController.S3upload(i+"",collectionID,"thumbnails",newFile)
+      }
+    })
+  }
 }
