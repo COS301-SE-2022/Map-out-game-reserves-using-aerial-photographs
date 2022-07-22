@@ -31,12 +31,12 @@
       "function": {
         "registerlinkemailer": {
           "deploymentBucketName": "amplify-amplifyapp-develop-115650-deployment",
-          "s3Key": "amplify-builds/registerlinkemailer-636c77325168376c4446-build.zip",
+          "s3Key": "amplify-builds/registerlinkemailer-594d2f75346575743773-build.zip",
           "sesEmail": "thedylpickles1@gmail.com"
         },
         "S3Trigger3ac458d4": {
           "deploymentBucketName": "amplify-amplifyapp-develop-115650-deployment",
-          "s3Key": "amplify-builds/S3Trigger3ac458d4-6b4a6b4e435062616569-build.zip"
+          "s3Key": "amplify-builds/S3Trigger3ac458d4-4e65616e457042636c6e-build.zip"
         }
       }
     }

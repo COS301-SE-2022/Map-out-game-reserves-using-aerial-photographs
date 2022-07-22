@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -11,12 +11,14 @@ import { Auth } from 'aws-amplify';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
+  @Output() loggedIn = new EventEmitter<any>();  //for unit testing purposes
+
   loginForm: FormGroup;
   isSubmitted: boolean;
 
   constructor(private formBuilder: FormBuilder, private apiController: ControllerService, private router: Router, private http: HttpClient) {
     this.loginForm = this.formBuilder.group({
-      email: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required])
     });
     this.isSubmitted = false;
@@ -32,6 +34,7 @@ export class LoginComponent {
       try {
         const user = await Auth.signIn(email.value, password.value);
         this.router.navigate(['dashboard']);
+        this.loggedIn.emit(user); //for unit testing purposes
       } catch (error) {
           console.log('error signing in', error);
       }
