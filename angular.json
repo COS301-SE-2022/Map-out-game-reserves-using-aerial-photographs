@@ -38,6 +38,9 @@
             ],
             "scripts": [],
             "allowedCommonJsDependencies": [
+              "paho-mqtt",
+              "@aws-amplify/ui",
+              "cookie",
               "@aws-crypto/crc32",
               "@aws-crypto/sha256-browser",
               "@aws-crypto/sha256-js",
@@ -49,6 +52,7 @@
               "crypto-js/enc-base64",
               "crypto-js/hmac-sha256",
               "crypto-js/lib-typedarrays",
+              "events",
               "fast-xml-parser",
               "isomorphic-unfetch",
               "js-cookie",
@@ -72,13 +76,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "4mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
                 }
               ],
               "fileReplacements": [

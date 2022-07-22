@@ -109,20 +109,6 @@ subscription OnCreateImageCollection {
       flight_height
       flight_type
       pilotID
-      Pilot {
-        userID
-        user_email
-        user_password
-        user_password_salt
-        user_name
-        user_role
-        user_approved
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
       createdAt
       updatedAt
       _version
@@ -159,20 +145,6 @@ subscription OnUpdateImageCollection {
       flight_height
       flight_type
       pilotID
-      Pilot {
-        userID
-        user_email
-        user_password
-        user_password_salt
-        user_name
-        user_role
-        user_approved
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
       createdAt
       updatedAt
       _version
@@ -209,20 +181,6 @@ subscription OnDeleteImageCollection {
       flight_height
       flight_type
       pilotID
-      Pilot {
-        userID
-        user_email
-        user_password
-        user_password_salt
-        user_name
-        user_role
-        user_approved
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
       createdAt
       updatedAt
       _version
@@ -244,31 +202,9 @@ subscription OnCreateMessage {
     ImageCollection {
       collectionID
       parkID
-      GamePark {
-        parkID
-        park_name
-        park_location
-        park_address
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
       upload_date_time
       completed
       flightID
-      FlightDetails {
-        flightID
-        flight_height
-        flight_type
-        pilotID
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
       createdAt
       updatedAt
       _version
@@ -291,31 +227,9 @@ subscription OnUpdateMessage {
     ImageCollection {
       collectionID
       parkID
-      GamePark {
-        parkID
-        park_name
-        park_location
-        park_address
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
       upload_date_time
       completed
       flightID
-      FlightDetails {
-        flightID
-        flight_height
-        flight_type
-        pilotID
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
       createdAt
       updatedAt
       _version
@@ -338,31 +252,9 @@ subscription OnDeleteMessage {
     ImageCollection {
       collectionID
       parkID
-      GamePark {
-        parkID
-        park_name
-        park_location
-        park_address
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
       upload_date_time
       completed
       flightID
-      FlightDetails {
-        flightID
-        flight_height
-        flight_type
-        pilotID
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
       createdAt
       updatedAt
       _version
@@ -504,6 +396,7 @@ subscription OnCreatePendingInvites {
   onCreatePendingInvites {
     inviteID
     email
+    role
     createdAt
     updatedAt
     _version
@@ -515,6 +408,7 @@ subscription OnUpdatePendingInvites {
   onUpdatePendingInvites {
     inviteID
     email
+    role
     createdAt
     updatedAt
     _version
@@ -526,6 +420,7 @@ subscription OnDeletePendingInvites {
   onDeletePendingInvites {
     inviteID
     email
+    role
     createdAt
     updatedAt
     _version

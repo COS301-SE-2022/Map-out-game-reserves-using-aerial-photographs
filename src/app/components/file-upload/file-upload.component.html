@@ -1,5 +1,7 @@
 <div class="background" style="background-image: url('assets/mapwallpaper.jpg');">
-  <div class="heading">File Upload</div>
+  <div class="heading">
+    <h1>File Upload</h1>
+  </div>
   <aerial-mapping-side-navbar></aerial-mapping-side-navbar>
 
   <div class="content">
@@ -19,7 +21,7 @@
         <h4 class="variable">{{ fileName || 'No file uploaded yet.' }}</h4>
         <div id="metadata">
           <div class="tooltip" style="width: 100%; margin-bottom:5%">
-            <select ng-model="selectedPark" class="parks tooltip">
+            <select ng-model="selectedPark" class="parks tooltip" id = "parks">
               <option value="" disabled selected>Select a park</option>
               <option *ngFor="let park of parks" [value]="park.value">
                 {{park.viewValue}}
@@ -28,14 +30,14 @@
             <span class="tooltiptext" style="left:15%">Select park</span>
           </div>
 
-          <select ng-model="selectedType" class="types tooltip">
+          <select ng-model="selectedType" class="types tooltip" id = "fType">
             <option value="" disabled selected>Select a flight type</option>
             <option *ngFor="let type of flight" [value]="type.value">
               {{type.viewValue}}
             </option>
           </select>
 
-          <input type="number" placeholder="Enter the height of the flight (metres)" id="height">
+          <input type="number" placeholder="Enter the height of the flight (metres)" id="height" min="1">
         </div>
 
         <br />
@@ -58,6 +60,9 @@
           Splitting Video {{splittingProgress}}%
         </div>
       </div>
+
+    <div id = "test">
+    </div>
     </div>
   </div>
 </div>

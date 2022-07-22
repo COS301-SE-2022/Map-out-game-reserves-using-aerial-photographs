@@ -117,6 +117,7 @@ export declare class PendingInvites {
   readonly id: string;
   readonly inviteID: string;
   readonly email: string;
+  readonly role: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<PendingInvites, PendingInvitesMetaData>);

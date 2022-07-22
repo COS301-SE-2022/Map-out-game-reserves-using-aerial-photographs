@@ -2,22 +2,6 @@
 query Test {
   test
 }
-query GetUserByEmail($email: String) {
-  getUserByEmail(email: $email) {
-    userID
-    user_email
-    user_password
-    user_password_salt
-    user_name
-    user_role
-    user_approved
-    createdAt
-    updatedAt
-    _version
-    _deleted
-    _lastChangedAt
-  }
-}
 query GetUsers {
   getUsers {
     userID
@@ -64,31 +48,9 @@ query GetMessages {
     ImageCollection {
       collectionID
       parkID
-      GamePark {
-        parkID
-        park_name
-        park_location
-        park_address
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
       upload_date_time
       completed
       flightID
-      FlightDetails {
-        flightID
-        flight_height
-        flight_type
-        pilotID
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
       createdAt
       updatedAt
       _version
@@ -146,20 +108,6 @@ query GetImageCollections {
       flight_height
       flight_type
       pilotID
-      Pilot {
-        userID
-        user_email
-        user_password
-        user_password_salt
-        user_name
-        user_role
-        user_approved
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
       createdAt
       updatedAt
       _version
@@ -210,20 +158,6 @@ query GetCatalogues {
       flight_height
       flight_type
       pilotID
-      Pilot {
-        userID
-        user_email
-        user_password
-        user_password_salt
-        user_name
-        user_role
-        user_approved
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
       createdAt
       updatedAt
       _version
@@ -407,20 +341,6 @@ query GetImageCollection($collectionID: String!) {
       flight_height
       flight_type
       pilotID
-      Pilot {
-        userID
-        user_email
-        user_password
-        user_password_salt
-        user_name
-        user_role
-        user_approved
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
       createdAt
       updatedAt
       _version
@@ -451,31 +371,9 @@ query ListImageCollections(
     items {
       collectionID
       parkID
-      GamePark {
-        parkID
-        park_name
-        park_location
-        park_address
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
       upload_date_time
       completed
       flightID
-      FlightDetails {
-        flightID
-        flight_height
-        flight_type
-        pilotID
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
       createdAt
       updatedAt
       _version
@@ -501,31 +399,9 @@ query SyncImageCollections(
     items {
       collectionID
       parkID
-      GamePark {
-        parkID
-        park_name
-        park_location
-        park_address
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
       upload_date_time
       completed
       flightID
-      FlightDetails {
-        flightID
-        flight_height
-        flight_type
-        pilotID
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
       createdAt
       updatedAt
       _version
@@ -544,31 +420,9 @@ query GetMessage($messageID: String!) {
     ImageCollection {
       collectionID
       parkID
-      GamePark {
-        parkID
-        park_name
-        park_location
-        park_address
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
       upload_date_time
       completed
       flightID
-      FlightDetails {
-        flightID
-        flight_height
-        flight_type
-        pilotID
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
       createdAt
       updatedAt
       _version
@@ -601,18 +455,6 @@ query ListMessages(
       messageID
       message_status
       message_description
-      ImageCollection {
-        collectionID
-        parkID
-        upload_date_time
-        completed
-        flightID
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
       createdAt
       updatedAt
       _version
@@ -640,18 +482,6 @@ query SyncMessages(
       messageID
       message_status
       message_description
-      ImageCollection {
-        collectionID
-        parkID
-        upload_date_time
-        completed
-        flightID
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
       createdAt
       updatedAt
       _version
@@ -781,20 +611,6 @@ query ListFlightDetails(
       flight_height
       flight_type
       pilotID
-      Pilot {
-        userID
-        user_email
-        user_password
-        user_password_salt
-        user_name
-        user_role
-        user_approved
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
       createdAt
       updatedAt
       _version
@@ -822,20 +638,6 @@ query SyncFlightDetails(
       flight_height
       flight_type
       pilotID
-      Pilot {
-        userID
-        user_email
-        user_password
-        user_password_salt
-        user_name
-        user_role
-        user_approved
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
       createdAt
       updatedAt
       _version
@@ -850,6 +652,7 @@ query GetPendingInvites($inviteID: String!) {
   getPendingInvites(inviteID: $inviteID) {
     inviteID
     email
+    role
     createdAt
     updatedAt
     _version
@@ -874,6 +677,7 @@ query ListPendingInvites(
     items {
       inviteID
       email
+      role
       createdAt
       updatedAt
       _version
@@ -899,6 +703,7 @@ query SyncPendingInvites(
     items {
       inviteID
       email
+      role
       createdAt
       updatedAt
       _version
@@ -909,14 +714,76 @@ query SyncPendingInvites(
     startedAt
   }
 }
-query PendingInvitesByEmail(
-  $email: String!
+query UserByEmail(
+  $user_email: String!
+  $sortDirection: ModelSortDirection
+  $filter: ModelUserFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  userByEmail(
+    user_email: $user_email
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      userID
+      user_email
+      user_password
+      user_password_salt
+      user_name
+      user_role
+      user_approved
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
+  }
+}
+query ImagesByCollectionId(
+  $collectionID: String!
+  $sortDirection: ModelSortDirection
+  $filter: ModelImagesFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  imagesByCollectionId(
+    collectionID: $collectionID
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      imageID
+      collectionID
+      name
+      bucket_name
+      file_name
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
+  }
+}
+query GetPendingInvitesByEmail(
+  $email: AWSEmail!
   $sortDirection: ModelSortDirection
   $filter: ModelPendingInvitesFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  pendingInvitesByEmail(
+  getPendingInvitesByEmail(
     email: $email
     sortDirection: $sortDirection
     filter: $filter
@@ -926,6 +793,7 @@ query PendingInvitesByEmail(
     items {
       inviteID
       email
+      role
       createdAt
       updatedAt
       _version

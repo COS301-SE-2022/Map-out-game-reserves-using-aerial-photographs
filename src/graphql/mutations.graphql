@@ -216,20 +216,6 @@ mutation CreateImageCollection(
       flight_height
       flight_type
       pilotID
-      Pilot {
-        userID
-        user_email
-        user_password
-        user_password_salt
-        user_name
-        user_role
-        user_approved
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
       createdAt
       updatedAt
       _version
@@ -269,20 +255,6 @@ mutation UpdateImageCollection(
       flight_height
       flight_type
       pilotID
-      Pilot {
-        userID
-        user_email
-        user_password
-        user_password_salt
-        user_name
-        user_role
-        user_approved
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
       createdAt
       updatedAt
       _version
@@ -322,20 +294,6 @@ mutation DeleteImageCollection(
       flight_height
       flight_type
       pilotID
-      Pilot {
-        userID
-        user_email
-        user_password
-        user_password_salt
-        user_name
-        user_role
-        user_approved
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
       createdAt
       updatedAt
       _version
@@ -360,31 +318,9 @@ mutation CreateMessage(
     ImageCollection {
       collectionID
       parkID
-      GamePark {
-        parkID
-        park_name
-        park_location
-        park_address
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
       upload_date_time
       completed
       flightID
-      FlightDetails {
-        flightID
-        flight_height
-        flight_type
-        pilotID
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
       createdAt
       updatedAt
       _version
@@ -410,31 +346,9 @@ mutation UpdateMessage(
     ImageCollection {
       collectionID
       parkID
-      GamePark {
-        parkID
-        park_name
-        park_location
-        park_address
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
       upload_date_time
       completed
       flightID
-      FlightDetails {
-        flightID
-        flight_height
-        flight_type
-        pilotID
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
       createdAt
       updatedAt
       _version
@@ -460,31 +374,9 @@ mutation DeleteMessage(
     ImageCollection {
       collectionID
       parkID
-      GamePark {
-        parkID
-        park_name
-        park_location
-        park_address
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
       upload_date_time
       completed
       flightID
-      FlightDetails {
-        flightID
-        flight_height
-        flight_type
-        pilotID
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
       createdAt
       updatedAt
       _version
@@ -647,6 +539,7 @@ mutation CreatePendingInvites(
   createPendingInvites(input: $input, condition: $condition) {
     inviteID
     email
+    role
     createdAt
     updatedAt
     _version
@@ -661,6 +554,7 @@ mutation UpdatePendingInvites(
   updatePendingInvites(input: $input, condition: $condition) {
     inviteID
     email
+    role
     createdAt
     updatedAt
     _version
@@ -675,6 +569,7 @@ mutation DeletePendingInvites(
   deletePendingInvites(input: $input, condition: $condition) {
     inviteID
     email
+    role
     createdAt
     updatedAt
     _version

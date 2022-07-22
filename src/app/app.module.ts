@@ -18,6 +18,7 @@ import { LoginModule } from './components/login/login.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatListModule } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { AccountModule } from './components/account/account.module';
@@ -25,8 +26,13 @@ import { NavbarModule } from './components/shared/navbar/navbar.module';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MapModule } from './components/map/map.module';
 import { MapCollectionsModule } from './components/map-collections/map-collections.module';
-import { FileUploadComponent } from './components/file-upload/file-upload.component';
 import { FileUploadModule } from './components/file-upload/file-upload.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { RouterModule } from '@angular/router';
+import { ImageCatalogueModule } from './components/image-catalogue/image-catalogue.module';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -41,20 +47,27 @@ import { FileUploadModule } from './components/file-upload/file-upload.module';
     FormsModule,
     ReactiveFormsModule,
     RegisterModule,
+    RouterModule,
     DashboardModule,
     LoginModule,
     AccountModule,
     NavbarModule,
+    MapModule,
+    MapCollectionsModule,
+    FileUploadModule,
+    ImageCatalogueModule,
     MatCardModule,
+    MatCheckboxModule,
+    MatDialogModule,
     MatIconModule,
+    MatInputModule,
     MatSnackBarModule,
     MatListModule,
     MatFormFieldModule,
     MatProgressBarModule,
+    MatButtonModule,
     NgChartsModule,
-    MapModule,
-    MapCollectionsModule,
-    FileUploadModule
+    FontAwesomeModule
   ],
   providers: [ HttpClient ],
   bootstrap: [AppComponent]

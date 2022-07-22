@@ -90,6 +90,16 @@ export const schema = {
                             "userID"
                         ]
                     }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byEmail",
+                        "queryField": "userByEmail",
+                        "fields": [
+                            "user_email"
+                        ]
+                    }
                 }
             ]
         },
@@ -520,6 +530,16 @@ export const schema = {
                             "imageID"
                         ]
                     }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byCollectionId",
+                        "queryField": "imagesByCollectionId",
+                        "fields": [
+                            "collectionID"
+                        ]
+                    }
                 }
             ]
         },
@@ -542,6 +562,13 @@ export const schema = {
                 },
                 "email": {
                     "name": "email",
+                    "isArray": false,
+                    "type": "AWSEmail",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "role": {
+                    "name": "role",
                     "isArray": false,
                     "type": "String",
                     "isRequired": true,
@@ -583,9 +610,22 @@ export const schema = {
                     "type": "key",
                     "properties": {
                         "name": "byEmail",
-                        "queryField": "pendingInvitesByEmail",
+                        "queryField": "getPendingInvitesByEmail",
                         "fields": [
                             "email"
+                        ]
+                    }
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create"
+                                ]
+                            }
                         ]
                     }
                 }
@@ -594,5 +634,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "d323af9efadc7646907f0eed9c2f975e"
+    "version": "7160e98cbd78e38837a666fb2f1e2f38"
 };

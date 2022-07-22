@@ -1,9 +1,13 @@
 import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { APIService, CreateImagesInput, CreateImageCollectionInput, CreateFlightDetailsInput } from 'src/app/API.service';
+import { ControllerService } from 'src/app/api/controller/controller.service';
+import {v4 as uuidv4} from 'uuid';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 interface Park {
-  value: string;
-  viewValue: string;
+  value: string | undefined;
+  viewValue: string | null | undefined;
 }
 
 interface FlightType {
@@ -30,26 +34,33 @@ export class FileUploadComponent {
   splittingProgress = 0;
 
   parks: Park[] = [
-    // {value: 'Default-0', viewValue: 'Choose a Park'},
-    {value: 'Somkhanda-1', viewValue: 'Somkhanda'},
-    {value: 'RietVlei-2', viewValue: 'Riet Vlei'},
+    // {value: 'Somkhanda-1', viewValue: 'Somkhanda'},
+    // {value: 'RietVlei-2', viewValue: 'Riet Vlei'},
   ];
 
   flight: FlightType[] = [
-    // {value: 'Default-0', viewValue: 'Choose a Park'},
-    {value: 'Drone-0', viewValue: 'Drone'},
-    {value: 'Propeller Plane-1', viewValue: 'Propeller Plane'},
+    {value: 'Drone', viewValue: 'Drone'},
+    {value: 'Propeller Plane', viewValue: 'Propeller Plane'},
   ];
 
-  constructor(/*private apiService: ClientApiService*/) {
-    /*     const imageForm = document.querySelector("#imageForm");
-    const imageInput = document.querySelector("#fileUpload");
+  constructor(/*private apiService: ClientApiService*/private apiController: ControllerService, private api:APIService, private snackBar: MatSnackBar) {
+    //      const imageForm = document.querySelector("#imageForm");
+    // const imageInput = document.querySelector("#fileUpload");
 
-    imageForm?.addEventListener("submit", async event =>{
-      event.preventDefault();
-      this.uploadFileLocal();
-      console.log(this.file?.name);
-    }) */
+    // imageForm?.addEventListener("submit", async event =>{
+    //   event.preventDefault();
+    //   this.uploadFileLocal();
+    //   console.log(this.file?.name);
+    // }) 
+    
+    this.api.ListGameParks().then((event)=>{
+      //console.log(event.items[0]?.park_name);
+      for (let i = 0; i < event.items.length; i++) {
+        const element = event.items[i];
+          this.parks.push({value: element?.parkID, viewValue: element?.park_name})
+        }
+        //console.log(this.parks);
+    })
   }
 
   uploadFileLocal() {
@@ -60,7 +71,7 @@ export class FileUploadComponent {
   onFileSelected(event: any) {
     this.submitPressed = false;
     console.log('File staged!');
-    console.log(this.parks[0].viewValue);
+    //console.log(this.parks[0].viewValue);
     this.file = event.target.files[0];
     this.fileName = '';
 
@@ -76,22 +87,8 @@ export class FileUploadComponent {
         }
         this.formData.append('thumbnail', this.file);
       }
-    }
-    /*
-        const upload$ = this.http.post("/api/thumbnail-upload", formData, {
-            reportProgress: true,
-            observe: 'events'
-        })
-        .pipe(
-            finalize(() => this.reset())
-        );
 
-        this.uploadSub = upload$.subscribe(event => {
-          if (event.type == HttpEventType.UploadProgress && event.total) {
-            this.uploadProgress = Math.round(100 * (event.loaded / event.total));
-          }
-        })
-    } */
+    }
   }
 
   cancelUpload() {
@@ -111,28 +108,89 @@ export class FileUploadComponent {
   }
 
   submitBtnPressed() {
-    if (this.file) {
-      this.imageSplitting(this.file);
+        // get the id of the park
+        var e = (document.getElementById("parks")) as HTMLSelectElement;
+        var sel = e.selectedIndex;
+        var opt = e.options[sel];
+        var parkSel = opt.value;
+        console.log(parkSel);
+
+        //get the flying option
+        e = (document.getElementById("fType")) as HTMLSelectElement;
+        sel = e.selectedIndex;
+        opt = e.options[sel];
+        var typeSel = opt.value;
+        console.log(typeSel);
+
+        //get the height
+        const i = (document.getElementById("height")) as HTMLInputElement;
+        const height = i?.value;
+        console.log(height);
+
+    if (this.file && parkSel!="" && typeSel!="" && height!="") {
+      const h : number = +height;
+
+      //create a flight object
+      const flight:CreateFlightDetailsInput = {
+        flightID: uuidv4(),
+        flight_height: h,
+        flight_type: typeSel,
+        /////////////////////////////TODO: how to get pilot id
+        // pilotID?: string | null;
+      };
+
+      //create flight in the database
+      this.api.CreateFlightDetails(flight).then((resp:any)=>{
+        console.log(resp);
+      })
+
+      this.imageSplitting(this.file, parkSel, flight);
+      this.submitPressed = true;
+    } else {
+      this.snackBar.open("Fill in all the details about the upload.", "❌");
     }
-    this.submitPressed = true;
   }
 
   async uploadToS3(
-    collectionID: number,
+    collectionID: string,
     bucket_name: string,
     file_name: string,
     file: any
   ) {
-    // this.apiService
-    //   .uploadImage(collectionID, bucket_name, file_name, file)
-    //   .subscribe({
-    //     error: (err) => {
-    //       console.log(err);
-    //     },
-    //   });
+    const inp:CreateImagesInput = {
+      imageID: uuidv4(),
+      collectionID: collectionID,
+      bucket_name: bucket_name,
+      file_name: file_name
+    };
+
+    this.api.CreateImages(inp).then((resp:any) => {
+      console.log(resp);
+    }).catch(()=> {return -1;});
+
+    //converting base64 to png
+    var newFile = this.convertDataUrlToPng(file,inp.imageID+".png");
+    
+    //upload png to S3
+    this.apiController.S3upload(inp.imageID,collectionID,"images",newFile);
   }
 
-  imageSplitting(file: File) {
+convertDataUrlToPng(dataUrl:any, fileName:string): File {
+  const arr = dataUrl.split(',');
+  const mime = arr[0].match(/:(.*?);/)[1];
+  const bstr = atob(arr[1]);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
+
+  while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+  }
+
+  var blob =  new Blob([u8arr], {type: mime});
+  return new File([blob], fileName);
+}
+
+  imageSplitting(file: File, parkSel: string, flight : CreateFlightDetailsInput) {
     //Load video
     const img = new Image();
     img.crossOrigin = 'anonymous';
@@ -154,29 +212,29 @@ export class FileUploadComponent {
     //Do after frames are extracted
     frames.then((frames) => {
       const frame = frames[1];
-      // this.apiService.getImageCollections().subscribe({
-      //   next: (data) => {
-      //     console.log(data);
-      //     this.apiService.createImageCollection(1, '', 1).subscribe({
-      //       next: () => {
-      //         let id = 0;
-      //         if(data.data.getImageCollections.length != 0){
-      //           id = data.data.getImageCollections[data.data.getImageCollections.length-1].collectionID + 1;
-      //         }
+      console.log(flight);
+      //code in lines 215-____ replaces commented code in lines ___-___
+      
+      //create a image collection object
+      const inp: CreateImageCollectionInput = {
+        collectionID: uuidv4(), //not sure!!!!!!!!!!!!!!! TODO: check
+        parkID: parkSel,
+        //   upload_date_time: string,
+        completed: false,
+        flightID: flight.flightID
+        //   // _version?: number | null;
+      };
 
-      //         for(let i = 0; i < frames.length; i++) {
-      //           this.uploadToS3(id, "dylpickles-image-bucket", id+"-frame-"+i+".png", frame);
-      //         }
-      //       },
-      //       error: (err) => {
-      //         console.log(err);
-      //       }
-      //     });
-      //   },
-      //   error: (err) => {
-      //     console.log(err);
-      //   }
-      // });
+
+      //create an image collection
+      this.api.CreateImageCollection(inp).then((resp) => {
+        console.log(resp);
+        for (let i = 0; i < frames.length; i++){
+          this.uploadToS3(resp.collectionID, "dylpickles-image-bucket", resp.collectionID+"-frame-"+i+".png", frame);
+        }
+
+        this.makeThumbnails(img.src,resp.collectionID);
+      });
     });
   }
 
@@ -230,4 +288,33 @@ export class FileUploadComponent {
     this.splittingProgress = 100;
     return frames;
   };
+
+  async makeThumbnails(videoUrl:string, collectionID:string){
+    const video = document.createElement('video');
+    video.src = videoUrl;
+    while (
+      (video.duration === Infinity || isNaN(video.duration)) &&
+      video.readyState < 2
+    ) {
+      await new Promise((r) => setTimeout(r, 1000));
+      video.currentTime = 10000000 * Math.random();
+    }
+    const duration = video.duration;
+    console.log(duration);
+
+    var thumbnails = this.extractFramesFromVideo(
+      videoUrl,
+      duration/3.0,
+      1,
+      50,
+      60
+    );
+
+    thumbnails.then((thumbnails)=>{
+      for(var i = 0;i<3;i++){
+        var newFile = this.convertDataUrlToPng(thumbnails[i],"thumbnail_"+i+".png");
+        this.apiController.S3upload(i+"",collectionID,"thumbnails",newFile)
+      }
+    })
+  }
 }

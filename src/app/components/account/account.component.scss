@@ -1,36 +1,28 @@
 @import 'src/styles.scss';
-//@import '~@angular/material/prebuilt-themes/indigo-pink.css';
-html, body {
-  height:100%;
-  margin:0;
-}
 
-h3{
+h3 {
   padding: 16px;
   font-size: 20px;
-  margin:1%
+  margin: 1%
 }
 
-.heading {
+h1 {
   color: white;
   font-family: 'Segoe UI', sans-serif;
   font-weight: 505;
   font-style: normal;
-  font-size: 40px;
-  line-height: 100%;
-  width: 100%;
-  height: 10%;
-  padding: 1%;
-  position: relative;
-  z-index: 99;
-  background-color: transparentize($primary-dark, 0.2);
-  box-shadow: 0 5px 16px 0 rgba(0,0,0,0.24), 0 5px 50px 0 rgba(0,0,0,0.19);
+  font-size: 5vh;
+  line-height: 80%;
+  padding: 0;
+  padding-bottom: 5px;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .background {
   background-color: $primary-dark;
-  background-size: 100vw;
-  background-repeat: no-repeat;
+  background-size: 100%;
+  background-repeat: repeat-y;
   top: 0;
   left: 0;
   width: 100%;
@@ -39,23 +31,20 @@ h3{
 }
 
 .content {
-  // border-radius: 3px;
-  //background: $primary-background-opaque;
   background-color: transparentize($primary-background-opaque, 0.1);
   //backdrop-filter: blur(1px);
-  //padding: 1%;
+  padding: 1%;
   margin-top: 10px;
   margin-left: 10px;
   margin-right: 0.5%;
   border-radius: 15px;
-  //border: 1px solid green;
   width: 86%;
-  height: 85vh;
+  height: 86%;
   vertical-align: top;
   position: absolute;
   left: 200px;
-  // float: right;
   overflow-y: auto;
+  display: inline-block;
 }
 
 // .form {
@@ -109,111 +98,206 @@ h3{
   padding: 0px;
   border-radius: 4px;
   background: #fff;
-  color: rgba(0,0,0,.87);
+  color: rgba(0, 0, 0, .87);
   align-content: center;
 
-  display:inline-flex;
+  display: inline-flex;
   justify-content: space-between;
 }
 
-.fill{
-  padding: 16px;;
+.fill {
+  padding: 16px;
+  ;
 }
 
-.edit{
+.edit {
   align-items: right;
   padding: 0px;
 }
 
-  .btn {
-    background-color: $primary-brown;
-    border: none;
-    color: white;
-    padding: 10px 30px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    padding-top: 5%;
-    padding-bottom: 5%;
-    margin-top: 5%;
-    cursor: pointer;
-    width:100%;
-  }
+.btn {
+  background-color: $primary-brown;
+  border: none;
+  color: white;
+  //padding: 10px 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  //padding-top: 5%;
+  //padding-bottom: 5%;
+  margin: 10px;
+  //margin-top: 5%;
+  cursor: pointer;
+  width: 225px;
+  height: 40px;
+}
 
-  .btn:hover{
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-  }
+.btn:hover {
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
 
-  .contains {
-    height: 30%;
-    position: relative;
-  }
+.contains {
+  height: 30%;
+  position: relative;
+}
 
-  .center {
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-  }
+.center {
+  margin: 0;
+  padding: 0;
+  //position: relative;
+  display: block;
+  margin: auto;
+  //top: 50%;
+  //left: 50%;
+  //-ms-transform: translate(-50%, -50%);
+  //transform: translate(-50%, -50%);
+  width: fit-content;
+}
 
-  .editButt{
-    background-color: white;
-    padding:0px;
-    margin: 0px;
-    top:0px;
-    width:1%;
-  }
+.editButt {
+  //background-color: white;
+  padding: 0px;
+  margin: 0px;
+  top: 0px;
+  left: -20px;
+  //width: 1%;
+}
 
-  /* The popup form - hidden by default */
-  .form-popupName, .form-popupEmail, .form-popupPassword, .form-popupRegister {
-    display: none;
-    position: fixed;
-    bottom: 0;
-    right: 15px;
-    border: 3px solid #f1f1f1;
-    z-index: 999;
-    margin:10px;
-    height: auto;
-  }
+.viewButt {
+  padding: 0px;
+  margin: 0px;
+  left: -40px;
+  //width: 1%;
+  height: 24px;
+}
 
-  /* Add styles to the form container */
-  .form-container {
-    max-width: 500px;
-    padding: 10px;
-    padding-left: 10%;
-    padding-right: 10%;
-    background-color: white;
-  }
+/* The popup form - hidden by default */
+.form-popupName,
+.form-popupEmail,
+.form-popupPassword,
+.form-popupRegister {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 999;
+  margin: 10px;
+  height: auto;
+}
 
-  /* Full-width input fields */
-  .form-container input[type=text], .form-container input[type=password] {
-    width: 100%;
-    padding: 15px;
-    margin: 5px 0 22px 0;
-    border: none;
-    background: #f1f1f1;
-  }
+/* Add styles to the form container */
+.form-container {
+  max-width: 500px;
+  padding: 10px;
+  padding-left: 10%;
+  padding-right: 10%;
+  background-color: white;
+}
 
-  /* When the inputs get focus, do something */
-  .form-container input[type=text]:focus, .form-container input[type=password]:focus {
-    background-color: #ddd;
-    outline: none;
-  }
+/* Full-width input fields */
+.form-container input[type=text],
+.form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
 
-  /* Set a style for the submit/login button */
-  .form-container .btn {
-    background-color: $primary;
-    color: white;
-    padding: 20px 15px;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    margin-bottom:10px;
-    opacity: 0.8;
-  }
-hr{
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus,
+.form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: $primary;
+  color: white;
+  padding: 20px 15px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 10px;
+  opacity: 0.8;
+}
+
+hr {
   background-color: $primary-brown-opaque;
+}
+
+#openEyeIcon {
+  display: none;
+}
+
+mat-card {
+  align-items: center;
+}
+
+form {
+  width: 75%;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+}
+
+.mat-button {
+  display: inline-block !important;
+  height: 1% !important;
+  margin-top: auto !important;
+  margin-bottom: auto !important;
+  vertical-align: bottom !important;
+}
+
+mat-form-field {
+  align-items: center;
+  justify-items: center;
+  padding-top: auto;
+  padding-bottom: auto;
+  display: inline-block;
+  width: 100%;
+}
+
+.mat-form-field-suffix {
+  align-items: center;
+  justify-items: center;
+  padding-top: auto;
+  padding-bottom: auto;
+  display: inline-block;
+  width: 100%;
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: $primary-epi-dark !important;
+ }
+
+::ng-deep.mat-form-field-underline {
+  /*change color of underline*/
+  background-color: $primary-epi-dark !important;
+}
+
+::ng-deep.mat-form-field-ripple {
+ /*change color of underline when focused*/
+ background-color: $primary-epi-dark !important;
+}
+
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: green;
+}
+
+input {
+  pointer-events: none !important;
+  z-index: 1;
+}
+
+label {
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
 }
