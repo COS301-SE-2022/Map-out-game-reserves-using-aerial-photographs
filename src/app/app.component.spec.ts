@@ -48,9 +48,9 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'amplify-app'`, () => {
+  it(`should have as title 'Aerial Mapper'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('amplify-app');
+    expect(app.title).toEqual('Aerial Mapper');
   });
 });

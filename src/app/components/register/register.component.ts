@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ControllerService } from 'src/app/api/controller/controller.service';
@@ -14,9 +14,10 @@ import { Auth } from 'aws-amplify';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
+  @Output() registered = new EventEmitter<any>();  //integration testing purposes
+  @Output() dialogState = new EventEmitter<any>(); //integration testing purposes
   registerForm: UntypedFormGroup;
   isSubmitted: boolean;
-  users: Array<User> = [];
 
 
   constructor(private apiController: ControllerService, private router: Router, private snackBar: MatSnackBar, public dialog: MatDialog) {
@@ -65,8 +66,11 @@ export class RegisterComponent {
         this.snackBar.open("Your email has not been invited.", "❌", { verticalPosition: 'top' });
       }
       else {
+        //OTP is emailed to the user
         this.openOtpDialog(user);
       }
+
+      this.registered.emit(resp); //integration testing purposes
     });
   }
 
@@ -75,6 +79,8 @@ export class RegisterComponent {
       width: '500px',
       data: { otp: ''},
     });
+
+    this.dialogState.emit(dialogRef.getState());
 
     dialogRef.afterClosed().subscribe(async code => {
       if(code == undefined) {
@@ -99,8 +105,8 @@ export class RegisterComponent {
   }
 
 
-  get email() { return this.registerForm.get('user_email'); }
-  get password() { return this.registerForm.get('user_password'); }
-  get repeatedPassword() { return this.registerForm.get('repeatedPassword'); }
-  get name() { return this.registerForm.get('user_name'); }
+  public get email() { return this.registerForm.get('user_email'); }
+  public get password() { return this.registerForm.get('user_password'); }
+  public get repeatedPassword() { return this.registerForm.get('repeatedPassword'); }
+  public get name() { return this.registerForm.get('user_name'); }
 }

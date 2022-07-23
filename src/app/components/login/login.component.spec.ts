@@ -71,14 +71,12 @@ describe('LoginComponent', () => {
     component.loginForm.controls['password'].setValue("12345678");
     expect(component.loginForm.valid).toBeTruthy();
 
-    let user: any;
-    component.loggedIn.subscribe(u => user = u);
+    //response from event emitter
+    component.loggedIn.subscribe(user => {
+      expect(user!.attributes.email).toBe("correct@email.com");
+    });
 
     await component.login();
-
-    console.log(user);
-
-    expect(user!.attributes.email).toBe("correct@email.com");
   });
 
 });
