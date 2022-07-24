@@ -14,7 +14,7 @@ export class ControllerService {
 
   async tryRegister(u: User): Promise<number> {
     console.log('getting pending invite by email...');
-    return this.repo.PendingInvitesByEmail(u.user_email!).then((resp: any) => {
+    return this.repo.GetPendingInvitesByEmail(u.user_email!).then((resp: any) => {
       let invite: any;
       if(resp != null && resp.items.length > 0) {
         for(let item of resp.items) {
@@ -80,18 +80,18 @@ export class ControllerService {
       });
   }
 
-  async S3upload(fileData: File){
-    const result = await Storage.put(fileData.name, fileData, {
+  async S3upload(fileKey:string, collection:string, folder:string, fileData: File){
+    const result = await Storage.put(collection+"/"+folder+"/"+fileKey, fileData, {
       contentType: fileData.type,
     });
     console.log(21, result);
   };
 
-  async S3download(fileKey:string,fetch_data:boolean){
+  async S3download(fileKey:string, collection:string, folder:string, fetch_data:boolean){
     // Storage.list('public/') // for listing ALL files without prefix, pass '' instead
     // .then(result => console.log(result))
-
-    const result = await Storage.get(fileKey, { download: fetch_data });
+    console.log("sent: "+collection+"/"+folder+"/"+fileKey);
+    const result = await Storage.get(collection+"/"+folder+"/"+fileKey, { download: fetch_data });
     console.log(result);
     return result;
   }

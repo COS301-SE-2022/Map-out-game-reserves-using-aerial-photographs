@@ -610,9 +610,22 @@ export const schema = {
                     "type": "key",
                     "properties": {
                         "name": "byEmail",
-                        "queryField": "pendingInvitesByEmail",
+                        "queryField": "getPendingInvitesByEmail",
                         "fields": [
                             "email"
+                        ]
+                    }
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create"
+                                ]
+                            }
                         ]
                     }
                 }

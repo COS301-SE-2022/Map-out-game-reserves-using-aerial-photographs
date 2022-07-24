@@ -89,21 +89,6 @@ export class FileUploadComponent {
       }
 
     }
-    /*
-        const upload$ = this.http.post("/api/thumbnail-upload", formData, {
-            reportProgress: true,
-            observe: 'events'
-        })
-        .pipe(
-            finalize(() => this.reset())
-        );
-
-        this.uploadSub = upload$.subscribe(event => {
-          if (event.type == HttpEventType.UploadProgress && event.total) {
-            this.uploadProgress = Math.round(100 * (event.loaded / event.total));
-          }
-        })
-    } */
   }
 
   cancelUpload() {
@@ -172,8 +157,6 @@ export class FileUploadComponent {
     file_name: string,
     file: any
   ) {
-
-    //code in lines 171-181 replace commented code in lines 183-189
     const inp:CreateImagesInput = {
       imageID: uuidv4(),
       collectionID: collectionID,
@@ -185,42 +168,27 @@ export class FileUploadComponent {
       console.log(resp);
     }).catch(()=> {return -1;});
 
-
-    // async uploadToS3(file: any) {
-    //   code in lines 171-181 replace commented code in lines 183-189
-    //   const inp:CreateImagesInput = {
-    //     imageID: uuidv4(),
-    //     collectionID: collectionID,
-    //     bucket_name: bucket_name,
-    //     file_name: file_name
-    //   };
-  
-    //   this.api.CreateImages(inp).then((resp:any) => {
-    //     console.log(resp);
-    //   }).catch(()=> {return -1;});
-  
-    //   console.log('uploading this:');
-    //   console.log(file);
-    //   this.apiController.S3upload(file);
-  
-    //   this.apiService
-    //     .uploadImage(collectionID, bucket_name, file_name, file)
-    //     .subscribe({
-    //       error: (err) => {
-    //         console.log(err);
-    //       },
-    //     });
-    //   console.log('recieved this:');
-    //   this.apiController.S3download(file.name, false).then((signedURL) => {
-    //     console.log(signedURL);
-    //     var test = document.getElementById('test');
-    //     if (test) {
-    //       test.innerHTML +=
-    //         '<img src="'+signedURL+'" alt="Italian Trulli">';
-    //     }
-    //   });
-    // }
+    //converting base64 to png
+    var newFile = this.convertDataUrlToPng(file,inp.imageID+".png");
+    
+    //upload png to S3
+    this.apiController.S3upload(inp.imageID,collectionID,"images",newFile);
   }
+
+convertDataUrlToPng(dataUrl:any, fileName:string): File {
+  const arr = dataUrl.split(',');
+  const mime = arr[0].match(/:(.*?);/)[1];
+  const bstr = atob(arr[1]);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
+
+  while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+  }
+
+  var blob =  new Blob([u8arr], {type: mime});
+  return new File([blob], fileName);
+}
 
   imageSplitting(file: File, parkSel: string, flight : CreateFlightDetailsInput) {
     //Load video
@@ -264,31 +232,9 @@ export class FileUploadComponent {
         for (let i = 0; i < frames.length; i++){
           this.uploadToS3(resp.collectionID, "dylpickles-image-bucket", resp.collectionID+"-frame-"+i+".png", frame);
         }
+
+        this.makeThumbnails(img.src,resp.collectionID);
       });
-
-      // this.apiService.getImageCollections().subscribe({
-      //   next: (data) => {
-      //     console.log(data);
-      //     this.apiService.createImageCollection(1, '', 1).subscribe({
-      //       next: () => {
-      //         let id = 0;
-      //         if(data.data.getImageCollections.length != 0){
-      //           id = data.data.getImageCollections[data.data.getImageCollections.length-1].collectionID + 1;
-      //         }
-
-      //         for(let i = 0; i < frames.length; i++) {
-      //           this.uploadToS3(id, "dylpickles-image-bucket", id+"-frame-"+i+".png", frame);
-      //         }
-      //       },
-      //       error: (err) => {
-      //         console.log(err);
-      //       }
-      //     });
-      //   },
-      //   error: (err) => {
-      //     console.log(err);
-      //   }
-      // });
     });
   }
 
@@ -342,4 +288,33 @@ export class FileUploadComponent {
     this.splittingProgress = 100;
     return frames;
   };
+
+  async makeThumbnails(videoUrl:string, collectionID:string){
+    const video = document.createElement('video');
+    video.src = videoUrl;
+    while (
+      (video.duration === Infinity || isNaN(video.duration)) &&
+      video.readyState < 2
+    ) {
+      await new Promise((r) => setTimeout(r, 1000));
+      video.currentTime = 10000000 * Math.random();
+    }
+    const duration = video.duration;
+    console.log(duration);
+
+    var thumbnails = this.extractFramesFromVideo(
+      videoUrl,
+      duration/3.0,
+      1,
+      50,
+      60
+    );
+
+    thumbnails.then((thumbnails)=>{
+      for(var i = 0;i<3;i++){
+        var newFile = this.convertDataUrlToPng(thumbnails[i],"thumbnail_"+i+".png");
+        this.apiController.S3upload(i+"",collectionID,"thumbnails",newFile)
+      }
+    })
+  }
 }

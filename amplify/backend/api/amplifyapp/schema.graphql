@@ -99,8 +99,8 @@ type FlightDetails @model {
   Pilot: User @hasOne(fields: ["pilotID"])
 }
 
-type PendingInvites @model {
+type PendingInvites @model @auth(rules: [{ allow: public, operations: [create] }]) {
   inviteID: String! @primaryKey
-  email: AWSEmail! @index(name: "byEmail", queryField: "pendingInvitesByEmail")
+  email: AWSEmail! @index(name: "byEmail", queryField: "getPendingInvitesByEmail"),
   role: String!
 }

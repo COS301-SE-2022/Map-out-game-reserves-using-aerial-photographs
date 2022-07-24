@@ -2,7 +2,11 @@ import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
-import { APIService, Images, ListImageCollectionsQuery } from 'src/app/API.service';
+import {
+  APIService,
+  Images,
+  ListImageCollectionsQuery,
+} from 'src/app/API.service';
 import { ControllerService } from 'src/app/api/controller/controller.service';
 
 interface ImageData {
@@ -23,73 +27,80 @@ export class ImageCatalogueComponent {
 
   sort = {
     date: 'date',
-    park: 'park'
-  }
+    park: 'park',
+  };
 
-  constructor(private api: APIService, private controller: ControllerService, private sanitizer: DomSanitizer, private snackbar: MatSnackBar) {
+  constructor(
+    private api: APIService,
+    private apiController: ControllerService,
+    private sanitizer: DomSanitizer,
+    private snackbar: MatSnackBar
+  ) {
     this.selected = 'date';
 
     this.getAllCatalogues();
   }
 
   getAllCatalogues() {
-    this.api.ListImageCollections().then((data: ListImageCollectionsQuery) => {
-      console.log(data);
-      this.catalogues = data.items;
+    this.api
+      .ListImageCollections()
+      .then((data: ListImageCollectionsQuery) => {
+        console.log(data);
+        this.catalogues = data.items;
 
-      for(const catalog of this.catalogues) {
-        this.api.ImagesByCollectionId(catalog.collectionID).then((resp: any) => {
-          for(const image of resp.items) {
-            this.images.push({ image: image, url: '' });
+        for (const catalog of data.items) {
+          if(catalog){
+          this.api
+            .ImagesByCollectionId(catalog.collectionID)
+            .then((resp: any) => {
+              for (const image of resp.items) {
+                this.images.push({ image: image, url: '' });
+              }
+
+              for (const i of this.images) {
+                this.apiController
+                  .S3download(
+                    i.image.imageID,
+                    catalog.collectionID,
+                    'images',
+                    false
+                  )
+                  .then((signedURL) => {
+                    i.url = signedURL;
+                  });
+              }
+              this.sortByDate();
+              this.tempCatalogues = this.catalogues;
+            })
+            .catch((e) => console.log(e));
           }
+        }
 
-          for(const i of this.images) {
-            i.image.file_name = "10-frame-6.png"; //temp mock
-            this.controller.getImageData(i.image.bucket_name!, i.image.file_name!)
-            .then((res: Observable<any>) => {
-              res.subscribe({
-                next: (data: any) => {
-                  console.log(data);
-                  const tempUrl = data.observe;
-                  i.url = this.sanitizer.bypassSecurityTrustUrl(tempUrl);
-                },
-                error: (err: any) => {
-                  console.log(err);
-                }
-              });
-            }).catch(e => console.log(e));
-          }
-          this.sortByDate();
-          this.tempCatalogues = this.catalogues;
-
-        }).catch(e => console.log(e));
-      }
-
-      return data.items;
-    }).catch(e => {
-      console.log(e)
-      if(e.errors[0].message == "Network Error"){
-        this.snackbar.open("Network error...", "❌", { verticalPosition: 'top' });
-      }
-    });
-  }
-
-  sanitizeImageUrl(imageUrl: string): SafeUrl {
-    return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
+        return data.items;
+      })
+      .catch((e) => {
+        console.log(e);
+        if (e.errors[0].message == 'Network Error') {
+          this.snackbar.open('Network error...', '❌', {
+            verticalPosition: 'top',
+          });
+        }
+      });
   }
 
   searchCatalogues() {
     //search for either a matching date string or a collection name
     //or a park name?
-    const searchTerm = (<HTMLInputElement>document.getElementById('searchInput')).value.toLowerCase();
-    if(searchTerm != '') {
+    const searchTerm = (<HTMLInputElement>(
+      document.getElementById('searchInput')
+    )).value.toLowerCase();
+    if (searchTerm != '') {
       this.catalogues = this.tempCatalogues;
-      this.catalogues =  this.catalogues.filter((c) => {
-        const date = new Date(c.upload_date_time!).toDateString().toLowerCase()
+      this.catalogues = this.catalogues.filter((c) => {
+        const date = new Date(c.upload_date_time!).toDateString().toLowerCase();
         return date.includes(searchTerm);
-      })
-    }
-    else {
+      });
+    } else {
       this.getAllCatalogues();
     }
   }
@@ -97,15 +108,18 @@ export class ImageCatalogueComponent {
   onChangeSort(selectedOption: any) {
     this.selected = selectedOption.target.value;
     if (this.selected == 'date') {
-      this.sortByDate()
+      this.sortByDate();
     } else if (this.selected == 'park') {
-      this.sortByPark()
+      this.sortByPark();
     }
   }
 
   sortByDate() {
     this.catalogues.sort((a, b) => {
-      return new Date(a.upload_date_time!).getTime() - new Date(b.upload_date_time!).getTime();
+      return (
+        new Date(a.upload_date_time!).getTime() -
+        new Date(b.upload_date_time!).getTime()
+      );
     });
   }
 
