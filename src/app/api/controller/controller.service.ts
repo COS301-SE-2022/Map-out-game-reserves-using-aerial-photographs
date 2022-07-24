@@ -115,6 +115,14 @@ export class ControllerService {
     );
   }
 
+  async addPark(parkname : string){
+    const spawn = require("child_process").spawn;
+    const pythonProcess = spawn('python',["relative/path/to/python",parkname])
+
+    pythonProcess.stdout.on('data',function(data : any){
+      console.log(data.toString());
+    })
+  }
   //------------------------------------------------------------------------
   //This is temporary code used to populate the database with temporary data
   /*async popMessage() {
