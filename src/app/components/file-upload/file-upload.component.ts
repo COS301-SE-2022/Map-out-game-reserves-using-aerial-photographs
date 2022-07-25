@@ -1,8 +1,13 @@
 import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { APIService, CreateImagesInput, CreateImageCollectionInput, CreateFlightDetailsInput } from 'src/app/API.service';
+import {
+  APIService,
+  CreateImagesInput,
+  CreateImageCollectionInput,
+  CreateFlightDetailsInput,
+} from 'src/app/API.service';
 import { ControllerService } from 'src/app/api/controller/controller.service';
-import {v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 interface Park {
@@ -39,11 +44,15 @@ export class FileUploadComponent {
   ];
 
   flight: FlightType[] = [
-    {value: 'Drone', viewValue: 'Drone'},
-    {value: 'Propeller Plane', viewValue: 'Propeller Plane'},
+    { value: 'Drone', viewValue: 'Drone' },
+    { value: 'Propeller Plane', viewValue: 'Propeller Plane' },
   ];
 
-  constructor(/*private apiService: ClientApiService*/private apiController: ControllerService, private api:APIService, private snackBar: MatSnackBar) {
+  constructor(
+    /*private apiService: ClientApiService*/ private apiController: ControllerService,
+    private api: APIService,
+    private snackBar: MatSnackBar
+  ) {
     //      const imageForm = document.querySelector("#imageForm");
     // const imageInput = document.querySelector("#fileUpload");
 
@@ -51,16 +60,19 @@ export class FileUploadComponent {
     //   event.preventDefault();
     //   this.uploadFileLocal();
     //   console.log(this.file?.name);
-    // }) 
-    
-    this.api.ListGameParks().then((event)=>{
+    // })
+
+    this.api.ListGameParks().then((event) => {
       //console.log(event.items[0]?.park_name);
       for (let i = 0; i < event.items.length; i++) {
         const element = event.items[i];
-          this.parks.push({value: element?.parkID, viewValue: element?.park_name})
-        }
-        //console.log(this.parks);
-    })
+        this.parks.push({
+          value: element?.parkID,
+          viewValue: element?.park_name,
+        });
+      }
+      //console.log(this.parks);
+    });
   }
 
   uploadFileLocal() {
@@ -87,7 +99,6 @@ export class FileUploadComponent {
         }
         this.formData.append('thumbnail', this.file);
       }
-
     }
   }
 
@@ -108,30 +119,30 @@ export class FileUploadComponent {
   }
 
   submitBtnPressed() {
-        // get the id of the park
-        var e = (document.getElementById("parks")) as HTMLSelectElement;
-        var sel = e.selectedIndex;
-        var opt = e.options[sel];
-        var parkSel = opt.value;
-        console.log(parkSel);
+    // get the id of the park
+    var e = document.getElementById('parks') as HTMLSelectElement;
+    var sel = e.selectedIndex;
+    var opt = e.options[sel];
+    var parkSel = opt.value;
+    console.log(parkSel);
 
-        //get the flying option
-        e = (document.getElementById("fType")) as HTMLSelectElement;
-        sel = e.selectedIndex;
-        opt = e.options[sel];
-        var typeSel = opt.value;
-        console.log(typeSel);
+    //get the flying option
+    e = document.getElementById('fType') as HTMLSelectElement;
+    sel = e.selectedIndex;
+    opt = e.options[sel];
+    var typeSel = opt.value;
+    console.log(typeSel);
 
-        //get the height
-        const i = (document.getElementById("height")) as HTMLInputElement;
-        const height = i?.value;
-        console.log(height);
+    //get the height
+    const i = document.getElementById('height') as HTMLInputElement;
+    const height = i?.value;
+    console.log(height);
 
-    if (this.file && parkSel!="" && typeSel!="" && height!="") {
-      const h : number = +height;
+    if (this.file && parkSel != '' && typeSel != '' && height != '') {
+      const h: number = +height;
 
       //create a flight object
-      const flight:CreateFlightDetailsInput = {
+      const flight: CreateFlightDetailsInput = {
         flightID: uuidv4(),
         flight_height: h,
         flight_type: typeSel,
@@ -140,14 +151,14 @@ export class FileUploadComponent {
       };
 
       //create flight in the database
-      this.api.CreateFlightDetails(flight).then((resp:any)=>{
+      this.api.CreateFlightDetails(flight).then((resp: any) => {
         console.log(resp);
-      })
+      });
 
       this.imageSplitting(this.file, parkSel, flight);
       this.submitPressed = true;
     } else {
-      this.snackBar.open("Fill in all the details about the upload.", "❌");
+      this.snackBar.open('Fill in all the details about the upload.', '❌');
     }
   }
 
@@ -157,40 +168,49 @@ export class FileUploadComponent {
     file_name: string,
     file: any
   ) {
-    const inp:CreateImagesInput = {
+    const inp: CreateImagesInput = {
       imageID: uuidv4(),
       collectionID: collectionID,
       bucket_name: bucket_name,
-      file_name: file_name
+      file_name: file_name,
     };
 
-    this.api.CreateImages(inp).then((resp:any) => {
-      console.log(resp);
-    }).catch(()=> {return -1;});
+    this.api
+      .CreateImages(inp)
+      .then((resp: any) => {
+        console.log(resp);
+      })
+      .catch(() => {
+        return -1;
+      });
 
     //converting base64 to png
-    var newFile = this.convertDataUrlToPng(file,inp.imageID+".png");
-    
+    var newFile = this.convertDataUrlToPng(file, inp.imageID + '.png');
+
     //upload png to S3
-    this.apiController.S3upload(inp.imageID,collectionID,"images",newFile);
+    this.apiController.S3upload(inp.imageID, collectionID, 'images', newFile);
   }
 
-convertDataUrlToPng(dataUrl:any, fileName:string): File {
-  const arr = dataUrl.split(',');
-  const mime = arr[0].match(/:(.*?);/)[1];
-  const bstr = atob(arr[1]);
-  let n = bstr.length;
-  const u8arr = new Uint8Array(n);
+  convertDataUrlToPng(dataUrl: any, fileName: string): File {
+    const arr = dataUrl.split(',');
+    const mime = arr[0].match(/:(.*?);/)[1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
 
-  while (n--) {
+    while (n--) {
       u8arr[n] = bstr.charCodeAt(n);
+    }
+
+    var blob = new Blob([u8arr], { type: mime });
+    return new File([blob], fileName);
   }
 
-  var blob =  new Blob([u8arr], {type: mime});
-  return new File([blob], fileName);
-}
-
-  imageSplitting(file: File, parkSel: string, flight : CreateFlightDetailsInput) {
+  imageSplitting(
+    file: File,
+    parkSel: string,
+    flight: CreateFlightDetailsInput
+  ) {
     //Load video
     const img = new Image();
     img.crossOrigin = 'anonymous';
@@ -211,29 +231,34 @@ convertDataUrlToPng(dataUrl:any, fileName:string): File {
 
     //Do after frames are extracted
     frames.then((frames) => {
-      const frame = frames[1];
+      // const frame = frames[1];
+      var fCount = 0;
       console.log(flight);
       //code in lines 215-____ replaces commented code in lines ___-___
-      
+
       //create a image collection object
       const inp: CreateImageCollectionInput = {
         collectionID: uuidv4(), //not sure!!!!!!!!!!!!!!! TODO: check
         parkID: parkSel,
         //   upload_date_time: string,
         completed: false,
-        flightID: flight.flightID
-        //   // _version?: number | null;
+        flightID: flight.flightID,
+        // _version?: number | null;
       };
-
 
       //create an image collection
       this.api.CreateImageCollection(inp).then((resp) => {
         console.log(resp);
-        for (let i = 0; i < frames.length; i++){
-          this.uploadToS3(resp.collectionID, "dylpickles-image-bucket", resp.collectionID+"-frame-"+i+".png", frame);
+        for (let i = 0; i < frames.length; i++) {
+          this.uploadToS3(
+            resp.collectionID,
+            'dylpickles-image-bucket',
+            resp.collectionID + '-frame-' + i + '.png',
+            frames[fCount++]
+          );
         }
 
-        this.makeThumbnails(img.src,resp.collectionID);
+        this.makeThumbnails(img.src, resp.collectionID);
       });
     });
   }
@@ -289,7 +314,7 @@ convertDataUrlToPng(dataUrl:any, fileName:string): File {
     return frames;
   };
 
-  async makeThumbnails(videoUrl:string, collectionID:string){
+  async makeThumbnails(videoUrl: string, collectionID: string) {
     const video = document.createElement('video');
     video.src = videoUrl;
     while (
@@ -304,17 +329,25 @@ convertDataUrlToPng(dataUrl:any, fileName:string): File {
 
     var thumbnails = this.extractFramesFromVideo(
       videoUrl,
-      duration/3.0,
+      duration / 3.0,
       1,
       50,
       60
     );
 
-    thumbnails.then((thumbnails)=>{
-      for(var i = 0;i<3;i++){
-        var newFile = this.convertDataUrlToPng(thumbnails[i],"thumbnail_"+i+".png");
-        this.apiController.S3upload(i+"",collectionID,"thumbnails",newFile)
+    thumbnails.then((thumbnails) => {
+      for (var i = 0; i < 3; i++) {
+        var newFile = this.convertDataUrlToPng(
+          thumbnails[i],
+          'thumbnail_' + i + '.png'
+        );
+        this.apiController.S3upload(
+          i + '',
+          collectionID,
+          'thumbnails',
+          newFile
+        );
       }
-    })
+    });
   }
 }

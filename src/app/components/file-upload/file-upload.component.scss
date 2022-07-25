@@ -1,31 +1,30 @@
 @import 'src/styles.scss';
-
 h1 {
-  color: white;
-  font-family: 'Segoe UI', sans-serif;
-  font-weight: 505;
-  font-style: normal;
-  font-size: 5vh;
-  line-height: 80%;
-  padding: 0;
-  padding-bottom: 5px;
-  margin-top: auto;
-  margin-bottom: auto;
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 505;
+    font-style: normal;
+    font-size: 5vh;
+    line-height: 80%;
+    padding: 0;
+    padding-bottom: 5px;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .content {
-  background-color: transparentize($primary-background-opaque, 0.1);
-  padding: 1%;
-  margin-top: 10px;
-  margin-left: 10px;
-  margin-right: 0.5%;
-  border-radius: 15px;
-  width: 72%;
-  height: 85vh;
-  vertical-align: top;
-  position: absolute;
-  left: 200px;
-  overflow-y: auto;
+    background-color: transparentize($primary-background-opaque, 0.1);
+    padding: 1%;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 0.5%;
+    border-radius: 15px;
+    width: 72%;
+    height: 85vh;
+    vertical-align: top;
+    position: absolute;
+    left: 200px;
+    overflow-y: auto;
 }
 
 .background {
@@ -94,10 +93,12 @@ h1 {
     font-weight: bolder;
 }
 
-.parks, .types, #height{
+.parks,
+.types,
+#height {
     width: 70%;
     background: $primary-background-opaque;
-    border:none;
+    border: none;
     left: 0;
     padding: 1rem;
     margin: 0;
@@ -106,7 +107,6 @@ h1 {
     overflow-y: auto;
 }
 
-#height{
+#height {
     margin: 5%;
 }
-
