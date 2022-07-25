@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Subscription } from 'rxjs';
 import {
   APIService,
   CreateImagesInput,
@@ -31,12 +30,13 @@ export class FileUploadComponent {
   requiredFileType: string | undefined;
   submitPressed = false;
   fileName = '';
-  uploadProgress: number | undefined;
-  uploadSub: Subscription | undefined;
   file: File | undefined;
   formData = new FormData();
   frames = [];
+  frameCount = 0;
+  uploadCount = 0;
   splittingProgress = 0;
+  uploadingProgress = 0;
 
   parks: Park[] = [
     // {value: 'Somkhanda-1', viewValue: 'Somkhanda'},
@@ -77,6 +77,10 @@ export class FileUploadComponent {
 
   uploadFileLocal() {
     console.log('Submit button pressed');
+    this.frameCount = 0;
+    this.uploadCount = 0;
+    this.splittingProgress = 0;
+    this.uploadingProgress = 0;
     this.submitBtnPressed();
   }
 
@@ -100,18 +104,6 @@ export class FileUploadComponent {
         this.formData.append('thumbnail', this.file);
       }
     }
-  }
-
-  cancelUpload() {
-    if (this.uploadSub) {
-      this.uploadSub.unsubscribe();
-    }
-    this.reset();
-  }
-
-  reset() {
-    this.uploadProgress = undefined;
-    this.uploadSub = undefined;
   }
 
   clearSelection() {
@@ -162,33 +154,21 @@ export class FileUploadComponent {
     }
   }
 
-  async uploadToS3(
-    collectionID: string,
-    bucket_name: string,
-    file_name: string,
-    file: any
-  ) {
-    const inp: CreateImagesInput = {
-      imageID: uuidv4(),
-      collectionID: collectionID,
-      bucket_name: bucket_name,
-      file_name: file_name,
-    };
-
-    this.api
-      .CreateImages(inp)
-      .then((resp: any) => {
-        console.log(resp);
-      })
-      .catch(() => {
-        return -1;
-      });
-
+  uploadToS3(collectionID: string, imageID: string, file: any) {
     //converting base64 to png
-    var newFile = this.convertDataUrlToPng(file, inp.imageID + '.png');
+    var newFile = this.convertDataUrlToPng(file, imageID + '.png');
 
     //upload png to S3
-    this.apiController.S3upload(inp.imageID, collectionID, 'images', newFile);
+    this.apiController
+      .S3upload(imageID, collectionID, 'images', newFile)
+      .then(() => {
+        this.uploadCount++;
+        console.log('Upload:');
+        console.log(this.uploadCount);
+        console.log(this.frameCount + 3);
+        this.uploadingProgress = this.uploadCount / (this.frameCount + 3);
+        console.log(this.uploadingProgress);
+      });
   }
 
   convertDataUrlToPng(dataUrl: any, fileName: string): File {
@@ -217,7 +197,7 @@ export class FileUploadComponent {
     img.src = URL.createObjectURL(file);
 
     // extract frames (video, interval(time), quality(0-1), final width, final height)
-    const interval = 10;
+    const interval = 1;
     const quality = 1.0;
     const finalWidth = 240;
     const finalHeight = 180;
@@ -231,6 +211,7 @@ export class FileUploadComponent {
 
     //Do after frames are extracted
     frames.then((frames) => {
+      this.frameCount = frames.length;
       // const frame = frames[1];
       var fCount = 0;
       console.log(flight);
@@ -250,15 +231,26 @@ export class FileUploadComponent {
       this.api.CreateImageCollection(inp).then((resp) => {
         console.log(resp);
         for (let i = 0; i < frames.length; i++) {
-          this.uploadToS3(
-            resp.collectionID,
-            'dylpickles-image-bucket',
-            resp.collectionID + '-frame-' + i + '.png',
-            frames[fCount++]
-          );
-        }
+          const inp: CreateImagesInput = {
+            imageID: uuidv4(),
+            collectionID: resp.collectionID,
+            bucket_name: 'dylpickles-image-bucket',
+            file_name: resp.collectionID + '-frame-' + i + '.png',
+          };
 
-        this.makeThumbnails(img.src, resp.collectionID);
+          this.api
+            .CreateImages(inp)
+            .then((resp: any) => {
+              console.log(resp);
+            })
+            .catch(() => {
+              return -1;
+            });
+
+          this.uploadToS3(resp.collectionID, inp.imageID, frames[fCount++]);
+        }
+        this.makeThumbnails(resp.collectionID);
+        
       });
     });
   }
@@ -314,40 +306,27 @@ export class FileUploadComponent {
     return frames;
   };
 
-  async makeThumbnails(videoUrl: string, collectionID: string) {
-    const video = document.createElement('video');
-    video.src = videoUrl;
-    while (
-      (video.duration === Infinity || isNaN(video.duration)) &&
-      video.readyState < 2
-    ) {
-      await new Promise((r) => setTimeout(r, 1000));
-      video.currentTime = 10000000 * Math.random();
+  async makeThumbnails(collectionID: string) {
+    var thumbnails: any[] = [];
+    thumbnails.push(this.frames[0]);
+    thumbnails.push(this.frames[this.frames.length / 2]);
+    thumbnails.push(this.frames[this.frames.length]);
+
+    for (var i = 0; i < 3; i++) {
+      var newFile = this.convertDataUrlToPng(
+        thumbnails[i],
+        'thumbnail_' + i + '.png'
+      );
+      this.apiController
+        .S3upload(i + '', collectionID, 'thumbnails', newFile)
+        .then(() => {
+          this.uploadCount++;
+          console.log('Upload:');
+          console.log(this.uploadCount);
+          console.log(this.frameCount + 3);
+          this.uploadingProgress = this.uploadCount / (this.frameCount);
+          console.log(this.uploadingProgress);
+        });
     }
-    const duration = video.duration;
-    console.log(duration);
-
-    var thumbnails = this.extractFramesFromVideo(
-      videoUrl,
-      duration / 3.0,
-      1,
-      50,
-      60
-    );
-
-    thumbnails.then((thumbnails) => {
-      for (var i = 0; i < 3; i++) {
-        var newFile = this.convertDataUrlToPng(
-          thumbnails[i],
-          'thumbnail_' + i + '.png'
-        );
-        this.apiController.S3upload(
-          i + '',
-          collectionID,
-          'thumbnails',
-          newFile
-        );
-      }
-    });
   }
 }
