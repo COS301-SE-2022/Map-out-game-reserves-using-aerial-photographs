@@ -1,14 +1,14 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { faXmark as exit, faBars as bars, faAngleLeft as leftArrow } from '@fortawesome/free-solid-svg-icons';
-
+import * as $ from "jquery"
 
 @Component({
   selector: 'aerial-mapping-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
 })
-export class MapComponent implements AfterViewInit {
-  scale = 100;
+export class MapComponent implements OnInit /*AfterViewInit*/ {
+  /* scale = 100;
   top = 0;
   left = 0;
   originalX = 0;
@@ -57,11 +57,20 @@ export class MapComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
+
+    $('#map-view').load('/http://localhost:8000/map/project/3/task/c42926f1-44a8-45e8-a62c-93ea966a6a7b/ .map-view');
+
     if (this.map) {
       this.map.nativeElement.addEventListener('wheel', this.scroll);
       this.map.nativeElement.addEventListener('mousedown', this.downListener);
       this.map.nativeElement.addEventListener('mousemove', this.drag);
       window.addEventListener('mouseup', this.upListener);
     }
+  }
+ */
+
+
+  ngOnInit(): void {
+      $('#map-view').load("/http://localhost:8000/map/project/3/task/c42926f1-44a8-45e8-a62c-93ea966a6a7b/ .map")
   }
 }

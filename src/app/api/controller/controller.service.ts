@@ -3,6 +3,8 @@ import { Auth, Storage } from 'aws-amplify';
 import { APIService, CreateUserInput, DeletePendingInvitesInput, User } from '../../API.service';
 import { v4 as uuidv4 } from 'uuid';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { time } from 'console';
+import { exec } from 'child_process';
 
 @Injectable({
   providedIn: 'root'
@@ -116,13 +118,17 @@ export class ControllerService {
   }
 
   async addPark(parkname : string){
-    const spawn = require("child_process").spawn;
-    const pythonProcess = spawn('python',["relative/path/to/python",parkname])
+/*     const spawn = require("child_process").spawn;
+    const pythonProcess = spawn('python',["./AddPark.py",parkname])
 
     pythonProcess.stdout.on('data',function(data : any){
       console.log(data.toString());
-    })
+    }) */
+
+    exec('"python ./AddPark.py" '+parkname+'')
   }
+
+
   //------------------------------------------------------------------------
   //This is temporary code used to populate the database with temporary data
   /*async popMessage() {

@@ -13,6 +13,12 @@
       <h3 class="uploadHeading">or</h3>
       <h3 class="uploadHeading">Drag and drop below</h3>
       <input type="file" class="file" multiple (change)="onFileSelected($event)" #fileUpload />
+
+
+      <p><input type="text" id="parkname" name="parkname" #parkname></p>
+      <h1> {{parkname}}</h1>
+
+      <button type="button" (click)="addPark(parkname.value)">Add Park</button>
       <!-- <input type="file" class="file" multiple (change)="onFileSelected($event)" #fileUpload> -->
       <div class="file-upload" *ngIf="fileName">
         <div class="successful-submit" *ngIf="submitPressed">

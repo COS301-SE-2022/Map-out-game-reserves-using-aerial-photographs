@@ -1,4 +1,13 @@
-<img class="background" src="assets/bg_test.png" />
+
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+  <!--
+<script type="text/javascript">
+  /* $('#map-view').load('/http://localhost:8000/map/project/3/task/c42926f1-44a8-45e8-a62c-93ea966a6a7b/ .map-container'); */
+  $(window).on('load',function(){
+    $('#map-view').load("/http://localhost:8000/map/project/3/task/c42926f1-44a8-45e8-a62c-93ea966a6a7b/ .map > *")
+  })
+</script> -->
+<!-- <img class="background" src="assets/bg_test.png" />
 <div class="imageContainer">
   <img #map draggable="false" class="image" height="100%" src="assets/example.png" [ngStyle]="
         {transform: 'scale(' + scale / 100 + ')',
@@ -18,5 +27,15 @@
 <div class="menu-container" *ngIf="isMenuOpen">
   <div class="menu-content">
     <h1>Menu</h1>
-  </div>
+  </div><iframe scrolling="no" title="WebODM" width="61.8033%" height="360" frameBorder="0" src="http://localhost:8000/public/task/c16f1456-465e-46b9-a2fb-3c3b73869582/iframe/3d/"></iframe>
 </div>
+ -->
+ <script type="text/javascript">
+ $('#map-view').load(function(){
+  $('#map-view').contents().find('.switchModeButton.btn.btn-sm.btn-secondary').hide();
+  $('#map-view').contents().find('#toppanel').hide();
+});
+</script>
+
+<iframe id="map-view" scrolling="no" frameBorder="0" src="http://localhost:8000/public/task/c16f1456-465e-46b9-a2fb-3c3b73869582/iframe/map/" allowfullscreen></iframe>
+

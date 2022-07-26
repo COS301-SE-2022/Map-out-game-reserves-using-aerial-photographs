@@ -102,3 +102,12 @@ html {
     color: white;
     text-align: center;
 }
+
+#map-view {
+  width: 100vw;
+  height: 100vh;
+}
+
+.actionButtons::after {
+  display: none;
+}

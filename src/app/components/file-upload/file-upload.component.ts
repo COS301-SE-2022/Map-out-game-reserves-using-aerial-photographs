@@ -51,8 +51,8 @@ export class FileUploadComponent {
     //   event.preventDefault();
     //   this.uploadFileLocal();
     //   console.log(this.file?.name);
-    // }) 
-    
+    // })
+
     this.api.ListGameParks().then((event)=>{
       //console.log(event.items[0]?.park_name);
       for (let i = 0; i < event.items.length; i++) {
@@ -170,7 +170,7 @@ export class FileUploadComponent {
 
     //converting base64 to png
     var newFile = this.convertDataUrlToPng(file,inp.imageID+".png");
-    
+
     //upload png to S3
     this.apiController.S3upload(inp.imageID,collectionID,"images",newFile);
   }
@@ -214,7 +214,7 @@ convertDataUrlToPng(dataUrl:any, fileName:string): File {
       const frame = frames[1];
       console.log(flight);
       //code in lines 215-____ replaces commented code in lines ___-___
-      
+
       //create a image collection object
       const inp: CreateImageCollectionInput = {
         collectionID: uuidv4(), //not sure!!!!!!!!!!!!!!! TODO: check
@@ -316,5 +316,10 @@ convertDataUrlToPng(dataUrl:any, fileName:string): File {
         this.apiController.S3upload(i+"",collectionID,"thumbnails",newFile)
       }
     })
+  }
+
+  async addPark(parkname: string){
+    console.log("Addpark called")
+    this.apiController.addPark(parkname)
   }
 }
