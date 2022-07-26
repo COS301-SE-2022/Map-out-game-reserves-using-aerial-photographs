@@ -28,7 +28,6 @@ module.exports = function(config) {
             dir: require('path').join(__dirname, './coverage/amplify-app'),
             subdir: '.',
             reporters: [
-                { type: 'html' },
                 { type: 'text-summary' },
                 { type: 'lcovonly' },
             ]
