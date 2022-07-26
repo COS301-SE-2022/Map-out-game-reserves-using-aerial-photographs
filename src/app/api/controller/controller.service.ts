@@ -8,8 +8,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ControllerService {
-  saltRounds = 10;
-
   constructor(private repo: APIService, private http: HttpClient) {}
 
   async tryRegister(u: User): Promise<number> {

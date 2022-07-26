@@ -1,5 +1,6 @@
 # This "input" configures a global authorization rule to enable public access to
 # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+
 input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
 
 type Query {
@@ -99,7 +100,7 @@ type FlightDetails @model {
   Pilot: User @hasOne(fields: ["pilotID"])
 }
 
-type PendingInvites @model @auth(rules: [{ allow: public, operations: [create] }]) {
+type PendingInvites @model {
   inviteID: String! @primaryKey
   email: AWSEmail! @index(name: "byEmail", queryField: "getPendingInvitesByEmail"),
   role: String!

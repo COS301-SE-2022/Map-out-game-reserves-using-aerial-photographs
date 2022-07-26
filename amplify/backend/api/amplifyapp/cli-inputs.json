@@ -56,6 +56,12 @@
           "entityName": "PendingInvites"
         }
       ]
-    }
+    },
+    "additionalAuthTypes": [
+      {
+        "mode": "AMAZON_COGNITO_USER_POOLS",
+        "cognitoUserPoolId": "authamplifyappc10a5bb3"
+      }
+    ]
   }
 }

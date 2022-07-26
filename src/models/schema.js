@@ -615,19 +615,6 @@ export const schema = {
                             "email"
                         ]
                     }
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "allow": "public",
-                                "operations": [
-                                    "create"
-                                ]
-                            }
-                        ]
-                    }
                 }
             ]
         }

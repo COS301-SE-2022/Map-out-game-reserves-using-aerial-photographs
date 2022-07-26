@@ -28,6 +28,10 @@ yarn-error.log
 !.vscode/extensions.json
 .history/*
 
+# Cypress Media Logs
+cypress/screenshots
+cypress/videos
+
 # Miscellaneous
 /.angular/cache
 .sass-cache/

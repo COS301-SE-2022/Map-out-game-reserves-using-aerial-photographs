@@ -19,7 +19,8 @@ Drones allow for a more up to date set of images of a landscape, this allows muc
 ## Get Started
 
 ```sh
-/*commands here*/
+npm install 
+npm start
 ```
 
 ## Link to Recorded Demo

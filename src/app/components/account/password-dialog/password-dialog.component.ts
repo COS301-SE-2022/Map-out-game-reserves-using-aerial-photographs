@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export interface DialogData {
   newPassword: string;
@@ -13,11 +14,11 @@ export interface DialogData {
   styleUrls: ['./password-dialog.component.scss']
 })
 export class PasswordDialogComponent {
-  //changePasswordForm: FormGroup;
 
   constructor(
     public dialogRef: MatDialogRef<PasswordDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    private snackBar: MatSnackBar
   ) {}
 
   onNoClick(): void {
@@ -29,7 +30,11 @@ export class PasswordDialogComponent {
       return;
     }
     if(this.data.newPassword !== this.data.confirmedPassword) {
-      alert("Passwords do not match!");
+      this.snackBar.open("Passwords do not match.", "❌", { verticalPosition: 'top' })
+      return;
+    }
+    if(this.data.newPassword.length < 8) {
+      this.snackBar.open("Password must be at least 8 characters long.", "❌", { verticalPosition: 'top' })
       return;
     }
     this.dialogRef.close(this.data.newPassword);
