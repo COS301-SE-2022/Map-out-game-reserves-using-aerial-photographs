@@ -29,20 +29,20 @@
     </div>
 
     <div style="height: 85%; overflow-y: auto; margin-top: 2%">
-      <mat-card *ngFor="let cat of catalogues" id="{{ cat.collectionID }}">
+      <mat-card *ngFor="let catData of catalogues" id="{{ catData.catalogue.collectionID }}">
         <mat-card-header>
-          <span style="float: left">{{ cat.name }}</span>
-          <span style="float: right">{{ cat.upload_date_time | date }}</span>
+          <span style="float: left">{{ catData.catalogue.name }}</span>
+          <span style="float: right">{{ catData.catalogue.upload_date_time | date }}</span>
         </mat-card-header>
         <br />
         <mat-card-content>
-          <ng-container *ngFor="let img of images | slice: 0:3">
+          <ng-container *ngFor="let img of catData.images | slice: 0:3">
             <img style="width: 32%; display: inline-block; padding: 1%" [src]="img.url"
               alt="{{ img.image.file_name }}" />
           </ng-container>
         </mat-card-content>
         <mat-card-footer style="padding: 0px 10px">
-          <button mat-raised-button class="link tooltip" (click)="enlarge()">View
+          <button mat-raised-button class="link tooltip" (click)="enlarge(catData)">View
             <span class="tooltiptext">View images & create maps</span>
           </button>
         </mat-card-footer>
@@ -51,8 +51,8 @@
       <!-- Add Angular Dialog Here Instead -->
 
       <mat-card class="popup" id="popup" style="overflow-y: none">
-        <div class="images" style="overflow-y: auto">
-          <mat-card class="imageContainer" *ngFor="let img of images">
+        <div class="images" style="overflow-y: auto" *ngIf="selectedCatalogue != null">
+          <mat-card class="imageContainer" *ngFor="let img of selectedCatalogue.images">
             <mat-card-content><img [src]="img.url" alt="{{ img.image.file_name }}" /></mat-card-content>
           </mat-card>
           <!-- <ng-container *ngFor="let img of images" class="imageContainer">
@@ -74,6 +74,8 @@
           </button>
         </div>
       </mat-card>
+
+
     </div>
   </div>
 </div>
