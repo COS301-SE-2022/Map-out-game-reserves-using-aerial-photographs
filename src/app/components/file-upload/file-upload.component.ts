@@ -8,7 +8,7 @@ import {
 import { ControllerService } from 'src/app/api/controller/controller.service';
 import { v4 as uuidv4 } from 'uuid';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { DataSource } from '@angular/cdk/collections';
+import { blobToURL, fromBlob } from 'image-resize-compress';
 
 interface Park {
   value: string | undefined;
@@ -292,42 +292,30 @@ export class FileUploadComponent {
     return frames;
   };
 
-  async resizeImage(imgUrl:string, width:number, height:number, name:string) {
-    // var img = new Image;
-    // img.src = imgUrl;
-    // // create an off-screen canvas
-    // var canvas = document.createElement('canvas'),
-    //     ctx = canvas.getContext('2d');
+  async resizeImage(blobFile:File,width:number,height:number){
+    // quality value for webp and jpeg formats.
+    const quality = 80;
+    // file format: png, jpeg, bmp, gif, webp. If null, original format will be used.
+    const format = 'webp';
+    // note only the blobFile argument is required
+    return await fromBlob(blobFile, quality, width, height, format);
+  };
 
-    // // set its dimension to target size
-    // canvas.width = width;
-    // canvas.height = height;
-
-    // // draw source image into the off-screen canvas:
-    // if(ctx){
-    //   ctx.drawImage(img, 0, 0, width, height);
-    // }
-    // // encode image to data-uri with base64 version of compressed image
-
-    // const base64ImageData = canvas.toDataURL('image/png');
-    // const imageBlob = await fetch(base64ImageData).then((r) => r.blob());
-    // var newFile = new File([imageBlob], name+".png");
-    // return newFile;
-}
-
-  makeThumbnails(collectionID: string,frames:any[]) {
+  async makeThumbnails(collectionID: string,frames:any[]) {
     var thumbnails: any[] = [];
-    console.log(frames);
     thumbnails.push(frames[0]);
     thumbnails.push(frames[frames.length / 2]);
     thumbnails.push(frames[frames.length-1]);
 
     
     for (var i = 0; i < 3; i++) {
-      var newFile = this.resizeImage(thumbnails[i],10,10,"thumbnail_"+i);
+      var newBlob = this.resizeImage(thumbnails[i],240,180);
+      await newBlob.then((newBlob)=>{
+        // let newBlob = thumbnails[i]; 
+        var newFile = new File([newBlob], "thumbnail_"+i+".png");
 
-      this.apiController
-        .S3upload("thumbnail_"+i, collectionID, 'thumbnails', thumbnails[i], 'image/png')
+        this.apiController
+        .S3upload("thumbnail_"+i, collectionID, 'thumbnails', newFile, 'image/png')
         .then(() => {
           this.uploadCount++;
           console.log('Upload:');
@@ -336,6 +324,7 @@ export class FileUploadComponent {
           this.uploadingProgress = this.uploadCount / (this.frameCount);
           console.log(this.uploadingProgress);
         });
-    }
+      })
+    } 
   }
 }
