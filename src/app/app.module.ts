@@ -25,7 +25,6 @@ import { AccountModule } from './components/account/account.module';
 import { NavbarModule } from './components/shared/navbar/navbar.module';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MapModule } from './components/map/map.module';
-import { MapCollectionsModule } from './components/map-collections/map-collections.module';
 import { FileUploadModule } from './components/file-upload/file-upload.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
@@ -57,7 +56,6 @@ import {MatDividerModule} from '@angular/material/divider';
     AccountModule,
     NavbarModule,
     MapModule,
-    MapCollectionsModule,
     FileUploadModule,
     ImageCatalogueModule,
     MatCardModule,

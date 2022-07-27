@@ -28,7 +28,15 @@ type ImagesMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
+type MapMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
 type PendingInvitesMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+type ConnectionMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
@@ -113,6 +121,19 @@ export declare class Images {
   static copyOf(source: Images, mutator: (draft: MutableModel<Images, ImagesMetaData>) => MutableModel<Images, ImagesMetaData> | void): Images;
 }
 
+export declare class Map {
+  readonly id: string;
+  readonly mapID: string;
+  readonly bucket_name?: string | null;
+  readonly file_name?: string | null;
+  readonly collectionID?: string | null;
+  readonly Collection?: ImageCollection | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+  constructor(init: ModelInit<Map, MapMetaData>);
+  static copyOf(source: Map, mutator: (draft: MutableModel<Map, MapMetaData>) => MutableModel<Map, MapMetaData> | void): Map;
+}
+
 export declare class PendingInvites {
   readonly id: string;
   readonly inviteID: string;
@@ -122,4 +143,14 @@ export declare class PendingInvites {
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<PendingInvites, PendingInvitesMetaData>);
   static copyOf(source: PendingInvites, mutator: (draft: MutableModel<PendingInvites, PendingInvitesMetaData>) => MutableModel<PendingInvites, PendingInvitesMetaData> | void): PendingInvites;
+}
+
+export declare class Connection {
+  readonly id: string;
+  readonly connectionID: string;
+  readonly topic: string;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+  constructor(init: ModelInit<Connection, ConnectionMetaData>);
+  static copyOf(source: Connection, mutator: (draft: MutableModel<Connection, ConnectionMetaData>) => MutableModel<Connection, ConnectionMetaData> | void): Connection;
 }

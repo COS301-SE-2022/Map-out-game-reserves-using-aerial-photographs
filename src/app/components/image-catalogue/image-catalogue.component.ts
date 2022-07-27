@@ -4,7 +4,6 @@ import { SafeUrl } from '@angular/platform-browser';
 import {
   APIService,
   Images,
-  ImageCollection,
   ListImageCollectionsQuery,
 } from 'src/app/API.service';
 import { ControllerService } from 'src/app/api/controller/controller.service';
@@ -100,20 +99,20 @@ export class ImageCatalogueComponent {
   }
 
   searchCatalogues() {
-    //search for either a matching date string or a collection name
-    //or a park name?
-    // const searchTerm = (<HTMLInputElement>(
-    //   document.getElementById('searchInput')
-    // )).value.toLowerCase();
-    // if (searchTerm != '') {
-    //   this.catalogues = this.tempCatalogues;
-    //   this.catalogues = this.catalogues.filter((c) => {
-    //     const date = new Date(c.upload_date_time!).toDateString().toLowerCase();
-    //     return date.includes(searchTerm);
-    //   });
-    // } else {
-    //   this.getAllCatalogues();
-    // }
+    // search for either a matching date string or a collection name
+    // or a park name?
+    const searchTerm = (<HTMLInputElement>(
+      document.getElementById('searchInput')
+    )).value.toLowerCase();
+    if (searchTerm != '') {
+      this.catalogues = this.tempCatalogues;
+      this.catalogues = this.catalogues.filter((c) => {
+        const date = new Date(c.catalogue.upload_date_time!).toDateString().toLowerCase();
+        return date.includes(searchTerm);
+      });
+    } else {
+      this.getAllCatalogues();
+    }
   }
 
   onChangeSort(selectedOption: any) {
@@ -126,12 +125,12 @@ export class ImageCatalogueComponent {
   }
 
   sortByDate() {
-    // this.catalogues.sort((a, b) => {
-    //   return (
-    //     new Date(a.upload_date_time!).getTime() -
-    //     new Date(b.upload_date_time!).getTime()
-    //   );
-    // });
+    this.catalogues.sort((a, b) => {
+      return (
+        new Date(a.catalogue.upload_date_time!).getTime() -
+        new Date(b.catalogue.upload_date_time!).getTime()
+      );
+    });
   }
 
   sortByPark() {

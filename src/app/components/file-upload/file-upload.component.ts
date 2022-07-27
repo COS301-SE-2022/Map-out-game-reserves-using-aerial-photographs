@@ -8,6 +8,7 @@ import {
 import { ControllerService } from 'src/app/api/controller/controller.service';
 import { v4 as uuidv4 } from 'uuid';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DataSource } from '@angular/cdk/collections';
 
 interface Park {
   value: string | undefined;
@@ -32,7 +33,7 @@ export class FileUploadComponent {
   fileName = '';
   file: File | undefined;
   formData = new FormData();
-  frames = [];
+  // frames = [];
   frameCount = 0;
   uploadCount = 0;
   splittingProgress = 0;
@@ -156,11 +157,11 @@ export class FileUploadComponent {
 
   uploadToS3(collectionID: string, imageID: string, file: any) {
     //converting base64 to png
-    var newFile = this.convertDataUrlToPng(file, imageID + '.png');
-
+    // var newFile = this.convertDataUrlToPng(file, imageID + '.png');
+    var newFile = new File([file], imageID+".png");
     //upload png to S3
     this.apiController
-      .S3upload(imageID, collectionID, 'images', newFile)
+      .S3upload(imageID, collectionID, 'images', newFile, 'image/png')
       .then(() => {
         this.uploadCount++;
         console.log('Upload:');
@@ -169,21 +170,6 @@ export class FileUploadComponent {
         this.uploadingProgress = this.uploadCount / (this.frameCount + 3);
         console.log(this.uploadingProgress);
       });
-  }
-
-  convertDataUrlToPng(dataUrl: any, fileName: string): File {
-    const arr = dataUrl.split(',');
-    const mime = arr[0].match(/:(.*?);/)[1];
-    const bstr = atob(arr[1]);
-    let n = bstr.length;
-    const u8arr = new Uint8Array(n);
-
-    while (n--) {
-      u8arr[n] = bstr.charCodeAt(n);
-    }
-
-    var blob = new Blob([u8arr], { type: mime });
-    return new File([blob], fileName);
   }
 
   imageSplitting(
@@ -212,6 +198,7 @@ export class FileUploadComponent {
     //Do after frames are extracted
     frames.then((frames) => {
       this.frameCount = frames.length;
+      
       // const frame = frames[1];
       var fCount = 0;
       console.log(flight);
@@ -226,7 +213,7 @@ export class FileUploadComponent {
         flightID: flight.flightID,
         // _version?: number | null;
       };
-
+      this.makeThumbnails(inp.collectionID,frames);
       //create an image collection
       this.api.CreateImageCollection(inp).then((resp) => {
         console.log(resp);
@@ -238,6 +225,7 @@ export class FileUploadComponent {
             file_name: resp.collectionID + '-frame-' + i + '.png',
           };
 
+          console.log(i+"|"+inp.imageID);
           this.api
             .CreateImages(inp)
             .then((resp: any) => {
@@ -248,9 +236,7 @@ export class FileUploadComponent {
             });
 
           this.uploadToS3(resp.collectionID, inp.imageID, frames[fCount++]);
-        }
-        this.makeThumbnails(resp.collectionID);
-        
+        }        
       });
     });
   }
@@ -295,9 +281,9 @@ export class FileUploadComponent {
       if (context) {
         context.drawImage(video, 0, 0, w, h, 0, 0, width, height);
         const base64ImageData = canvas.toDataURL('image/png', quality);
-        // const imageBlob = await fetch(base64ImageData).then((r) => r.blob());
-        // frames.push(imageBlob);
-        frames.push(base64ImageData);
+        const imageBlob = await fetch(base64ImageData).then((r) => r.blob());
+        frames.push(imageBlob);
+        // frames.push(base64ImageData);
       }
       this.splittingProgress = Math.round((currentTime / duration) * 100);
       currentTime += interval;
@@ -306,19 +292,42 @@ export class FileUploadComponent {
     return frames;
   };
 
-  async makeThumbnails(collectionID: string) {
-    var thumbnails: any[] = [];
-    thumbnails.push(this.frames[0]);
-    thumbnails.push(this.frames[this.frames.length / 2]);
-    thumbnails.push(this.frames[this.frames.length]);
+  async resizeImage(imgUrl:string, width:number, height:number, name:string) {
+    // var img = new Image;
+    // img.src = imgUrl;
+    // // create an off-screen canvas
+    // var canvas = document.createElement('canvas'),
+    //     ctx = canvas.getContext('2d');
 
+    // // set its dimension to target size
+    // canvas.width = width;
+    // canvas.height = height;
+
+    // // draw source image into the off-screen canvas:
+    // if(ctx){
+    //   ctx.drawImage(img, 0, 0, width, height);
+    // }
+    // // encode image to data-uri with base64 version of compressed image
+
+    // const base64ImageData = canvas.toDataURL('image/png');
+    // const imageBlob = await fetch(base64ImageData).then((r) => r.blob());
+    // var newFile = new File([imageBlob], name+".png");
+    // return newFile;
+}
+
+  makeThumbnails(collectionID: string,frames:any[]) {
+    var thumbnails: any[] = [];
+    console.log(frames);
+    thumbnails.push(frames[0]);
+    thumbnails.push(frames[frames.length / 2]);
+    thumbnails.push(frames[frames.length-1]);
+
+    
     for (var i = 0; i < 3; i++) {
-      var newFile = this.convertDataUrlToPng(
-        thumbnails[i],
-        'thumbnail_' + i + '.png'
-      );
+      var newFile = this.resizeImage(thumbnails[i],10,10,"thumbnail_"+i);
+
       this.apiController
-        .S3upload(i + '', collectionID, 'thumbnails', newFile)
+        .S3upload("thumbnail_"+i, collectionID, 'thumbnails', thumbnails[i], 'image/png')
         .then(() => {
           this.uploadCount++;
           console.log('Upload:');
