@@ -56,35 +56,38 @@ export class ImageCatalogueComponent {
             images: []
           })
         }
-         
-        for (const catalogData of this.catalogues){
-            console.log(22,catalogData.catalogue.collectionID);
-            this.api
-              .ImagesByCollectionId(catalogData.catalogue.collectionID)
-              .then((resp: any) => {
-                console.log(resp.items);
-                for (const image of resp.items) {
-                  catalogData.images.push({ image: image, url: '' });
-                }
 
-                for (const i of catalogData.images) {
-                  this.apiController
-                    .S3download(
-                      i.image.imageID,
-                      catalogData.catalogue.collectionID,
-                      'images',
-                      false
-                    )
-                    .then((signedURL) => {
-                      i.url = signedURL;
-                    });
-                }
-                this.sortByDate();
-                this.tempCatalogues = this.catalogues;
-              })
-              .catch((e) => console.log(e));
-          }
-        
+        for (const catalogData of this.catalogues) {
+          console.log(22, catalogData.catalogue.collectionID);
+
+          this.api
+            .ImagesByCollectionId(catalogData.catalogue.collectionID)
+            .then((resp: any) => {
+              console.log(resp.items);
+              for (const image of resp.items) {
+                catalogData.images.push({ image: image, url: '' });
+              }
+
+              for (const i of catalogData.images) {
+                this.apiController
+                  .S3download(
+                    i.image.imageID,
+                    catalogData.catalogue.collectionID,
+                    'images',
+                    false
+                  )
+                  .then((signedURL) => {
+                    i.url = signedURL;
+                  });
+              }
+              this.sortByDate();
+              this.tempCatalogues = this.catalogues;
+            })
+            .catch((e) => console.log(e));
+
+          console.log("Image Catalog: ", catalogData.catalogue);
+        }
+
 
         return data.items;
       })
@@ -104,15 +107,12 @@ export class ImageCatalogueComponent {
     const searchTerm = (<HTMLInputElement>(
       document.getElementById('searchInput')
     )).value.toLowerCase();
-    if (searchTerm != '') {
-      this.catalogues = this.tempCatalogues;
-      this.catalogues = this.catalogues.filter((c) => {
-        const date = new Date(c.catalogue.upload_date_time!).toDateString().toLowerCase();
-        return date.includes(searchTerm);
-      });
-    } else {
-      this.getAllCatalogues();
-    }
+
+    this.catalogues = this.tempCatalogues;
+    this.catalogues = this.catalogues.filter((c) => {
+      const date = new Date(c.catalogue.upload_date_time!).toDateString().toLowerCase();
+      return date.includes(searchTerm);
+    });
   }
 
   onChangeSort(selectedOption: any) {
