@@ -23,6 +23,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { AccountModule } from './components/account/account.module';
 import { NavbarModule } from './components/shared/navbar/navbar.module';
+import { FooterModule } from './components/shared/footer/footer.module';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MapModule } from './components/map/map.module';
 import { FileUploadModule } from './components/file-upload/file-upload.module';
@@ -55,6 +56,7 @@ import {MatDividerModule} from '@angular/material/divider';
     LoginModule,
     AccountModule,
     NavbarModule,
+    FooterModule,
     MapModule,
     FileUploadModule,
     ImageCatalogueModule,

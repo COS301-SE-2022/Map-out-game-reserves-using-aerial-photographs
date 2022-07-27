@@ -17,6 +17,7 @@ import { RegisterLinkDialogComponent } from './register-link-dialog/register-lin
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import {MatDividerModule} from '@angular/material/divider';
+import { FooterModule } from '../shared/footer/footer.module';
 
 @NgModule({
   declarations: [ AccountComponent, PasswordDialogComponent, NameDialogComponent, EmailDialogComponent, RegisterLinkDialogComponent ],
@@ -34,6 +35,7 @@ import {MatDividerModule} from '@angular/material/divider';
     FormsModule,
     ReactiveFormsModule,
     FontAwesomeModule,
+    FooterModule,
     MatDividerModule
   ]
 })
