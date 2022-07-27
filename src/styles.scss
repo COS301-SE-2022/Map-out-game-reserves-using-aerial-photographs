@@ -48,6 +48,15 @@ body {
   box-shadow: 0 5px 16px 0 rgba(0, 0, 0, 0.24), 0 5px 50px 0 rgba(0, 0, 0, 0.19);
 }
 
+h3 {
+  font-size: 24px;
+  margin-bottom: 1%;
+  margin-top: 0;
+  font-weight: 400;
+  text-align: center;
+  color: $primary-dark
+}
+
 .material-symbols-outlined {
   font-variation-settings:
     'FILL' 1,
@@ -120,11 +129,11 @@ body {
   margin-left: 2vw;
   margin-right: 2vw;
   // border-radius: 15px;
-  height: 82vh;
+  height: 80vh;
   width: 96vw;
   vertical-align: bottom;
   position: absolute;
-  top: 12vh;
+  top: 11vh;
   overflow-x: none;
   overflow-y: auto;
   display: inline-block;
@@ -141,8 +150,14 @@ body {
   transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-// .content {
-//   background-color: transparentize($primary-background-opaque, 0.1);
-//   width: 86%;
-//   height: 86%;
-// }
+.mat-divider {
+  border-top-color: $accent-colour;
+}
+
+mat-icon {
+  color: $accent-colour;
+}
+
+.material-symbols-outlined {
+  color: $accent-colour;
+}

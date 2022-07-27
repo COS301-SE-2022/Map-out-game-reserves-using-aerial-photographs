@@ -1,13 +1,5 @@
 @import 'src/styles.scss';
 
-h3 {
-  font-size: 24px;
-  margin-bottom: 1%;
-  margin-top: 0;
-  font-weight: 400;
-  text-align: center;
-}
-
 h1 {
   color: white;
   font-family: 'Segoe UI', sans-serif;
@@ -19,10 +11,6 @@ h1 {
   padding-bottom: 5px;
   margin-top: auto;
   margin-bottom: auto;
-}
-
-.mat-divider {
-  border-top-color: $accent-colour;
 }
 
 #left {
@@ -47,6 +35,10 @@ h1 {
   padding: 16px;
   color: rgba(89, 89, 89, 0.87);
   align-content: center;
+}
+
+mat-icon {
+  color: white;
 }
 
 .info {
