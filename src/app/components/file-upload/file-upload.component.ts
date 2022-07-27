@@ -8,7 +8,7 @@ import {
 import { ControllerService } from 'src/app/api/controller/controller.service';
 import { v4 as uuidv4 } from 'uuid';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { blobToURL, fromBlob } from 'image-resize-compress';
+import { fromBlob } from 'image-resize-compress';
 
 interface Park {
   value: string | undefined;
@@ -185,8 +185,10 @@ export class FileUploadComponent {
     // extract frames (video, interval(time), quality(0-1), final width, final height)
     const interval = 1;
     const quality = 1.0;
-    const finalWidth = 240;
-    const finalHeight = 180;
+    const i_width = document.getElementById('i_width') as HTMLInputElement;
+    const finalWidth = Number(i_width?.value);
+    const i_height = document.getElementById('i_height') as HTMLInputElement;
+    const finalHeight = Number(i_height?.value);
     const frames = this.extractFramesFromVideo(
       img.src,
       interval,
