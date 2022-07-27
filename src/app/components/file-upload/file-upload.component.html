@@ -3,6 +3,7 @@
     <h1>File Upload</h1>
   </div> -->
   <aerial-mapping-side-navbar></aerial-mapping-side-navbar>
+  <app-footer></app-footer>
 
   <div class="content">
     <div class="drag-box" #imageForm>
@@ -38,6 +39,9 @@
           </select>
 
           <input type="number" placeholder="Enter the height of the flight (metres)" id="height" min="1">
+
+          <input id="i_width" type="number" placeholder="Enter the height of the flight (metres)" min="1">
+          <input id="i_height" type="number" placeholder="Enter the height of the flight (metres)" min="1">
         </div>
 
         <br />
@@ -54,8 +58,6 @@
       </div>
 
       <div class="progress">
-        <mat-progress-bar class="progress-bar" mode="determinate" [value]="uploadingProgress" *ngIf="uploadingProgress">
-        </mat-progress-bar>
         <div class="videoSplitting" *ngIf="splittingProgress != 0">
           Splitting Video {{splittingProgress}}%
         </div>
