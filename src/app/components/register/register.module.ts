@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { FooterModule } from '../shared/footer/footer.module';
 
 @NgModule({
   declarations: [RegisterComponent, OtpDialogComponent],
@@ -21,6 +22,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatFormFieldModule,
     MatInputModule,
     MatSnackBarModule,
+    FooterModule,
     RouterModule
   ]
 })
