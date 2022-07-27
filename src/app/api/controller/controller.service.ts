@@ -3,12 +3,42 @@ import { Auth, Storage } from 'aws-amplify';
 import { APIService, CreateUserInput, DeletePendingInvitesInput, User } from '../../API.service';
 import { v4 as uuidv4 } from 'uuid';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, Subject } from 'rxjs';
+
+interface WebODMTokenResponse {
+  token: string;
+}
+
+export interface WebODMProject {
+  created_at: string;
+  id: number;
+  description: string;
+  name: string;
+}
+export interface WebODMProjectsResponse extends Array<WebODMProject>{}
+
+export interface WebODMCreateTaskResponse {
+  id: number;
+  description: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class ControllerService {
-  constructor(private repo: APIService, private http: HttpClient) {}
+  webODM_URL: string;
+  tokenResponse: WebODMTokenResponse;
+  subject: Subject<any>;
+  projectId: number;
+
+  constructor(private repo: APIService, private http: HttpClient) {
+    this.webODM_URL = 'http://localhost:8000/';
+    this.tokenResponse = {
+      token: ""
+    }
+    this.subject = new Subject<any>();
+    this.projectId = -1;
+  }
 
   async tryRegister(u: User): Promise<number> {
     console.log('getting pending invite by email...');
@@ -111,6 +141,56 @@ export class ControllerService {
         responseType: 'json',
       }
     );
+  }
+
+  //WebODM functions below
+
+  //authenticates and then returns the projects
+  authenticateWithWebOdm(): Observable<any> {
+    const body = {
+      username: "admin",
+      password: "12345678"
+    }
+    //get auth token
+    this.http.post(this.webODM_URL + 'api/token-auth/', body).subscribe({
+      next: (jwt) => {
+        console.log(jwt);
+
+        this.tokenResponse = JSON.parse(JSON.stringify(jwt));
+
+        const headers = new HttpHeaders({
+          'Authorization': `JWT ${this.tokenResponse.token}`,
+        });
+        //use auth token to get projects
+        this.http.get(this.webODM_URL + 'api/projects/', { headers: headers }).subscribe({
+          next: (projects: any) => {
+            this.projectId = projects[0].id;
+            this.subject.next(projects[0]);
+          },
+          error: (err) => {
+            this.subject.next(err);
+          }
+        });
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+
+    return this.subject.asObservable();
+  }
+
+  async createODMTask(imgs: Array<any>): Promise<any> {
+
+    const body = {
+      images: imgs,
+      auto_processing_node: true
+    }
+    return this.http.post(this.webODM_URL + `/api/projects/${this.projectId}/tasks/`, body);
+  }
+
+  async getMapAssets(taskID: number) {
+    return this.http.get(this.webODM_URL + `/api/projects/${this.projectId}/tasks/${taskID}/download/all.zip`);
   }
 
   //------------------------------------------------------------------------

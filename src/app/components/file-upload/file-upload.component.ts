@@ -49,7 +49,7 @@ export class FileUploadComponent {
   ];
 
   constructor(
-    /*private apiService: ClientApiService*/ private apiController: ControllerService,
+    private apiController: ControllerService,
     private api: APIService,
     private snackBar: MatSnackBar
   ) {
@@ -156,7 +156,7 @@ export class FileUploadComponent {
 
   uploadToS3(collectionID: string, imageID: string, file: any) {
     //converting base64 to png
-    var newFile = this.convertDataUrlToPng(file, imageID + '.png');
+    let newFile = new File([file], imageID + '.png');
 
     //upload png to S3
     this.apiController
@@ -171,91 +171,22 @@ export class FileUploadComponent {
       });
   }
 
-  convertDataUrlToPng(dataUrl: any, fileName: string): File {
-    const arr = dataUrl.split(',');
-    const mime = arr[0].match(/:(.*?);/)[1];
-    const bstr = atob(arr[1]);
-    let n = bstr.length;
-    const u8arr = new Uint8Array(n);
+  // convertDataUrlToPng(dataUrl: any, fileName: string): File {
+  //   const arr = dataUrl.split(',');
+  //   const mime = arr[0].match(/:(.*?);/)[1];
+  //   const bstr = atob(arr[1]);
+  //   let n = bstr.length;
+  //   const u8arr = new Uint8Array(n);
 
-    while (n--) {
-      u8arr[n] = bstr.charCodeAt(n);
-    }
+  //   while (n--) {
+  //     u8arr[n] = bstr.charCodeAt(n);
+  //   }
 
-    var blob = new Blob([u8arr], { type: mime });
-    return new File([blob], fileName);
-  }
+  //   var blob = new Blob([u8arr], { type: mime });
+  //   return blob;
+  // }
 
-  imageSplitting(
-    file: File,
-    parkSel: string,
-    flight: CreateFlightDetailsInput
-  ) {
-    //Load video
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.src = URL.createObjectURL(file);
-
-    // extract frames (video, interval(time), quality(0-1), final width, final height)
-    const interval = 1;
-    const quality = 1.0;
-    const finalWidth = 240;
-    const finalHeight = 180;
-    const frames = this.extractFramesFromVideo(
-      img.src,
-      interval,
-      quality,
-      finalWidth,
-      finalHeight
-    );
-
-    //Do after frames are extracted
-    frames.then((frames) => {
-      this.frameCount = frames.length;
-      // const frame = frames[1];
-      var fCount = 0;
-      console.log(flight);
-      //code in lines 215-____ replaces commented code in lines ___-___
-
-      //create a image collection object
-      const inp: CreateImageCollectionInput = {
-        collectionID: uuidv4(), //not sure!!!!!!!!!!!!!!! TODO: check
-        parkID: parkSel,
-        //   upload_date_time: string,
-        completed: false,
-        flightID: flight.flightID,
-        // _version?: number | null;
-      };
-
-      //create an image collection
-      this.api.CreateImageCollection(inp).then((resp) => {
-        console.log(resp);
-        for (let i = 0; i < frames.length; i++) {
-          const inp: CreateImagesInput = {
-            imageID: uuidv4(),
-            collectionID: resp.collectionID,
-            bucket_name: 'dylpickles-image-bucket',
-            file_name: resp.collectionID + '-frame-' + i + '.png',
-          };
-
-          this.api
-            .CreateImages(inp)
-            .then((resp: any) => {
-              console.log(resp);
-            })
-            .catch(() => {
-              return -1;
-            });
-
-          this.uploadToS3(resp.collectionID, inp.imageID, frames[fCount++]);
-        }
-        this.makeThumbnails(resp.collectionID);
-        
-      });
-    });
-  }
-
-  extractFramesFromVideo = async (
+  extractFramesFromVideo = async(
     videoUrl: string,
     interval: number,
     quality: number,
@@ -295,38 +226,115 @@ export class FileUploadComponent {
       if (context) {
         context.drawImage(video, 0, 0, w, h, 0, 0, width, height);
         const base64ImageData = canvas.toDataURL('image/png', quality);
-        // const imageBlob = await fetch(base64ImageData).then((r) => r.blob());
-        // frames.push(imageBlob);
-        frames.push(base64ImageData);
+        const imageBlob = await fetch(base64ImageData).then((r) => r.blob());
+        frames.push(imageBlob);
+        //frames.push(base64ImageData);
       }
       this.splittingProgress = Math.round((currentTime / duration) * 100);
       currentTime += interval;
     }
     this.splittingProgress = 100;
     return frames;
-  };
-
-  async makeThumbnails(collectionID: string) {
-    var thumbnails: any[] = [];
-    thumbnails.push(this.frames[0]);
-    thumbnails.push(this.frames[this.frames.length / 2]);
-    thumbnails.push(this.frames[this.frames.length]);
-
-    for (var i = 0; i < 3; i++) {
-      var newFile = this.convertDataUrlToPng(
-        thumbnails[i],
-        'thumbnail_' + i + '.png'
-      );
-      this.apiController
-        .S3upload(i + '', collectionID, 'thumbnails', newFile)
-        .then(() => {
-          this.uploadCount++;
-          console.log('Upload:');
-          console.log(this.uploadCount);
-          console.log(this.frameCount + 3);
-          this.uploadingProgress = this.uploadCount / (this.frameCount);
-          console.log(this.uploadingProgress);
-        });
-    }
   }
+
+  //createMap
+  imageSplitting(file: File, parkSel: string, flight: CreateFlightDetailsInput) {
+    //Load video
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.src = URL.createObjectURL(file);
+
+    // extract frames (video, interval(time), quality(0-1), final width, final height)
+    const interval = 1; //fps
+    const quality = 1.0;
+    const finalWidth = 240;
+    const finalHeight = 180;
+    const frames = this.extractFramesFromVideo(
+      img.src,
+      interval,
+      quality,
+      finalWidth,
+      finalHeight
+    );
+
+    //Do after frames are extracted
+    frames.then((frames: any) => {
+      this.frameCount = frames.length;
+      // const frame = frames[1];
+      var fCount = 0;
+      console.log(flight);
+      //code in lines 215-____ replaces commented code in lines ___-___
+
+      //create a image collection object
+      const inp: CreateImageCollectionInput = {
+        collectionID: uuidv4(), //not sure!!!!!!!!!!!!!!! TODO: check
+        parkID: parkSel,
+        //   upload_date_time: string,
+        completed: false,
+        flightID: flight.flightID,
+        // _version?: number | null;
+      };
+
+      //create an image collection
+      this.api.CreateImageCollection(inp).then((resp) => {
+        console.log(resp);
+
+        //create each Image
+        for (let i = 0; i < frames.length; i++) {
+          const inp: CreateImagesInput = {
+            imageID: uuidv4(),
+            collectionID: resp.collectionID,
+            bucket_name: 'dylpickles-image-bucket',
+            file_name: resp.collectionID + '-frame-' + i + '.png',
+          };
+
+          //create image in DynamoDB
+          this.api
+            .CreateImages(inp)
+            .then((resp: any) => {
+              console.log(resp);
+            })
+            .catch(() => {
+              return -1;
+            });
+
+          this.uploadToS3(resp.collectionID, inp.imageID, frames[fCount++]);
+        }
+        //this.makeThumbnails(resp.collectionID);
+
+        //createTask (WebODM)
+        this.apiController.createODMTask(frames).then((resp: any) => {
+          console.log(resp);
+          // this.apiController.getMapAssets().then((mapAssets: any) => {
+          //   console.log("Logging Map Assets...");
+          //   console.log(mapAssets);
+          // });
+        });
+      });
+    });
+  }
+
+  // async makeThumbnails(collectionID: string) {
+  //   var thumbnails: any[] = [];
+  //   thumbnails.push(this.frames[0]);
+  //   thumbnails.push(this.frames[this.frames.length / 2]);
+  //   thumbnails.push(this.frames[this.frames.length]);
+
+  //   for (var i = 0; i < 3; i++) {
+  //     var newFile = this.convertDataUrlToPng(
+  //       thumbnails[i],
+  //       'thumbnail_' + i + '.png'
+  //     );
+  //     this.apiController
+  //       .S3upload(i + '', collectionID, 'thumbnails', newFile)
+  //       .then(() => {
+  //         this.uploadCount++;
+  //         console.log('Upload:');
+  //         console.log(this.uploadCount);
+  //         console.log(this.frameCount + 3);
+  //         this.uploadingProgress = this.uploadCount / (this.frameCount);
+  //         console.log(this.uploadingProgress);
+  //       });
+  //   }
+  // }
 }
