@@ -16,6 +16,7 @@ import { EmailDialogComponent } from './email-dialog/email-dialog.component';
 import { RegisterLinkDialogComponent } from './register-link-dialog/register-link-dialog.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import {MatDividerModule} from '@angular/material/divider';
 
 @NgModule({
   declarations: [ AccountComponent, PasswordDialogComponent, NameDialogComponent, EmailDialogComponent, RegisterLinkDialogComponent ],
@@ -32,7 +33,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatSnackBarModule,
     FormsModule,
     ReactiveFormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatDividerModule
   ]
 })
 export class AccountModule { }

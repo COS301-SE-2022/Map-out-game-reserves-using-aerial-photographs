@@ -34,6 +34,9 @@ import { RouterModule } from '@angular/router';
 import { ImageCatalogueModule } from './components/image-catalogue/image-catalogue.module';
 import { MatInputModule } from '@angular/material/input';
 import { ControllerService } from './api/controller/controller.service';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import {MatDividerModule} from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -68,7 +71,10 @@ import { ControllerService } from './api/controller/controller.service';
     MatProgressBarModule,
     MatButtonModule,
     NgChartsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatTooltipModule,
+    FlexLayoutModule,
+    MatDividerModule
   ],
   providers: [
     HttpClient,
