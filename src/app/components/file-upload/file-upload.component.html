@@ -1,73 +1,106 @@
-<div class="background" style="background-image: url('assets/mapwallpaper.jpg');">
+<div class="background">
   <!-- <div class="heading">
     <h1>File Upload</h1>
   </div> -->
   <aerial-mapping-side-navbar></aerial-mapping-side-navbar>
   <app-footer></app-footer>
+  <div id="outer" class="content">
+    <!-- <div class="content"> -->
+    <div class="title" style="color: rgb(110, 110, 110)">
+      <h3>CREATE A MAP</h3>
+      <mat-divider></mat-divider>
+    </div>
+    <table>
+      <tr>
+        <td>
+          <!-- <div class="drag-box" #imageForm> -->
+          <!-- <h3 class="uploadHeading">Drag files to upload</h3> -->
+          <div class="drop-zone">
+            <span for="file">Drag files to upload</span>
+            <br />
+            <input type="file" class="file" multiple (change)="onFileSelected($event)" #fileUpload />
 
-  <div class="content">
-    <div class="drag-box" #imageForm>
-      <h3 class="uploadHeading">Select a file</h3>
-      <button mat-flat-button color="primary" class="clearbtn" (click)="fileUpload.click()">
-        <h3 class="uploadHeading">Browse</h3>
-      </button>
-      <h3 class="uploadHeading">or</h3>
-      <h3 class="uploadHeading">Drag and drop below</h3>
-      <input type="file" class="file" multiple (change)="onFileSelected($event)" #fileUpload />
-      <!-- <input type="file" class="file" multiple (change)="onFileSelected($event)" #fileUpload> -->
-      <div class="file-upload" *ngIf="fileName">
-        <div class="successful-submit" *ngIf="submitPressed">
-          <h4 class="variable">File Uploaded Successfully</h4>
-        </div>
-        <h4 class="variable">{{ fileName || 'No file uploaded yet.' }}</h4>
-        <div id="metadata">
-          <div class="tooltip" style="width: 100%; margin-bottom:5%">
-            <select ng-model="selectedPark" class="parks tooltip" id = "parks">
-              <option value="" disabled selected>Select a park</option>
-              <option *ngFor="let park of parks" [value]="park.value">
-                {{park.viewValue}}
-              </option>
-            </select>
-            <span class="tooltiptext" style="left:15%">Select park</span>
+            <!--  -->
+            <!-- <div class="drop-zone">
+          <span for="files" class="drop-zone__prompt">Drop file here or click to upload</span>
+          <input type="file" name="myFile" class="file drop-zone__input" multiple (change)="onFileSelected($event)" #fileUpload/>
+        </div> -->
+            <!-- <input id="files" class="file" style="display:none;" type="file" multiple (change)="onFileSelected($event)" #fileUpload> -->
+          </div>
+          <div class="buttonCenter">
+            <button mat-flat-button color="primary" class="clearbtn" (click)="fileUpload.click()">
+              Choose file
+            </button>
+
           </div>
 
-          <select ng-model="selectedType" class="types tooltip" id = "fType">
-            <option value="" disabled selected>Select a flight type</option>
-            <option *ngFor="let type of flight" [value]="type.value">
-              {{type.viewValue}}
-            </option>
-          </select>
+        </td>
+        <td>
+          <div class = "no-file" *ngIf="!fileName">
+            <span>No file selected</span>
+            <mat-icon style="color:#cccccc"> insert_drive_file</mat-icon>
+            
+          </div>
+          <div class="file-upload" *ngIf="fileName">
+            <div class="successful-submit" *ngIf="submitPressed">
+              <h4 class="variable">File Uploaded Successfully</h4>
+            </div>
+            <h4 class="variable">{{ fileName || "No file uploaded yet." }}</h4>
+            <div class="metadata">
+              <select ng-model="selectedPark" class="parks tooltip" id="parks">
+                  <option value="" disabled selected>Select a park</option>
+                  <option *ngFor="let park of parks" [value]="park.value">
+                    {{ park.viewValue }}
+                  </option>
+                </select>
+                
+              <select ng-model="selectedType" class="types tooltip" id="fType">
+                <option value="" disabled selected>Select a flight type</option>
+                <option *ngFor="let type of flight" [value]="type.value">
+                  {{ type.viewValue }}
+                </option>
+              </select>
 
-          <input type="number" placeholder="Enter the height of the flight (metres)" id="height" min="1">
+              <input type="number" placeholder="Enter the height of the flight (metres)" id="height" min="1" />
 
-          <input id="i_width" type="number" placeholder="Enter the height of the flight (metres)" min="1">
-          <input id="i_height" type="number" placeholder="Enter the height of the flight (metres)" min="1">
-        </div>
+              <!-- TODO: Still need to make this look nice -->
+              <input id="i_width" type="number" placeholder="Enter the height of the flight (metres)" min="1" />
+              <input id="i_height" type="number" placeholder="Enter the height of the flight (metres)" min="1" />
+            </div>
 
-        <br />
-        <button class="clearbtn" mat-flat-button (click)="clearSelection()">
-          <h3 class="uploadHeading">Clear Selection</h3>
-        </button>
-        <br>
-        <div *ngIf="!submitPressed">
-          <button class="clearbtn" type="submit" mat-flat-button (click)="uploadFileLocal()">
-            <h3 class="uploadHeading">Submit</h3>
-          </button>
-          <br>
-        </div>
+            <!-- <br />
+            <button class="clearbtn" mat-flat-button (click)="clearSelection()">
+              <h3 class="uploadHeading">Clear Selection</h3>
+            </button> -->
+            <br />
+            <div *ngIf="!submitPressed">
+              <div class="buttonCenter">
+                <button class="clearbtn" type="submit" mat-flat-button (click)="uploadFileLocal()">
+                  Submit
+                </button>
+              </div>
+              
+              <br />
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+    <!-- <input type="file" class="file" multiple (change)="onFileSelected($event)" #fileUpload> -->
+
+
+    <div class="progress">
+      <div class="videoSplitting" *ngIf="splittingProgress != 0">
+        Splitting Video {{ splittingProgress }}%
       </div>
-
-      <div class="progress">
-        <div class="videoSplitting" *ngIf="splittingProgress != 0">
-          Splitting Video {{splittingProgress}}%
-        </div>
-        <div class="videoUploading" *ngIf="uploadingProgress != 0">
-          Uploading Video {{uploadingProgress}}%
-        </div>
+      <div class="videoUploading" *ngIf="uploadingProgress != 0">
+        Uploading Video {{ uploadingProgress }}%
       </div>
+    </div>
 
-    <div id = "test">
-    </div>
-    </div>
+    <div id="test"></div>
   </div>
+  <!-- </div> -->
+  <!-- </div> -->
 </div>

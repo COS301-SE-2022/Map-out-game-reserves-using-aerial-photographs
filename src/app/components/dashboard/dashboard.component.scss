@@ -215,16 +215,7 @@ aerial-mapping-bar-chart {
 }
 
 @media only screen and (max-width: 768px) {
-  .background {
-    background-repeat: repeat;
-    background-size: contain;
-    width: 100%;
-  }
-
   .content {
-    //left: 0px !important;
-    //border: 2px solid red;
-    //width: 98%;
     overflow-x: hidden;
     display: block;
     margin-left: 1%;
@@ -234,9 +225,6 @@ aerial-mapping-bar-chart {
   td {
     width: 100%;
     display: block;
-
-    //box-sizing: border-box;
-    //clear: both;
   }
 
   .tooltip, .cont {
