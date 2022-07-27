@@ -36,6 +36,17 @@ body {
   background-color: $primary-background;
 }
 
+@media only screen and (max-width: 768px) {
+  body {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .content {
+    height: 75vh !important;
+    top: 18vh !important;
+  }
+}
+
 .heading {
   display: flex;
   align-content: center;
