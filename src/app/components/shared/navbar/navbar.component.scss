@@ -1,76 +1,88 @@
-@import 'src/styles.scss';
+@import "src/styles.scss";
 
 .nav {
-    background-color: $primary-brown;
-    background-color: transparentize($primary-brown, .1);
-    border-radius: 15px;
-    height: 86%;
-    width: 12%;
-    min-height: 300px;
-    min-width: 190px;
-    margin-top: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
-    // border-radius: 0px 3px 0px 0px;
-    padding: 10px;
-    float: left;
-    // z-index: 9;
-    position: absolute;
-}
-
-ul {
-    padding: 0;
-    width: 100%;
-    list-style-type: none;
-    display: flex;
-    flex-direction: column;
+  background-color: $primary-dark;
+  // border-radius: 15px;
+  height: fit-content;
+  width: 100%;
+  // min-height: 300px;
+  min-width: 190px;
+  padding: 15px;
+  z-index: 9;
+  position: fixed;
 }
 
 .nav a {
-    text-decoration: none;
-    font-size: 12pt;
-    color: $primary-background;
-    transition: 0.3s;
+  text-decoration: none;
+  font-size: 14pt;
+  color: $primary-background;
+  transition: 0.3s;
 
-    position: absolute;
-    top: 10%;
+  position: absolute;
+  top: 10%;
 }
 
 .navText {
-  font-size: 12pt;
+  font-size: 14pt;
   color: $primary-background;
-  transition: 0.3s;
-}
-
-.navText:hover {
-  color: $primary-dark;
-}
-
-li {
-  width: 100%;
-  padding: 0%;
-  display: list-item;
-  position: relative;
-  text-align: left;
+  // transition: 0.3s;
 }
 
 mat-icon {
+  height: auto;
+  width: auto;
   margin-right: 5px;
   margin-left: 5px;
+  color: #b3b3b3;
+  display: flex;
+  align-items: center;
 }
 
-.menu-button {
-  position: relative;
-  text-align: left !important;
+.material-icons {
+  font-size: 28px;
+}
+
+.menu-button span {
+  // position: relative;
+  // text-align: left;
+  max-width: 0;
+  -webkit-transition: max-width 1s;
+  transition: max-width 1s;
+  display: inline-block;
+  vertical-align: top;
+  white-space: nowrap;
+  overflow: hidden;
+  color: $primary-grey;
+}
+
+.menu-button:hover span {
+  transition-delay: 200ms;
+  max-width: 12rem;
+  width: fit-content;
+}
+
+.active span {
+  max-width: 12rem;
+  width: fit-content;
 }
 
 .mat-button-base {
-  height: 11vh;
-  min-height: 50px;
+  height: 6vh;
+  // min-height: 50px;
 }
 
-// @media only screen and (max-width: 768px) {
-//   .nav {
-//     display: none;
-//   }
-// }
+@media only screen and (max-width: 768px) {
+  #nav {
+    display: block;
+  }
+}
+
+#title {
+  color: $primary-background;
+  font-size: 35px;
+  font-weight: 100;
+}
+
+#buttons {
+  float: right;
+}

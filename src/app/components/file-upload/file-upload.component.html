@@ -1,7 +1,7 @@
 <div class="background" style="background-image: url('assets/mapwallpaper.jpg');">
-  <div class="heading">
+  <!-- <div class="heading">
     <h1>File Upload</h1>
-  </div>
+  </div> -->
   <aerial-mapping-side-navbar></aerial-mapping-side-navbar>
 
   <div class="content">
@@ -54,10 +54,13 @@
       </div>
 
       <div class="progress">
-        <mat-progress-bar class="progress-bar" mode="determinate" [value]="uploadProgress" *ngIf="uploadProgress">
+        <mat-progress-bar class="progress-bar" mode="determinate" [value]="uploadingProgress" *ngIf="uploadingProgress">
         </mat-progress-bar>
-        <div class="videoSplitting" *ngIf="splittingProgress">
+        <div class="videoSplitting" *ngIf="splittingProgress != 0">
           Splitting Video {{splittingProgress}}%
+        </div>
+        <div class="videoUploading" *ngIf="uploadingProgress != 0">
+          Uploading Video {{uploadingProgress}}%
         </div>
       </div>
 
