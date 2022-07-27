@@ -3,15 +3,20 @@
 @import "~material-design-icons-iconfont/dist/material-design-icons.css";
 
 //Colours
+$primary-dark: #0b1c42;
+$primary-background: #efeff2;
+$primary-grey: #747c7c;
+$accent-colour: #c12223;
+$secondary-grey: #5c7484;
 $primary: #757575;
-$primary-background: #ffffff;
+// $primary-background: #ffffff;
 $primary-background-opaque: #ebebeb;
-$primary-dark: #12172a;
+// $primary-dark: #12172a;
 $primary-epi-dark: #001744;
 $primary-red: #ca1a20;
 $primary-super-dark: #222222;
-$primary-epi-white: #ebebeb;
-$primary-grey: #e8e8e8;
+// $primary-epi-white: #ebebeb;
+// $primary-grey: #e8e8e8;
 $primary-brown: #5f5f5f;
 $primary-brown-opaque: #5f5f5fa9;
 
@@ -26,11 +31,9 @@ html,
 body {
   height: 100%;
   width: 100%;
-}
-
-body {
   margin: 0;
-  font-family: "Roboto", sans-serif;
+  font-family: "Segoe UI", sans-serif;
+  background-color: $primary-background;
 }
 
 .heading {
@@ -84,7 +87,7 @@ body {
 .tooltip .tooltiptext {
   visibility: hidden;
   font-size: 14px;
-  width: 120px;
+  width: 160px;
   height: max-content;
   background-color: $primary-super-dark;
   color: #fff;
@@ -109,3 +112,37 @@ body {
   visibility: visible;
   opacity: 1;
 }
+
+.content {
+  background-color: white;
+  // background-color: transparentize($primary-background-opaque, 1);
+  margin-top: 2vh;
+  margin-left: 2vw;
+  margin-right: 2vw;
+  // border-radius: 15px;
+  height: 82vh;
+  width: 96vw;
+  vertical-align: bottom;
+  position: absolute;
+  top: 12vh;
+  overflow-x: none;
+  overflow-y: auto;
+  display: inline-block;
+  padding: 1%;
+  //option 1
+//   box-shadow: 5px 5px 8px 0px rgba(0,0,0,0.42);
+// -webkit-box-shadow: 5px 5px 8px 0px rgba(0,0,0,0.42);
+// -moz-box-shadow: 5px 5px 8px 0px rgba(0,0,0,0.42);
+
+  //option 2
+  box-shadow: 4px 4px 10px -1px rgba(0,0,0,0.7);
+-webkit-box-shadow: 4px 4px 10px -1px rgba(0,0,0,0.7);
+-moz-box-shadow: 4px 4px 10px -1px rgba(0,0,0,0.7);
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// .content {
+//   background-color: transparentize($primary-background-opaque, 0.1);
+//   width: 86%;
+//   height: 86%;
+// }

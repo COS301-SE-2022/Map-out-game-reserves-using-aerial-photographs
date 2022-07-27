@@ -1,17 +1,17 @@
 @import 'src/styles.scss';
 
-.background {
-  background-size: 100vw;
-  background-repeat: repeat-y;
-  background-color: $primary-dark;
-  height: 100%;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  //border: 1px solid red;
-  position: absolute;
-}
+// .background {
+//   background-size: 100vw;
+//   background-repeat: repeat-y;
+//   background-color: $primary-dark;
+//   height: 100%;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   //border: 1px solid red;
+//   position: absolute;
+// }
 
 h1 {
   color: white;
@@ -36,26 +36,6 @@ h1 {
 //     vertical-align: top;
 //     float: left;
 // }
-
-.content {
-  // border-radius: 3px;
-  //background: $primary-background-opaque;
-  background-color: transparentize($primary-background-opaque, 1);
-  //backdrop-filter: blur(1px);
-  //padding: 1%;
-  margin-top: 10px;
-  margin-left: 10px;
-  margin-right: 0.5%;
-  border-radius: 15px;
-  //width: 87%;
-  height: 85vh;
-  vertical-align: top;
-  position: absolute;
-  left: 200px;
-  // float: right;
-  overflow-x: none;
-  overflow-y: auto;
-}
 
 table {
   width: 100%;
@@ -85,7 +65,7 @@ td {
 
 .messageTitle {
   font-family: 'Segoe UI', sans-serif;
-  font-weight: 700;
+  // font-weight: 700;
   font-style: normal;
   font-size: 25px;
   color: $primary-dark;
@@ -95,7 +75,7 @@ td {
 
 .completeTitle {
   font-family: 'Segoe UI', sans-serif;
-  font-weight: 700;
+  // font-weight: 700;
   font-style: normal;
   font-size: 25px;
   color: $primary-dark;
@@ -105,7 +85,7 @@ td {
 
 .progressTitle {
   font-family: 'Segoe UI', sans-serif;
-  font-weight: 700;
+  // font-weight: 700;
   font-style: normal;
   font-size: 25px;
   color: $primary-dark;
@@ -304,4 +284,12 @@ aerial-mapping-bar-chart {
   .messages {
     margin-bottom: 4%;
   }
+}
+
+.center {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
 }
