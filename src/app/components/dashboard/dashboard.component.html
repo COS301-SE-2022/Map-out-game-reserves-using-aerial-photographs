@@ -3,7 +3,11 @@
   <!-- style="background-image: url('assets/mapwallpaper.jpg');" -->
   <aerial-mapping-side-navbar></aerial-mapping-side-navbar>
   <app-footer></app-footer>
-  <div id="outer" class="content">
+  <div id="outer" class="content2">
+    <!-- <div class="title">
+      <h3>DASHBOARD</h3>
+      <mat-divider></mat-divider>
+    </div> -->
     <table>
       <tr>
         <td>
@@ -11,72 +15,130 @@
             <div class="total">
               <div class="num">
                 <fa-icon class="camera" [icon]="mapIcon"></fa-icon>
-                {{total}}
+                {{ total }}
               </div>
-              <div class="label">
-                New Maps
-              </div>
+              <div class="label">New Maps</div>
             </div>
             <div class="barChart">
-              <aerial-mapping-bar-chart [List]='maps'></aerial-mapping-bar-chart>
+              <aerial-mapping-bar-chart
+                [List]="maps"
+              ></aerial-mapping-bar-chart>
             </div>
           </div>
         </td>
         <td>
           <div class="messages cont tooltip">
             <div class="messageTitle">
-              Messages
-              <hr>
+              MESSAGES
+              <mat-divider></mat-divider>
+              <!-- <hr> -->
             </div>
             <div class="scrollableMessage">
               <mat-list>
-                <mat-list-item matLine class="messageItem" *ngFor="let message of messages">
-                  <fa-icon class="icon" matListAvatar [class]="message.color" [icon]="message.message_status"></fa-icon>
-                  <span class="message">{{message.message_description}}</span>
-                  <span class="messageDate">Map ID: {{message.collectionID}}</span>
+                <mat-list-item
+                  matLine
+                  class="messageItem"
+                  *ngFor="let message of messages"
+                >
+                  <fa-icon
+                    class="icon"
+                    matListAvatar
+                    [class]="message.color"
+                    [icon]="message.message_status"
+                  ></fa-icon>
+                  <span class="message">{{ message.message_description }}</span>
+                  <span class="messageDate"
+                    >Map ID: {{ message.collectionID }}</span
+                  >
                 </mat-list-item>
               </mat-list>
             </div>
-            <span class="tooltiptext" style="width: max-content; padding-left:5px; padding-right:5px; top: 101%;">System
-              status</span>
+            <span
+              class="tooltiptext"
+              style="
+                width: max-content;
+                padding-left: 5px;
+                padding-right: 5px;
+                top: 101%;
+              "
+              >System status</span
+            >
           </div>
-          <div class="gap"></div>
+          <!-- <div class="gap"></div> -->
           <div class="completed cont tooltip">
             <div class="completeTitle">
-              Completed
-              <hr>
+              COMPLETED
+              <!-- <hr> -->
+              <mat-divider></mat-divider>
             </div>
             <div class="scrollableComplete">
               <mat-list>
-                <mat-list-item matLine class="completeItem" *ngFor="let collection of completed">
-                  <fa-icon matListAvatar class="icon brown-icon" [icon]="complete"></fa-icon>
-                  <span class="completeName">Upload {{collection.collectionID}}</span>
+                <mat-list-item
+                  matLine
+                  class="completeItem"
+                  *ngFor="let collection of completed"
+                >
+                  <fa-icon
+                    matListAvatar
+                    class="icon brown-icon"
+                    [icon]="complete"
+                  ></fa-icon>
+                  <span class="completeName"
+                    >Upload {{ collection.collectionID }}</span
+                  >
                   <!-- <span class="completeDate">{{m.date}}</span> -->
                 </mat-list-item>
               </mat-list>
             </div>
-            <span class="tooltiptext"
-              style="width: max-content; padding-left:5px; padding-right:5px; top: 101%;">Processed videos & completed
-              maps</span>
+            <span
+              class="tooltiptext"
+              style="
+                width: max-content;
+                padding-left: 5px;
+                padding-right: 5px;
+                top: 101%;
+              "
+              >Processed videos & completed maps</span
+            >
           </div>
         </td>
         <td>
           <div class="progress cont tooltip">
             <div class="progressTitle">
-              In Progress
-              <hr>
+              IN PROGRESS
+              <!-- <hr> -->
+              <mat-divider></mat-divider>
             </div>
             <!-- C&Z changed style -->
-            <div class="scrollableProgress" style="height:100%;">
+            <div class="scrollableProgress">
               <mat-list>
-                <mat-list-item matLine class="progressItem" *ngFor="let collection of processing">
-                  <fa-icon matListAvatar class="icon brown-icon" [icon]="progress"></fa-icon>
-                  <span class="progressName">Upload {{collection.collectionID}}, to be completed...</span>
+                <mat-list-item
+                  matLine
+                  class="progressItem"
+                  *ngFor="let collection of processing"
+                >
+                  <fa-icon
+                    matListAvatar
+                    class="icon brown-icon"
+                    [icon]="progress"
+                  ></fa-icon>
+                  <span class="progressName"
+                    >Upload {{ collection.collectionID }}, to be
+                    completed...</span
+                  >
                 </mat-list-item>
               </mat-list>
             </div>
-            <span class="tooltiptext"
-              style="width: max-content; padding-left:5px; padding-right:5px; top: 101%;">Current jobs</span>
+            <span
+              class="tooltiptext"
+              style="
+                width: max-content;
+                padding-left: 5px;
+                padding-right: 5px;
+                top: 101%;
+              "
+              >Current jobs</span
+            >
           </div>
         </td>
       </tr>

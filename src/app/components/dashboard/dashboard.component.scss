@@ -1,18 +1,5 @@
 @import 'src/styles.scss';
 
-// .background {
-//   background-size: 100vw;
-//   background-repeat: repeat-y;
-//   background-color: $primary-dark;
-//   height: 100%;
-//   top: 0;
-//   left: 0;
-//   width: 100%;
-//   height: 100%;
-//   //border: 1px solid red;
-//   position: absolute;
-// }
-
 h1 {
   color: white;
   font-family: 'Segoe UI', sans-serif;
@@ -26,16 +13,19 @@ h1 {
   margin-bottom: auto;
 }
 
-// .content {
-//     border-radius: 3px;
-//     background: $primary-background-opaque;
-//     padding: 1%;
-//     margin-left: 0.5%;
-//     width: 87%;
-//     height: 89%;
-//     vertical-align: top;
-//     float: left;
-// }
+.content2 {
+  margin-top: 2vh;
+  margin-left: 2vw;
+  margin-right: 2vw;
+  height: 82vh;
+  width: 96vw;
+  vertical-align: bottom;
+  position: absolute;
+  top: 11vh;
+  overflow-x: none;
+  overflow-y: none;
+  display: inline-block;
+}
 
 table {
   width: 100%;
@@ -50,13 +40,14 @@ td {
 }
 
 .cont {
-  background: $primary-background;
-  width: 90%;
-  border: 1px solid $primary-dark;
+  background: white;
+  width: 98%;
   margin: 2%;
   padding: 5px;
-  border-radius: 3px;
-  border-color: $primary-brown-opaque;
+  box-shadow: 4px 4px 10px -1px rgba(0,0,0,0.7);
+-webkit-box-shadow: 4px 4px 10px -1px rgba(0,0,0,0.7);
+-moz-box-shadow: 4px 4px 10px -1px rgba(0,0,0,0.7);
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .cont:hover {
@@ -64,37 +55,32 @@ td {
 }
 
 .messageTitle {
-  font-family: 'Segoe UI', sans-serif;
   // font-weight: 700;
   font-style: normal;
-  font-size: 25px;
+  font-size: 22px;
   color: $primary-dark;
-  width: 24%;
   margin: 2%;
+  margin-bottom: 3%;
 }
 
 .completeTitle {
-  font-family: 'Segoe UI', sans-serif;
   // font-weight: 700;
   font-style: normal;
-  font-size: 25px;
+  font-size: 22px;
   color: $primary-dark;
-  width: 27%;
   margin: 2%;
 }
 
 .progressTitle {
-  font-family: 'Segoe UI', sans-serif;
   // font-weight: 700;
   font-style: normal;
-  font-size: 25px;
+  font-size: 22px;
   color: $primary-dark;
-  width: 30%;
   margin: 2%;
 }
 
 .flights {
-  height: 95%;
+  height: 96%;
 }
 
 .videoImage {
@@ -102,16 +88,12 @@ td {
   text-align: center;
 }
 
-.gap {
-  height: 3%;
-}
-
 .completed {
-  height: 52%;
+  height: 53.5%;
 }
 
 .progress {
-  height: 95%;
+  height: 96%;
 }
 
 .camera {
@@ -159,36 +141,18 @@ aerial-mapping-bar-chart {
 }
 
 .scrollableComplete {
-  height: 36vh;
+  height: 35vh;
   overflow-y: auto;
 }
 
 .scrollableProgress {
-  height: 73vh;
+  height: 70vh;
   overflow-y: auto;
 }
 
-::-webkit-scrollbar {
-  width: 20px;
-}
-
-::-webkit-scrollbar-track {
-  background-color: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: #d6dee1;
-  border-radius: 20px;
-  border: 6px solid transparent;
-  background-clip: content-box;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background-color: #a8bbbf;
-}
 
 .messages {
-  height: 37%;
+  height: 39%;
 }
 
 .messageItem {
@@ -282,7 +246,7 @@ aerial-mapping-bar-chart {
   }
 
   .messages {
-    margin-bottom: 4%;
+    margin-bottom: 3%;
   }
 }
 
