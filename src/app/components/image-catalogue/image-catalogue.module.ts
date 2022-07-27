@@ -9,7 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
+import { FooterModule } from '../shared/footer/footer.module';
 
 
 @NgModule({
@@ -24,6 +24,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatIconModule,
     MatInputModule,
     MatSelectModule,
+    FooterModule,
     MatSnackBarModule
   ]
 })
