@@ -19,6 +19,9 @@ export type __SubscriptionContainer = {
   onCreateImageCollection: OnCreateImageCollectionSubscription;
   onUpdateImageCollection: OnUpdateImageCollectionSubscription;
   onDeleteImageCollection: OnDeleteImageCollectionSubscription;
+  onCreateMap: OnCreateMapSubscription;
+  onUpdateMap: OnUpdateMapSubscription;
+  onDeleteMap: OnDeleteMapSubscription;
   onCreateMessage: OnCreateMessageSubscription;
   onUpdateMessage: OnUpdateMessageSubscription;
   onDeleteMessage: OnDeleteMessageSubscription;
@@ -31,6 +34,9 @@ export type __SubscriptionContainer = {
   onCreatePendingInvites: OnCreatePendingInvitesSubscription;
   onUpdatePendingInvites: OnUpdatePendingInvitesSubscription;
   onDeletePendingInvites: OnDeletePendingInvitesSubscription;
+  onCreateConnection: OnCreateConnectionSubscription;
+  onUpdateConnection: OnUpdateConnectionSubscription;
+  onDeleteConnection: OnDeleteConnectionSubscription;
 };
 
 export type User = {
@@ -254,6 +260,50 @@ export type DeleteImageCollectionInput = {
   _version?: number | null;
 };
 
+export type CreateMapInput = {
+  mapID: string;
+  bucket_name?: string | null;
+  file_name?: string | null;
+  collectionID?: string | null;
+  _version?: number | null;
+};
+
+export type ModelMapConditionInput = {
+  bucket_name?: ModelStringInput | null;
+  file_name?: ModelStringInput | null;
+  collectionID?: ModelStringInput | null;
+  and?: Array<ModelMapConditionInput | null> | null;
+  or?: Array<ModelMapConditionInput | null> | null;
+  not?: ModelMapConditionInput | null;
+};
+
+export type Map = {
+  __typename: "Map";
+  mapID: string;
+  bucket_name?: string | null;
+  file_name?: string | null;
+  collectionID?: string | null;
+  Collection?: ImageCollection | null;
+  createdAt: string;
+  updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
+};
+
+export type UpdateMapInput = {
+  mapID: string;
+  bucket_name?: string | null;
+  file_name?: string | null;
+  collectionID?: string | null;
+  _version?: number | null;
+};
+
+export type DeleteMapInput = {
+  mapID: string;
+  _version?: number | null;
+};
+
 export type CreateMessageInput = {
   messageID: string;
   message_status?: string | null;
@@ -428,6 +478,41 @@ export type DeletePendingInvitesInput = {
   _version?: number | null;
 };
 
+export type CreateConnectionInput = {
+  connectionID: string;
+  topic: string;
+  _version?: number | null;
+};
+
+export type ModelConnectionConditionInput = {
+  topic?: ModelStringInput | null;
+  and?: Array<ModelConnectionConditionInput | null> | null;
+  or?: Array<ModelConnectionConditionInput | null> | null;
+  not?: ModelConnectionConditionInput | null;
+};
+
+export type Connection = {
+  __typename: "Connection";
+  connectionID: string;
+  topic: string;
+  createdAt: string;
+  updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
+};
+
+export type UpdateConnectionInput = {
+  connectionID: string;
+  topic?: string | null;
+  _version?: number | null;
+};
+
+export type DeleteConnectionInput = {
+  connectionID: string;
+  _version?: number | null;
+};
+
 export type ModelUserFilterInput = {
   userID?: ModelStringInput | null;
   user_email?: ModelStringInput | null;
@@ -484,6 +569,23 @@ export type ModelImageCollectionFilterInput = {
 export type ModelImageCollectionConnection = {
   __typename: "ModelImageCollectionConnection";
   items: Array<ImageCollection | null>;
+  nextToken?: string | null;
+  startedAt?: number | null;
+};
+
+export type ModelMapFilterInput = {
+  mapID?: ModelStringInput | null;
+  bucket_name?: ModelStringInput | null;
+  file_name?: ModelStringInput | null;
+  collectionID?: ModelStringInput | null;
+  and?: Array<ModelMapFilterInput | null> | null;
+  or?: Array<ModelMapFilterInput | null> | null;
+  not?: ModelMapFilterInput | null;
+};
+
+export type ModelMapConnection = {
+  __typename: "ModelMapConnection";
+  items: Array<Map | null>;
   nextToken?: string | null;
   startedAt?: number | null;
 };
@@ -552,6 +654,21 @@ export type ModelPendingInvitesFilterInput = {
 export type ModelPendingInvitesConnection = {
   __typename: "ModelPendingInvitesConnection";
   items: Array<PendingInvites | null>;
+  nextToken?: string | null;
+  startedAt?: number | null;
+};
+
+export type ModelConnectionFilterInput = {
+  connectionID?: ModelStringInput | null;
+  topic?: ModelStringInput | null;
+  and?: Array<ModelConnectionFilterInput | null> | null;
+  or?: Array<ModelConnectionFilterInput | null> | null;
+  not?: ModelConnectionFilterInput | null;
+};
+
+export type ModelConnectionConnection = {
+  __typename: "ModelConnectionConnection";
+  items: Array<Connection | null>;
   nextToken?: string | null;
   startedAt?: number | null;
 };
@@ -815,6 +932,84 @@ export type DeleteImageCollectionMutation = {
   _lastChangedAt: number;
 };
 
+export type CreateMapMutation = {
+  __typename: "Map";
+  mapID: string;
+  bucket_name?: string | null;
+  file_name?: string | null;
+  collectionID?: string | null;
+  Collection?: {
+    __typename: "ImageCollection";
+    collectionID: string;
+    parkID?: string | null;
+    upload_date_time?: string | null;
+    completed?: boolean | null;
+    flightID?: string | null;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
+};
+
+export type UpdateMapMutation = {
+  __typename: "Map";
+  mapID: string;
+  bucket_name?: string | null;
+  file_name?: string | null;
+  collectionID?: string | null;
+  Collection?: {
+    __typename: "ImageCollection";
+    collectionID: string;
+    parkID?: string | null;
+    upload_date_time?: string | null;
+    completed?: boolean | null;
+    flightID?: string | null;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
+};
+
+export type DeleteMapMutation = {
+  __typename: "Map";
+  mapID: string;
+  bucket_name?: string | null;
+  file_name?: string | null;
+  collectionID?: string | null;
+  Collection?: {
+    __typename: "ImageCollection";
+    collectionID: string;
+    parkID?: string | null;
+    upload_date_time?: string | null;
+    completed?: boolean | null;
+    flightID?: string | null;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
+};
+
 export type CreateMessageMutation = {
   __typename: "Message";
   messageID: string;
@@ -1048,6 +1243,39 @@ export type DeletePendingInvitesMutation = {
   inviteID: string;
   email: string;
   role: string;
+  createdAt: string;
+  updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
+};
+
+export type CreateConnectionMutation = {
+  __typename: "Connection";
+  connectionID: string;
+  topic: string;
+  createdAt: string;
+  updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
+};
+
+export type UpdateConnectionMutation = {
+  __typename: "Connection";
+  connectionID: string;
+  topic: string;
+  createdAt: string;
+  updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
+};
+
+export type DeleteConnectionMutation = {
+  __typename: "Connection";
+  connectionID: string;
+  topic: string;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -1397,6 +1625,68 @@ export type SyncImageCollectionsQuery = {
   startedAt?: number | null;
 };
 
+export type GetMapQuery = {
+  __typename: "Map";
+  mapID: string;
+  bucket_name?: string | null;
+  file_name?: string | null;
+  collectionID?: string | null;
+  Collection?: {
+    __typename: "ImageCollection";
+    collectionID: string;
+    parkID?: string | null;
+    upload_date_time?: string | null;
+    completed?: boolean | null;
+    flightID?: string | null;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
+};
+
+export type ListMapsQuery = {
+  __typename: "ModelMapConnection";
+  items: Array<{
+    __typename: "Map";
+    mapID: string;
+    bucket_name?: string | null;
+    file_name?: string | null;
+    collectionID?: string | null;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
+  } | null>;
+  nextToken?: string | null;
+  startedAt?: number | null;
+};
+
+export type SyncMapsQuery = {
+  __typename: "ModelMapConnection";
+  items: Array<{
+    __typename: "Map";
+    mapID: string;
+    bucket_name?: string | null;
+    file_name?: string | null;
+    collectionID?: string | null;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
+  } | null>;
+  nextToken?: string | null;
+  startedAt?: number | null;
+};
+
 export type GetMessageQuery = {
   __typename: "Message";
   messageID: string;
@@ -1621,6 +1911,49 @@ export type SyncPendingInvitesQuery = {
   startedAt?: number | null;
 };
 
+export type GetConnectionQuery = {
+  __typename: "Connection";
+  connectionID: string;
+  topic: string;
+  createdAt: string;
+  updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
+};
+
+export type ListConnectionsQuery = {
+  __typename: "ModelConnectionConnection";
+  items: Array<{
+    __typename: "Connection";
+    connectionID: string;
+    topic: string;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
+  } | null>;
+  nextToken?: string | null;
+  startedAt?: number | null;
+};
+
+export type SyncConnectionsQuery = {
+  __typename: "ModelConnectionConnection";
+  items: Array<{
+    __typename: "Connection";
+    connectionID: string;
+    topic: string;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
+  } | null>;
+  nextToken?: string | null;
+  startedAt?: number | null;
+};
+
 export type UserByEmailQuery = {
   __typename: "ModelUserConnection";
   items: Array<{
@@ -1632,6 +1965,24 @@ export type UserByEmailQuery = {
     user_name?: string | null;
     user_role?: string | null;
     user_approved?: boolean | null;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
+  } | null>;
+  nextToken?: string | null;
+  startedAt?: number | null;
+};
+
+export type GetMapByFileNameQuery = {
+  __typename: "ModelMapConnection";
+  items: Array<{
+    __typename: "Map";
+    mapID: string;
+    bucket_name?: string | null;
+    file_name?: string | null;
+    collectionID?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1668,6 +2019,22 @@ export type GetPendingInvitesByEmailQuery = {
     inviteID: string;
     email: string;
     role: string;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
+  } | null>;
+  nextToken?: string | null;
+  startedAt?: number | null;
+};
+
+export type GetConnectionsByTopicQuery = {
+  __typename: "ModelConnectionConnection";
+  items: Array<{
+    __typename: "Connection";
+    connectionID: string;
+    topic: string;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1866,6 +2233,84 @@ export type OnDeleteImageCollectionSubscription = {
     flight_height?: number | null;
     flight_type?: string | null;
     pilotID?: string | null;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
+};
+
+export type OnCreateMapSubscription = {
+  __typename: "Map";
+  mapID: string;
+  bucket_name?: string | null;
+  file_name?: string | null;
+  collectionID?: string | null;
+  Collection?: {
+    __typename: "ImageCollection";
+    collectionID: string;
+    parkID?: string | null;
+    upload_date_time?: string | null;
+    completed?: boolean | null;
+    flightID?: string | null;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
+};
+
+export type OnUpdateMapSubscription = {
+  __typename: "Map";
+  mapID: string;
+  bucket_name?: string | null;
+  file_name?: string | null;
+  collectionID?: string | null;
+  Collection?: {
+    __typename: "ImageCollection";
+    collectionID: string;
+    parkID?: string | null;
+    upload_date_time?: string | null;
+    completed?: boolean | null;
+    flightID?: string | null;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
+};
+
+export type OnDeleteMapSubscription = {
+  __typename: "Map";
+  mapID: string;
+  bucket_name?: string | null;
+  file_name?: string | null;
+  collectionID?: string | null;
+  Collection?: {
+    __typename: "ImageCollection";
+    collectionID: string;
+    parkID?: string | null;
+    upload_date_time?: string | null;
+    completed?: boolean | null;
+    flightID?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -2112,6 +2557,39 @@ export type OnDeletePendingInvitesSubscription = {
   inviteID: string;
   email: string;
   role: string;
+  createdAt: string;
+  updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
+};
+
+export type OnCreateConnectionSubscription = {
+  __typename: "Connection";
+  connectionID: string;
+  topic: string;
+  createdAt: string;
+  updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
+};
+
+export type OnUpdateConnectionSubscription = {
+  __typename: "Connection";
+  connectionID: string;
+  topic: string;
+  createdAt: string;
+  updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
+};
+
+export type OnDeleteConnectionSubscription = {
+  __typename: "Connection";
+  connectionID: string;
+  topic: string;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -2633,6 +3111,132 @@ export class APIService {
     )) as any;
     return <DeleteImageCollectionMutation>response.data.deleteImageCollection;
   }
+  async CreateMap(
+    input: CreateMapInput,
+    condition?: ModelMapConditionInput
+  ): Promise<CreateMapMutation> {
+    const statement = `mutation CreateMap($input: CreateMapInput!, $condition: ModelMapConditionInput) {
+        createMap(input: $input, condition: $condition) {
+          __typename
+          mapID
+          bucket_name
+          file_name
+          collectionID
+          Collection {
+            __typename
+            collectionID
+            parkID
+            upload_date_time
+            completed
+            flightID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <CreateMapMutation>response.data.createMap;
+  }
+  async UpdateMap(
+    input: UpdateMapInput,
+    condition?: ModelMapConditionInput
+  ): Promise<UpdateMapMutation> {
+    const statement = `mutation UpdateMap($input: UpdateMapInput!, $condition: ModelMapConditionInput) {
+        updateMap(input: $input, condition: $condition) {
+          __typename
+          mapID
+          bucket_name
+          file_name
+          collectionID
+          Collection {
+            __typename
+            collectionID
+            parkID
+            upload_date_time
+            completed
+            flightID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <UpdateMapMutation>response.data.updateMap;
+  }
+  async DeleteMap(
+    input: DeleteMapInput,
+    condition?: ModelMapConditionInput
+  ): Promise<DeleteMapMutation> {
+    const statement = `mutation DeleteMap($input: DeleteMapInput!, $condition: ModelMapConditionInput) {
+        deleteMap(input: $input, condition: $condition) {
+          __typename
+          mapID
+          bucket_name
+          file_name
+          collectionID
+          Collection {
+            __typename
+            collectionID
+            parkID
+            upload_date_time
+            completed
+            flightID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <DeleteMapMutation>response.data.deleteMap;
+  }
   async CreateMessage(
     input: CreateMessageInput,
     condition?: ModelMessageConditionInput
@@ -3064,6 +3668,87 @@ export class APIService {
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <DeletePendingInvitesMutation>response.data.deletePendingInvites;
+  }
+  async CreateConnection(
+    input: CreateConnectionInput,
+    condition?: ModelConnectionConditionInput
+  ): Promise<CreateConnectionMutation> {
+    const statement = `mutation CreateConnection($input: CreateConnectionInput!, $condition: ModelConnectionConditionInput) {
+        createConnection(input: $input, condition: $condition) {
+          __typename
+          connectionID
+          topic
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <CreateConnectionMutation>response.data.createConnection;
+  }
+  async UpdateConnection(
+    input: UpdateConnectionInput,
+    condition?: ModelConnectionConditionInput
+  ): Promise<UpdateConnectionMutation> {
+    const statement = `mutation UpdateConnection($input: UpdateConnectionInput!, $condition: ModelConnectionConditionInput) {
+        updateConnection(input: $input, condition: $condition) {
+          __typename
+          connectionID
+          topic
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <UpdateConnectionMutation>response.data.updateConnection;
+  }
+  async DeleteConnection(
+    input: DeleteConnectionInput,
+    condition?: ModelConnectionConditionInput
+  ): Promise<DeleteConnectionMutation> {
+    const statement = `mutation DeleteConnection($input: DeleteConnectionInput!, $condition: ModelConnectionConditionInput) {
+        deleteConnection(input: $input, condition: $condition) {
+          __typename
+          connectionID
+          topic
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <DeleteConnectionMutation>response.data.deleteConnection;
   }
   async Test(): Promise<string | null> {
     const statement = `query Test {
@@ -3700,6 +4385,132 @@ export class APIService {
     )) as any;
     return <SyncImageCollectionsQuery>response.data.syncImageCollections;
   }
+  async GetMap(mapID: string): Promise<GetMapQuery> {
+    const statement = `query GetMap($mapID: String!) {
+        getMap(mapID: $mapID) {
+          __typename
+          mapID
+          bucket_name
+          file_name
+          collectionID
+          Collection {
+            __typename
+            collectionID
+            parkID
+            upload_date_time
+            completed
+            flightID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      mapID
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <GetMapQuery>response.data.getMap;
+  }
+  async ListMaps(
+    mapID?: string,
+    filter?: ModelMapFilterInput,
+    limit?: number,
+    nextToken?: string,
+    sortDirection?: ModelSortDirection
+  ): Promise<ListMapsQuery> {
+    const statement = `query ListMaps($mapID: String, $filter: ModelMapFilterInput, $limit: Int, $nextToken: String, $sortDirection: ModelSortDirection) {
+        listMaps(mapID: $mapID, filter: $filter, limit: $limit, nextToken: $nextToken, sortDirection: $sortDirection) {
+          __typename
+          items {
+            __typename
+            mapID
+            bucket_name
+            file_name
+            collectionID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          nextToken
+          startedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (mapID) {
+      gqlAPIServiceArguments.mapID = mapID;
+    }
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    if (sortDirection) {
+      gqlAPIServiceArguments.sortDirection = sortDirection;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <ListMapsQuery>response.data.listMaps;
+  }
+  async SyncMaps(
+    filter?: ModelMapFilterInput,
+    limit?: number,
+    nextToken?: string,
+    lastSync?: number
+  ): Promise<SyncMapsQuery> {
+    const statement = `query SyncMaps($filter: ModelMapFilterInput, $limit: Int, $nextToken: String, $lastSync: AWSTimestamp) {
+        syncMaps(filter: $filter, limit: $limit, nextToken: $nextToken, lastSync: $lastSync) {
+          __typename
+          items {
+            __typename
+            mapID
+            bucket_name
+            file_name
+            collectionID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          nextToken
+          startedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    if (lastSync) {
+      gqlAPIServiceArguments.lastSync = lastSync;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <SyncMapsQuery>response.data.syncMaps;
+  }
   async GetMessage(messageID: string): Promise<GetMessageQuery> {
     const statement = `query GetMessage($messageID: String!) {
         getMessage(messageID: $messageID) {
@@ -4180,6 +4991,113 @@ export class APIService {
     )) as any;
     return <SyncPendingInvitesQuery>response.data.syncPendingInvites;
   }
+  async GetConnection(connectionID: string): Promise<GetConnectionQuery> {
+    const statement = `query GetConnection($connectionID: String!) {
+        getConnection(connectionID: $connectionID) {
+          __typename
+          connectionID
+          topic
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      connectionID
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <GetConnectionQuery>response.data.getConnection;
+  }
+  async ListConnections(
+    connectionID?: string,
+    filter?: ModelConnectionFilterInput,
+    limit?: number,
+    nextToken?: string,
+    sortDirection?: ModelSortDirection
+  ): Promise<ListConnectionsQuery> {
+    const statement = `query ListConnections($connectionID: String, $filter: ModelConnectionFilterInput, $limit: Int, $nextToken: String, $sortDirection: ModelSortDirection) {
+        listConnections(connectionID: $connectionID, filter: $filter, limit: $limit, nextToken: $nextToken, sortDirection: $sortDirection) {
+          __typename
+          items {
+            __typename
+            connectionID
+            topic
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          nextToken
+          startedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (connectionID) {
+      gqlAPIServiceArguments.connectionID = connectionID;
+    }
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    if (sortDirection) {
+      gqlAPIServiceArguments.sortDirection = sortDirection;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <ListConnectionsQuery>response.data.listConnections;
+  }
+  async SyncConnections(
+    filter?: ModelConnectionFilterInput,
+    limit?: number,
+    nextToken?: string,
+    lastSync?: number
+  ): Promise<SyncConnectionsQuery> {
+    const statement = `query SyncConnections($filter: ModelConnectionFilterInput, $limit: Int, $nextToken: String, $lastSync: AWSTimestamp) {
+        syncConnections(filter: $filter, limit: $limit, nextToken: $nextToken, lastSync: $lastSync) {
+          __typename
+          items {
+            __typename
+            connectionID
+            topic
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          nextToken
+          startedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    if (lastSync) {
+      gqlAPIServiceArguments.lastSync = lastSync;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <SyncConnectionsQuery>response.data.syncConnections;
+  }
   async UserByEmail(
     user_email: string,
     sortDirection?: ModelSortDirection,
@@ -4228,6 +5146,52 @@ export class APIService {
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <UserByEmailQuery>response.data.userByEmail;
+  }
+  async GetMapByFileName(
+    file_name: string,
+    sortDirection?: ModelSortDirection,
+    filter?: ModelMapFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<GetMapByFileNameQuery> {
+    const statement = `query GetMapByFileName($file_name: String!, $sortDirection: ModelSortDirection, $filter: ModelMapFilterInput, $limit: Int, $nextToken: String) {
+        getMapByFileName(file_name: $file_name, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
+          __typename
+          items {
+            __typename
+            mapID
+            bucket_name
+            file_name
+            collectionID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          nextToken
+          startedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      file_name
+    };
+    if (sortDirection) {
+      gqlAPIServiceArguments.sortDirection = sortDirection;
+    }
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <GetMapByFileNameQuery>response.data.getMapByFileName;
   }
   async ImagesByCollectionId(
     collectionID: string,
@@ -4322,6 +5286,50 @@ export class APIService {
     return <GetPendingInvitesByEmailQuery>(
       response.data.getPendingInvitesByEmail
     );
+  }
+  async GetConnectionsByTopic(
+    topic: string,
+    sortDirection?: ModelSortDirection,
+    filter?: ModelConnectionFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<GetConnectionsByTopicQuery> {
+    const statement = `query GetConnectionsByTopic($topic: String!, $sortDirection: ModelSortDirection, $filter: ModelConnectionFilterInput, $limit: Int, $nextToken: String) {
+        getConnectionsByTopic(topic: $topic, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
+          __typename
+          items {
+            __typename
+            connectionID
+            topic
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          nextToken
+          startedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      topic
+    };
+    if (sortDirection) {
+      gqlAPIServiceArguments.sortDirection = sortDirection;
+    }
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <GetConnectionsByTopicQuery>response.data.getConnectionsByTopic;
   }
   OnCreateUserListener: Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateUser">>
@@ -4624,6 +5632,114 @@ export class APIService {
     SubscriptionResponse<
       Pick<__SubscriptionContainer, "onDeleteImageCollection">
     >
+  >;
+
+  OnCreateMapListener: Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateMap">>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnCreateMap {
+        onCreateMap {
+          __typename
+          mapID
+          bucket_name
+          file_name
+          collectionID
+          Collection {
+            __typename
+            collectionID
+            parkID
+            upload_date_time
+            completed
+            flightID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateMap">>
+  >;
+
+  OnUpdateMapListener: Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateMap">>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnUpdateMap {
+        onUpdateMap {
+          __typename
+          mapID
+          bucket_name
+          file_name
+          collectionID
+          Collection {
+            __typename
+            collectionID
+            parkID
+            upload_date_time
+            completed
+            flightID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateMap">>
+  >;
+
+  OnDeleteMapListener: Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteMap">>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnDeleteMap {
+        onDeleteMap {
+          __typename
+          mapID
+          bucket_name
+          file_name
+          collectionID
+          Collection {
+            __typename
+            collectionID
+            parkID
+            upload_date_time
+            completed
+            flightID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteMap">>
   >;
 
   OnCreateMessageListener: Observable<
@@ -4996,5 +6112,68 @@ export class APIService {
     SubscriptionResponse<
       Pick<__SubscriptionContainer, "onDeletePendingInvites">
     >
+  >;
+
+  OnCreateConnectionListener: Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateConnection">>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnCreateConnection {
+        onCreateConnection {
+          __typename
+          connectionID
+          topic
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateConnection">>
+  >;
+
+  OnUpdateConnectionListener: Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateConnection">>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnUpdateConnection {
+        onUpdateConnection {
+          __typename
+          connectionID
+          topic
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateConnection">>
+  >;
+
+  OnDeleteConnectionListener: Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteConnection">>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnDeleteConnection {
+        onDeleteConnection {
+          __typename
+          connectionID
+          topic
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteConnection">>
   >;
 }

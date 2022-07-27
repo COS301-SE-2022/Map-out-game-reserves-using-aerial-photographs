@@ -70,6 +70,14 @@ type ImageCollection @model {
   FlightDetails: FlightDetails @hasOne(fields: ["flightID"])
 }
 
+type Map @model {
+  mapID: String! @primaryKey
+  bucket_name: String
+  file_name: String  @index(name: "byFileName", queryField: "getMapByFileName")
+  collectionID: String
+  Collection: ImageCollection @hasOne(fields: ["collectionID"])
+}
+
 type Message @model {
   messageID: String! @primaryKey
   message_status: String
@@ -104,4 +112,9 @@ type PendingInvites @model {
   inviteID: String! @primaryKey
   email: AWSEmail! @index(name: "byEmail", queryField: "getPendingInvitesByEmail"),
   role: String!
+}
+
+type Connection @model {
+  connectionID: String! @primaryKey
+  topic: String! @index(name: "byTopic", queryField: "getConnectionsByTopic")
 }

@@ -307,6 +307,90 @@ mutation DeleteImageCollection(
     _lastChangedAt
   }
 }
+mutation CreateMap(
+  $input: CreateMapInput!
+  $condition: ModelMapConditionInput
+) {
+  createMap(input: $input, condition: $condition) {
+    mapID
+    bucket_name
+    file_name
+    collectionID
+    Collection {
+      collectionID
+      parkID
+      upload_date_time
+      completed
+      flightID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation UpdateMap(
+  $input: UpdateMapInput!
+  $condition: ModelMapConditionInput
+) {
+  updateMap(input: $input, condition: $condition) {
+    mapID
+    bucket_name
+    file_name
+    collectionID
+    Collection {
+      collectionID
+      parkID
+      upload_date_time
+      completed
+      flightID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation DeleteMap(
+  $input: DeleteMapInput!
+  $condition: ModelMapConditionInput
+) {
+  deleteMap(input: $input, condition: $condition) {
+    mapID
+    bucket_name
+    file_name
+    collectionID
+    Collection {
+      collectionID
+      parkID
+      upload_date_time
+      completed
+      flightID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
 mutation CreateMessage(
   $input: CreateMessageInput!
   $condition: ModelMessageConditionInput
@@ -570,6 +654,48 @@ mutation DeletePendingInvites(
     inviteID
     email
     role
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation CreateConnection(
+  $input: CreateConnectionInput!
+  $condition: ModelConnectionConditionInput
+) {
+  createConnection(input: $input, condition: $condition) {
+    connectionID
+    topic
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation UpdateConnection(
+  $input: UpdateConnectionInput!
+  $condition: ModelConnectionConditionInput
+) {
+  updateConnection(input: $input, condition: $condition) {
+    connectionID
+    topic
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation DeleteConnection(
+  $input: DeleteConnectionInput!
+  $condition: ModelConnectionConditionInput
+) {
+  deleteConnection(input: $input, condition: $condition) {
+    connectionID
+    topic
     createdAt
     updatedAt
     _version

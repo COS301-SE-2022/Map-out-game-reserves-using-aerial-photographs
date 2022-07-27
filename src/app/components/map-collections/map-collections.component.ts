@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-//import { Image_Collection } from '@prisma/client';
+import { Component } from '@angular/core';
+import { APIService } from 'src/app/API.service';
+import { ControllerService } from 'src/app/api/controller/controller.service';
 
 interface Sort {
   value: string;
@@ -11,8 +12,9 @@ interface Sort {
   templateUrl: './map-collections.component.html',
   styleUrls: ['./map-collections.component.scss'],
 })
-export class MapcollectionComponent implements OnInit {
+export class MapcollectionComponent {
   selected: string;
+  subscription: any;
   // tempCatalogues: Image_Collection[] = [];
   // catalogues: Image_Collection[] = [];
   // images: ImageData[] = [];
@@ -55,9 +57,5 @@ export class MapcollectionComponent implements OnInit {
 
   sortByPark() {
     //this.catalogues.sort((a, b) => a.parkID - b.parkID);
-  }
-
-  ngOnInit(): void {
-console.log('Component Initialised');
   }
 }
