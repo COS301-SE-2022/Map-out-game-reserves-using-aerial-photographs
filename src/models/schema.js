@@ -334,6 +334,13 @@ export const schema = {
                         "targetName": "flightID"
                     }
                 },
+                "taskID": {
+                    "name": "taskID",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -785,5 +792,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "be98b405ef1a5ecbfd3c7b0d77aa2618"
+    "version": "c1fc6fae50a28f593ba67acf0e8e90dd"
 };

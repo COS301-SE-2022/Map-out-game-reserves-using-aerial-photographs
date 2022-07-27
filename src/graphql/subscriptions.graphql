@@ -115,6 +115,7 @@ subscription OnCreateImageCollection {
       _deleted
       _lastChangedAt
     }
+    taskID
     createdAt
     updatedAt
     _version
@@ -151,6 +152,7 @@ subscription OnUpdateImageCollection {
       _deleted
       _lastChangedAt
     }
+    taskID
     createdAt
     updatedAt
     _version
@@ -187,6 +189,7 @@ subscription OnDeleteImageCollection {
       _deleted
       _lastChangedAt
     }
+    taskID
     createdAt
     updatedAt
     _version
@@ -206,6 +209,7 @@ subscription OnCreateMap {
       upload_date_time
       completed
       flightID
+      taskID
       createdAt
       updatedAt
       _version
@@ -231,6 +235,7 @@ subscription OnUpdateMap {
       upload_date_time
       completed
       flightID
+      taskID
       createdAt
       updatedAt
       _version
@@ -256,6 +261,7 @@ subscription OnDeleteMap {
       upload_date_time
       completed
       flightID
+      taskID
       createdAt
       updatedAt
       _version
@@ -280,6 +286,7 @@ subscription OnCreateMessage {
       upload_date_time
       completed
       flightID
+      taskID
       createdAt
       updatedAt
       _version
@@ -305,6 +312,7 @@ subscription OnUpdateMessage {
       upload_date_time
       completed
       flightID
+      taskID
       createdAt
       updatedAt
       _version
@@ -330,6 +338,7 @@ subscription OnDeleteMessage {
       upload_date_time
       completed
       flightID
+      taskID
       createdAt
       updatedAt
       _version

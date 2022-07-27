@@ -217,6 +217,7 @@ export type CreateImageCollectionInput = {
   upload_date_time?: string | null;
   completed?: boolean | null;
   flightID?: string | null;
+  taskID?: number | null;
   _version?: number | null;
 };
 
@@ -225,9 +226,22 @@ export type ModelImageCollectionConditionInput = {
   upload_date_time?: ModelStringInput | null;
   completed?: ModelBooleanInput | null;
   flightID?: ModelStringInput | null;
+  taskID?: ModelIntInput | null;
   and?: Array<ModelImageCollectionConditionInput | null> | null;
   or?: Array<ModelImageCollectionConditionInput | null> | null;
   not?: ModelImageCollectionConditionInput | null;
+};
+
+export type ModelIntInput = {
+  ne?: number | null;
+  eq?: number | null;
+  le?: number | null;
+  lt?: number | null;
+  ge?: number | null;
+  gt?: number | null;
+  between?: Array<number | null> | null;
+  attributeExists?: boolean | null;
+  attributeType?: ModelAttributeTypes | null;
 };
 
 export type ImageCollection = {
@@ -239,6 +253,7 @@ export type ImageCollection = {
   completed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: FlightDetails | null;
+  taskID?: number | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -252,6 +267,7 @@ export type UpdateImageCollectionInput = {
   upload_date_time?: string | null;
   completed?: boolean | null;
   flightID?: string | null;
+  taskID?: number | null;
   _version?: number | null;
 };
 
@@ -561,6 +577,7 @@ export type ModelImageCollectionFilterInput = {
   upload_date_time?: ModelStringInput | null;
   completed?: ModelBooleanInput | null;
   flightID?: ModelStringInput | null;
+  taskID?: ModelIntInput | null;
   and?: Array<ModelImageCollectionFilterInput | null> | null;
   or?: Array<ModelImageCollectionFilterInput | null> | null;
   not?: ModelImageCollectionFilterInput | null;
@@ -849,6 +866,7 @@ export type CreateImageCollectionMutation = {
     _deleted?: boolean | null;
     _lastChangedAt: number;
   } | null;
+  taskID?: number | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -887,6 +905,7 @@ export type UpdateImageCollectionMutation = {
     _deleted?: boolean | null;
     _lastChangedAt: number;
   } | null;
+  taskID?: number | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -925,6 +944,7 @@ export type DeleteImageCollectionMutation = {
     _deleted?: boolean | null;
     _lastChangedAt: number;
   } | null;
+  taskID?: number | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -945,6 +965,7 @@ export type CreateMapMutation = {
     upload_date_time?: string | null;
     completed?: boolean | null;
     flightID?: string | null;
+    taskID?: number | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -971,6 +992,7 @@ export type UpdateMapMutation = {
     upload_date_time?: string | null;
     completed?: boolean | null;
     flightID?: string | null;
+    taskID?: number | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -997,6 +1019,7 @@ export type DeleteMapMutation = {
     upload_date_time?: string | null;
     completed?: boolean | null;
     flightID?: string | null;
+    taskID?: number | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1022,6 +1045,7 @@ export type CreateMessageMutation = {
     upload_date_time?: string | null;
     completed?: boolean | null;
     flightID?: string | null;
+    taskID?: number | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1048,6 +1072,7 @@ export type UpdateMessageMutation = {
     upload_date_time?: string | null;
     completed?: boolean | null;
     flightID?: string | null;
+    taskID?: number | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1074,6 +1099,7 @@ export type DeleteMessageMutation = {
     upload_date_time?: string | null;
     completed?: boolean | null;
     flightID?: string | null;
+    taskID?: number | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1324,6 +1350,7 @@ export type GetMessagesQuery = {
     upload_date_time?: string | null;
     completed?: boolean | null;
     flightID?: string | null;
+    taskID?: number | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1383,6 +1410,7 @@ export type GetImageCollectionsQuery = {
     _deleted?: boolean | null;
     _lastChangedAt: number;
   } | null;
+  taskID?: number | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -1435,6 +1463,7 @@ export type GetCataloguesQuery = {
     _deleted?: boolean | null;
     _lastChangedAt: number;
   } | null;
+  taskID?: number | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -1580,6 +1609,7 @@ export type GetImageCollectionQuery = {
     _deleted?: boolean | null;
     _lastChangedAt: number;
   } | null;
+  taskID?: number | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -1596,6 +1626,7 @@ export type ListImageCollectionsQuery = {
     upload_date_time?: string | null;
     completed?: boolean | null;
     flightID?: string | null;
+    taskID?: number | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1615,6 +1646,7 @@ export type SyncImageCollectionsQuery = {
     upload_date_time?: string | null;
     completed?: boolean | null;
     flightID?: string | null;
+    taskID?: number | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1638,6 +1670,7 @@ export type GetMapQuery = {
     upload_date_time?: string | null;
     completed?: boolean | null;
     flightID?: string | null;
+    taskID?: number | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1699,6 +1732,7 @@ export type GetMessageQuery = {
     upload_date_time?: string | null;
     completed?: boolean | null;
     flightID?: string | null;
+    taskID?: number | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -2163,6 +2197,7 @@ export type OnCreateImageCollectionSubscription = {
     _deleted?: boolean | null;
     _lastChangedAt: number;
   } | null;
+  taskID?: number | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -2201,6 +2236,7 @@ export type OnUpdateImageCollectionSubscription = {
     _deleted?: boolean | null;
     _lastChangedAt: number;
   } | null;
+  taskID?: number | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -2239,6 +2275,7 @@ export type OnDeleteImageCollectionSubscription = {
     _deleted?: boolean | null;
     _lastChangedAt: number;
   } | null;
+  taskID?: number | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -2259,6 +2296,7 @@ export type OnCreateMapSubscription = {
     upload_date_time?: string | null;
     completed?: boolean | null;
     flightID?: string | null;
+    taskID?: number | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -2285,6 +2323,7 @@ export type OnUpdateMapSubscription = {
     upload_date_time?: string | null;
     completed?: boolean | null;
     flightID?: string | null;
+    taskID?: number | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -2311,6 +2350,7 @@ export type OnDeleteMapSubscription = {
     upload_date_time?: string | null;
     completed?: boolean | null;
     flightID?: string | null;
+    taskID?: number | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -2336,6 +2376,7 @@ export type OnCreateMessageSubscription = {
     upload_date_time?: string | null;
     completed?: boolean | null;
     flightID?: string | null;
+    taskID?: number | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -2362,6 +2403,7 @@ export type OnUpdateMessageSubscription = {
     upload_date_time?: string | null;
     completed?: boolean | null;
     flightID?: string | null;
+    taskID?: number | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -2388,6 +2430,7 @@ export type OnDeleteMessageSubscription = {
     upload_date_time?: string | null;
     completed?: boolean | null;
     flightID?: string | null;
+    taskID?: number | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -2985,6 +3028,7 @@ export class APIService {
             _deleted
             _lastChangedAt
           }
+          taskID
           createdAt
           updatedAt
           _version
@@ -3039,6 +3083,7 @@ export class APIService {
             _deleted
             _lastChangedAt
           }
+          taskID
           createdAt
           updatedAt
           _version
@@ -3093,6 +3138,7 @@ export class APIService {
             _deleted
             _lastChangedAt
           }
+          taskID
           createdAt
           updatedAt
           _version
@@ -3129,6 +3175,7 @@ export class APIService {
             upload_date_time
             completed
             flightID
+            taskID
             createdAt
             updatedAt
             _version
@@ -3171,6 +3218,7 @@ export class APIService {
             upload_date_time
             completed
             flightID
+            taskID
             createdAt
             updatedAt
             _version
@@ -3213,6 +3261,7 @@ export class APIService {
             upload_date_time
             completed
             flightID
+            taskID
             createdAt
             updatedAt
             _version
@@ -3254,6 +3303,7 @@ export class APIService {
             upload_date_time
             completed
             flightID
+            taskID
             createdAt
             updatedAt
             _version
@@ -3296,6 +3346,7 @@ export class APIService {
             upload_date_time
             completed
             flightID
+            taskID
             createdAt
             updatedAt
             _version
@@ -3338,6 +3389,7 @@ export class APIService {
             upload_date_time
             completed
             flightID
+            taskID
             createdAt
             updatedAt
             _version
@@ -3837,6 +3889,7 @@ export class APIService {
             upload_date_time
             completed
             flightID
+            taskID
             createdAt
             updatedAt
             _version
@@ -3930,6 +3983,7 @@ export class APIService {
             _deleted
             _lastChangedAt
           }
+          taskID
           createdAt
           updatedAt
           _version
@@ -3998,6 +4052,7 @@ export class APIService {
             _deleted
             _lastChangedAt
           }
+          taskID
           createdAt
           updatedAt
           _version
@@ -4278,6 +4333,7 @@ export class APIService {
             _deleted
             _lastChangedAt
           }
+          taskID
           createdAt
           updatedAt
           _version
@@ -4310,6 +4366,7 @@ export class APIService {
             upload_date_time
             completed
             flightID
+            taskID
             createdAt
             updatedAt
             _version
@@ -4357,6 +4414,7 @@ export class APIService {
             upload_date_time
             completed
             flightID
+            taskID
             createdAt
             updatedAt
             _version
@@ -4400,6 +4458,7 @@ export class APIService {
             upload_date_time
             completed
             flightID
+            taskID
             createdAt
             updatedAt
             _version
@@ -4525,6 +4584,7 @@ export class APIService {
             upload_date_time
             completed
             flightID
+            taskID
             createdAt
             updatedAt
             _version
@@ -5516,6 +5576,7 @@ export class APIService {
             _deleted
             _lastChangedAt
           }
+          taskID
           createdAt
           updatedAt
           _version
@@ -5568,6 +5629,7 @@ export class APIService {
             _deleted
             _lastChangedAt
           }
+          taskID
           createdAt
           updatedAt
           _version
@@ -5620,6 +5682,7 @@ export class APIService {
             _deleted
             _lastChangedAt
           }
+          taskID
           createdAt
           updatedAt
           _version
@@ -5652,6 +5715,7 @@ export class APIService {
             upload_date_time
             completed
             flightID
+            taskID
             createdAt
             updatedAt
             _version
@@ -5688,6 +5752,7 @@ export class APIService {
             upload_date_time
             completed
             flightID
+            taskID
             createdAt
             updatedAt
             _version
@@ -5724,6 +5789,7 @@ export class APIService {
             upload_date_time
             completed
             flightID
+            taskID
             createdAt
             updatedAt
             _version
@@ -5759,6 +5825,7 @@ export class APIService {
             upload_date_time
             completed
             flightID
+            taskID
             createdAt
             updatedAt
             _version
@@ -5795,6 +5862,7 @@ export class APIService {
             upload_date_time
             completed
             flightID
+            taskID
             createdAt
             updatedAt
             _version
@@ -5831,6 +5899,7 @@ export class APIService {
             upload_date_time
             completed
             flightID
+            taskID
             createdAt
             updatedAt
             _version

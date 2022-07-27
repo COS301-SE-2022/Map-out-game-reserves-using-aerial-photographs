@@ -186,11 +186,24 @@ export class ControllerService {
       images: imgs,
       auto_processing_node: true
     }
-    return this.http.post(this.webODM_URL + `/api/projects/${this.projectId}/tasks/`, body);
+    const headers = new HttpHeaders({
+      'Authorization': `JWT ${this.tokenResponse.token}`,
+    });
+    return this.http.post(this.webODM_URL + `/api/projects/${this.projectId}/tasks/`, body, { headers: headers });
   }
 
-  async getMapAssets(taskID: number) {
-    return this.http.get(this.webODM_URL + `/api/projects/${this.projectId}/tasks/${taskID}/download/all.zip`);
+  async getMapAssets(taskID: number): Promise<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `JWT ${this.tokenResponse.token}`,
+    });
+    return this.http.get(this.webODM_URL + `/api/projects/${this.projectId}/tasks/${taskID}/download/all.zip`, { headers: headers });
+  }
+
+  async pollWebODMTask(taskID: number): Promise<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `JWT ${this.tokenResponse.token}`,
+    });
+    return this.http.get(this.webODM_URL + ``, { headers: headers });
   }
 
   //------------------------------------------------------------------------

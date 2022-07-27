@@ -68,6 +68,7 @@ type ImageCollection @model {
   completed: Boolean
   flightID: String
   FlightDetails: FlightDetails @hasOne(fields: ["flightID"])
+  taskID: Int
 }
 
 type Map @model {

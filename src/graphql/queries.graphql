@@ -51,6 +51,7 @@ query GetMessages {
       upload_date_time
       completed
       flightID
+      taskID
       createdAt
       updatedAt
       _version
@@ -114,6 +115,7 @@ query GetImageCollections {
       _deleted
       _lastChangedAt
     }
+    taskID
     createdAt
     updatedAt
     _version
@@ -164,6 +166,7 @@ query GetCatalogues {
       _deleted
       _lastChangedAt
     }
+    taskID
     createdAt
     updatedAt
     _version
@@ -347,6 +350,7 @@ query GetImageCollection($collectionID: String!) {
       _deleted
       _lastChangedAt
     }
+    taskID
     createdAt
     updatedAt
     _version
@@ -374,6 +378,7 @@ query ListImageCollections(
       upload_date_time
       completed
       flightID
+      taskID
       createdAt
       updatedAt
       _version
@@ -402,6 +407,7 @@ query SyncImageCollections(
       upload_date_time
       completed
       flightID
+      taskID
       createdAt
       updatedAt
       _version
@@ -424,6 +430,7 @@ query GetMap($mapID: String!) {
       upload_date_time
       completed
       flightID
+      taskID
       createdAt
       updatedAt
       _version
@@ -504,6 +511,7 @@ query GetMessage($messageID: String!) {
       upload_date_time
       completed
       flightID
+      taskID
       createdAt
       updatedAt
       _version

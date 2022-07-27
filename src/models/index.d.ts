@@ -89,6 +89,7 @@ export declare class ImageCollection {
   readonly completed?: boolean | null;
   readonly flightID?: string | null;
   readonly FlightDetails?: FlightDetails | null;
+  readonly taskID?: number | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<ImageCollection, ImageCollectionMetaData>);

@@ -222,6 +222,7 @@ mutation CreateImageCollection(
       _deleted
       _lastChangedAt
     }
+    taskID
     createdAt
     updatedAt
     _version
@@ -261,6 +262,7 @@ mutation UpdateImageCollection(
       _deleted
       _lastChangedAt
     }
+    taskID
     createdAt
     updatedAt
     _version
@@ -300,6 +302,7 @@ mutation DeleteImageCollection(
       _deleted
       _lastChangedAt
     }
+    taskID
     createdAt
     updatedAt
     _version
@@ -322,6 +325,7 @@ mutation CreateMap(
       upload_date_time
       completed
       flightID
+      taskID
       createdAt
       updatedAt
       _version
@@ -350,6 +354,7 @@ mutation UpdateMap(
       upload_date_time
       completed
       flightID
+      taskID
       createdAt
       updatedAt
       _version
@@ -378,6 +383,7 @@ mutation DeleteMap(
       upload_date_time
       completed
       flightID
+      taskID
       createdAt
       updatedAt
       _version
@@ -405,6 +411,7 @@ mutation CreateMessage(
       upload_date_time
       completed
       flightID
+      taskID
       createdAt
       updatedAt
       _version
@@ -433,6 +440,7 @@ mutation UpdateMessage(
       upload_date_time
       completed
       flightID
+      taskID
       createdAt
       updatedAt
       _version
@@ -461,6 +469,7 @@ mutation DeleteMessage(
       upload_date_time
       completed
       flightID
+      taskID
       createdAt
       updatedAt
       _version

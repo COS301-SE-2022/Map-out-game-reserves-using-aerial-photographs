@@ -5,7 +5,7 @@ import {
   CreateImageCollectionInput,
   CreateFlightDetailsInput,
 } from 'src/app/API.service';
-import { ControllerService } from 'src/app/api/controller/controller.service';
+import { ControllerService, WebODMCreateTaskResponse } from 'src/app/api/controller/controller.service';
 import { v4 as uuidv4 } from 'uuid';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { fromBlob } from 'image-resize-compress';
@@ -26,7 +26,6 @@ interface FlightType {
   styleUrls: ['./file-upload.component.scss'],
 })
 
-//https://blog.angular-university.io/angular-file-upload/
 export class FileUploadComponent {
   requiredFileType: string | undefined;
   submitPressed = false;
@@ -113,17 +112,17 @@ export class FileUploadComponent {
 
   submitBtnPressed() {
     // get the id of the park
-    var e = document.getElementById('parks') as HTMLSelectElement;
-    var sel = e.selectedIndex;
-    var opt = e.options[sel];
-    var parkSel = opt.value;
+    let e = document.getElementById('parks') as HTMLSelectElement;
+    let sel = e.selectedIndex;
+    let opt = e.options[sel];
+    let parkSel = opt.value;
     console.log(parkSel);
 
     //get the flying option
     e = document.getElementById('fType') as HTMLSelectElement;
     sel = e.selectedIndex;
     opt = e.options[sel];
-    var typeSel = opt.value;
+    let typeSel = opt.value;
     console.log(typeSel);
 
     //get the height
@@ -158,7 +157,7 @@ export class FileUploadComponent {
   uploadToS3(collectionID: string, imageID: string, file: any) {
     //converting base64 to png
     // var newFile = this.convertDataUrlToPng(file, imageID + '.png');
-    var newFile = new File([file], imageID+".png");
+    const newFile = new File([file], imageID+".png");
     //upload png to S3
     this.apiController
       .S3upload(imageID, collectionID, 'images', newFile, 'image/png')
@@ -199,13 +198,11 @@ export class FileUploadComponent {
     );
 
     //Do after frames are extracted
-    frames.then((frames: any) => {
-      this.frameCount = frames.length;
+    frames.then((framesResp: any) => {
+      this.frameCount = framesResp.length;
 
-      // const frame = frames[1];
-      var fCount = 0;
+      let fCount = 0;
       console.log(flight);
-      //code in lines 215-____ replaces commented code in lines ___-___
 
       //create a image collection object
       const inp: CreateImageCollectionInput = {
@@ -216,14 +213,25 @@ export class FileUploadComponent {
         flightID: flight.flightID,
         // _version?: number | null;
       };
-      this.makeThumbnails(inp.collectionID,frames);
-      //create an image collection
+      this.makeThumbnails(inp.collectionID,framesResp);
+
+      //createTask (WebODM)
+      this.apiController.createODMTask(framesResp).then((resp: WebODMCreateTaskResponse) => {
+        console.log("[CREATE TASK] Logging Create Task Response...");
+        console.log(resp);
+        this.apiController.getMapAssets(resp.id).then((mapAssets: any) => {
+          console.log("[GET MAP ASSETS] Logging Map Assets...");
+          console.log(mapAssets);
+        });
+      });
+
+      //create an image collection (DynamoDB)
       this.api.CreateImageCollection(inp).then((resp) => {
         console.log(resp);
 
         //create each Image
-        for (let i = 0; i < frames.length; i++) {
-          const inp: CreateImagesInput = {
+        for (let i = 0; i < framesResp.length; i++) {
+          const input: CreateImagesInput = {
             imageID: uuidv4(),
             collectionID: resp.collectionID,
             bucket_name: 'dylpickles-image-bucket',
@@ -231,28 +239,19 @@ export class FileUploadComponent {
           };
 
           //create image in DynamoDB
-          console.log(i+"|"+inp.imageID);
+          console.log(i+"|"+input.imageID);
           this.api
-            .CreateImages(inp)
-            .then((resp: any) => {
-              console.log(resp);
+            .CreateImages(input)
+            .then((res: any) => {
+              console.log(res);
             })
             .catch(() => {
               return -1;
             });
 
-          this.uploadToS3(resp.collectionID, inp.imageID, frames[fCount++]);
+          this.uploadToS3(resp.collectionID, input.imageID, framesResp[fCount++]);
         }
-        //this.makeThumbnails(resp.collectionID);
 
-        //createTask (WebODM)
-        this.apiController.createODMTask(frames).then((resp: any) => {
-          console.log(resp);
-          // this.apiController.getMapAssets().then((mapAssets: any) => {
-          //   console.log("Logging Map Assets...");
-          //   console.log(mapAssets);
-          // });
-        });
       });
     });
   }
@@ -318,17 +317,17 @@ export class FileUploadComponent {
   };
 
   async makeThumbnails(collectionID: string,frames:any[]) {
-    var thumbnails: any[] = [];
+    let thumbnails: any[] = [];
     thumbnails.push(frames[0]);
     thumbnails.push(frames[frames.length / 2]);
     thumbnails.push(frames[frames.length-1]);
 
 
-    for (var i = 0; i < 3; i++) {
-      var newBlob = this.resizeImage(thumbnails[i],240,180);
-      await newBlob.then((newBlob)=>{
+    for (let i = 0; i < 3; i++) {
+      let newBlob = this.resizeImage(thumbnails[i],240,180);
+      await newBlob.then((newBlobResp: any)=>{
         // let newBlob = thumbnails[i];
-        var newFile = new File([newBlob], "thumbnail_"+i+".png");
+        let newFile = new File([newBlobResp], "thumbnail_"+i+".png");
 
         this.apiController
         .S3upload("thumbnail_"+i, collectionID, 'thumbnails', newFile, 'image/png')
