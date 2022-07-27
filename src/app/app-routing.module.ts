@@ -6,7 +6,6 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
 import { ImageCatalogueComponent } from './components/image-catalogue/image-catalogue.component';
 import { LoginComponent } from './components/login/login.component';
-import { MapcollectionComponent } from './components/map-collections/map-collections.component';
 import { MapComponent } from './components/map/map.component';
 import { RegisterComponent } from './components/register/register.component';
 
@@ -16,7 +15,6 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'account', component: AccountComponent, canActivate: [AuthGuard] },
-  { path: 'map-collections', component: MapcollectionComponent, canActivate: [AuthGuard] },
   { path: 'map', component: MapComponent, canActivate: [AuthGuard] },
   { path: 'image-catalogue', component: ImageCatalogueComponent, canActivate: [AuthGuard] },
   { path: 'file-upload', component: FileUploadComponent, canActivate: [AuthGuard] },
