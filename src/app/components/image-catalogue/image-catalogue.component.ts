@@ -16,6 +16,7 @@ interface ImageData {
 interface CatalogData {
   catalogue: any;
   images: ImageData[];
+  thumbnails: string[];
 }
 
 @Component({
@@ -53,7 +54,8 @@ export class ImageCatalogueComponent {
         for (const catalog of data.items) {
           this.catalogues.push({
             catalogue: catalog,
-            images: []
+            images: [],
+            thumbnails: []
           })
         }
          
@@ -79,7 +81,20 @@ export class ImageCatalogueComponent {
                       i.url = signedURL;
                     });
                 }
-                this.sortByDate();
+
+                for(var i = 0;i<3;i++){
+                  this.apiController
+                    .S3download(
+                      "thumbnail_"+i,
+                      catalogData.catalogue.collectionID,
+                      'thumbnails',
+                      false
+                    )
+                    .then((signedURL) => {
+                      catalogData.thumbnails.push(signedURL);
+                    });
+                }
+                // this.sortByDate();
                 this.tempCatalogues = this.catalogues;
               })
               .catch((e) => console.log(e));
