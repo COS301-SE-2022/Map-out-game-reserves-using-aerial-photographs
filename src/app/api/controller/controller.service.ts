@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { time } from 'console';
 import { exec } from 'child_process';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -117,15 +118,13 @@ export class ControllerService {
     );
   }
 
-  async addPark(parkname : string){
-/*     const spawn = require("child_process").spawn;
-    const pythonProcess = spawn('python',["./AddPark.py",parkname])
-
-    pythonProcess.stdout.on('data',function(data : any){
-      console.log(data.toString());
-    }) */
-
-    exec('"python ./AddPark.py" '+parkname+'')
+  async importTask() : Promise<any> {
+    return this.http.post('http://localhost:8000/api/token-auth/',{
+      headers:{
+        'username':'thedylpickles1@gmail.com',
+        'password':'webodmpassword'},
+      responseType: 'json'
+    })
   }
 
 

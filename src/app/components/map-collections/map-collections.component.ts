@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ControllerService } from 'src/app/api/controller/controller.service'
 //import { Image_Collection } from '@prisma/client';
 
 interface Sort {
@@ -22,7 +23,10 @@ export class MapcollectionComponent implements OnInit {
     park: 'park'
   }
 
-  constructor() {
+  constructor(private controller: ControllerService) {
+    this.controller.importTask().then((response:any) => {
+      console.log(response)
+    })
     this.selected = 'date';
   }
 
@@ -58,6 +62,6 @@ export class MapcollectionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-console.log('Component Initialised');
+    console.log('Component Initialised');
   }
 }

@@ -332,6 +332,5 @@ export class FileUploadComponent {
 
   async addPark(parkname: string){
     console.log("Addpark called")
-    this.apiController.addPark(parkname)
   }
 }
