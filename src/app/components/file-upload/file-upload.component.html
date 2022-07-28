@@ -77,7 +77,7 @@
               <input type="number" placeholder="Enter the height of the flight (metres)" id="height" min="1" />
 
               <!-- TODO: Still need to make this look nice -->
-              <select ng-model="selectedType" class="i-size tooltip" id="fType">
+              <select ng-model="selectedResolution" class="i-size tooltip" id="resolution">
                 <option value="" disabled selected>Select a resolution size</option>
                 <option *ngFor="let size of iSize" [value]="size.value">
                   {{ size.viewValue }}
@@ -108,10 +108,12 @@
 
 
     <div class="progress">
-      <div class="videoSplitting" *ngIf="splittingProgress != 0">
+      <div class="videoSplitting" *ngIf="splittingProgress != 0 && splittingProgress != 100">
+        <mat-progress-bar mode="determinate" value={{splittingProgress}}></mat-progress-bar>
         Splitting Video {{ splittingProgress }}%
       </div>
-      <div class="videoUploading" *ngIf="uploadingProgress != 0">
+      <div class="videoSplitting" *ngIf="uploadingProgress != 0">
+        <mat-progress-bar mode="determinate" value={{uploadingProgress}}></mat-progress-bar>
         Uploading Video {{ uploadingProgress }}%
       </div>
     </div>
