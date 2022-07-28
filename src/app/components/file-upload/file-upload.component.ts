@@ -338,7 +338,7 @@ export class FileUploadComponent {
       .S3upload(imageID, collectionID, 'images', newFile, 'image/png')
       .then(() => {
         this.uploadCount++;
-        this.uploadingProgress = (this.uploadCount / this.frameCount) * 100;
+        this.uploadingProgress = Math.round((this.uploadCount / this.frameCount) * 100);
         if (this.uploadingProgress > 100) {
           this.uploadingProgress = 100;
         }
@@ -427,7 +427,7 @@ export class FileUploadComponent {
           )
           .then(() => {
             this.uploadCount++;
-            this.uploadingProgress = (this.uploadCount / this.frameCount) * 100;
+            this.uploadingProgress = Math.round((this.uploadCount / this.frameCount) * 100);
             if (this.uploadingProgress > 100) {
               this.uploadingProgress = 100;
             }

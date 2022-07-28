@@ -40,10 +40,8 @@
             <mat-icon style="color:#cccccc"> insert_drive_file</mat-icon>
 
           </div>
-          <div class="file-upload" *ngIf="fileName">
-            <div class="successful-submit" *ngIf="submitPressed">
-              <h4 class="variable">File Uploaded Successfully</h4>
-            </div>
+          <div class="file-upload" *ngIf="fileName && !submitPressed"> 
+            
             <h4 class="variable">{{ fileName || "No file uploaded yet." }}</h4>
             <div class="metadata">
               <div class = "parkdd" style="display: inline-block;">
@@ -96,27 +94,28 @@
                   Submit
                 </button>
               </div>
-
               <br />
             </div>
+          </div>
+          <div class="progress">
+            <div class="successful-submit" *ngIf="submitPressed">
+              <h4 class="variable">File Uploaded Successfully</h4>
+            </div>
+            <h4 class="variable">{{ fileName || "No file uploaded yet." }}</h4>
+              <div class="videoSplitting" *ngIf="splittingProgress != 0">
+                <mat-progress-bar mode="determinate" value={{splittingProgress}}></mat-progress-bar>
+                Splitting Video {{ splittingProgress }}%
+              </div>
+              <div class="videoSplitting" *ngIf="uploadingProgress != 0">
+                <mat-progress-bar mode="determinate" value={{uploadingProgress}}></mat-progress-bar>
+                Uploading Frames {{ uploadingProgress }}%
+              </div>
           </div>
         </td>
       </tr>
     </table>
 
     <!-- <input type="file" class="file" multiple (change)="onFileSelected($event)" #fileUpload> -->
-
-
-    <div class="progress">
-      <div class="videoSplitting" *ngIf="splittingProgress != 0 && splittingProgress != 100">
-        <mat-progress-bar mode="determinate" value={{splittingProgress}}></mat-progress-bar>
-        Splitting Video {{ splittingProgress }}%
-      </div>
-      <div class="videoSplitting" *ngIf="uploadingProgress != 0">
-        <mat-progress-bar mode="determinate" value={{uploadingProgress}}></mat-progress-bar>
-        Uploading Video {{ uploadingProgress }}%
-      </div>
-    </div>
 
     <div id="test"></div>
   </div>
