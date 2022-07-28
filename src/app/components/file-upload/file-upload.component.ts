@@ -9,6 +9,7 @@ import { ControllerService, WebODMCreateTaskResponse } from 'src/app/api/control
 import { v4 as uuidv4 } from 'uuid';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { fromBlob } from 'image-resize-compress';
+import { Observable } from 'rxjs';
 
 interface Park {
   value: string | undefined;
@@ -204,49 +205,62 @@ export class FileUploadComponent {
       let fCount = 0;
       console.log(flight);
 
-      //create a image collection object
-      const inp: CreateImageCollectionInput = {
-        collectionID: uuidv4(), //not sure!!!!!!!!!!!!!!! TODO: check
-        parkID: parkSel,
-        //   upload_date_time: string,
-        completed: false,
-        flightID: flight.flightID,
-        // _version?: number | null;
-      };
-      this.makeThumbnails(inp.collectionID,framesResp);
-
       //createTask (WebODM)
-      this.apiController.createODMTask(framesResp).then((resp: WebODMCreateTaskResponse) => {
-        console.log("[FILE UPLOAD] Logging WebODM Create Task Response...", resp);
-      });
+      this.apiController.createODMTask(framesResp).then((resp: Observable<WebODMCreateTaskResponse>) => {
+        resp.subscribe({
+          next: (response: WebODMCreateTaskResponse) => {
+            console.log("[FILE UPLOAD] Logging WebODM Create Task Response...", resp);
 
-      //create an image collection (DynamoDB)
-      this.api.CreateImageCollection(inp).then((resp) => {
-        console.log(resp);
+            //create a image collection object
+            const inp: CreateImageCollectionInput = {
+              collectionID: uuidv4(), //not sure!!!!!!!!!!!!!!! TODO: check
+              parkID: parkSel,
+              taskID: response.id,
+              //   upload_date_time: string,
+              completed: false,
+              flightID: flight.flightID,
+              // _version?: number | null;
+            };
 
-        //create each Image
-        for (let i = 0; i < framesResp.length; i++) {
-          const input: CreateImagesInput = {
-            imageID: uuidv4(),
-            collectionID: resp.collectionID,
-            bucket_name: 'dylpickles-image-bucket',
-            file_name: resp.collectionID + '-frame-' + i + '.png',
-          };
+            this.makeThumbnails(inp.collectionID,framesResp);
 
-          //create image in DynamoDB
-          console.log(i+"|"+input.imageID);
-          this.api
-            .CreateImages(input)
-            .then((res: any) => {
-              console.log(res);
-            })
-            .catch(() => {
-              return -1;
+            //create an image collection (DynamoDB)
+            this.api.CreateImageCollection(inp).then((resp) => {
+              console.log(resp);
+
+              //create each Image
+              for (let i = 0; i < framesResp.length; i++) {
+                const input: CreateImagesInput = {
+                  imageID: uuidv4(),
+                  collectionID: resp.collectionID,
+                  bucket_name: 'dylpickles-image-bucket',
+                  file_name: resp.collectionID + '-frame-' + i + '.png',
+                };
+
+                //create image in DynamoDB
+                console.log(i+"|"+input.imageID);
+                this.api
+                  .CreateImages(input)
+                  .then((res: any) => {
+                    console.log(res);
+                  })
+                  .catch(() => {
+                    return -1;
+                  });
+
+                this.uploadToS3(resp.collectionID, input.imageID, framesResp[fCount++]);
+              }
+
             });
+          },
+          error: (error: any) => {
+            console.log(error);
+          }
+        });
 
-          this.uploadToS3(resp.collectionID, input.imageID, framesResp[fCount++]);
-        }
-
+      }).catch(e => {
+        console.log("HERE");
+        console.log(e)
       });
     });
   }

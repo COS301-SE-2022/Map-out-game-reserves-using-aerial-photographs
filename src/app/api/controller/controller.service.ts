@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { Auth, Storage } from 'aws-amplify';
-import { APIService, CreateMapInput, CreateMapMutation, CreateMessageInput, CreateMessageMutation, CreateUserInput, DeletePendingInvitesInput, GetImageCollectionQuery, GetMessageByCollectionIdQuery, ImageCollection, ListImageCollectionsQuery, UpdateImageCollectionInput, UpdateImageCollectionMutation, User } from '../../API.service';
+import { APIService, CreateMapInput, CreateMapMutation, CreateMessageInput, CreateMessageMutation, CreateUserInput, DeletePendingInvitesInput, GetImageCollectionByTaskIdQuery, GetImageCollectionQuery, GetMessageByCollectionIdQuery, ImageCollection, ListImageCollectionsQuery, UpdateImageCollectionInput, UpdateImageCollectionMutation, User } from '../../API.service';
 import { v4 as uuidv4 } from 'uuid';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { interval, Observable, startWith, Subject, Subscription, switchMap } from 'rxjs';
@@ -19,7 +19,7 @@ export interface WebODMProject {
 export interface WebODMProjectsResponse extends Array<WebODMProject>{}
 
 export interface WebODMCreateTaskResponse {
-  id: number;
+  id: string;
   description: string;
 }
 
@@ -55,91 +55,85 @@ export class ControllerService implements OnDestroy {
       next: (project: WebODMProject) => {
         console.log(project);
         this.projectId = project.id;
-      },
-      error: (err: any) => {
-        console.log(err);
-      }
-    });
 
-    //poll WebODM
-    this.pollingInterval = interval(5000)
-    .pipe(
-      startWith(0),
-      switchMap(() => this.repo.ListImageCollections())
-    ).subscribe({
-      next: (collections: ListImageCollectionsQuery) => {
-        for(const collection of collections.items){
-          if(collection){
-            this.pollWebODMTask("44d62409-412a-4a64-8d86-03476596a7cd"/*collection.taskID!*/).then((status: Observable<any>) => {
-              status.subscribe({
-                next: (resp: Array<any>) => {
-                  console.log("[CONTROLLER SERVICE] Polling tasks from WebODM...", resp);
-                  for(const task of resp){
-                    let updatedCollection: UpdateImageCollectionInput;
-
-                    if(task.status == 10 || task.status == 20){
-                      //QUEUED or RUNNING
-                      updatedCollection = {
-                        collectionID: collection.collectionID,
-                        completed: false,
-                        error: false,
-                        pending: true
-                      }
+        //poll WebODM
+        this.pollingInterval = interval(10000)
+        .pipe(
+          startWith(0),
+          switchMap(() => this.getAllWebODMTasks())
+        ).subscribe({
+          next: async (resp: Observable<WebODMTask[]>) => {
+            resp.subscribe({
+              next: async (tasks: WebODMTask[]) => {
+                let updatedCollection: UpdateImageCollectionInput;
+                console.log("[CONTROLLER SERVICE] Polling WebODM...", tasks);
+                for(const task of tasks){
+                  if(task.status == 10 || task.status == 20){
+                    //QUEUED or RUNNING
+                    updatedCollection = {
+                      collectionID: await this.repo.GetImageCollectionByTaskId(task.id).then((col: GetImageCollectionByTaskIdQuery) => { return col.items[0]!.collectionID; }),
+                      completed: false,
+                      error: false,
+                      pending: true
                     }
-                    else if (task.status == 40) {
-                      //COMPLETED
-                      this.repo.GetImageCollection(collection.collectionID).then((resp: GetImageCollectionQuery) => {
-                        //if the 'complete' boolean wasn't true already, then create Map in DynamoDB
-                        if(!resp.completed){
-                          //map doesn't exist yet, create new Map
-                          const newMap: CreateMapInput = {
-                            mapID: resp.taskID!,   //:NB this hack
-                            bucket_name: '',
-                            file_name: '',
-                            collectionID: resp.collectionID
-                          }
-                          this.repo.CreateMap(newMap).then((_res: CreateMapMutation) => {
-                            console.log("[CONTROLLER SERVICE] Created new map...", _res);
-                          }).catch(e => console.log(e));
+                  }
+                  else if (task.status == 40) {
+                    //COMPLETED
+                    this.repo.GetImageCollectionByTaskId(task.id).then((resp: GetImageCollectionByTaskIdQuery) => {
+                      //if the 'complete' boolean wasn't true already, then create Map in DynamoDB
+                      if(!resp.items[0]!.completed) {
+                        //map doesn't exist yet, create new Map
+                        const newMap: CreateMapInput = {
+                          mapID: resp.items[0]!.taskID!,   //:NB this hack
+                          bucket_name: '',  //TODO:
+                          file_name: '',    //TODO:
+                          collectionID: resp.items[0]!.collectionID!
                         }
-                      }).catch(err => {
-                        console.log(err);
-                      });
-
-                      updatedCollection = {
-                        collectionID: collection.collectionID,
-                        completed: true,
-                        error: false,
-                        pending: false
+                        this.repo.CreateMap(newMap).then((_res: CreateMapMutation) => {
+                          console.log("[CONTROLLER SERVICE] Created new map...", _res);
+                        }).catch(e => console.log(e));
                       }
-                    }
-                    else {
-                      //status is 30 (FAILED) or 50 (CANCELED)
-                      updatedCollection = {
-                        collectionID: collection.collectionID,
-                        completed: false,
-                        error: true,
-                        pending: false
-                      }
-                    }
-
-                    this.repo.UpdateImageCollection(updatedCollection).then((_resp: any) => {
-                      console.log("[CONTROLLER SERVICE] Updated collection...", _resp);
+                    }).catch(err => {
+                      console.log(err);
                     });
+
+                    updatedCollection = {
+                      collectionID: await this.repo.GetImageCollectionByTaskId(task.id).then((col: GetImageCollectionByTaskIdQuery) => { return col.items[0]!.collectionID; }),
+                      completed: true,
+                      error: false,
+                      pending: false
+                    }
                   }
-                },
-                error: (err: any) => {
-                  console.log(err);
-                  //cannot connect to WebODM
-                  if(!this.errorState){
-                    this.errorState = true;
-                    this.snackbar.open('Cannot connect to WebODM. Make sure your WebODM backend is running.', 'OK', { verticalPosition: 'top' });
+                  else {
+                    //status is 30 (FAILED) or 50 (CANCELED)
+                    updatedCollection = {
+                      collectionID: await this.repo.GetImageCollectionByTaskId(task.id).then((col: GetImageCollectionByTaskIdQuery) => { return col.items[0]!.collectionID; }),
+                      completed: false,
+                      error: true,
+                      pending: false
+                    }
                   }
+
+                  this.repo.UpdateImageCollection(updatedCollection).then((_resp: any) => {
+                    console.log("[CONTROLLER SERVICE] Updated collection...", _resp);
+                  });
                 }
-              });
+              },
+              error: (err: any) => {
+                console.log(err);
+              }
             });
+
+          },
+          error: (err: any) => {
+            console.log(err);
+            //cannot connect to WebODM
+            if(!this.errorState){
+              this.errorState = true;
+              this.snackbar.open('Cannot connect to WebODM. Make sure your WebODM backend is running.', 'OK', { verticalPosition: 'top' });
+            }
           }
-        }
+        });
       },
       error: (err: any) => {
         console.log(err);
@@ -289,14 +283,21 @@ export class ControllerService implements OnDestroy {
     return this.subject.asObservable();
   }
 
-  async createODMTask(imgs: Array<any>): Promise<any> {
+  async createODMTask(imgs: Array<File>): Promise<any> {
+
+    //multipart encoded images?
+    let formData = new FormData();
+    for(const img of imgs){
+      formData.append('img', img);
+    }
 
     const body = {
-      images: imgs,
+      images: formData,
       auto_processing_node: true
     }
     const headers = new HttpHeaders({
       'Authorization': `JWT ${this.tokenResponse.token}`,
+      'Content-Type': 'multipart/form-data'
     });
     return this.http.post(this.webODM_URL + `/api/projects/${this.projectId}/tasks/`, body, { headers: headers });
   }
@@ -315,6 +316,7 @@ export class ControllerService implements OnDestroy {
     return this.http.get(this.webODM_URL + `/api/projects/${this.projectId}/tasks/${taskID}/download/all.zip`, { headers: headers });
   }
 
+  //N.B. this is console output from WebODM (don't use)
   async pollWebODMTask(taskID: string): Promise<any> {
     const headers = new HttpHeaders({
       'Authorization': `JWT ${this.tokenResponse.token}`,

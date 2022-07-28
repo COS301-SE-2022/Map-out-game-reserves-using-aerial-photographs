@@ -111,8 +111,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
       switchMap(() => this.api.ListMessages())
     ).subscribe({
       next: (messages: ListMessagesQuery) => {
+        console.log("[DASHBOARD] Listing Messages:", messages)
         if (messages.items.length != 0) {
-          console.log("[DASHBOARD] Listing Messages:", messages)
           console.log(messages);
           this.messagesData = [];
           this.messages = [];
