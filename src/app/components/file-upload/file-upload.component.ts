@@ -127,7 +127,7 @@ export class FileUploadComponent {
         this.finalWidth = 640;
         break;
     }
-    console.log("size:",this.finalHeight,this.finalWidth,selected)
+    console.log('size:', this.finalHeight, this.finalWidth, selected);
 
     // get the id of the park
     let e = document.getElementById('parks') as HTMLSelectElement;
@@ -338,11 +338,10 @@ export class FileUploadComponent {
       .S3upload(imageID, collectionID, 'images', newFile, 'image/png')
       .then(() => {
         this.uploadCount++;
-        console.log('Upload:');
-        console.log(this.uploadCount);
-        console.log(this.frameCount + 3);
-        this.uploadingProgress = this.uploadCount / (this.frameCount + 3);
-        console.log(this.uploadingProgress);
+        this.uploadingProgress = (this.uploadCount / this.frameCount) * 100;
+        if (this.uploadingProgress > 100) {
+          this.uploadingProgress = 100;
+        }
       });
   }
 
@@ -428,11 +427,10 @@ export class FileUploadComponent {
           )
           .then(() => {
             this.uploadCount++;
-            console.log('Upload:');
-            console.log(this.uploadCount);
-            console.log(this.frameCount + 3);
-            this.uploadingProgress = this.uploadCount / this.frameCount;
-            console.log(this.uploadingProgress);
+            this.uploadingProgress = (this.uploadCount / this.frameCount) * 100;
+            if (this.uploadingProgress > 100) {
+              this.uploadingProgress = 100;
+            }
           });
       });
     }
