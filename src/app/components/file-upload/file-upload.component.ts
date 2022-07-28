@@ -4,13 +4,14 @@ import {
   CreateImagesInput,
   CreateImageCollectionInput,
   CreateFlightDetailsInput,
-} from 'src/app/API.service';
-import { ControllerService } from 'src/app/api/controller/controller.service';
+  UpdateImageCollectionInput,
+  UpdateImageCollectionMutation,
+} from 'src/app/api.service';
+import { ControllerService, WebODMCreateTaskResponse } from 'src/app/api/controller/controller.service';
 import { v4 as uuidv4 } from 'uuid';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { fromBlob } from 'image-resize-compress';
-var imageToBlob = require('image-to-blob'),
-  DOMURL = window.URL || window.webkitURL || window;
+import { Observable } from 'rxjs';
 
 interface Park {
   value: string | undefined;
@@ -33,7 +34,6 @@ interface ImageSize {
   styleUrls: ['./file-upload.component.scss'],
 })
 
-//https://blog.angular-university.io/angular-file-upload/
 export class FileUploadComponent {
   requiredFileType: string | undefined;
   submitPressed = false;
@@ -66,7 +66,7 @@ export class FileUploadComponent {
     ];
 
   constructor(
-    /*private apiService: ClientApiService*/ private apiController: ControllerService,
+    private apiController: ControllerService,
     private api: APIService,
     private snackBar: MatSnackBar
   ) {
@@ -79,9 +79,13 @@ export class FileUploadComponent {
     //   console.log(this.file?.name);
     // })
 
+<<<<<<< HEAD
     //TODO: ADD FORM TO ADD PARK @DYLAN
 
     this.api.ListGameParks().then((event) => {
+=======
+    this.api.ListGameParks().then((event: any) => {
+>>>>>>> 742822a7284fd35b09cacbd41d2f6bf715a50a8e
       //console.log(event.items[0]?.park_name);
       for (let i = 0; i < event.items.length; i++) {
         const element = event.items[i];
@@ -94,18 +98,6 @@ export class FileUploadComponent {
     });
   }
 
-  appendBlob(err: string, blob: Blob) {
-    if (err) {
-      console.error(err);
-      return;
-    }
-
-    console.log(blob);
-    var img = document.createElement('img');
-    img.src = DOMURL.createObjectURL(blob);
-    document.body.appendChild(img);
-  }
-
   uploadFileLocal() {
     console.log('Submit button pressed');
     this.frameCount = 0;
@@ -114,17 +106,17 @@ export class FileUploadComponent {
     this.uploadingProgress = 0;
 
     // get the id of the park
-    var e = document.getElementById('parks') as HTMLSelectElement;
-    var sel = e.selectedIndex;
-    var opt = e.options[sel];
-    var parkSel = opt.value;
+    let e = document.getElementById('parks') as HTMLSelectElement;
+    let sel = e.selectedIndex;
+    let opt = e.options[sel];
+    let parkSel = opt.value;
     console.log(parkSel);
 
     //get the flying option
     e = document.getElementById('fType') as HTMLSelectElement;
     sel = e.selectedIndex;
     opt = e.options[sel];
-    var typeSel = opt.value;
+    let typeSel = opt.value;
     console.log(typeSel);
 
     //get the height
@@ -148,6 +140,8 @@ export class FileUploadComponent {
       this.api.CreateFlightDetails(flight).then((resp: any) => {
         console.log(resp);
       });
+
+      //
 
       const imageCollection: CreateImageCollectionInput = {
         collectionID: uuidv4(), //not sure!!!!!!!!!!!!!!! TODO: check
@@ -206,8 +200,6 @@ export class FileUploadComponent {
       const i_height = document.getElementById('i_height') as HTMLInputElement;
       const finalHeight = Number(i_height?.value);
 
-      
-    
       const inp: CreateImagesInput = {
         imageID: uuidv4(),
         collectionID: collectionID,
@@ -233,6 +225,24 @@ export class FileUploadComponent {
       this.uploadToS3(collectionID, inp.imageID, frames[i]);
     }
     this.makeThumbnails(collectionID, frames);
+
+    this.apiController.createODMTask(frames).then((resp: Observable<WebODMCreateTaskResponse>) => {;
+      resp.subscribe({
+        next: (response: WebODMCreateTaskResponse) => {
+          console.log("[FILE UPLOAD] Logging WebODM Create Task Response...", response);
+          const updateCollection: UpdateImageCollectionInput = {
+            collectionID: collectionID,
+            taskID: response.id
+          }
+          this.api.UpdateImageCollection(updateCollection).then((_res: UpdateImageCollectionMutation) => {
+            console.log("Updated collection");
+          });
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      });
+    });
   }
 
   uploadVideo(collectionID: string) {
@@ -243,7 +253,7 @@ export class FileUploadComponent {
     img.src = URL.createObjectURL(this.files[0]);
 
     // extract frames (video, interval(time), quality(0-1), final width, final height)
-    const interval = 1;
+    const interval = 1; //fps
     const quality = 1.0;
     // TODO: NEED TO GET THESE VALUES FROM THE DROP DOWN @STEVEN
     const i_width = document.getElementById('i_width') as HTMLInputElement;

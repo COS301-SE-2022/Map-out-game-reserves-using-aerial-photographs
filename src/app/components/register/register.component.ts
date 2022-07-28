@@ -2,7 +2,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ControllerService } from 'src/app/api/controller/controller.service';
-import { User } from 'src/app/API.service';
+import { User } from 'src/app/api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { OtpDialogComponent } from './otp-dialog/otp-dialog.component';

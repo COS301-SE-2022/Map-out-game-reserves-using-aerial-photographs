@@ -5,7 +5,7 @@ import {
   APIService,
   Images,
   ListImageCollectionsQuery,
-} from 'src/app/API.service';
+} from 'src/app/api.service';
 import { ControllerService } from 'src/app/api/controller/controller.service';
 
 interface ImageData {
@@ -58,7 +58,7 @@ export class ImageCatalogueComponent {
             thumbnails: []
           })
         }
-         
+
         for (const catalogData of this.catalogues){
             console.log(22,catalogData.catalogue.collectionID);
             this.api
@@ -99,7 +99,7 @@ export class ImageCatalogueComponent {
               })
               .catch((e) => console.log(e));
           }
-        
+
 
         return data.items;
       })
@@ -119,15 +119,12 @@ export class ImageCatalogueComponent {
     const searchTerm = (<HTMLInputElement>(
       document.getElementById('searchInput')
     )).value.toLowerCase();
-    if (searchTerm != '') {
-      this.catalogues = this.tempCatalogues;
-      this.catalogues = this.catalogues.filter((c) => {
-        const date = new Date(c.catalogue.upload_date_time!).toDateString().toLowerCase();
-        return date.includes(searchTerm);
-      });
-    } else {
-      this.getAllCatalogues();
-    }
+
+    this.catalogues = this.tempCatalogues;
+    this.catalogues = this.catalogues.filter((c) => {
+      const date = new Date(c.catalogue.upload_date_time!).toDateString().toLowerCase();
+      return date.includes(searchTerm);
+    });
   }
 
   onChangeSort(selectedOption: any) {
