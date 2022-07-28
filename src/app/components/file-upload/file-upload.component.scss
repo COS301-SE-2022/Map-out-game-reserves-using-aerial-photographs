@@ -120,7 +120,8 @@
 
 .parks,
 .types,
-#height {
+#height,
+.i-size {
     width: 90%;
 background: $primary-background-opaque;
     border: none;
@@ -132,6 +133,11 @@ background: $primary-background-opaque;
     overflow-y: auto;
     margin: 7px;
 }
+
+.parks{
+  width:80%;
+}
+
 
 .drop-zone {
   max-width: 100%;
