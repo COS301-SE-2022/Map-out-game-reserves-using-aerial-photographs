@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { Auth, Storage } from 'aws-amplify';
-import { APIService, CreateMapInput, CreateMapMutation, CreateMessageInput, CreateMessageMutation, CreateUserInput, DeletePendingInvitesInput, GetImageCollectionByTaskIdQuery, GetImageCollectionQuery, GetMessageByCollectionIdQuery, ImageCollection, ListImageCollectionsQuery, UpdateImageCollectionInput, UpdateImageCollectionMutation, User } from '../../API.service';
+import { APIService, CreateMapInput, CreateMapMutation, CreateMessageInput, CreateMessageMutation, CreateUserInput, DeletePendingInvitesInput, GetImageCollectionByTaskIdQuery, GetImageCollectionQuery, GetMessageByCollectionIdQuery, ImageCollection, ListImageCollectionsQuery, UpdateImageCollectionInput, UpdateImageCollectionMutation, User } from '../../api.service';
 import { v4 as uuidv4 } from 'uuid';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { interval, Observable, startWith, Subject, Subscription, switchMap } from 'rxjs';

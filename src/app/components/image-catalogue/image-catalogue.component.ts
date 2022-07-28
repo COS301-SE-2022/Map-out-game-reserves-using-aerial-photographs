@@ -16,6 +16,7 @@ interface ImageData {
 interface CatalogData {
   catalogue: any;
   images: ImageData[];
+  thumbnails: string[];
 }
 
 @Component({
@@ -53,40 +54,51 @@ export class ImageCatalogueComponent {
         for (const catalog of data.items) {
           this.catalogues.push({
             catalogue: catalog,
-            images: []
+            images: [],
+            thumbnails: []
           })
         }
 
-        for (const catalogData of this.catalogues) {
-          console.log(22, catalogData.catalogue.collectionID);
+        for (const catalogData of this.catalogues){
+            console.log(22,catalogData.catalogue.collectionID);
+            this.api
+              .ImagesByCollectionId(catalogData.catalogue.collectionID)
+              .then((resp: any) => {
+                console.log(resp.items);
+                for (const image of resp.items) {
+                  catalogData.images.push({ image: image, url: '' });
+                }
 
-          this.api
-            .ImagesByCollectionId(catalogData.catalogue.collectionID)
-            .then((resp: any) => {
-              console.log(resp.items);
-              for (const image of resp.items) {
-                catalogData.images.push({ image: image, url: '' });
-              }
+                for (const i of catalogData.images) {
+                  this.apiController
+                    .S3download(
+                      i.image.imageID,
+                      catalogData.catalogue.collectionID,
+                      'images',
+                      false
+                    )
+                    .then((signedURL) => {
+                      i.url = signedURL;
+                    });
+                }
 
-              for (const i of catalogData.images) {
-                this.apiController
-                  .S3download(
-                    i.image.imageID,
-                    catalogData.catalogue.collectionID,
-                    'images',
-                    false
-                  )
-                  .then((signedURL) => {
-                    i.url = signedURL;
-                  });
-              }
-              this.sortByDate();
-              this.tempCatalogues = this.catalogues;
-            })
-            .catch((e) => console.log(e));
-
-          console.log("Image Catalog: ", catalogData.catalogue);
-        }
+                for(var i = 0;i<3;i++){
+                  this.apiController
+                    .S3download(
+                      "thumbnail_"+i,
+                      catalogData.catalogue.collectionID,
+                      'thumbnails',
+                      false
+                    )
+                    .then((signedURL) => {
+                      catalogData.thumbnails.push(signedURL);
+                    });
+                }
+                // this.sortByDate();
+                this.tempCatalogues = this.catalogues;
+              })
+              .catch((e) => console.log(e));
+          }
 
 
         return data.items;

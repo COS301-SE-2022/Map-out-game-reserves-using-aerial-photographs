@@ -36,6 +36,7 @@
     "bcryptjs": "^2.4.3",
     "chart.js": "^3.8.0",
     "image-resize-compress": "^1.0.8",
+    "image-to-blob": "^0.2.0",
     "material-design-icons-iconfont": "^6.7.0",
     "material-icons": "^1.11.5",
     "ng2-charts": "^3.1.2",
