@@ -54,7 +54,6 @@
                   </option>
                   
                 </select>
-<<<<<<< HEAD
                 <!-- <div style="height: 100% !important; margin: 0;"> -->
                   <button mat-button style ="background-color: white; border:none; font-size: 20px;">
                     <mat-icon style="padding-top: 12px;
@@ -68,10 +67,7 @@
                 
               </div>
               
-=======
-
->>>>>>> 742822a7284fd35b09cacbd41d2f6bf715a50a8e
-              <select ng-model="selectedType" class="types tooltip" id="fType">
+              <select ng-model="selectedType" class="types" id="fType">
                 <option value="" disabled selected>Select a flight type</option>
                 <option *ngFor="let type of flight" [value]="type.value">
                   {{ type.viewValue }}

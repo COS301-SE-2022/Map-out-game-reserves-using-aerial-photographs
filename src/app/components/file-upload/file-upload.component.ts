@@ -79,13 +79,9 @@ export class FileUploadComponent {
     //   console.log(this.file?.name);
     // })
 
-<<<<<<< HEAD
-    //TODO: ADD FORM TO ADD PARK @DYLAN
+    //TODO: add park ui
 
-    this.api.ListGameParks().then((event) => {
-=======
     this.api.ListGameParks().then((event: any) => {
->>>>>>> 742822a7284fd35b09cacbd41d2f6bf715a50a8e
       //console.log(event.items[0]?.park_name);
       for (let i = 0; i < event.items.length; i++) {
         const element = event.items[i];
@@ -195,6 +191,7 @@ export class FileUploadComponent {
     const frames = [];
     this.frameCount = this.files.length;
     for (var i = 0; i < this.files.length; i++) {
+      //TODO: get from dropdown
       const i_width = document.getElementById('i_width') as HTMLInputElement;
       const finalWidth = Number(i_width?.value);
       const i_height = document.getElementById('i_height') as HTMLInputElement;
