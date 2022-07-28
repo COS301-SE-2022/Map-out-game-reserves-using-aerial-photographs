@@ -22,6 +22,11 @@ interface FlightType {
   viewValue: string;
 }
 
+interface ImageSize {
+  value: string;
+  viewValue:string;
+}
+
 @Component({
   selector: 'aerial-mapping-file-upload',
   templateUrl: './file-upload.component.html',
@@ -51,6 +56,15 @@ export class FileUploadComponent {
     { value: 'Propeller Plane', viewValue: 'Propeller Plane' },
   ];
 
+  iSize: ImageSize[] = [
+    { value: '1080', viewValue: '1080p'},
+    { value: '720', viewValue: '720p'},
+    { value: '480', viewValue: '480p'},
+    { value: '360', viewValue: '360p'},
+    { value: '240', viewValue: '240p'},
+    { value: '144', viewValue: '144p'},
+    ];
+
   constructor(
     /*private apiService: ClientApiService*/ private apiController: ControllerService,
     private api: APIService,
@@ -64,6 +78,8 @@ export class FileUploadComponent {
     //   this.uploadFileLocal();
     //   console.log(this.file?.name);
     // })
+
+    //TODO: ADD FORM TO ADD PARK @DYLAN
 
     this.api.ListGameParks().then((event) => {
       //console.log(event.items[0]?.park_name);
@@ -229,6 +245,7 @@ export class FileUploadComponent {
     // extract frames (video, interval(time), quality(0-1), final width, final height)
     const interval = 1;
     const quality = 1.0;
+    // TODO: NEED TO GET THESE VALUES FROM THE DROP DOWN @STEVEN
     const i_width = document.getElementById('i_width') as HTMLInputElement;
     const finalWidth = Number(i_width?.value);
     const i_height = document.getElementById('i_height') as HTMLInputElement;
