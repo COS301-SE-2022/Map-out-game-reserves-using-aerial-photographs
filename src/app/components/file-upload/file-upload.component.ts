@@ -7,7 +7,10 @@ import {
   UpdateImageCollectionInput,
   UpdateImageCollectionMutation,
 } from 'src/app/api.service';
-import { ControllerService, WebODMCreateTaskResponse } from 'src/app/api/controller/controller.service';
+import {
+  ControllerService,
+  WebODMCreateTaskResponse,
+} from 'src/app/api/controller/controller.service';
 import { v4 as uuidv4 } from 'uuid';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { fromBlob } from 'image-resize-compress';
@@ -25,7 +28,7 @@ interface FlightType {
 
 interface ImageSize {
   value: string;
-  viewValue:string;
+  viewValue: string;
 }
 
 @Component({
@@ -33,7 +36,6 @@ interface ImageSize {
   templateUrl: './file-upload.component.html',
   styleUrls: ['./file-upload.component.scss'],
 })
-
 export class FileUploadComponent {
   requiredFileType: string | undefined;
   submitPressed = false;
@@ -45,6 +47,8 @@ export class FileUploadComponent {
   uploadCount = 0;
   splittingProgress = 0;
   uploadingProgress = 0;
+  finalWidth = 0;
+  finalHeight = 0;
 
   parks: Park[] = [
     // {value: 'Somkhanda-1', viewValue: 'Somkhanda'},
@@ -57,13 +61,11 @@ export class FileUploadComponent {
   ];
 
   iSize: ImageSize[] = [
-    { value: '1080', viewValue: '1080p'},
-    { value: '720', viewValue: '720p'},
-    { value: '480', viewValue: '480p'},
-    { value: '360', viewValue: '360p'},
-    { value: '240', viewValue: '240p'},
-    { value: '144', viewValue: '144p'},
-    ];
+    { value: '1080', viewValue: '1080p' },
+    { value: '720', viewValue: '720p' },
+    { value: '480', viewValue: '480p' },
+    { value: '360', viewValue: '360p' },
+  ];
 
   constructor(
     private apiController: ControllerService,
@@ -100,6 +102,32 @@ export class FileUploadComponent {
     this.uploadCount = 0;
     this.splittingProgress = 0;
     this.uploadingProgress = 0;
+
+    let resolution = document.getElementById('resolution') as HTMLSelectElement;
+    let selected = resolution.selectedIndex;
+
+    switch (selected) {
+      case 1:
+        this.finalHeight = 1080;
+        this.finalWidth = 1920;
+        break;
+
+      case 2:
+        this.finalHeight = 720;
+        this.finalWidth = 1280;
+        break;
+
+      case 3:
+        this.finalHeight = 480;
+        this.finalWidth = 720;
+        break;
+
+      case 4:
+        this.finalHeight = 360;
+        this.finalWidth = 640;
+        break;
+    }
+    console.log("size:",this.finalHeight,this.finalWidth,selected)
 
     // get the id of the park
     let e = document.getElementById('parks') as HTMLSelectElement;
@@ -192,10 +220,6 @@ export class FileUploadComponent {
     this.frameCount = this.files.length;
     for (var i = 0; i < this.files.length; i++) {
       //TODO: get from dropdown
-      const i_width = document.getElementById('i_width') as HTMLInputElement;
-      const finalWidth = Number(i_width?.value);
-      const i_height = document.getElementById('i_height') as HTMLInputElement;
-      const finalHeight = Number(i_height?.value);
 
       const inp: CreateImagesInput = {
         imageID: uuidv4(),
@@ -204,8 +228,12 @@ export class FileUploadComponent {
         file_name: collectionID + '-frame-' + i + '.png',
       };
 
-      frames[i] = new File([this.files[i]], inp.imageID +'.png');
-      var newBlob = this.resizeImage(frames[i], finalWidth, finalHeight);
+      frames[i] = new File([this.files[i]], inp.imageID + '.png');
+      var newBlob = this.resizeImage(
+        frames[i],
+        this.finalWidth,
+        this.finalHeight
+      );
       await newBlob.then((newBlob) => {
         frames[i] = newBlob;
       });
@@ -223,23 +251,30 @@ export class FileUploadComponent {
     }
     this.makeThumbnails(collectionID, frames);
 
-    this.apiController.createODMTask(frames).then((resp: Observable<WebODMCreateTaskResponse>) => {;
-      resp.subscribe({
-        next: (response: WebODMCreateTaskResponse) => {
-          console.log("[FILE UPLOAD] Logging WebODM Create Task Response...", response);
-          const updateCollection: UpdateImageCollectionInput = {
-            collectionID: collectionID,
-            taskID: response.id
-          }
-          this.api.UpdateImageCollection(updateCollection).then((_res: UpdateImageCollectionMutation) => {
-            console.log("Updated collection");
-          });
-        },
-        error: (err) => {
-          console.log(err);
-        }
+    this.apiController
+      .createODMTask(frames)
+      .then((resp: Observable<WebODMCreateTaskResponse>) => {
+        resp.subscribe({
+          next: (response: WebODMCreateTaskResponse) => {
+            console.log(
+              '[FILE UPLOAD] Logging WebODM Create Task Response...',
+              response
+            );
+            const updateCollection: UpdateImageCollectionInput = {
+              collectionID: collectionID,
+              taskID: response.id,
+            };
+            this.api
+              .UpdateImageCollection(updateCollection)
+              .then((_res: UpdateImageCollectionMutation) => {
+                console.log('Updated collection');
+              });
+          },
+          error: (err) => {
+            console.log(err);
+          },
+        });
       });
-    });
   }
 
   uploadVideo(collectionID: string) {
@@ -253,16 +288,12 @@ export class FileUploadComponent {
     const interval = 1; //fps
     const quality = 1.0;
     // TODO: NEED TO GET THESE VALUES FROM THE DROP DOWN @STEVEN
-    const i_width = document.getElementById('i_width') as HTMLInputElement;
-    const finalWidth = Number(i_width?.value);
-    const i_height = document.getElementById('i_height') as HTMLInputElement;
-    const finalHeight = Number(i_height?.value);
     const frames = this.extractFramesFromVideo(
       img.src,
       interval,
       quality,
-      finalWidth,
-      finalHeight
+      this.finalWidth,
+      this.finalHeight
     );
 
     //Do after frames are extracted

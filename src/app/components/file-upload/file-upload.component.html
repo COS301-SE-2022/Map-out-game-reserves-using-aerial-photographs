@@ -77,7 +77,7 @@
               <input type="number" placeholder="Enter the height of the flight (metres)" id="height" min="1" />
 
               <!-- TODO: Still need to make this look nice -->
-              <select ng-model="selectedType" class="i-size tooltip" id="fType">
+              <select ng-model="selectedResolution" class="i-size tooltip" id="resolution">
                 <option value="" disabled selected>Select a resolution size</option>
                 <option *ngFor="let size of iSize" [value]="size.value">
                   {{ size.viewValue }}
