@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FooterModule } from '../shared/footer/footer.module';
+import { MatDividerModule } from '@angular/material/divider';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { FooterModule } from '../shared/footer/footer.module';
     MatInputModule,
     MatSelectModule,
     FooterModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDividerModule
   ]
 })
 export class ImageCatalogueModule { }
