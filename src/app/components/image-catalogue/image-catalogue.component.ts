@@ -7,7 +7,19 @@ import {
   ListImageCollectionsQuery,
 } from 'src/app/API.service';
 import { ControllerService } from 'src/app/api/controller/controller.service';
+import { ImageDialogComponent } from './image-dialog/image-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import {
+  MAT_TOOLTIP_DEFAULT_OPTIONS,
+  MatTooltipDefaultOptions,
+} from '@angular/material/tooltip';
 
+/** Custom options the configure the tooltip's default show/hide delays. */
+export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
+  showDelay: 1000,
+  hideDelay: 500,
+  touchendHideDelay: 1000,
+};
 interface ImageData {
   image: Images;
   url: SafeUrl;
@@ -23,6 +35,9 @@ interface CatalogData {
   selector: 'aerial-mapping-image-catalogue',
   templateUrl: './image-catalogue.component.html',
   styleUrls: ['./image-catalogue.component.scss'],
+  providers: [
+    { provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: myCustomTooltipDefaults },
+  ],
 })
 export class ImageCatalogueComponent {
   selected: string;
@@ -36,6 +51,7 @@ export class ImageCatalogueComponent {
   };
 
   constructor(
+    public dialog: MatDialog,
     private api: APIService,
     private apiController: ControllerService,
     private snackbar: MatSnackBar
@@ -160,11 +176,19 @@ export class ImageCatalogueComponent {
     }
   }
 
-  closePopup() {
-    const doc = document.getElementById('popup');
-    if (doc !== null) {
-      this.selectedCatalogue = null;
-      doc.style.display = 'none';
-    }
+  openImgaeDialog(catalogue:CatalogData): void {
+    this.selectedCatalogue = catalogue
+    const dialogRef = this.dialog.open(ImageDialogComponent, {
+      width: '100vw',
+      data: { selectedCatalogue: this.selectedCatalogue},
+    });
   }
+
+  // closePopup() {
+  //   const doc = document.getElementById('popup');
+  //   if (doc !== null) {
+  //     this.selectedCatalogue = null;
+  //     doc.style.display = 'none';
+  //   }
+  // }
 }
