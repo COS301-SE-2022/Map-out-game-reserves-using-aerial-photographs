@@ -72,10 +72,10 @@ export declare class Message {
   readonly messageID: string;
   readonly message_status?: string | null;
   readonly message_description?: string | null;
+  readonly collectionID?: string | null;
   readonly ImageCollection?: ImageCollection | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  readonly messageImageCollectionId?: string | null;
   constructor(init: ModelInit<Message, MessageMetaData>);
   static copyOf(source: Message, mutator: (draft: MutableModel<Message, MessageMetaData>) => MutableModel<Message, MessageMetaData> | void): Message;
 }
@@ -83,13 +83,15 @@ export declare class Message {
 export declare class ImageCollection {
   readonly id: string;
   readonly collectionID: string;
+  readonly taskID?: string | null;
   readonly parkID?: string | null;
   readonly GamePark?: GamePark | null;
   readonly upload_date_time?: string | null;
   readonly completed?: boolean | null;
+  readonly error?: boolean | null;
+  readonly pending?: boolean | null;
   readonly flightID?: string | null;
   readonly FlightDetails?: FlightDetails | null;
-  readonly taskID?: number | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<ImageCollection, ImageCollectionMetaData>);

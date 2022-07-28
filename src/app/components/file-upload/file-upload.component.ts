@@ -217,12 +217,7 @@ export class FileUploadComponent {
 
       //createTask (WebODM)
       this.apiController.createODMTask(framesResp).then((resp: WebODMCreateTaskResponse) => {
-        console.log("[CREATE TASK] Logging Create Task Response...");
-        console.log(resp);
-        this.apiController.getMapAssets(resp.id).then((mapAssets: any) => {
-          console.log("[GET MAP ASSETS] Logging Map Assets...");
-          console.log(mapAssets);
-        });
+        console.log("[FILE UPLOAD] Logging WebODM Create Task Response...", resp);
       });
 
       //create an image collection (DynamoDB)
@@ -307,13 +302,13 @@ export class FileUploadComponent {
     return frames;
   };
 
-  async resizeImage(blobFile:File,width:number,height:number){
+  async resizeImage(blobFile:File,width:number,height:number): Promise<Blob>{
     // quality value for webp and jpeg formats.
     const quality = 80;
     // file format: png, jpeg, bmp, gif, webp. If null, original format will be used.
     const format = 'webp';
     // note only the blobFile argument is required
-    return await fromBlob(blobFile, quality, width, height, format);
+    return fromBlob(blobFile, quality, width, height, format);
   };
 
   async makeThumbnails(collectionID: string,frames:any[]) {

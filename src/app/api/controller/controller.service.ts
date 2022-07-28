@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { Auth, Storage } from 'aws-amplify';
-import { APIService, CreateUserInput, DeletePendingInvitesInput, User } from '../../API.service';
+import { APIService, CreateMapInput, CreateMapMutation, CreateMessageInput, CreateMessageMutation, CreateUserInput, DeletePendingInvitesInput, GetImageCollectionQuery, GetMessageByCollectionIdQuery, ImageCollection, ListImageCollectionsQuery, UpdateImageCollectionInput, UpdateImageCollectionMutation, User } from '../../API.service';
 import { v4 as uuidv4 } from 'uuid';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { interval, Observable, startWith, Subject, Subscription, switchMap } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 interface WebODMTokenResponse {
   token: string;
@@ -22,22 +23,132 @@ export interface WebODMCreateTaskResponse {
   description: string;
 }
 
+interface WebODMTask {
+  id: string;
+  images_count: number;
+  name: string;
+  status: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
-export class ControllerService {
+export class ControllerService implements OnDestroy {
   webODM_URL: string;
   tokenResponse: WebODMTokenResponse;
   subject: Subject<any>;
   projectId: number;
+  collectionData: ImageCollection[] = [];
+  pollingInterval: Subscription;
+  errorState: boolean = false;
 
-  constructor(private repo: APIService, private http: HttpClient) {
+  constructor(private repo: APIService, private http: HttpClient, private snackbar: MatSnackBar) {
     this.webODM_URL = 'http://localhost:8000/';
     this.tokenResponse = {
       token: ""
     }
     this.subject = new Subject<any>();
+    this.pollingInterval = new Subscription();
     this.projectId = -1;
+
+    this.authenticateWithWebOdm().subscribe({
+      next: (project: WebODMProject) => {
+        console.log(project);
+        this.projectId = project.id;
+      },
+      error: (err: any) => {
+        console.log(err);
+      }
+    });
+
+    //poll WebODM
+    this.pollingInterval = interval(5000)
+    .pipe(
+      startWith(0),
+      switchMap(() => this.repo.ListImageCollections())
+    ).subscribe({
+      next: (collections: ListImageCollectionsQuery) => {
+        for(const collection of collections.items){
+          if(collection){
+            this.pollWebODMTask("44d62409-412a-4a64-8d86-03476596a7cd"/*collection.taskID!*/).then((status: Observable<any>) => {
+              status.subscribe({
+                next: (resp: Array<any>) => {
+                  console.log("[CONTROLLER SERVICE] Polling tasks from WebODM...", resp);
+                  for(const task of resp){
+                    let updatedCollection: UpdateImageCollectionInput;
+
+                    if(task.status == 10 || task.status == 20){
+                      //QUEUED or RUNNING
+                      updatedCollection = {
+                        collectionID: collection.collectionID,
+                        completed: false,
+                        error: false,
+                        pending: true
+                      }
+                    }
+                    else if (task.status == 40) {
+                      //COMPLETED
+                      this.repo.GetImageCollection(collection.collectionID).then((resp: GetImageCollectionQuery) => {
+                        //if the 'complete' boolean wasn't true already, then create Map in DynamoDB
+                        if(!resp.completed){
+                          //map doesn't exist yet, create new Map
+                          const newMap: CreateMapInput = {
+                            mapID: resp.taskID!,   //:NB this hack
+                            bucket_name: '',
+                            file_name: '',
+                            collectionID: resp.collectionID
+                          }
+                          this.repo.CreateMap(newMap).then((_res: CreateMapMutation) => {
+                            console.log("[CONTROLLER SERVICE] Created new map...", _res);
+                          }).catch(e => console.log(e));
+                        }
+                      }).catch(err => {
+                        console.log(err);
+                      });
+
+                      updatedCollection = {
+                        collectionID: collection.collectionID,
+                        completed: true,
+                        error: false,
+                        pending: false
+                      }
+                    }
+                    else {
+                      //status is 30 (FAILED) or 50 (CANCELED)
+                      updatedCollection = {
+                        collectionID: collection.collectionID,
+                        completed: false,
+                        error: true,
+                        pending: false
+                      }
+                    }
+
+                    this.repo.UpdateImageCollection(updatedCollection).then((_resp: any) => {
+                      console.log("[CONTROLLER SERVICE] Updated collection...", _resp);
+                    });
+                  }
+                },
+                error: (err: any) => {
+                  console.log(err);
+                  //cannot connect to WebODM
+                  if(!this.errorState){
+                    this.errorState = true;
+                    this.snackbar.open('Cannot connect to WebODM. Make sure your WebODM backend is running.', 'OK', { verticalPosition: 'top' });
+                  }
+                }
+              });
+            });
+          }
+        }
+      },
+      error: (err: any) => {
+        console.log(err);
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.pollingInterval.unsubscribe();
   }
 
   async tryRegister(u: User): Promise<number> {
@@ -154,8 +265,6 @@ export class ControllerService {
     //get auth token
     this.http.post(this.webODM_URL + 'api/token-auth/', body).subscribe({
       next: (jwt) => {
-        console.log(jwt);
-
         this.tokenResponse = JSON.parse(JSON.stringify(jwt));
 
         const headers = new HttpHeaders({
@@ -192,6 +301,13 @@ export class ControllerService {
     return this.http.post(this.webODM_URL + `/api/projects/${this.projectId}/tasks/`, body, { headers: headers });
   }
 
+  async getAllWebODMTasks(): Promise<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `JWT ${this.tokenResponse.token}`,
+    });
+    return this.http.get(this.webODM_URL + `api/projects/${this.projectId}/tasks/`, { headers: headers });
+  }
+
   async getMapAssets(taskID: number): Promise<any> {
     const headers = new HttpHeaders({
       'Authorization': `JWT ${this.tokenResponse.token}`,
@@ -199,11 +315,11 @@ export class ControllerService {
     return this.http.get(this.webODM_URL + `/api/projects/${this.projectId}/tasks/${taskID}/download/all.zip`, { headers: headers });
   }
 
-  async pollWebODMTask(taskID: number): Promise<any> {
+  async pollWebODMTask(taskID: string): Promise<any> {
     const headers = new HttpHeaders({
       'Authorization': `JWT ${this.tokenResponse.token}`,
     });
-    return this.http.get(this.webODM_URL + ``, { headers: headers });
+    return this.http.get(this.webODM_URL + `api/projects/${this.projectId}/tasks/${taskID}/output/`, { headers: headers });
   }
 
   //------------------------------------------------------------------------

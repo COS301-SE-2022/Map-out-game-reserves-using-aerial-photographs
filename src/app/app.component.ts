@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { ControllerService, WebODMProject } from './api/controller/controller.service';
-
 
 @Component({
   selector: 'app-root',
@@ -12,15 +10,7 @@ export class AppComponent {
 
   //websocket: WebSocket;
 
-  constructor(private controller: ControllerService) {
-    this.controller.authenticateWithWebOdm().subscribe({
-      next: (project: WebODMProject) => {
-        console.log(project);
-      },
-      error: (err) => {
-        console.log(err);
-      }
-    });
+  constructor() {
 
     // this.websocket = new WebSocket("wss://yg39xocfj9.execute-api.us-east-1.amazonaws.com/production/");
 
