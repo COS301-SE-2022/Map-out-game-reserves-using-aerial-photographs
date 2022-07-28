@@ -49,9 +49,9 @@ export class BarChartComponent implements OnInit {
             // hoverBorderColor: "#12172a",
             // hoverBackgroundColor: "#12172a",
             // backgroundColor: "#12172a",
-            backgroundColor: '#757575',
-            hoverBackgroundColor: '#757575',
-            hoverBorderColor: '#757575',
+            backgroundColor: '#5c7484',
+            hoverBackgroundColor: '#747c7c',
+            hoverBorderColor: '#5c7484',
           },
         ],
       };

@@ -25,7 +25,7 @@
 .navText {
   font-size: 14pt;
   color: $primary-background;
-  // transition: 0.3s;
+  // transition: 0.5s;
 }
 
 mat-icon {
@@ -53,6 +53,7 @@ mat-icon {
   white-space: nowrap;
   overflow: hidden;
   color: $primary-grey;
+  transition-delay: 500ms;
 }
 
 .menu-button:hover span {
@@ -72,8 +73,26 @@ mat-icon {
 }
 
 @media only screen and (max-width: 768px) {
-  #nav {
+  .nav {
     display: block;
+    height: 18vh;
+  }
+
+  #titleButton {
+    width: 100%;
+    text-align: center;
+    // position: absolute;
+    // left: 50vw;
+  }
+
+  .menu-button span {
+    display: block;
+  }
+
+  #buttons {
+    margin-top: 1px;
+    width: 100%;
+    text-align: center;
   }
 }
 

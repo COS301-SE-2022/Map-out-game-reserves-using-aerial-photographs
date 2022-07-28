@@ -5,6 +5,8 @@ import { NavbarModule } from '../shared/navbar/navbar.module';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FooterModule } from '../shared/footer/footer.module';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatIconModule} from '@angular/material/icon'
 
 
 @NgModule({
@@ -14,7 +16,9 @@ import { FooterModule } from '../shared/footer/footer.module';
     NavbarModule,
     MatProgressBarModule,
     FooterModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDividerModule,
+    MatIconModule
   ]
 })
 export class FileUploadModule { }
