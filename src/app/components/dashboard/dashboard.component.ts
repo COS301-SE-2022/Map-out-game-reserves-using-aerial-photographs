@@ -31,7 +31,7 @@ export class DashboardComponent implements OnInit{
 
   values = [3, 5, 2, 3, 2, 1, 7, 4];
 
-  constructor(private apiController: ControllerService, private sanitizer: DomSanitizer, private api:APIService, private snackbar: MatSnackBar) {
+  constructor(private api:APIService, private snackbar: MatSnackBar) {
     this.maps = [
       {Value: this.values[0]},
       {Value: this.values[1]},
@@ -50,6 +50,7 @@ export class DashboardComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    // this.api.SearchImageCollections();
     //--------------------still to do----------------------
     // this.apiService.getImageData("bucket name", "file name").subscribe({
     //   next: (blob) => {
