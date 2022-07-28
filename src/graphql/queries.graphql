@@ -45,11 +45,15 @@ query GetMessages {
     messageID
     message_status
     message_description
+    collectionID
     ImageCollection {
       collectionID
+      taskID
       parkID
       upload_date_time
       completed
+      error
+      pending
       flightID
       createdAt
       updatedAt
@@ -62,7 +66,6 @@ query GetMessages {
     _version
     _deleted
     _lastChangedAt
-    messageImageCollectionId
   }
 }
 query GetImagesByCollectionId($id: String) {
@@ -88,6 +91,7 @@ query GetAuthStatus {
 query GetImageCollections {
   getImageCollections {
     collectionID
+    taskID
     parkID
     GamePark {
       parkID
@@ -102,6 +106,8 @@ query GetImageCollections {
     }
     upload_date_time
     completed
+    error
+    pending
     flightID
     FlightDetails {
       flightID
@@ -138,6 +144,7 @@ query GetImage($imageID: String) {
 query GetCatalogues {
   getCatalogues {
     collectionID
+    taskID
     parkID
     GamePark {
       parkID
@@ -152,6 +159,8 @@ query GetCatalogues {
     }
     upload_date_time
     completed
+    error
+    pending
     flightID
     FlightDetails {
       flightID
@@ -169,52 +178,6 @@ query GetCatalogues {
     _version
     _deleted
     _lastChangedAt
-  }
-}
-query SearchImageCollections(
-  $filter: SearchableImageCollectionFilterInput
-  $sort: [SearchableImageCollectionSortInput]
-  $limit: Int
-  $nextToken: String
-  $from: Int
-  $aggregates: [SearchableImageCollectionAggregationInput]
-) {
-  searchImageCollections(
-    filter: $filter
-    sort: $sort
-    limit: $limit
-    nextToken: $nextToken
-    from: $from
-    aggregates: $aggregates
-  ) {
-    items {
-      collectionID
-      parkID
-      upload_date_time
-      completed
-      flightID
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-    nextToken
-    total
-    aggregateItems {
-      name
-      result {
-        ... on SearchableAggregateScalarResult {
-          value
-        }
-        ... on SearchableAggregateBucketResult {
-          buckets {
-            key
-            doc_count
-          }
-        }
-      }
-    }
   }
 }
 query GetUser($userID: String!) {
@@ -367,6 +330,7 @@ query SyncGameParks(
 query GetImageCollection($collectionID: String!) {
   getImageCollection(collectionID: $collectionID) {
     collectionID
+    taskID
     parkID
     GamePark {
       parkID
@@ -381,6 +345,8 @@ query GetImageCollection($collectionID: String!) {
     }
     upload_date_time
     completed
+    error
+    pending
     flightID
     FlightDetails {
       flightID
@@ -416,9 +382,12 @@ query ListImageCollections(
   ) {
     items {
       collectionID
+      taskID
       parkID
       upload_date_time
       completed
+      error
+      pending
       flightID
       createdAt
       updatedAt
@@ -444,9 +413,12 @@ query SyncImageCollections(
   ) {
     items {
       collectionID
+      taskID
       parkID
       upload_date_time
       completed
+      error
+      pending
       flightID
       createdAt
       updatedAt
@@ -466,9 +438,12 @@ query GetMap($mapID: String!) {
     collectionID
     Collection {
       collectionID
+      taskID
       parkID
       upload_date_time
       completed
+      error
+      pending
       flightID
       createdAt
       updatedAt
@@ -544,11 +519,15 @@ query GetMessage($messageID: String!) {
     messageID
     message_status
     message_description
+    collectionID
     ImageCollection {
       collectionID
+      taskID
       parkID
       upload_date_time
       completed
+      error
+      pending
       flightID
       createdAt
       updatedAt
@@ -561,7 +540,6 @@ query GetMessage($messageID: String!) {
     _version
     _deleted
     _lastChangedAt
-    messageImageCollectionId
   }
 }
 query ListMessages(
@@ -582,12 +560,12 @@ query ListMessages(
       messageID
       message_status
       message_description
+      collectionID
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
-      messageImageCollectionId
     }
     nextToken
     startedAt
@@ -609,12 +587,12 @@ query SyncMessages(
       messageID
       message_status
       message_description
+      collectionID
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
-      messageImageCollectionId
     }
     nextToken
     startedAt
@@ -936,6 +914,39 @@ query UserByEmail(
     startedAt
   }
 }
+query GetImageCollectionByTaskId(
+  $taskID: String!
+  $sortDirection: ModelSortDirection
+  $filter: ModelImageCollectionFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  getImageCollectionByTaskId(
+    taskID: $taskID
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      collectionID
+      taskID
+      parkID
+      upload_date_time
+      completed
+      error
+      pending
+      flightID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
+  }
+}
 query GetMapByFileName(
   $file_name: String!
   $sortDirection: ModelSortDirection
@@ -954,6 +965,35 @@ query GetMapByFileName(
       mapID
       bucket_name
       file_name
+      collectionID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
+  }
+}
+query GetMessageByCollectionId(
+  $collectionID: String!
+  $sortDirection: ModelSortDirection
+  $filter: ModelMessageFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  getMessageByCollectionId(
+    collectionID: $collectionID
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      messageID
+      message_status
+      message_description
       collectionID
       createdAt
       updatedAt

@@ -46,7 +46,13 @@
           </ng-container>
         </mat-card-content>
         <mat-card-footer style="padding: 0px 10px">
-          <button mat-raised-button class="link tooltip" (click)="enlarge(catData)">View
+          <button [disabled]="!catData.catalogue.completed" mat-raised-button class="link tooltip" (click)="enlarge(catData)">
+            <ng-container *ngIf="catData.catalogue.completed">
+              View
+            </ng-container>
+            <ng-container *ngIf="!catData.catalogue.completed">
+              Map Processing
+            </ng-container>
             <span class="tooltiptext">View images & create maps</span>
           </button>
         </mat-card-footer>

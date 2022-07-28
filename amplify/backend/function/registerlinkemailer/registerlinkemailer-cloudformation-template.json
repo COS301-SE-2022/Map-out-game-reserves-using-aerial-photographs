@@ -181,6 +181,13 @@
               ],
               "Effect": "Allow",
               "Resource": "arn:aws:ses:us-east-1:870416143884:identity/thedylpickles1@gmail.com"
+            },
+            {
+              "Action": [
+                "ses:SendEmail"
+              ],
+              "Effect": "Allow",
+              "Resource": "arn:aws:ses:us-east-1:870416143884:identity/u17030553@tuks.co.za"
             }
           ]
         }

@@ -206,6 +206,13 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "collectionID": {
+                    "name": "collectionID",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "ImageCollection": {
                     "name": "ImageCollection",
                     "isArray": false,
@@ -217,7 +224,7 @@ export const schema = {
                     "association": {
                         "connectionType": "HAS_ONE",
                         "associatedWith": "collectionID",
-                        "targetName": "messageImageCollectionId"
+                        "targetName": "collectionID"
                     }
                 },
                 "createdAt": {
@@ -235,13 +242,6 @@ export const schema = {
                     "isRequired": false,
                     "attributes": [],
                     "isReadOnly": true
-                },
-                "messageImageCollectionId": {
-                    "name": "messageImageCollectionId",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
                 }
             },
             "syncable": true,
@@ -256,6 +256,16 @@ export const schema = {
                     "properties": {
                         "fields": [
                             "messageID"
+                        ]
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byCollectionId",
+                        "queryField": "getMessageByCollectionId",
+                        "fields": [
+                            "collectionID"
                         ]
                     }
                 }
@@ -276,6 +286,13 @@ export const schema = {
                     "isArray": false,
                     "type": "String",
                     "isRequired": true,
+                    "attributes": []
+                },
+                "taskID": {
+                    "name": "taskID",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
                     "attributes": []
                 },
                 "parkID": {
@@ -308,6 +325,20 @@ export const schema = {
                 },
                 "completed": {
                     "name": "completed",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "error": {
+                    "name": "error",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "pending": {
+                    "name": "pending",
                     "isArray": false,
                     "type": "Boolean",
                     "isRequired": false,
@@ -359,14 +390,20 @@ export const schema = {
                     "properties": {}
                 },
                 {
-                    "type": "searchable",
-                    "properties": {}
-                },
-                {
                     "type": "key",
                     "properties": {
                         "fields": [
                             "collectionID"
+                        ]
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byTaskId",
+                        "queryField": "getImageCollectionByTaskId",
+                        "fields": [
+                            "taskID"
                         ]
                     }
                 }
@@ -789,5 +826,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "be98b405ef1a5ecbfd3c7b0d77aa2618"
+    "version": "43346db7b7c2ec86319a6c9b2d763412"
 };
