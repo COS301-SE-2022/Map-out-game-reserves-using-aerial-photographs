@@ -194,6 +194,81 @@ subscription OnDeleteImageCollection {
     _lastChangedAt
   }
 }
+subscription OnCreateMap {
+  onCreateMap {
+    mapID
+    bucket_name
+    file_name
+    collectionID
+    Collection {
+      collectionID
+      parkID
+      upload_date_time
+      completed
+      flightID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnUpdateMap {
+  onUpdateMap {
+    mapID
+    bucket_name
+    file_name
+    collectionID
+    Collection {
+      collectionID
+      parkID
+      upload_date_time
+      completed
+      flightID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnDeleteMap {
+  onDeleteMap {
+    mapID
+    bucket_name
+    file_name
+    collectionID
+    Collection {
+      collectionID
+      parkID
+      upload_date_time
+      completed
+      flightID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
 subscription OnCreateMessage {
   onCreateMessage {
     messageID
@@ -421,6 +496,39 @@ subscription OnDeletePendingInvites {
     inviteID
     email
     role
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnCreateConnection {
+  onCreateConnection {
+    connectionID
+    topic
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnUpdateConnection {
+  onUpdateConnection {
+    connectionID
+    topic
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnDeleteConnection {
+  onDeleteConnection {
+    connectionID
+    topic
     createdAt
     updatedAt
     _version

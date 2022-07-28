@@ -60,7 +60,7 @@ type GamePark @model {
 # }
 
 
-type ImageCollection @model {
+type ImageCollection @model @searchable {
   collectionID: String! @primaryKey
   parkID: String
   GamePark: GamePark @hasOne(fields: ["parkID"])

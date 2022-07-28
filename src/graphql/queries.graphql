@@ -171,6 +171,52 @@ query GetCatalogues {
     _lastChangedAt
   }
 }
+query SearchImageCollections(
+  $filter: SearchableImageCollectionFilterInput
+  $sort: [SearchableImageCollectionSortInput]
+  $limit: Int
+  $nextToken: String
+  $from: Int
+  $aggregates: [SearchableImageCollectionAggregationInput]
+) {
+  searchImageCollections(
+    filter: $filter
+    sort: $sort
+    limit: $limit
+    nextToken: $nextToken
+    from: $from
+    aggregates: $aggregates
+  ) {
+    items {
+      collectionID
+      parkID
+      upload_date_time
+      completed
+      flightID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    total
+    aggregateItems {
+      name
+      result {
+        ... on SearchableAggregateScalarResult {
+          value
+        }
+        ... on SearchableAggregateBucketResult {
+          buckets {
+            key
+            doc_count
+          }
+        }
+      }
+    }
+  }
+}
 query GetUser($userID: String!) {
   getUser(userID: $userID) {
     userID
@@ -402,6 +448,87 @@ query SyncImageCollections(
       upload_date_time
       completed
       flightID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
+  }
+}
+query GetMap($mapID: String!) {
+  getMap(mapID: $mapID) {
+    mapID
+    bucket_name
+    file_name
+    collectionID
+    Collection {
+      collectionID
+      parkID
+      upload_date_time
+      completed
+      flightID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+query ListMaps(
+  $mapID: String
+  $filter: ModelMapFilterInput
+  $limit: Int
+  $nextToken: String
+  $sortDirection: ModelSortDirection
+) {
+  listMaps(
+    mapID: $mapID
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
+    items {
+      mapID
+      bucket_name
+      file_name
+      collectionID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
+  }
+}
+query SyncMaps(
+  $filter: ModelMapFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncMaps(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
+  ) {
+    items {
+      mapID
+      bucket_name
+      file_name
+      collectionID
       createdAt
       updatedAt
       _version
@@ -714,6 +841,69 @@ query SyncPendingInvites(
     startedAt
   }
 }
+query GetConnection($connectionID: String!) {
+  getConnection(connectionID: $connectionID) {
+    connectionID
+    topic
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+query ListConnections(
+  $connectionID: String
+  $filter: ModelConnectionFilterInput
+  $limit: Int
+  $nextToken: String
+  $sortDirection: ModelSortDirection
+) {
+  listConnections(
+    connectionID: $connectionID
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
+    items {
+      connectionID
+      topic
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
+  }
+}
+query SyncConnections(
+  $filter: ModelConnectionFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncConnections(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
+  ) {
+    items {
+      connectionID
+      topic
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
+  }
+}
 query UserByEmail(
   $user_email: String!
   $sortDirection: ModelSortDirection
@@ -736,6 +926,35 @@ query UserByEmail(
       user_name
       user_role
       user_approved
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
+  }
+}
+query GetMapByFileName(
+  $file_name: String!
+  $sortDirection: ModelSortDirection
+  $filter: ModelMapFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  getMapByFileName(
+    file_name: $file_name
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      mapID
+      bucket_name
+      file_name
+      collectionID
       createdAt
       updatedAt
       _version
@@ -794,6 +1013,33 @@ query GetPendingInvitesByEmail(
       inviteID
       email
       role
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
+  }
+}
+query GetConnectionsByTopic(
+  $topic: String!
+  $sortDirection: ModelSortDirection
+  $filter: ModelConnectionFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  getConnectionsByTopic(
+    topic: $topic
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      connectionID
+      topic
       createdAt
       updatedAt
       _version
