@@ -97,7 +97,7 @@ td {
 }
 
 .camera {
-  color: $primary;
+  color: #5c7484;
   font-size: 50px;
 }
 
@@ -215,28 +215,20 @@ aerial-mapping-bar-chart {
 }
 
 @media only screen and (max-width: 768px) {
-  .background {
-    background-repeat: repeat;
-    background-size: contain;
-    width: 100%;
-  }
-
-  .content {
+  .content2 {
     //left: 0px !important;
     //border: 2px solid red;
     //width: 98%;
+    top: 16vh !important;
     overflow-x: hidden;
     display: block;
-    margin-left: 1%;
-    margin-right: 1%;
+    margin-left: 3%;
+    // margin-right: 1%;
   }
 
   td {
     width: 100%;
     display: block;
-
-    //box-sizing: border-box;
-    //clear: both;
   }
 
   .tooltip, .cont {

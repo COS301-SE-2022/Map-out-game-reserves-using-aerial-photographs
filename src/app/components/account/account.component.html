@@ -10,7 +10,7 @@
       <h3>MY DETAILS</h3>
       <mat-divider></mat-divider>
     </div>
-    <div style="height: 80%; margin-top: 2%;">
+    <div style="height: 80%; margin: 2%;">
 
       <!-- Name field -->
       <label class="label">
@@ -18,7 +18,7 @@
       </label>
       <form [formGroup]="nameForm">
         <mat-form-field appearance="outline" [hideRequiredMarker]="true">
-          <mat-label>Name</mat-label>
+          <!-- <mat-label>Name</mat-label> -->
           <label>
             <input readonly #name matInput style="user-select: none;">
           </label>
@@ -38,7 +38,7 @@
       </label>
       <form [formGroup]="emailForm">
         <mat-form-field appearance="outline" [hideRequiredMarker]="true">
-          <mat-label>Email</mat-label>
+          <!-- <mat-label>Email</mat-label> -->
           <label>
             <input readonly #email matInput style="user-select: none;">
           </label>
@@ -58,7 +58,7 @@
       </label>
       <form [formGroup]="roleForm">
         <mat-form-field appearance="outline" [hideRequiredMarker]="true">
-          <mat-label>Role</mat-label>
+          <!-- <mat-label>Role</mat-label> -->
           <label>
             <input readonly #role matInput style="user-select: none;">
           </label>
@@ -68,13 +68,13 @@
       <!-- Bottom Buttons -->
       <div class="contains">
         <div class="center">
-          <button (click)="openPasswordDialog()" class="btn" mat-raised-button >
+          <button (click)="openPasswordDialog()" class="btn">
             Change Password
           </button>
-          <button (click)="openRegisterLinkDialog()" *ngIf="this.admin" class="btn" mat-raised-button>
+          <button (click)="openRegisterLinkDialog()" *ngIf="this.admin" class="btn">
             Send Registration Link
           </button>
-          <button id="logoutBtn" (click)="logout()" class="btn" mat-raised-button color="warn">
+          <button id="logoutBtn" (click)="logout()" class="btn">
             <mat-icon>logout</mat-icon>
             Logout
           </button>

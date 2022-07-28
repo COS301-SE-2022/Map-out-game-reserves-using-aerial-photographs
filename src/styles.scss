@@ -36,6 +36,17 @@ body {
   background-color: $primary-background;
 }
 
+@media only screen and (max-width: 768px) {
+  body {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .content {
+    height: 75vh !important;
+    top: 18vh !important;
+  }
+}
+
 .heading {
   display: flex;
   align-content: center;
@@ -160,4 +171,18 @@ mat-icon {
 
 .material-symbols-outlined {
   color: $accent-colour;
+}
+
+.button {
+  background-color: $primary-epi-dark;
+  color:white;
+  width: 45%;
+  left: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 25px;
+  font-weight: 50;
 }
