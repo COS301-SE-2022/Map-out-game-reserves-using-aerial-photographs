@@ -65,7 +65,7 @@ export class FileUploadComponent {
     //   console.log(this.file?.name);
     // })
 
-    this.api.ListGameParks().then((event) => {
+    this.api.ListGameParks().then((event: any) => {
       //console.log(event.items[0]?.park_name);
       for (let i = 0; i < event.items.length; i++) {
         const element = event.items[i];

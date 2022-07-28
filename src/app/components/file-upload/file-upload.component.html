@@ -18,7 +18,7 @@
           <div class="drop-zone">
             <span for="file">Drag files to upload</span>
             <br />
-            <input type="file" class="file" multiple (change)="onFileSelected($event)" #fileUpload />
+              <input type="file" class="file" multiple (change)="onFileSelected($event)" #fileUpload />
 
             <!--  -->
             <!-- <div class="drop-zone">
@@ -33,13 +33,12 @@
             </button>
 
           </div>
-
         </td>
         <td>
           <div class = "no-file" *ngIf="!fileName">
             <span>No file selected</span>
             <mat-icon style="color:#cccccc"> insert_drive_file</mat-icon>
-            
+
           </div>
           <div class="file-upload" *ngIf="fileName">
             <div class="successful-submit" *ngIf="submitPressed">
@@ -53,7 +52,7 @@
                     {{ park.viewValue }}
                   </option>
                 </select>
-                
+
               <select ng-model="selectedType" class="types tooltip" id="fType">
                 <option value="" disabled selected>Select a flight type</option>
                 <option *ngFor="let type of flight" [value]="type.value">
@@ -75,11 +74,11 @@
             <br />
             <div *ngIf="!submitPressed">
               <div class="buttonCenter">
-                <button class="clearbtn" type="submit" mat-flat-button (click)="uploadFileLocal()">
+                <button class="clearbtn" type="submit" mat-flat-button (click)="uploadFileLocal()" >
                   Submit
                 </button>
               </div>
-              
+
               <br />
             </div>
           </div>

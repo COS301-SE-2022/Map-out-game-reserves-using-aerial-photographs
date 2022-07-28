@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { Auth, Storage } from 'aws-amplify';
-import { APIService, CreateMapInput, CreateMapMutation, CreateMessageInput, CreateMessageMutation, CreateUserInput, DeletePendingInvitesInput, GetImageCollectionByTaskIdQuery, GetImageCollectionQuery, GetMessageByCollectionIdQuery, ImageCollection, ListImageCollectionsQuery, UpdateImageCollectionInput, UpdateImageCollectionMutation, User } from '../../api.service';
+import { APIService, CreateMapInput, CreateMapMutation, CreateMessageInput, CreateMessageMutation, CreateUserInput, DeletePendingInvitesInput, GetImageCollectionByTaskIdQuery, GetImageCollectionQuery, GetMessageByCollectionIdQuery, ImageCollection, ListImageCollectionsQuery, UpdateImageCollectionInput, UpdateImageCollectionMutation, User } from 'src/app/api.service';
 import { v4 as uuidv4 } from 'uuid';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { interval, Observable, startWith, Subject, Subscription, switchMap } from 'rxjs';
@@ -283,23 +283,28 @@ export class ControllerService implements OnDestroy {
     return this.subject.asObservable();
   }
 
-  async createODMTask(imgs: Array<File>): Promise<any> {
+  async createODMTask(imgs: any[]): Promise<any> {
+    console.log("LOGGING IMAGES", imgs);
 
     //multipart encoded images?
     let formData = new FormData();
+    let count = 0;
+    // for(const img of imgs){
+
     for(const img of imgs){
-      formData.append('img', img);
+      const i = new File([img], count +'.jpg', { type : 'image/jpg' });
+      formData.append('img', i);
+      count++
     }
 
     const body = {
-      images: formData,
-      auto_processing_node: true
+      images: formData
     }
     const headers = new HttpHeaders({
       'Authorization': `JWT ${this.tokenResponse.token}`,
       'Content-Type': 'multipart/form-data'
     });
-    return this.http.post(this.webODM_URL + `/api/projects/${this.projectId}/tasks/`, body, { headers: headers });
+    return this.http.post(this.webODM_URL + `api/projects/${this.projectId}/tasks/`, body, { headers: headers });
   }
 
   async getAllWebODMTasks(): Promise<any> {

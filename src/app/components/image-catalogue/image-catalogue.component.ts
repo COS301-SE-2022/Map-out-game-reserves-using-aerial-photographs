@@ -5,7 +5,7 @@ import {
   APIService,
   Images,
   ListImageCollectionsQuery,
-} from 'src/app/API.service';
+} from 'src/app/api.service';
 import { ControllerService } from 'src/app/api/controller/controller.service';
 
 interface ImageData {
