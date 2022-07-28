@@ -16,7 +16,7 @@ export class LoginComponent {
   loginForm: FormGroup;
   isSubmitted: boolean;
 
-  constructor(private formBuilder: FormBuilder, private apiController: ControllerService, private router: Router, private http: HttpClient) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient) {
     this.loginForm = this.formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required])

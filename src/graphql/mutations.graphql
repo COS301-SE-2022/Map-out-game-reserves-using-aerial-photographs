@@ -196,6 +196,7 @@ mutation CreateImageCollection(
 ) {
   createImageCollection(input: $input, condition: $condition) {
     collectionID
+    taskID
     parkID
     GamePark {
       parkID
@@ -210,6 +211,8 @@ mutation CreateImageCollection(
     }
     upload_date_time
     completed
+    error
+    pending
     flightID
     FlightDetails {
       flightID
@@ -235,6 +238,7 @@ mutation UpdateImageCollection(
 ) {
   updateImageCollection(input: $input, condition: $condition) {
     collectionID
+    taskID
     parkID
     GamePark {
       parkID
@@ -249,6 +253,8 @@ mutation UpdateImageCollection(
     }
     upload_date_time
     completed
+    error
+    pending
     flightID
     FlightDetails {
       flightID
@@ -274,6 +280,7 @@ mutation DeleteImageCollection(
 ) {
   deleteImageCollection(input: $input, condition: $condition) {
     collectionID
+    taskID
     parkID
     GamePark {
       parkID
@@ -288,6 +295,8 @@ mutation DeleteImageCollection(
     }
     upload_date_time
     completed
+    error
+    pending
     flightID
     FlightDetails {
       flightID
@@ -318,9 +327,12 @@ mutation CreateMap(
     collectionID
     Collection {
       collectionID
+      taskID
       parkID
       upload_date_time
       completed
+      error
+      pending
       flightID
       createdAt
       updatedAt
@@ -346,9 +358,12 @@ mutation UpdateMap(
     collectionID
     Collection {
       collectionID
+      taskID
       parkID
       upload_date_time
       completed
+      error
+      pending
       flightID
       createdAt
       updatedAt
@@ -374,9 +389,12 @@ mutation DeleteMap(
     collectionID
     Collection {
       collectionID
+      taskID
       parkID
       upload_date_time
       completed
+      error
+      pending
       flightID
       createdAt
       updatedAt
@@ -399,11 +417,15 @@ mutation CreateMessage(
     messageID
     message_status
     message_description
+    collectionID
     ImageCollection {
       collectionID
+      taskID
       parkID
       upload_date_time
       completed
+      error
+      pending
       flightID
       createdAt
       updatedAt
@@ -416,7 +438,6 @@ mutation CreateMessage(
     _version
     _deleted
     _lastChangedAt
-    messageImageCollectionId
   }
 }
 mutation UpdateMessage(
@@ -427,11 +448,15 @@ mutation UpdateMessage(
     messageID
     message_status
     message_description
+    collectionID
     ImageCollection {
       collectionID
+      taskID
       parkID
       upload_date_time
       completed
+      error
+      pending
       flightID
       createdAt
       updatedAt
@@ -444,7 +469,6 @@ mutation UpdateMessage(
     _version
     _deleted
     _lastChangedAt
-    messageImageCollectionId
   }
 }
 mutation DeleteMessage(
@@ -455,11 +479,15 @@ mutation DeleteMessage(
     messageID
     message_status
     message_description
+    collectionID
     ImageCollection {
       collectionID
+      taskID
       parkID
       upload_date_time
       completed
+      error
+      pending
       flightID
       createdAt
       updatedAt
@@ -472,7 +500,6 @@ mutation DeleteMessage(
     _version
     _deleted
     _lastChangedAt
-    messageImageCollectionId
   }
 }
 mutation CreateImages(

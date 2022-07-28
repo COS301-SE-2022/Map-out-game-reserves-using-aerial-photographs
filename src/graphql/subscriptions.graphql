@@ -89,6 +89,7 @@ subscription OnDeleteGamePark {
 subscription OnCreateImageCollection {
   onCreateImageCollection {
     collectionID
+    taskID
     parkID
     GamePark {
       parkID
@@ -103,6 +104,8 @@ subscription OnCreateImageCollection {
     }
     upload_date_time
     completed
+    error
+    pending
     flightID
     FlightDetails {
       flightID
@@ -125,6 +128,7 @@ subscription OnCreateImageCollection {
 subscription OnUpdateImageCollection {
   onUpdateImageCollection {
     collectionID
+    taskID
     parkID
     GamePark {
       parkID
@@ -139,6 +143,8 @@ subscription OnUpdateImageCollection {
     }
     upload_date_time
     completed
+    error
+    pending
     flightID
     FlightDetails {
       flightID
@@ -161,6 +167,7 @@ subscription OnUpdateImageCollection {
 subscription OnDeleteImageCollection {
   onDeleteImageCollection {
     collectionID
+    taskID
     parkID
     GamePark {
       parkID
@@ -175,6 +182,8 @@ subscription OnDeleteImageCollection {
     }
     upload_date_time
     completed
+    error
+    pending
     flightID
     FlightDetails {
       flightID
@@ -202,9 +211,12 @@ subscription OnCreateMap {
     collectionID
     Collection {
       collectionID
+      taskID
       parkID
       upload_date_time
       completed
+      error
+      pending
       flightID
       createdAt
       updatedAt
@@ -227,9 +239,12 @@ subscription OnUpdateMap {
     collectionID
     Collection {
       collectionID
+      taskID
       parkID
       upload_date_time
       completed
+      error
+      pending
       flightID
       createdAt
       updatedAt
@@ -252,9 +267,12 @@ subscription OnDeleteMap {
     collectionID
     Collection {
       collectionID
+      taskID
       parkID
       upload_date_time
       completed
+      error
+      pending
       flightID
       createdAt
       updatedAt
@@ -274,11 +292,15 @@ subscription OnCreateMessage {
     messageID
     message_status
     message_description
+    collectionID
     ImageCollection {
       collectionID
+      taskID
       parkID
       upload_date_time
       completed
+      error
+      pending
       flightID
       createdAt
       updatedAt
@@ -291,7 +313,6 @@ subscription OnCreateMessage {
     _version
     _deleted
     _lastChangedAt
-    messageImageCollectionId
   }
 }
 subscription OnUpdateMessage {
@@ -299,11 +320,15 @@ subscription OnUpdateMessage {
     messageID
     message_status
     message_description
+    collectionID
     ImageCollection {
       collectionID
+      taskID
       parkID
       upload_date_time
       completed
+      error
+      pending
       flightID
       createdAt
       updatedAt
@@ -316,7 +341,6 @@ subscription OnUpdateMessage {
     _version
     _deleted
     _lastChangedAt
-    messageImageCollectionId
   }
 }
 subscription OnDeleteMessage {
@@ -324,11 +348,15 @@ subscription OnDeleteMessage {
     messageID
     message_status
     message_description
+    collectionID
     ImageCollection {
       collectionID
+      taskID
       parkID
       upload_date_time
       completed
+      error
+      pending
       flightID
       createdAt
       updatedAt
@@ -341,7 +369,6 @@ subscription OnDeleteMessage {
     _version
     _deleted
     _lastChangedAt
-    messageImageCollectionId
   }
 }
 subscription OnCreateImages {
