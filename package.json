@@ -30,6 +30,7 @@
     "@fortawesome/free-brands-svg-icons": "^6.1.1",
     "@fortawesome/free-regular-svg-icons": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "aws": "^0.0.3-2",
     "aws-amplify": "^4.3.27",
     "bcryptjs": "^2.4.3",
     "chart.js": "^3.8.0",
