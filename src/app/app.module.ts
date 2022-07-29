@@ -15,7 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginModule } from './components/login/login.module';
 
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatListModule } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
@@ -79,6 +79,8 @@ import {MatDividerModule} from '@angular/material/divider';
   providers: [
     HttpClient,
     MatDialog,
+    MatSnackBar,
+    ControllerService,
     {
       provide: MatDialogRef,
       useValue: {}

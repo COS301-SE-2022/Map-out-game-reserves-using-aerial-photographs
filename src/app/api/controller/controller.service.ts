@@ -1,34 +1,10 @@
 import { ElementRef, Injectable, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Auth, Storage } from 'aws-amplify';
-import { APIService, CreateMapInput, CreateMapMutation, CreateMessageInput, CreateMessageMutation, CreateUserInput, DeletePendingInvitesInput, GetImageCollectionByTaskIdQuery, GetImageCollectionQuery, GetMessageByCollectionIdQuery, ImageCollection, ListImageCollectionsQuery, UpdateImageCollectionInput, UpdateImageCollectionMutation, User } from 'src/app/api.service';
+import { APIService, CreateMapInput, CreateMapMutation, CreateMessageInput, CreateMessageMutation, CreateUserInput, DeletePendingInvitesInput, GetImageCollectionByTaskIdQuery, GetImageCollectionQuery, GetMessageByCollectionIdQuery, ImageCollection, ListImageCollectionsQuery, UpdateImageCollectionInput, UpdateImageCollectionMutation, User } from 'src/app/API.service';
 import { v4 as uuidv4 } from 'uuid';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { interval, Observable, startWith, Subject, Subscription, switchMap } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
-interface WebODMTokenResponse {
-  token: string;
-}
-
-export interface WebODMProject {
-  created_at: string;
-  id: number;
-  description: string;
-  name: string;
-}
-export interface WebODMProjectsResponse extends Array<WebODMProject>{}
-
-export interface WebODMCreateTaskResponse {
-  id: string;
-  description: string;
-}
-
-interface WebODMTask {
-  id: string;
-  images_count: number;
-  name: string;
-  status: number;
-}
 
 @Injectable({
   providedIn: 'root'
@@ -415,4 +391,28 @@ export class ControllerService implements OnDestroy {
           });
     return newFlight.flightID;
   }*/
+}
+
+interface WebODMTokenResponse {
+  token: string;
+}
+
+export interface WebODMProject {
+  created_at: string;
+  id: number;
+  description: string;
+  name: string;
+}
+export interface WebODMProjectsResponse extends Array<WebODMProject>{}
+
+export interface WebODMCreateTaskResponse {
+  id: string;
+  description: string;
+}
+
+interface WebODMTask {
+  id: string;
+  images_count: number;
+  name: string;
+  status: number;
 }

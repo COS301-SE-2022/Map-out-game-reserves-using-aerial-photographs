@@ -40,8 +40,8 @@
             <mat-icon style="color:#cccccc"> insert_drive_file</mat-icon>
 
           </div>
-          <div class="file-upload" *ngIf="fileName && !submitPressed"> 
-            
+          <div class="file-upload" *ngIf="fileName && !submitPressed">
+
             <h4 class="variable">{{ fileName || "No file uploaded yet." }}</h4>
             <div class="metadata">
               <div class = "parkdd" style="display: inline-block;">
@@ -50,7 +50,7 @@
                   <option *ngFor="let park of parks" [value]="park.value">
                     {{ park.viewValue }}
                   </option>
-                  
+
                 </select>
                 <!-- <div style="height: 100% !important; margin: 0;"> -->
                   <button mat-button style ="background-color: white; border:none; font-size: 20px;">
@@ -60,11 +60,11 @@
                     </mat-icon>
                   </button>
                 <!-- </div> -->
-                
+
                 <!-- <mat-icon>add</mat-icon> -->
-                
+
               </div>
-              
+
               <select ng-model="selectedType" class="types" id="fType">
                 <option value="" disabled selected>Select a flight type</option>
                 <option *ngFor="let type of flight" [value]="type.value">
@@ -90,7 +90,7 @@
             <br />
             <div *ngIf="!submitPressed">
               <div class="buttonCenter">
-                <button class="clearbtn" type="submit" mat-flat-button>
+                <button class="clearbtn" type="submit" mat-flat-button (click)="uploadFileLocal($event)">
                   Submit
                 </button>
               </div>

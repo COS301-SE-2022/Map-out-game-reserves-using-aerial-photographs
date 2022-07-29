@@ -62,7 +62,7 @@ type GamePark @model {
 
 type ImageCollection @model {
   collectionID: String! @primaryKey
-  taskID: String! @index(name: "byTaskId", queryField: "getImageCollectionByTaskId")
+  taskID: String @index(name: "byTaskId", queryField: "getImageCollectionByTaskId")
   parkID: String
   GamePark: GamePark @hasOne(fields: ["parkID"])
   upload_date_time: AWSDateTime

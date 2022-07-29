@@ -5,7 +5,7 @@ import {
   APIService,
   Images,
   ListImageCollectionsQuery,
-} from 'src/app/api.service';
+} from 'src/app/API.service';
 import { ControllerService } from 'src/app/api/controller/controller.service';
 import { ImageDialogComponent } from './image-dialog/image-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
