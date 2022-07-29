@@ -45,7 +45,7 @@ Version 2: https://drive.google.com/file/d/1yOeuRyyG7H1HrlFbTXZQvgh7Uvb5MSpc/vie
 ## Link to User Manual
 Version 1: https://drive.google.com/file/d/10GUkj-MJ_sZCM_SJ1v5H1Q3gyMxPlain/view?usp=sharing
 
-Version 2: https://drive.google.com/file/d/1JUdCRQhg910UGon7UMyDQ7CV6ZOLDyur/view?usp=sharing
+Version 2: [https://drive.google.com/file/d/1JUdCRQhg910UGon7UMyDQ7CV6ZOLDyur/view?usp=sharing](https://drive.google.com/file/d/13FJf7pFlKzQywgaQBbDzcvXdB-wjSSEF/view?usp=sharing)
 
 ## Link to Technical Installation Manual
 Version 1: https://drive.google.com/file/d/1p42xaO1aWfH4uEBDKKeEXU7Zo2g64_Qw/view?usp=sharing
