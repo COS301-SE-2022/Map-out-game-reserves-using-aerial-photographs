@@ -96,27 +96,28 @@ export class FileUploadComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const formElem = document.getElementById('formElem') as HTMLFormElement;
-    formElem!.onsubmit = async (event) => {
-      event.preventDefault();
+    // const formElem = document.getElementById('formElem') as HTMLFormElement;
+    // formElem!.onsubmit = async (event) => {
+    //   event.preventDefault();
 
-      let response = await fetch('http://localhost:8000/api/projects/1/tasks/', {
-        method: 'POST',
-        body: new FormData(formElem),
-        headers: {
-            "Authorization": "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJlbWFpbCI6IiIsInVzZXJuYW1lIjoiYWRtaW4iLCJleHAiOjE2NTkwNjUxNTd9.qMrsgc0LrfuBy91n1aVt0fVPq3onVsqZcRqFAOZqHVI"
-        }
-      });
+    //   let response = await fetch('http://localhost:8000/api/projects/1/tasks/', {
+    //     method: 'POST',
+    //     body: new FormData(formElem),
+    //     headers: {
+    //         "Authorization": "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJlbWFpbCI6IiIsInVzZXJuYW1lIjoiYWRtaW4iLCJleHAiOjE2NTkwNjUxNTd9.qMrsgc0LrfuBy91n1aVt0fVPq3onVsqZcRqFAOZqHVI"
+    //     }
+    //   });
 
-      let result = await response.json();
+    //   let result = await response.json();
 
-      console.log("RESULT", result);
-      this.uploadFileLocal(result.id);
-      console.log('result.id: ' + result.id);
-    };
+    //   console.log("RESULT", result);
+    //   this.uploadFileLocal(result.id);
+    //   console.log('result.id: ' + result.id);
+    // };
   }
 
-  uploadFileLocal(taskId: string) {
+  uploadFileLocal(ev: Event) {
+    ev.preventDefault();
     console.log('Submit button pressed');
     this.frameCount = 0;
     this.uploadCount = 0;
@@ -193,7 +194,7 @@ export class FileUploadComponent implements OnInit {
         //   upload_date_time: string,
         completed: false,
         flightID: flight.flightID,
-        taskID: taskId
+        //taskID: taskId
         // _version?: number | null;
       };
 

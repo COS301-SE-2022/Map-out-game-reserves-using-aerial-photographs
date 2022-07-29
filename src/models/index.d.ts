@@ -83,7 +83,7 @@ export declare class Message {
 export declare class ImageCollection {
   readonly id: string;
   readonly collectionID: string;
-  readonly taskID: string;
+  readonly taskID?: string | null;
   readonly parkID?: string | null;
   readonly GamePark?: GamePark | null;
   readonly upload_date_time?: string | null;
