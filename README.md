@@ -47,6 +47,9 @@ Version 1: https://drive.google.com/file/d/10GUkj-MJ_sZCM_SJ1v5H1Q3gyMxPlain/vie
 
 Version 2: https://drive.google.com/file/d/1JUdCRQhg910UGon7UMyDQ7CV6ZOLDyur/view?usp=sharing
 
+## Link to Technical Installation Manual
+Version 1: https://drive.google.com/file/d/1p42xaO1aWfH4uEBDKKeEXU7Zo2g64_Qw/view?usp=sharing
+
 ## Project Management
 ### Link to Project Board
 https://github.com/COS301-SE-2022/Map-out-game-reserves-using-aerial-photographs/projects/1 
