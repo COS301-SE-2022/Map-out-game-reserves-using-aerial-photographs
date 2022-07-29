@@ -1,0 +1,125 @@
+<div class="background">
+  <!-- <div class="heading">
+    <h1>File Upload</h1>
+  </div> -->
+  <aerial-mapping-side-navbar></aerial-mapping-side-navbar>
+  <app-footer></app-footer>
+  <div id="outer" class="content">
+    <!-- <div class="content"> -->
+    <div class="title" style="color: rgb(110, 110, 110)">
+      <h3>CREATE A MAP</h3>
+      <mat-divider></mat-divider>
+    </div>
+    <form id="formElem" action="">
+    <table>
+      <tr>
+        <td>
+          <!-- <div class="drag-box" #imageForm> -->
+          <!-- <h3 class="uploadHeading">Drag files to upload</h3> -->
+          <div class="drop-zone">
+            <span for="file">Drag files to upload</span>
+            <br />
+                <input name="Images" type="file" class="file" multiple (change)="onFileSelected($event)" #fileUpload />
+            <!--  -->
+            <!-- <div class="drop-zone">
+          <span for="files" class="drop-zone__prompt">Drop file here or click to upload</span>
+          <input type="file" name="myFile" class="file drop-zone__input" multiple (change)="onFileSelected($event)" #fileUpload/>
+        </div> -->
+            <!-- <input id="files" class="file" style="display:none;" type="file" multiple (change)="onFileSelected($event)" #fileUpload> -->
+          </div>
+          <div class="buttonCenter">
+            <button type="button" mat-flat-button color="primary" class="clearbtn" (click)="fileUpload.click()">
+              Choose file
+            </button>
+
+          </div>
+        </td>
+        <td>
+          <div class = "no-file" *ngIf="!fileName">
+            <span>No file selected</span>
+            <mat-icon style="color:#cccccc"> insert_drive_file</mat-icon>
+
+          </div>
+          <div class="file-upload" *ngIf="fileName && !submitPressed"> 
+            
+            <h4 class="variable">{{ fileName || "No file uploaded yet." }}</h4>
+            <div class="metadata">
+              <div class = "parkdd" style="display: inline-block;">
+                <select ng-model="selectedPark" class="parks tooltip" id="parks">
+                  <option value="" disabled selected>Select a park</option>
+                  <option *ngFor="let park of parks" [value]="park.value">
+                    {{ park.viewValue }}
+                  </option>
+                  
+                </select>
+                <!-- <div style="height: 100% !important; margin: 0;"> -->
+                  <button mat-button style ="background-color: white; border:none; font-size: 20px;">
+                    <mat-icon style="padding-top: 12px;
+                    line-height: 8px;">
+                      add
+                    </mat-icon>
+                  </button>
+                <!-- </div> -->
+                
+                <!-- <mat-icon>add</mat-icon> -->
+                
+              </div>
+              
+              <select ng-model="selectedType" class="types" id="fType">
+                <option value="" disabled selected>Select a flight type</option>
+                <option *ngFor="let type of flight" [value]="type.value">
+                  {{ type.viewValue }}
+                </option>
+              </select>
+
+              <input type="number" placeholder="Enter the height of the flight (metres)" id="height" min="1" />
+
+              <!-- TODO: Still need to make this look nice -->
+              <select ng-model="selectedResolution" class="i-size tooltip" id="resolution">
+                <option value="" disabled selected>Select a resolution size</option>
+                <option *ngFor="let size of iSize" [value]="size.value">
+                  {{ size.viewValue }}
+                </option>
+              </select>
+            </div>
+
+            <!-- <br />
+            <button class="clearbtn" mat-flat-button (click)="clearSelection()">
+              <h3 class="uploadHeading">Clear Selection</h3>
+            </button> -->
+            <br />
+            <div *ngIf="!submitPressed">
+              <div class="buttonCenter">
+                <button class="clearbtn" type="submit" mat-flat-button>
+                  Submit
+                </button>
+              </div>
+              <br />
+            </div>
+          </div>
+          <div class="progress">
+            <div class="successful-submit" *ngIf="submitPressed">
+              <h4 class="variable">File Uploaded Successfully</h4>
+            </div>
+            <h4 class="variable">{{ fileName || "No file uploaded yet." }}</h4>
+              <div class="videoSplitting" *ngIf="splittingProgress != 0">
+                <mat-progress-bar mode="determinate" value={{splittingProgress}}></mat-progress-bar>
+                Splitting Video {{ splittingProgress }}%
+              </div>
+              <div class="videoSplitting" *ngIf="uploadingProgress != 0">
+                <mat-progress-bar mode="determinate" value={{uploadingProgress}}></mat-progress-bar>
+                Uploading Frames {{ uploadingProgress }}%
+              </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </form>
+
+    <!-- <input type="file" class="file" multiple (change)="onFileSelected($event)" #fileUpload> -->
+
+    <div id="test"></div>
+  </div>
+  <!-- </div> -->
+  <!-- </div> -->
+</div>

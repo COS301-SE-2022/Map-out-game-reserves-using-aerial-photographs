@@ -1,0 +1,732 @@
+# this is an auto generated file. This will be overwritten
+mutation Invite($email: String) {
+  invite(email: $email)
+}
+mutation RegisterUser(
+  $name: String
+  $email: String
+  $password: String
+  $role: String
+  $approved: Boolean
+) {
+  registerUser(
+    name: $name
+    email: $email
+    password: $password
+    role: $role
+    approved: $approved
+  ) {
+    userID
+    user_email
+    user_password
+    user_password_salt
+    user_name
+    user_role
+    user_approved
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation Login($email: String, $password: String) {
+  login(email: $email, password: $password)
+}
+mutation Logout {
+  logout
+}
+mutation CreateFlight($pilotID: String, $height: Int, $type: String) {
+  createFlight(pilotID: $pilotID, height: $height, type: $type) {
+    flightID
+    flight_height
+    flight_type
+    pilotID
+    Pilot {
+      userID
+      user_email
+      user_password
+      user_password_salt
+      user_name
+      user_role
+      user_approved
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation CreateImage(
+  $collectionID: String
+  $bucket_name: String
+  $file_name: String
+) {
+  createImage(
+    collectionID: $collectionID
+    bucket_name: $bucket_name
+    file_name: $file_name
+  ) {
+    imageID
+    collectionID
+    name
+    bucket_name
+    file_name
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation CreateUser(
+  $input: CreateUserInput!
+  $condition: ModelUserConditionInput
+) {
+  createUser(input: $input, condition: $condition) {
+    userID
+    user_email
+    user_password
+    user_password_salt
+    user_name
+    user_role
+    user_approved
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation UpdateUser(
+  $input: UpdateUserInput!
+  $condition: ModelUserConditionInput
+) {
+  updateUser(input: $input, condition: $condition) {
+    userID
+    user_email
+    user_password
+    user_password_salt
+    user_name
+    user_role
+    user_approved
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation DeleteUser(
+  $input: DeleteUserInput!
+  $condition: ModelUserConditionInput
+) {
+  deleteUser(input: $input, condition: $condition) {
+    userID
+    user_email
+    user_password
+    user_password_salt
+    user_name
+    user_role
+    user_approved
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation CreateGamePark(
+  $input: CreateGameParkInput!
+  $condition: ModelGameParkConditionInput
+) {
+  createGamePark(input: $input, condition: $condition) {
+    parkID
+    park_name
+    park_location
+    park_address
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation UpdateGamePark(
+  $input: UpdateGameParkInput!
+  $condition: ModelGameParkConditionInput
+) {
+  updateGamePark(input: $input, condition: $condition) {
+    parkID
+    park_name
+    park_location
+    park_address
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation DeleteGamePark(
+  $input: DeleteGameParkInput!
+  $condition: ModelGameParkConditionInput
+) {
+  deleteGamePark(input: $input, condition: $condition) {
+    parkID
+    park_name
+    park_location
+    park_address
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation CreateImageCollection(
+  $input: CreateImageCollectionInput!
+  $condition: ModelImageCollectionConditionInput
+) {
+  createImageCollection(input: $input, condition: $condition) {
+    collectionID
+    taskID
+    parkID
+    GamePark {
+      parkID
+      park_name
+      park_location
+      park_address
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    upload_date_time
+    completed
+    error
+    pending
+    flightID
+    FlightDetails {
+      flightID
+      flight_height
+      flight_type
+      pilotID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation UpdateImageCollection(
+  $input: UpdateImageCollectionInput!
+  $condition: ModelImageCollectionConditionInput
+) {
+  updateImageCollection(input: $input, condition: $condition) {
+    collectionID
+    taskID
+    parkID
+    GamePark {
+      parkID
+      park_name
+      park_location
+      park_address
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    upload_date_time
+    completed
+    error
+    pending
+    flightID
+    FlightDetails {
+      flightID
+      flight_height
+      flight_type
+      pilotID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation DeleteImageCollection(
+  $input: DeleteImageCollectionInput!
+  $condition: ModelImageCollectionConditionInput
+) {
+  deleteImageCollection(input: $input, condition: $condition) {
+    collectionID
+    taskID
+    parkID
+    GamePark {
+      parkID
+      park_name
+      park_location
+      park_address
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    upload_date_time
+    completed
+    error
+    pending
+    flightID
+    FlightDetails {
+      flightID
+      flight_height
+      flight_type
+      pilotID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation CreateMap(
+  $input: CreateMapInput!
+  $condition: ModelMapConditionInput
+) {
+  createMap(input: $input, condition: $condition) {
+    mapID
+    bucket_name
+    file_name
+    collectionID
+    Collection {
+      collectionID
+      taskID
+      parkID
+      upload_date_time
+      completed
+      error
+      pending
+      flightID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation UpdateMap(
+  $input: UpdateMapInput!
+  $condition: ModelMapConditionInput
+) {
+  updateMap(input: $input, condition: $condition) {
+    mapID
+    bucket_name
+    file_name
+    collectionID
+    Collection {
+      collectionID
+      taskID
+      parkID
+      upload_date_time
+      completed
+      error
+      pending
+      flightID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation DeleteMap(
+  $input: DeleteMapInput!
+  $condition: ModelMapConditionInput
+) {
+  deleteMap(input: $input, condition: $condition) {
+    mapID
+    bucket_name
+    file_name
+    collectionID
+    Collection {
+      collectionID
+      taskID
+      parkID
+      upload_date_time
+      completed
+      error
+      pending
+      flightID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation CreateMessage(
+  $input: CreateMessageInput!
+  $condition: ModelMessageConditionInput
+) {
+  createMessage(input: $input, condition: $condition) {
+    messageID
+    message_status
+    message_description
+    collectionID
+    ImageCollection {
+      collectionID
+      taskID
+      parkID
+      upload_date_time
+      completed
+      error
+      pending
+      flightID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation UpdateMessage(
+  $input: UpdateMessageInput!
+  $condition: ModelMessageConditionInput
+) {
+  updateMessage(input: $input, condition: $condition) {
+    messageID
+    message_status
+    message_description
+    collectionID
+    ImageCollection {
+      collectionID
+      taskID
+      parkID
+      upload_date_time
+      completed
+      error
+      pending
+      flightID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation DeleteMessage(
+  $input: DeleteMessageInput!
+  $condition: ModelMessageConditionInput
+) {
+  deleteMessage(input: $input, condition: $condition) {
+    messageID
+    message_status
+    message_description
+    collectionID
+    ImageCollection {
+      collectionID
+      taskID
+      parkID
+      upload_date_time
+      completed
+      error
+      pending
+      flightID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation CreateImages(
+  $input: CreateImagesInput!
+  $condition: ModelImagesConditionInput
+) {
+  createImages(input: $input, condition: $condition) {
+    imageID
+    collectionID
+    name
+    bucket_name
+    file_name
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation UpdateImages(
+  $input: UpdateImagesInput!
+  $condition: ModelImagesConditionInput
+) {
+  updateImages(input: $input, condition: $condition) {
+    imageID
+    collectionID
+    name
+    bucket_name
+    file_name
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation DeleteImages(
+  $input: DeleteImagesInput!
+  $condition: ModelImagesConditionInput
+) {
+  deleteImages(input: $input, condition: $condition) {
+    imageID
+    collectionID
+    name
+    bucket_name
+    file_name
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation CreateFlightDetails(
+  $input: CreateFlightDetailsInput!
+  $condition: ModelFlightDetailsConditionInput
+) {
+  createFlightDetails(input: $input, condition: $condition) {
+    flightID
+    flight_height
+    flight_type
+    pilotID
+    Pilot {
+      userID
+      user_email
+      user_password
+      user_password_salt
+      user_name
+      user_role
+      user_approved
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation UpdateFlightDetails(
+  $input: UpdateFlightDetailsInput!
+  $condition: ModelFlightDetailsConditionInput
+) {
+  updateFlightDetails(input: $input, condition: $condition) {
+    flightID
+    flight_height
+    flight_type
+    pilotID
+    Pilot {
+      userID
+      user_email
+      user_password
+      user_password_salt
+      user_name
+      user_role
+      user_approved
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation DeleteFlightDetails(
+  $input: DeleteFlightDetailsInput!
+  $condition: ModelFlightDetailsConditionInput
+) {
+  deleteFlightDetails(input: $input, condition: $condition) {
+    flightID
+    flight_height
+    flight_type
+    pilotID
+    Pilot {
+      userID
+      user_email
+      user_password
+      user_password_salt
+      user_name
+      user_role
+      user_approved
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation CreatePendingInvites(
+  $input: CreatePendingInvitesInput!
+  $condition: ModelPendingInvitesConditionInput
+) {
+  createPendingInvites(input: $input, condition: $condition) {
+    inviteID
+    email
+    role
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation UpdatePendingInvites(
+  $input: UpdatePendingInvitesInput!
+  $condition: ModelPendingInvitesConditionInput
+) {
+  updatePendingInvites(input: $input, condition: $condition) {
+    inviteID
+    email
+    role
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation DeletePendingInvites(
+  $input: DeletePendingInvitesInput!
+  $condition: ModelPendingInvitesConditionInput
+) {
+  deletePendingInvites(input: $input, condition: $condition) {
+    inviteID
+    email
+    role
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation CreateConnection(
+  $input: CreateConnectionInput!
+  $condition: ModelConnectionConditionInput
+) {
+  createConnection(input: $input, condition: $condition) {
+    connectionID
+    topic
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation UpdateConnection(
+  $input: UpdateConnectionInput!
+  $condition: ModelConnectionConditionInput
+) {
+  updateConnection(input: $input, condition: $condition) {
+    connectionID
+    topic
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation DeleteConnection(
+  $input: DeleteConnectionInput!
+  $condition: ModelConnectionConditionInput
+) {
+  deleteConnection(input: $input, condition: $condition) {
+    connectionID
+    topic
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}

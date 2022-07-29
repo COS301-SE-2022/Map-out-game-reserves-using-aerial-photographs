@@ -1,0 +1,14 @@
+@import "src/styles.scss";
+
+footer {
+    text-align: center;
+    padding: 3px;
+    background-color: $primary-grey;
+    color: white;
+    z-index: 9;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    font-weight: 100;
+  }

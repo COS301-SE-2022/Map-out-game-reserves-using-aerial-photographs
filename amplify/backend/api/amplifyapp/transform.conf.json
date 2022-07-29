@@ -1,0 +1,40 @@
+{
+    "Version": 5,
+    "ElasticsearchWarning": true,
+    "ResolverConfig": {
+        "project": {
+            "ConflictHandler": "AUTOMERGE",
+            "ConflictDetection": "VERSION"
+        },
+        "models": {
+            "User": {
+                "ConflictHandler": "AUTOMERGE",
+                "ConflictDetection": "VERSION"
+            },
+            "GamePark": {
+                "ConflictHandler": "AUTOMERGE",
+                "ConflictDetection": "VERSION"
+            },
+            "ImageCollection": {
+                "ConflictHandler": "AUTOMERGE",
+                "ConflictDetection": "VERSION"
+            },
+            "Message": {
+                "ConflictHandler": "AUTOMERGE",
+                "ConflictDetection": "VERSION"
+            },
+            "Images": {
+                "ConflictHandler": "AUTOMERGE",
+                "ConflictDetection": "VERSION"
+            },
+            "FlightDetails": {
+                "ConflictHandler": "AUTOMERGE",
+                "ConflictDetection": "VERSION"
+            },
+            "PendingInvites": {
+                "ConflictHandler": "AUTOMERGE",
+                "ConflictDetection": "VERSION"
+            }
+        }
+    }
+}
