@@ -10,6 +10,7 @@
       <h3>CREATE A MAP</h3>
       <mat-divider></mat-divider>
     </div>
+    <form id="formElem" action="">
     <table>
       <tr>
         <td>
@@ -18,8 +19,7 @@
           <div class="drop-zone">
             <span for="file">Drag files to upload</span>
             <br />
-              <input type="file" class="file" multiple (change)="onFileSelected($event)" #fileUpload />
-
+                <input name="Images" type="file" class="file" multiple (change)="onFileSelected($event)" #fileUpload />
             <!--  -->
             <!-- <div class="drop-zone">
           <span for="files" class="drop-zone__prompt">Drop file here or click to upload</span>
@@ -28,7 +28,7 @@
             <!-- <input id="files" class="file" style="display:none;" type="file" multiple (change)="onFileSelected($event)" #fileUpload> -->
           </div>
           <div class="buttonCenter">
-            <button mat-flat-button color="primary" class="clearbtn" (click)="fileUpload.click()">
+            <button type="button" mat-flat-button color="primary" class="clearbtn" (click)="fileUpload.click()">
               Choose file
             </button>
 
@@ -74,7 +74,7 @@
             <br />
             <div *ngIf="!submitPressed">
               <div class="buttonCenter">
-                <button class="clearbtn" type="submit" mat-flat-button (click)="uploadFileLocal()" >
+                <button class="clearbtn" type="submit" mat-flat-button>
                   Submit
                 </button>
               </div>
@@ -85,6 +85,7 @@
         </td>
       </tr>
     </table>
+  </form>
 
     <!-- <input type="file" class="file" multiple (change)="onFileSelected($event)" #fileUpload> -->
 

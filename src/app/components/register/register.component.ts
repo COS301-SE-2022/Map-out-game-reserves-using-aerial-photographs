@@ -61,7 +61,7 @@ export class RegisterComponent {
       return;
     }
 
-    this.apiController.tryRegister(user).then((resp) => {
+    this.apiController.tryRegister(user).then((resp: any) => {
       if(resp === -1) {
         this.snackBar.open("Your email has not been invited.", "❌", { verticalPosition: 'top' });
       }
