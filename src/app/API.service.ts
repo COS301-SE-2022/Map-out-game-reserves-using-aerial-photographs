@@ -213,7 +213,7 @@ export type DeleteGameParkInput = {
 
 export type CreateImageCollectionInput = {
   collectionID: string;
-  taskID?: string | null;
+  taskID: string;
   parkID?: string | null;
   upload_date_time?: string | null;
   completed?: boolean | null;
@@ -239,7 +239,7 @@ export type ModelImageCollectionConditionInput = {
 export type ImageCollection = {
   __typename: "ImageCollection";
   collectionID: string;
-  taskID?: string | null;
+  taskID: string;
   parkID?: string | null;
   GamePark?: GamePark | null;
   upload_date_time?: string | null;
@@ -820,7 +820,7 @@ export type DeleteGameParkMutation = {
 export type CreateImageCollectionMutation = {
   __typename: "ImageCollection";
   collectionID: string;
-  taskID?: string | null;
+  taskID: string;
   parkID?: string | null;
   GamePark?: {
     __typename: "GamePark";
@@ -861,7 +861,7 @@ export type CreateImageCollectionMutation = {
 export type UpdateImageCollectionMutation = {
   __typename: "ImageCollection";
   collectionID: string;
-  taskID?: string | null;
+  taskID: string;
   parkID?: string | null;
   GamePark?: {
     __typename: "GamePark";
@@ -902,7 +902,7 @@ export type UpdateImageCollectionMutation = {
 export type DeleteImageCollectionMutation = {
   __typename: "ImageCollection";
   collectionID: string;
-  taskID?: string | null;
+  taskID: string;
   parkID?: string | null;
   GamePark?: {
     __typename: "GamePark";
@@ -949,7 +949,7 @@ export type CreateMapMutation = {
   Collection?: {
     __typename: "ImageCollection";
     collectionID: string;
-    taskID?: string | null;
+    taskID: string;
     parkID?: string | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
@@ -978,7 +978,7 @@ export type UpdateMapMutation = {
   Collection?: {
     __typename: "ImageCollection";
     collectionID: string;
-    taskID?: string | null;
+    taskID: string;
     parkID?: string | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
@@ -1007,7 +1007,7 @@ export type DeleteMapMutation = {
   Collection?: {
     __typename: "ImageCollection";
     collectionID: string;
-    taskID?: string | null;
+    taskID: string;
     parkID?: string | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
@@ -1036,7 +1036,7 @@ export type CreateMessageMutation = {
   ImageCollection?: {
     __typename: "ImageCollection";
     collectionID: string;
-    taskID?: string | null;
+    taskID: string;
     parkID?: string | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
@@ -1065,7 +1065,7 @@ export type UpdateMessageMutation = {
   ImageCollection?: {
     __typename: "ImageCollection";
     collectionID: string;
-    taskID?: string | null;
+    taskID: string;
     parkID?: string | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
@@ -1094,7 +1094,7 @@ export type DeleteMessageMutation = {
   ImageCollection?: {
     __typename: "ImageCollection";
     collectionID: string;
-    taskID?: string | null;
+    taskID: string;
     parkID?: string | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
@@ -1347,7 +1347,7 @@ export type GetMessagesQuery = {
   ImageCollection?: {
     __typename: "ImageCollection";
     collectionID: string;
-    taskID?: string | null;
+    taskID: string;
     parkID?: string | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
@@ -1384,7 +1384,7 @@ export type GetImagesByCollectionIdQuery = {
 export type GetImageCollectionsQuery = {
   __typename: "ImageCollection";
   collectionID: string;
-  taskID?: string | null;
+  taskID: string;
   parkID?: string | null;
   GamePark?: {
     __typename: "GamePark";
@@ -1439,7 +1439,7 @@ export type GetImageQuery = {
 export type GetCataloguesQuery = {
   __typename: "ImageCollection";
   collectionID: string;
-  taskID?: string | null;
+  taskID: string;
   parkID?: string | null;
   GamePark?: {
     __typename: "GamePark";
@@ -1587,7 +1587,7 @@ export type SyncGameParksQuery = {
 export type GetImageCollectionQuery = {
   __typename: "ImageCollection";
   collectionID: string;
-  taskID?: string | null;
+  taskID: string;
   parkID?: string | null;
   GamePark?: {
     __typename: "GamePark";
@@ -1630,7 +1630,7 @@ export type ListImageCollectionsQuery = {
   items: Array<{
     __typename: "ImageCollection";
     collectionID: string;
-    taskID?: string | null;
+    taskID: string;
     parkID?: string | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
@@ -1652,7 +1652,7 @@ export type SyncImageCollectionsQuery = {
   items: Array<{
     __typename: "ImageCollection";
     collectionID: string;
-    taskID?: string | null;
+    taskID: string;
     parkID?: string | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
@@ -1678,7 +1678,7 @@ export type GetMapQuery = {
   Collection?: {
     __typename: "ImageCollection";
     collectionID: string;
-    taskID?: string | null;
+    taskID: string;
     parkID?: string | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
@@ -1743,7 +1743,7 @@ export type GetMessageQuery = {
   ImageCollection?: {
     __typename: "ImageCollection";
     collectionID: string;
-    taskID?: string | null;
+    taskID: string;
     parkID?: string | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
@@ -2030,7 +2030,7 @@ export type GetImageCollectionByTaskIdQuery = {
   items: Array<{
     __typename: "ImageCollection";
     collectionID: string;
-    taskID?: string | null;
+    taskID: string;
     parkID?: string | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
@@ -2225,7 +2225,7 @@ export type OnDeleteGameParkSubscription = {
 export type OnCreateImageCollectionSubscription = {
   __typename: "ImageCollection";
   collectionID: string;
-  taskID?: string | null;
+  taskID: string;
   parkID?: string | null;
   GamePark?: {
     __typename: "GamePark";
@@ -2266,7 +2266,7 @@ export type OnCreateImageCollectionSubscription = {
 export type OnUpdateImageCollectionSubscription = {
   __typename: "ImageCollection";
   collectionID: string;
-  taskID?: string | null;
+  taskID: string;
   parkID?: string | null;
   GamePark?: {
     __typename: "GamePark";
@@ -2307,7 +2307,7 @@ export type OnUpdateImageCollectionSubscription = {
 export type OnDeleteImageCollectionSubscription = {
   __typename: "ImageCollection";
   collectionID: string;
-  taskID?: string | null;
+  taskID: string;
   parkID?: string | null;
   GamePark?: {
     __typename: "GamePark";
@@ -2354,7 +2354,7 @@ export type OnCreateMapSubscription = {
   Collection?: {
     __typename: "ImageCollection";
     collectionID: string;
-    taskID?: string | null;
+    taskID: string;
     parkID?: string | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
@@ -2383,7 +2383,7 @@ export type OnUpdateMapSubscription = {
   Collection?: {
     __typename: "ImageCollection";
     collectionID: string;
-    taskID?: string | null;
+    taskID: string;
     parkID?: string | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
@@ -2412,7 +2412,7 @@ export type OnDeleteMapSubscription = {
   Collection?: {
     __typename: "ImageCollection";
     collectionID: string;
-    taskID?: string | null;
+    taskID: string;
     parkID?: string | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
@@ -2441,7 +2441,7 @@ export type OnCreateMessageSubscription = {
   ImageCollection?: {
     __typename: "ImageCollection";
     collectionID: string;
-    taskID?: string | null;
+    taskID: string;
     parkID?: string | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
@@ -2470,7 +2470,7 @@ export type OnUpdateMessageSubscription = {
   ImageCollection?: {
     __typename: "ImageCollection";
     collectionID: string;
-    taskID?: string | null;
+    taskID: string;
     parkID?: string | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
@@ -2499,7 +2499,7 @@ export type OnDeleteMessageSubscription = {
   ImageCollection?: {
     __typename: "ImageCollection";
     collectionID: string;
-    taskID?: string | null;
+    taskID: string;
     parkID?: string | null;
     upload_date_time?: string | null;
     completed?: boolean | null;

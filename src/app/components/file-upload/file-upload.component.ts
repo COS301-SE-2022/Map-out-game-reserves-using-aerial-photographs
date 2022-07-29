@@ -1,11 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   APIService,
   CreateImagesInput,
   CreateImageCollectionInput,
-  CreateFlightDetailsInput,
-  UpdateImageCollectionInput,
-  UpdateImageCollectionMutation,
+  CreateFlightDetailsInput
 } from 'src/app/api.service';
 import {
   ControllerService,
@@ -36,7 +34,8 @@ interface ImageSize {
   templateUrl: './file-upload.component.html',
   styleUrls: ['./file-upload.component.scss'],
 })
-export class FileUploadComponent {
+
+export class FileUploadComponent implements OnInit {
   requiredFileType: string | undefined;
   submitPressed = false;
   fileName = '';
@@ -96,7 +95,28 @@ export class FileUploadComponent {
     });
   }
 
-  uploadFileLocal() {
+  ngOnInit(): void {
+    const formElem = document.getElementById('formElem') as HTMLFormElement;
+    formElem!.onsubmit = async (event) => {
+      event.preventDefault();
+
+      let response = await fetch('http://localhost:8000/api/projects/1/tasks/', {
+        method: 'POST',
+        body: new FormData(formElem),
+        headers: {
+            "Authorization": "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJlbWFpbCI6IiIsInVzZXJuYW1lIjoiYWRtaW4iLCJleHAiOjE2NTkwNjUxNTd9.qMrsgc0LrfuBy91n1aVt0fVPq3onVsqZcRqFAOZqHVI"
+        }
+      });
+
+      let result = await response.json();
+
+      console.log("RESULT", result);
+      this.uploadFileLocal(result.id);
+      console.log('result.id: ' + result.id);
+    };
+  }
+
+  uploadFileLocal(taskId: string) {
     console.log('Submit button pressed');
     this.frameCount = 0;
     this.uploadCount = 0;
@@ -163,7 +183,7 @@ export class FileUploadComponent {
       //create flight in the database
       this.api.CreateFlightDetails(flight).then((resp: any) => {
         console.log(resp);
-      });
+      }).catch(e => { console.log(e) });
 
       //
 
@@ -173,18 +193,38 @@ export class FileUploadComponent {
         //   upload_date_time: string,
         completed: false,
         flightID: flight.flightID,
+        taskID: taskId
         // _version?: number | null;
       };
 
-      this.api.CreateImageCollection(imageCollection).then(() => {
+      this.api.CreateImageCollection(imageCollection).then((res: any) => {
+        console.log("CreateImageCollection response", res);
         if (this.files.length > 1) {
           this.uploadImages(imageCollection.collectionID);
         } else {
           this.uploadVideo(imageCollection.collectionID);
         }
-      });
-
+      }).catch(e => { console.log(e) });
       this.submitPressed = true;
+
+      //createTask
+      // console.log('Attempting to submit...')
+      // const formElem = document.getElementById('formElem') as HTMLFormElement;
+      // let response = await fetch('http://localhost:8000/api/projects/1/tasks/', {
+      //   method: 'POST',
+      //   body: new FormData(formElem)
+      // }).catch(e => console.log(e));
+
+      // let result = await response!.json().catch(e => console.log(e));
+      // console.log('RESULT', result);
+
+      // const updateCollection: UpdateImageCollectionInput = {
+      //   collectionID: collectionID,
+      //   taskID: response.id
+      // }
+      // this.api.UpdateImageCollection(updateCollection).then((_res: UpdateImageCollectionMutation) => {
+      //   console.log("Updated collection");
+      // });
     } else {
       this.snackBar.open('Fill in all the details about the upload.', '❌');
     }
@@ -250,31 +290,6 @@ export class FileUploadComponent {
       this.uploadToS3(collectionID, inp.imageID, frames[i]);
     }
     this.makeThumbnails(collectionID, frames);
-
-    this.apiController
-      .createODMTask(frames)
-      .then((resp: Observable<WebODMCreateTaskResponse>) => {
-        resp.subscribe({
-          next: (response: WebODMCreateTaskResponse) => {
-            console.log(
-              '[FILE UPLOAD] Logging WebODM Create Task Response...',
-              response
-            );
-            const updateCollection: UpdateImageCollectionInput = {
-              collectionID: collectionID,
-              taskID: response.id,
-            };
-            this.api
-              .UpdateImageCollection(updateCollection)
-              .then((_res: UpdateImageCollectionMutation) => {
-                console.log('Updated collection');
-              });
-          },
-          error: (err) => {
-            console.log(err);
-          },
-        });
-      });
   }
 
   uploadVideo(collectionID: string) {

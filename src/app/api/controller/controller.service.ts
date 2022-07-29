@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy, OnInit } from '@angular/core';
+import { ElementRef, Injectable, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Auth, Storage } from 'aws-amplify';
 import { APIService, CreateMapInput, CreateMapMutation, CreateMessageInput, CreateMessageMutation, CreateUserInput, DeletePendingInvitesInput, GetImageCollectionByTaskIdQuery, GetImageCollectionQuery, GetMessageByCollectionIdQuery, ImageCollection, ListImageCollectionsQuery, UpdateImageCollectionInput, UpdateImageCollectionMutation, User } from 'src/app/api.service';
 import { v4 as uuidv4 } from 'uuid';
@@ -34,6 +34,8 @@ interface WebODMTask {
   providedIn: 'root'
 })
 export class ControllerService implements OnDestroy {
+  //@ViewChild('formElem') formElem!: ElementRef<HTMLFormElement>;
+
   webODM_URL: string;
   tokenResponse: WebODMTokenResponse;
   subject: Subject<any>;
@@ -283,28 +285,31 @@ export class ControllerService implements OnDestroy {
     return this.subject.asObservable();
   }
 
-  async createODMTask(imgs: any[]): Promise<any> {
-    console.log("LOGGING IMAGES", imgs);
+  async createODMTask(imgs: any): Promise<any> {
 
-    //multipart encoded images?
-    let formData = new FormData();
-    let count = 0;
+    //};
+
+    // var formData = new FormData();
+    // let count = 0;
     // for(const img of imgs){
+    //formData.append("Images", imgs);
+    // for(const img of imgs){
+    //   const i = new File([img], count +'.jpg', { type : 'image/jpg' });
+    //   formData.append("Images", i);
+    //   count++
+    // }
+    //console.table(Object.fromEntries(formData));
 
-    for(const img of imgs){
-      const i = new File([img], count +'.jpg', { type : 'image/jpg' });
-      formData.append('img', i);
-      count++
-    }
 
-    const body = {
-      images: formData
-    }
-    const headers = new HttpHeaders({
-      'Authorization': `JWT ${this.tokenResponse.token}`,
-      'Content-Type': 'multipart/form-data'
-    });
-    return this.http.post(this.webODM_URL + `api/projects/${this.projectId}/tasks/`, body, { headers: headers });
+
+    // const body = {
+    //   data: formData
+    // }
+    // const headers = new HttpHeaders({
+    //   'Authorization': `JWT ${this.tokenResponse.token}`,
+    //   'Content-Type': 'multipart/form-data'
+    // });
+    //return this.http.post(this.webODM_URL + `api/projects/${this.projectId}/tasks/`, body, { headers: headers });
   }
 
   async getAllWebODMTasks(): Promise<any> {
