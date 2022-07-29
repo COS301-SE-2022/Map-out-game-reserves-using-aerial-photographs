@@ -7,7 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { User } from 'src/app/api.service';
+import { User } from 'src/app/API.service';
 
 import { RegisterComponent } from './register.component';
 
