@@ -30,22 +30,22 @@ Version 1: https://drive.google.com/file/d/1A-zZJGLOnGaVaDLI2wWaVRxTWAIY9--m/vie
 
 Version 2: https://drive.google.com/file/d/1hQEqsjVKGEA6bgIgqMEVHkNoJNtx4yqa/view?usp=sharing
 
-Version 3: 
+Version 3: https://drive.google.com/file/d/1nhVyc_dyepSc26Eq_GtWMRxwuGvDG1rl/view?usp=sharing
 
 ## Link to Architectural Requirements
 Version 1: https://drive.google.com/file/d/1e-WkXni-e-zc_NSjDJw0AZE73m-PvhV-/view?usp=sharing
 
-Version 2: 
+Version 2: https://drive.google.com/file/d/1UlkzT1v6qDIlQyOasSALRpOcDg4wKJ_m/view?usp=sharing
 
 ## Link to Coding Standards Document
 Version 1: https://drive.google.com/file/d/1JzXJ_9kVZoqfU8mCXWa-8tOkUgZt_YO6/view?usp=sharing
 
-Version 2:
+Version 2: https://drive.google.com/file/d/1yOeuRyyG7H1HrlFbTXZQvgh7Uvb5MSpc/view?usp=sharing
 
 ## Link to User Manual
 Version 1: https://drive.google.com/file/d/10GUkj-MJ_sZCM_SJ1v5H1Q3gyMxPlain/view?usp=sharing
 
-Version 2:
+Version 2: https://drive.google.com/file/d/1JUdCRQhg910UGon7UMyDQ7CV6ZOLDyur/view?usp=sharing
 
 ## Project Management
 ### Link to Project Board
