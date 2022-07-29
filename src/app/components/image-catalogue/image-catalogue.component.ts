@@ -175,9 +175,14 @@ export class ImageCatalogueComponent {
 
   openImgaeDialog(catalogue:CatalogData): void {
     this.selectedCatalogue = catalogue
+
     const dialogRef = this.dialog.open(ImageDialogComponent, {
       width: '100vw',
       data: { selectedCatalogue: this.selectedCatalogue},
     });
+  }
+
+  showmap(taskID : string){
+    console.log(taskID)
   }
 }
