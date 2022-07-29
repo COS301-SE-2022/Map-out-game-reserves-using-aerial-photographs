@@ -1,6 +1,6 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { User } from 'src/app/API.service';
+import { User } from 'src/app/api.service';
 
 import { ControllerService } from './controller.service';
 

@@ -15,7 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginModule } from './components/login/login.module';
 
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatListModule } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
@@ -37,6 +37,7 @@ import { ControllerService } from './api/controller/controller.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatDividerModule} from '@angular/material/divider';
+import { RouterTestingModule } from '@angular/router/testing';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import {MatDividerModule} from '@angular/material/divider';
     ReactiveFormsModule,
     RegisterModule,
     RouterModule,
+    RouterTestingModule,
     DashboardModule,
     LoginModule,
     AccountModule,
@@ -79,6 +81,7 @@ import {MatDividerModule} from '@angular/material/divider';
   providers: [
     HttpClient,
     MatDialog,
+    MatSnackBar,
     {
       provide: MatDialogRef,
       useValue: {}
