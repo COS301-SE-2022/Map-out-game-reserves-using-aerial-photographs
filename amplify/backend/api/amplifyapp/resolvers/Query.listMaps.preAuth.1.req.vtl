@@ -1,0 +1,19 @@
+## [Start] Set query expression for key **
+#if( !$util.isNull($ctx.args.sortDirection) )
+  $util.error("sortDirection is not supported for List operations without a Sort key defined.", "InvalidArgumentsError")
+#end
+#set( $modelQueryExpression = {} )
+#if( !$util.isNull($ctx.args.mapID) )
+  #set( $modelQueryExpression.expression = "#mapID = :mapID" )
+  #set( $modelQueryExpression.expressionNames = {
+  "#mapID": "mapID"
+} )
+  #set( $modelQueryExpression.expressionValues = {
+  ":mapID": {
+      "S": "$ctx.args.mapID"
+  }
+} )
+#end
+## [End] Set query expression for key **
+$util.qr($ctx.stash.put("modelQueryExpression", $modelQueryExpression))
+{}
