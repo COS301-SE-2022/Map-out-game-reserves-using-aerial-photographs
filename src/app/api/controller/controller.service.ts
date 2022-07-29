@@ -253,8 +253,8 @@ export class ControllerService implements OnDestroy {
   //authenticates and then returns the projects
   authenticateWithWebOdm(): Observable<any> {
     const body = {
-      username: "admin",
-      password: "12345678"
+      username: "thedylpickles1@gmail.com",
+      password: "somethingeasy#1"
     }
     //get auth token
     this.http.post(this.webODM_URL + 'api/token-auth/', body).subscribe({

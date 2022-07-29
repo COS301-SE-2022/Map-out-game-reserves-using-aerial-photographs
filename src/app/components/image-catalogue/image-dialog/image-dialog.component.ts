@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 export interface DialogData {
   selectedCatalogue: any,
@@ -13,7 +14,7 @@ export interface DialogData {
 })
 export class ImageDialogComponent {
   selectCatalogue: any = null;
-  constructor(
+  constructor( private router : Router,
     public dialogRef: MatDialogRef<ImageDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {this.selectCatalogue = data.selectedCatalogue}
@@ -22,10 +23,9 @@ export class ImageDialogComponent {
     this.dialogRef.close();
   }
 
-  onSubmit() {
-    // if(this.data.newName == '') {
-    //   return;
-    // }
+  onSubmit(/* taskID : string */) {
+    //TODO: pass taskID as a parameter to map page
+    this.router.navigate(['map']);
     this.dialogRef.close();
   }
 }
