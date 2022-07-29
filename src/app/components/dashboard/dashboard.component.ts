@@ -3,7 +3,7 @@ import { faMap as mapIcon, faExclamationTriangle as warning, faExclamationCircle
 import { BarChart } from './bar-chart/bar-chart.model';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ControllerService } from 'src/app/api/controller/controller.service';
-import { APIService, ListImageCollectionsQuery, ImageCollection, ListMessagesQuery, CreateMessageInput } from 'src/app/api.service';
+import { APIService, ListImageCollectionsQuery, ImageCollection, ListMessagesQuery, CreateMessageInput } from 'src/app/API.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { interval, Subscription, startWith, switchMap } from 'rxjs';
 

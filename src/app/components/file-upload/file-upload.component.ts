@@ -4,7 +4,7 @@ import {
   CreateImagesInput,
   CreateImageCollectionInput,
   CreateFlightDetailsInput
-} from 'src/app/api.service';
+} from 'src/app/API.service';
 import {
   ControllerService,
   WebODMCreateTaskResponse,
@@ -192,8 +192,10 @@ export class FileUploadComponent implements OnInit {
         collectionID: uuidv4(), //not sure!!!!!!!!!!!!!!! TODO: check
         parkID: parkSel,
         //   upload_date_time: string,
-        completed: false,
         flightID: flight.flightID,
+        completed: false,
+        pending: true,
+        error: false
         //taskID: taskId
         // _version?: number | null;
       };
