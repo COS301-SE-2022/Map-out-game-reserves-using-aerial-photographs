@@ -11,10 +11,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FooterModule } from '../shared/footer/footer.module';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { ImageDialogComponent } from './image-dialog/image-dialog.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import { RouterTestingModule } from '@angular/router/testing';
 
 
 @NgModule({
@@ -23,7 +22,6 @@ import { RouterTestingModule } from '@angular/router/testing';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterTestingModule,
     NavbarModule,
     MatButtonModule,
     MatCardModule,
@@ -35,9 +33,6 @@ import { RouterTestingModule } from '@angular/router/testing';
     MatDividerModule,
     MatDialogModule,
     MatTooltipModule
-  ],
-  providers: [
-    MatDialog
   ]
 })
 export class ImageCatalogueModule { }
