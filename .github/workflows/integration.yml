@@ -1,21 +1,21 @@
-name: Full on Integration Testing
-
-on:
-  push:
-    branches: [main, develop, member/**]
-    paths:
-      - ".github/workflows/integration.yml"
-  pull_request:
-    branches: [main, develop, member/**]
-    paths:
-      - ".github/workflows/integration.yml"
-
-jobs:
-  test_form:
-    name: Test Form Page
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: npm integration
-        run: npx ng e2e
+#name: Integration Testing
+#
+#on:
+#  push:
+#    branches: [main, develop, member/**]
+#    paths:
+#      - ".github/workflows/integration.yml"
+#  pull_request:
+#    branches: [main, develop, member/**]
+#    paths:
+#      - ".github/workflows/integration.yml"
+#
+#jobs:
+#  test_form:
+#    name: Integration Test
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: npm integration
+#        run: npx ng e2e --watch=false --headless
 
