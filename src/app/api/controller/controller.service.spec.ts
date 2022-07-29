@@ -1,5 +1,6 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { User } from 'src/app/API.service';
 
 import { ControllerService } from './controller.service';
@@ -21,7 +22,7 @@ describe('ControllerService', () => {
 
   beforeEach(async() => {
     await TestBed.configureTestingModule({
-      imports: [ HttpClientModule ],
+      imports: [ HttpClientModule, MatSnackBarModule ],
       providers: [ HttpClient ]
     })
     .compileComponents();

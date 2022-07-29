@@ -28,7 +28,7 @@
             <!-- <input id="files" class="file" style="display:none;" type="file" multiple (change)="onFileSelected($event)" #fileUpload> -->
           </div>
           <div class="buttonCenter">
-            <button type="button" mat-flat-button color="primary" class="clearbtn" (click)="fileUpload.click()">
+            <button type="button" mat-flat-button color="primary" class="clearbtn" id="file" (click)="fileUpload.click()">
               Choose file
             </button>
 
@@ -97,9 +97,9 @@
               <br />
             </div>
           </div>
-          <div class="progress">
-            <div class="successful-submit" *ngIf="submitPressed">
-              <h4 class="variable">File Uploaded Successfully</h4>
+          <div class="progress" *ngIf="submitPressed">
+            <div class="successful-submit">
+              <h4 class="variable">Processing...</h4>
             </div>
             <h4 class="variable">{{ fileName || "No file uploaded yet." }}</h4>
               <div class="videoSplitting" *ngIf="splittingProgress != 0">

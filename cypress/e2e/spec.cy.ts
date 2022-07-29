@@ -1,4 +1,8 @@
-import { getLoginButton, getLoginEmailInput, getLoginEmailPrompt, getLoginPasswordInput, getLoginPasswordPrompt, getLogoutButton, getNavAccount, getNavFileUpload, getNavImageCatalogue, getNavMapCollections } from './app.po';
+import { getCreateMap, getDashboard, getLoginButton, getLoginEmailInput, getLoginEmailPrompt, getLoginPasswordInput, getLoginPasswordPrompt, getLogoutButton, getMapCatalogue, getNavAccount } from './app.po';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { EmailDialogComponent } from 'src/app/components/account/email-dialog/email-dialog.component';
 
 describe('Initial App Test', () => {
   it('Visits the initial project page', () => {
@@ -58,19 +62,19 @@ describe('Navigation', () => {
     cy.url().should('include', '/account');
   });
 
-  it.only('navigates to the map collections page', () => {
-    getNavMapCollections().click();
-    cy.url().should('include', '/map-collection');
+  it.only('navigates to the dashboard page', () => {
+    getDashboard().click();
+    cy.url().should('include', '/dashboard');
   });
 
-  it.only('navigates to the image catalogue page', () => {
-    getNavImageCatalogue().click();
-    cy.url().should('include', '/image-catalogue');
+  it.only('navigates to the map catalogue page', () => {
+    getMapCatalogue().click();
+    cy.url().should('include', '/map-catalogue');
   });
 
-  it.only('navigates to the file upload page', () => {
-    getNavFileUpload().click();
-    cy.url().should('include', '/file-upload');
+  it.only('navigates to the create map page', () => {
+    getCreateMap().click();
+    cy.url().should('include', '/create-map');
   });
 });
 
@@ -84,13 +88,42 @@ describe('File Upload', () => {
     getLoginButton().click();
   });
   //it.only('displays the ')
+
 });
 
-// Testing Image Catalogue Page
-
-// Testing Map Collections Page
+// Testing Map-Catalogue Page
 
 // Testing Account Page
+describe('Testing Account page functionality', () => {
+  let emailDialogComponent: EmailDialogComponent;
+  let emailSpy: any;
+
+  beforeEach(() => {
+    cy.visit('/login');
+    getLoginEmailInput().type('correct@email.com');
+    getLoginPasswordInput().type('12345678');
+    getLoginButton().click();
+    getNavAccount().click();
+    //emailSpy = cy.spy(emailDialogComponent.dialogRef, 'open');
+  });
+
+  it.only("successfully changes the user's name", () => {
+    // emailSpy.open("Text", '300px');
+    // expect(emailSpy).to.calledOnce;
+  });
+
+  it.only("successfully changes the user's password", () => {
+    // modalService.open(TestComponent, '300px');
+    // expect(TestBed.get(MatDialog)).toHaveBeenCalled();
+    // cy.url().should('include', '/login');
+  });
+
+  it.only("successfully changes the user's email", () => {
+    // modalService.open(TestComponent, '300px');
+    // expect(TestBed.get(MatDialog)).toHaveBeenCalled();
+    // cy.url().should('include', '/login');
+  });
+});
 
 // Testing Logout
 
@@ -107,5 +140,4 @@ describe('Logging the user out', () => {
     getLogoutButton().click();
     cy.url().should('include', '/login');
   });
-
 });

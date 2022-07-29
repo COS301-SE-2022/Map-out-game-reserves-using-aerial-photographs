@@ -2,7 +2,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ControllerService } from 'src/app/api/controller/controller.service';
-import { User } from 'src/app/api.service';
+import { User } from 'src/app/API.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { OtpDialogComponent } from './otp-dialog/otp-dialog.component';
@@ -20,7 +20,7 @@ export class RegisterComponent {
   isSubmitted: boolean;
 
 
-  constructor(private apiController: ControllerService, private router: Router, private snackBar: MatSnackBar, public dialog: MatDialog) {
+  constructor(private apiController: ControllerService, private router: Router, public snackBar: MatSnackBar, public dialog: MatDialog) {
     this.registerForm = new UntypedFormGroup({
       user_email: new UntypedFormControl('', [Validators.required, Validators.email]),
       user_password: new UntypedFormControl('', [Validators.required]),
