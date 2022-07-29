@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { ImageDialogComponent } from './image-dialog.component';
 
@@ -20,6 +21,7 @@ describe('ImageDialogComponent', () => {
       declarations: [ ImageDialogComponent ],
       imports: [
         NoopAnimationsModule,
+        RouterTestingModule,
         MatCardModule,
         MatCheckboxModule,
         MatDialogModule,

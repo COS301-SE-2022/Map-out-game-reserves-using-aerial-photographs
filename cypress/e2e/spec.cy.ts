@@ -1,4 +1,4 @@
-import { getLoginButton, getLoginEmailInput, getLoginEmailPrompt, getLoginPasswordInput, getLoginPasswordPrompt, getLogoutButton, getNavAccount, getNavFileUpload, getNavImageCatalogue, getNavMapCollections } from './app.po';
+import { getCreateMap, getDashboard, getLoginButton, getLoginEmailInput, getLoginEmailPrompt, getLoginPasswordInput, getLoginPasswordPrompt, getLogoutButton, getMapCatalogue, getNavAccount } from './app.po';
 
 describe('Initial App Test', () => {
   it('Visits the initial project page', () => {
@@ -58,19 +58,19 @@ describe('Navigation', () => {
     cy.url().should('include', '/account');
   });
 
-  it.only('navigates to the map collections page', () => {
-    getNavMapCollections().click();
-    cy.url().should('include', '/map-collection');
+  it.only('navigates to the dashboard page', () => {
+    getDashboard().click();
+    cy.url().should('include', '/dashboard');
   });
 
-  it.only('navigates to the image catalogue page', () => {
-    getNavImageCatalogue().click();
-    cy.url().should('include', '/image-catalogue');
+  it.only('navigates to the map catalogue page', () => {
+    getMapCatalogue().click();
+    cy.url().should('include', '/map-catalogue');
   });
 
-  it.only('navigates to the file upload page', () => {
-    getNavFileUpload().click();
-    cy.url().should('include', '/file-upload');
+  it.only('navigates to the create map page', () => {
+    getCreateMap().click();
+    cy.url().should('include', '/create-map');
   });
 });
 
@@ -86,9 +86,7 @@ describe('File Upload', () => {
   //it.only('displays the ')
 });
 
-// Testing Image Catalogue Page
-
-// Testing Map Collections Page
+// Testing Map-Catalogue Page
 
 // Testing Account Page
 

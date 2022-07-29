@@ -6,30 +6,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { interval, Observable, startWith, Subject, Subscription, switchMap } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-interface WebODMTokenResponse {
-  token: string;
-}
-
-export interface WebODMProject {
-  created_at: string;
-  id: number;
-  description: string;
-  name: string;
-}
-export interface WebODMProjectsResponse extends Array<WebODMProject>{}
-
-export interface WebODMCreateTaskResponse {
-  id: string;
-  description: string;
-}
-
-interface WebODMTask {
-  id: string;
-  images_count: number;
-  name: string;
-  status: number;
-}
-
 @Injectable({
   providedIn: 'root'
 })
@@ -415,4 +391,28 @@ export class ControllerService implements OnDestroy {
           });
     return newFlight.flightID;
   }*/
+}
+
+interface WebODMTokenResponse {
+  token: string;
+}
+
+export interface WebODMProject {
+  created_at: string;
+  id: number;
+  description: string;
+  name: string;
+}
+export interface WebODMProjectsResponse extends Array<WebODMProject>{}
+
+export interface WebODMCreateTaskResponse {
+  id: string;
+  description: string;
+}
+
+interface WebODMTask {
+  id: string;
+  images_count: number;
+  name: string;
+  status: number;
 }
