@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'account', component: AccountComponent, canActivate: [AuthGuard] },
   { path: 'map', component: MapComponent, canActivate: [AuthGuard] },
-  { path: 'image-catalogue', component: ImageCatalogueComponent, canActivate: [AuthGuard] },
+  { path: 'map-catalogue', component: ImageCatalogueComponent, canActivate: [AuthGuard] },
   { path: 'create-map', component: FileUploadComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: 'login' }
 ];

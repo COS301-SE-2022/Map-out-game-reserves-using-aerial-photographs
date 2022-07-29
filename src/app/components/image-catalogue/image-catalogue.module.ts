@@ -11,10 +11,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FooterModule } from '../shared/footer/footer.module';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ImageDialogComponent } from './image-dialog/image-dialog.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 @NgModule({
-  declarations: [ ImageCatalogueComponent ],
+  declarations: [ ImageCatalogueComponent, ImageDialogComponent ],
   imports: [
     CommonModule,
     FormsModule,
@@ -27,7 +30,9 @@ import { MatDividerModule } from '@angular/material/divider';
     MatSelectModule,
     FooterModule,
     MatSnackBarModule,
-    MatDividerModule
+    MatDividerModule,
+    MatDialogModule,
+    MatTooltipModule
   ]
 })
 export class ImageCatalogueModule { }

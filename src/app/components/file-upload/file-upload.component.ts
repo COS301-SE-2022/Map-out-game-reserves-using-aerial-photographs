@@ -3,11 +3,12 @@ import {
   APIService,
   CreateImagesInput,
   CreateImageCollectionInput,
-  CreateFlightDetailsInput,
-  UpdateImageCollectionInput,
-  UpdateImageCollectionMutation,
+  CreateFlightDetailsInput
 } from 'src/app/api.service';
-import { ControllerService, WebODMCreateTaskResponse } from 'src/app/api/controller/controller.service';
+import {
+  ControllerService,
+  WebODMCreateTaskResponse,
+} from 'src/app/api/controller/controller.service';
 import { v4 as uuidv4 } from 'uuid';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { fromBlob } from 'image-resize-compress';
@@ -19,6 +20,11 @@ interface Park {
 }
 
 interface FlightType {
+  value: string;
+  viewValue: string;
+}
+
+interface ImageSize {
   value: string;
   viewValue: string;
 }
@@ -40,6 +46,8 @@ export class FileUploadComponent implements OnInit {
   uploadCount = 0;
   splittingProgress = 0;
   uploadingProgress = 0;
+  finalWidth = 0;
+  finalHeight = 0;
 
   parks: Park[] = [
     // {value: 'Somkhanda-1', viewValue: 'Somkhanda'},
@@ -49,6 +57,13 @@ export class FileUploadComponent implements OnInit {
   flight: FlightType[] = [
     { value: 'Drone', viewValue: 'Drone' },
     { value: 'Propeller Plane', viewValue: 'Propeller Plane' },
+  ];
+
+  iSize: ImageSize[] = [
+    { value: '1080', viewValue: '1080p' },
+    { value: '720', viewValue: '720p' },
+    { value: '480', viewValue: '480p' },
+    { value: '360', viewValue: '360p' },
   ];
 
   constructor(
@@ -64,6 +79,8 @@ export class FileUploadComponent implements OnInit {
     //   this.uploadFileLocal();
     //   console.log(this.file?.name);
     // })
+
+    //TODO: add park ui
 
     this.api.ListGameParks().then((event: any) => {
       //console.log(event.items[0]?.park_name);
@@ -105,6 +122,32 @@ export class FileUploadComponent implements OnInit {
     this.uploadCount = 0;
     this.splittingProgress = 0;
     this.uploadingProgress = 0;
+
+    let resolution = document.getElementById('resolution') as HTMLSelectElement;
+    let selected = resolution.selectedIndex;
+
+    switch (selected) {
+      case 1:
+        this.finalHeight = 1080;
+        this.finalWidth = 1920;
+        break;
+
+      case 2:
+        this.finalHeight = 720;
+        this.finalWidth = 1280;
+        break;
+
+      case 3:
+        this.finalHeight = 480;
+        this.finalWidth = 720;
+        break;
+
+      case 4:
+        this.finalHeight = 360;
+        this.finalWidth = 640;
+        break;
+    }
+    console.log('size:', this.finalHeight, this.finalWidth, selected);
 
     // get the id of the park
     let e = document.getElementById('parks') as HTMLSelectElement;
@@ -216,10 +259,7 @@ export class FileUploadComponent implements OnInit {
     const frames = [];
     this.frameCount = this.files.length;
     for (var i = 0; i < this.files.length; i++) {
-      const i_width = document.getElementById('i_width') as HTMLInputElement;
-      const finalWidth = Number(i_width?.value);
-      const i_height = document.getElementById('i_height') as HTMLInputElement;
-      const finalHeight = Number(i_height?.value);
+      //TODO: get from dropdown
 
       const inp: CreateImagesInput = {
         imageID: uuidv4(),
@@ -228,8 +268,12 @@ export class FileUploadComponent implements OnInit {
         file_name: collectionID + '-frame-' + i + '.png',
       };
 
-      frames[i] = new File([this.files[i]], inp.imageID +'.png');
-      var newBlob = this.resizeImage(frames[i], finalWidth, finalHeight);
+      frames[i] = new File([this.files[i]], inp.imageID + '.png');
+      var newBlob = this.resizeImage(
+        frames[i],
+        this.finalWidth,
+        this.finalHeight
+      );
       await newBlob.then((newBlob) => {
         frames[i] = newBlob;
       });
@@ -258,16 +302,13 @@ export class FileUploadComponent implements OnInit {
     // extract frames (video, interval(time), quality(0-1), final width, final height)
     const interval = 1; //fps
     const quality = 1.0;
-    const i_width = document.getElementById('i_width') as HTMLInputElement;
-    const finalWidth = Number(i_width?.value);
-    const i_height = document.getElementById('i_height') as HTMLInputElement;
-    const finalHeight = Number(i_height?.value);
+    // TODO: NEED TO GET THESE VALUES FROM THE DROP DOWN @STEVEN
     const frames = this.extractFramesFromVideo(
       img.src,
       interval,
       quality,
-      finalWidth,
-      finalHeight
+      this.finalWidth,
+      this.finalHeight
     );
 
     //Do after frames are extracted
@@ -312,11 +353,10 @@ export class FileUploadComponent implements OnInit {
       .S3upload(imageID, collectionID, 'images', newFile, 'image/png')
       .then(() => {
         this.uploadCount++;
-        console.log('Upload:');
-        console.log(this.uploadCount);
-        console.log(this.frameCount + 3);
-        this.uploadingProgress = this.uploadCount / (this.frameCount + 3);
-        console.log(this.uploadingProgress);
+        this.uploadingProgress = Math.round((this.uploadCount / this.frameCount) * 100);
+        if (this.uploadingProgress > 100) {
+          this.uploadingProgress = 100;
+        }
       });
   }
 
@@ -402,11 +442,10 @@ export class FileUploadComponent implements OnInit {
           )
           .then(() => {
             this.uploadCount++;
-            console.log('Upload:');
-            console.log(this.uploadCount);
-            console.log(this.frameCount + 3);
-            this.uploadingProgress = this.uploadCount / this.frameCount;
-            console.log(this.uploadingProgress);
+            this.uploadingProgress = Math.round((this.uploadCount / this.frameCount) * 100);
+            if (this.uploadingProgress > 100) {
+              this.uploadingProgress = 100;
+            }
           });
       });
     }

@@ -40,20 +40,32 @@
             <mat-icon style="color:#cccccc"> insert_drive_file</mat-icon>
 
           </div>
-          <div class="file-upload" *ngIf="fileName">
-            <div class="successful-submit" *ngIf="submitPressed">
-              <h4 class="variable">File Uploaded Successfully</h4>
-            </div>
+          <div class="file-upload" *ngIf="fileName && !submitPressed"> 
+            
             <h4 class="variable">{{ fileName || "No file uploaded yet." }}</h4>
             <div class="metadata">
-              <select ng-model="selectedPark" class="parks tooltip" id="parks">
+              <div class = "parkdd" style="display: inline-block;">
+                <select ng-model="selectedPark" class="parks tooltip" id="parks">
                   <option value="" disabled selected>Select a park</option>
                   <option *ngFor="let park of parks" [value]="park.value">
                     {{ park.viewValue }}
                   </option>
+                  
                 </select>
-
-              <select ng-model="selectedType" class="types tooltip" id="fType">
+                <!-- <div style="height: 100% !important; margin: 0;"> -->
+                  <button mat-button style ="background-color: white; border:none; font-size: 20px;">
+                    <mat-icon style="padding-top: 12px;
+                    line-height: 8px;">
+                      add
+                    </mat-icon>
+                  </button>
+                <!-- </div> -->
+                
+                <!-- <mat-icon>add</mat-icon> -->
+                
+              </div>
+              
+              <select ng-model="selectedType" class="types" id="fType">
                 <option value="" disabled selected>Select a flight type</option>
                 <option *ngFor="let type of flight" [value]="type.value">
                   {{ type.viewValue }}
@@ -63,8 +75,12 @@
               <input type="number" placeholder="Enter the height of the flight (metres)" id="height" min="1" />
 
               <!-- TODO: Still need to make this look nice -->
-              <input id="i_width" type="number" placeholder="Enter the height of the flight (metres)" min="1" />
-              <input id="i_height" type="number" placeholder="Enter the height of the flight (metres)" min="1" />
+              <select ng-model="selectedResolution" class="i-size tooltip" id="resolution">
+                <option value="" disabled selected>Select a resolution size</option>
+                <option *ngFor="let size of iSize" [value]="size.value">
+                  {{ size.viewValue }}
+                </option>
+              </select>
             </div>
 
             <!-- <br />
@@ -78,9 +94,22 @@
                   Submit
                 </button>
               </div>
-
               <br />
             </div>
+          </div>
+          <div class="progress">
+            <div class="successful-submit" *ngIf="submitPressed">
+              <h4 class="variable">File Uploaded Successfully</h4>
+            </div>
+            <h4 class="variable">{{ fileName || "No file uploaded yet." }}</h4>
+              <div class="videoSplitting" *ngIf="splittingProgress != 0">
+                <mat-progress-bar mode="determinate" value={{splittingProgress}}></mat-progress-bar>
+                Splitting Video {{ splittingProgress }}%
+              </div>
+              <div class="videoSplitting" *ngIf="uploadingProgress != 0">
+                <mat-progress-bar mode="determinate" value={{uploadingProgress}}></mat-progress-bar>
+                Uploading Frames {{ uploadingProgress }}%
+              </div>
           </div>
         </td>
       </tr>
@@ -88,16 +117,6 @@
   </form>
 
     <!-- <input type="file" class="file" multiple (change)="onFileSelected($event)" #fileUpload> -->
-
-
-    <div class="progress">
-      <div class="videoSplitting" *ngIf="splittingProgress != 0">
-        Splitting Video {{ splittingProgress }}%
-      </div>
-      <div class="videoUploading" *ngIf="uploadingProgress != 0">
-        Uploading Video {{ uploadingProgress }}%
-      </div>
-    </div>
 
     <div id="test"></div>
   </div>

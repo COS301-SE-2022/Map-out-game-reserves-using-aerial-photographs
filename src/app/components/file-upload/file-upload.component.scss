@@ -33,8 +33,6 @@
       }
   }
 
-
-
   h3 {
     font-size: 24px;
     margin-bottom: 1%;
@@ -120,7 +118,8 @@
 
 .parks,
 .types,
-#height {
+#height,
+.i-size {
     width: 90%;
 background: $primary-background-opaque;
     border: none;
@@ -132,6 +131,11 @@ background: $primary-background-opaque;
     overflow-y: auto;
     margin: 7px;
 }
+
+.parks{
+  width:80%;
+}
+
 
 .drop-zone {
   max-width: 100%;
@@ -155,7 +159,7 @@ background: $primary-background-opaque;
 //table and media screen
 table {
   width: 100%;
-  height: 100%;
+  height: 90%;
   table-layout: fixed;
 }
 
@@ -163,6 +167,7 @@ tr,
 td {
   height: 100%;
   vertical-align: top;
+  overflow-y: auto;
 }
 
 .buttonCenter {
