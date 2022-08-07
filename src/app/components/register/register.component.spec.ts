@@ -56,6 +56,7 @@ describe('RegisterComponent', () => {
   });
 
   it('component variables initialised correctly', () => {
+    spyOn(component.snackBar,"open").and.callThrough();
     expect(component.isSubmitted).toBeFalsy();
     expect(component.email!.value).toBe('');
     expect(component.password!.value).toBe('');

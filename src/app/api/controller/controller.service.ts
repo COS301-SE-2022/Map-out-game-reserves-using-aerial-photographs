@@ -90,6 +90,7 @@ export class ControllerService implements OnDestroy {
                       error: true,
                       pending: false
                     }
+                    //create message here if not already in table
                   }
 
                   this.repo.UpdateImageCollection(updatedCollection).then((_resp: any) => {

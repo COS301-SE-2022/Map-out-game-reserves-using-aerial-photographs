@@ -89,6 +89,15 @@ describe('File Upload', () => {
 // Testing Map-Catalogue Page
 
 // Testing Account Page
+describe('Testing Account Page functions', () => {
+  beforeEach(() => {
+    cy.visit('/login');
+    getLoginEmailInput().type('correct@email.com');
+    getLoginPasswordInput().type('12345678');
+    getLoginButton().click();
+    getNavAccount().click();
+  });
+});
 
 // Testing Logout
 
@@ -100,10 +109,21 @@ describe('Logging the user out', () => {
     getLoginButton().click();
   });
 
-  it.only('successfully logs the user out', () => {
+  it.only("successfully changes the user's name", () => {
     getNavAccount().click();
     getLogoutButton().click();
     cy.url().should('include', '/login');
   });
 
+  it.only("successfully changes the user's password", () => {
+    getNavAccount().click();
+    getLogoutButton().click();
+    cy.url().should('include', '/login');
+  });
+
+  it.only("successfully changes the user's email", () => {
+    getNavAccount().click();
+    getLogoutButton().click();
+    cy.url().should('include', '/login');
+  });
 });
