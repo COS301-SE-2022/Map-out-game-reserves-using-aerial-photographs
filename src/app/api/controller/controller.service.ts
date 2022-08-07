@@ -130,7 +130,8 @@ export class ControllerService implements OnDestroy {
     console.log('[CLIENT] Trying to register user...');
     const body = {
       username: u.user_email,
-      password: u.user_password
+      password: u.user_password,
+      name: u.user_name
     }
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
