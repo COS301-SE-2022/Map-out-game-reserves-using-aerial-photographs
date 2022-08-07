@@ -40,6 +40,10 @@ type ConnectionMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
+type PendingJobsMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
 export declare class User {
   readonly id: string;
   readonly userID: string;
@@ -156,4 +160,16 @@ export declare class Connection {
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<Connection, ConnectionMetaData>);
   static copyOf(source: Connection, mutator: (draft: MutableModel<Connection, ConnectionMetaData>) => MutableModel<Connection, ConnectionMetaData> | void): Connection;
+}
+
+export declare class PendingJobs {
+  readonly id: string;
+  readonly jobID: string;
+  readonly busy?: boolean | null;
+  readonly taskID?: string | null;
+  readonly collectionID?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+  constructor(init: ModelInit<PendingJobs, PendingJobsMetaData>);
+  static copyOf(source: PendingJobs, mutator: (draft: MutableModel<PendingJobs, PendingJobsMetaData>) => MutableModel<PendingJobs, PendingJobsMetaData> | void): PendingJobs;
 }

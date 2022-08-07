@@ -37,6 +37,9 @@ export type __SubscriptionContainer = {
   onCreateConnection: OnCreateConnectionSubscription;
   onUpdateConnection: OnUpdateConnectionSubscription;
   onDeleteConnection: OnDeleteConnectionSubscription;
+  onCreatePendingJobs: OnCreatePendingJobsSubscription;
+  onUpdatePendingJobs: OnUpdatePendingJobsSubscription;
+  onDeletePendingJobs: OnDeletePendingJobsSubscription;
 };
 
 export type User = {
@@ -509,6 +512,49 @@ export type DeleteConnectionInput = {
   _version?: number | null;
 };
 
+export type CreatePendingJobsInput = {
+  jobID: string;
+  busy?: boolean | null;
+  taskID?: string | null;
+  collectionID?: string | null;
+  _version?: number | null;
+};
+
+export type ModelPendingJobsConditionInput = {
+  busy?: ModelBooleanInput | null;
+  taskID?: ModelStringInput | null;
+  collectionID?: ModelStringInput | null;
+  and?: Array<ModelPendingJobsConditionInput | null> | null;
+  or?: Array<ModelPendingJobsConditionInput | null> | null;
+  not?: ModelPendingJobsConditionInput | null;
+};
+
+export type PendingJobs = {
+  __typename: "PendingJobs";
+  jobID: string;
+  busy?: boolean | null;
+  taskID?: string | null;
+  collectionID?: string | null;
+  createdAt: string;
+  updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
+};
+
+export type UpdatePendingJobsInput = {
+  jobID: string;
+  busy?: boolean | null;
+  taskID?: string | null;
+  collectionID?: string | null;
+  _version?: number | null;
+};
+
+export type DeletePendingJobsInput = {
+  jobID: string;
+  _version?: number | null;
+};
+
 export type ModelUserFilterInput = {
   userID?: ModelStringInput | null;
   user_email?: ModelStringInput | null;
@@ -668,6 +714,23 @@ export type ModelConnectionFilterInput = {
 export type ModelConnectionConnection = {
   __typename: "ModelConnectionConnection";
   items: Array<Connection | null>;
+  nextToken?: string | null;
+  startedAt?: number | null;
+};
+
+export type ModelPendingJobsFilterInput = {
+  jobID?: ModelStringInput | null;
+  busy?: ModelBooleanInput | null;
+  taskID?: ModelStringInput | null;
+  collectionID?: ModelStringInput | null;
+  and?: Array<ModelPendingJobsFilterInput | null> | null;
+  or?: Array<ModelPendingJobsFilterInput | null> | null;
+  not?: ModelPendingJobsFilterInput | null;
+};
+
+export type ModelPendingJobsConnection = {
+  __typename: "ModelPendingJobsConnection";
+  items: Array<PendingJobs | null>;
   nextToken?: string | null;
   startedAt?: number | null;
 };
@@ -1302,6 +1365,45 @@ export type DeleteConnectionMutation = {
   __typename: "Connection";
   connectionID: string;
   topic: string;
+  createdAt: string;
+  updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
+};
+
+export type CreatePendingJobsMutation = {
+  __typename: "PendingJobs";
+  jobID: string;
+  busy?: boolean | null;
+  taskID?: string | null;
+  collectionID?: string | null;
+  createdAt: string;
+  updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
+};
+
+export type UpdatePendingJobsMutation = {
+  __typename: "PendingJobs";
+  jobID: string;
+  busy?: boolean | null;
+  taskID?: string | null;
+  collectionID?: string | null;
+  createdAt: string;
+  updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
+};
+
+export type DeletePendingJobsMutation = {
+  __typename: "PendingJobs";
+  jobID: string;
+  busy?: boolean | null;
+  taskID?: string | null;
+  collectionID?: string | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -1994,6 +2096,55 @@ export type SyncConnectionsQuery = {
     __typename: "Connection";
     connectionID: string;
     topic: string;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
+  } | null>;
+  nextToken?: string | null;
+  startedAt?: number | null;
+};
+
+export type GetPendingJobsQuery = {
+  __typename: "PendingJobs";
+  jobID: string;
+  busy?: boolean | null;
+  taskID?: string | null;
+  collectionID?: string | null;
+  createdAt: string;
+  updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
+};
+
+export type ListPendingJobsQuery = {
+  __typename: "ModelPendingJobsConnection";
+  items: Array<{
+    __typename: "PendingJobs";
+    jobID: string;
+    busy?: boolean | null;
+    taskID?: string | null;
+    collectionID?: string | null;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
+  } | null>;
+  nextToken?: string | null;
+  startedAt?: number | null;
+};
+
+export type SyncPendingJobsQuery = {
+  __typename: "ModelPendingJobsConnection";
+  items: Array<{
+    __typename: "PendingJobs";
+    jobID: string;
+    busy?: boolean | null;
+    taskID?: string | null;
+    collectionID?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -2707,6 +2858,45 @@ export type OnDeleteConnectionSubscription = {
   __typename: "Connection";
   connectionID: string;
   topic: string;
+  createdAt: string;
+  updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
+};
+
+export type OnCreatePendingJobsSubscription = {
+  __typename: "PendingJobs";
+  jobID: string;
+  busy?: boolean | null;
+  taskID?: string | null;
+  collectionID?: string | null;
+  createdAt: string;
+  updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
+};
+
+export type OnUpdatePendingJobsSubscription = {
+  __typename: "PendingJobs";
+  jobID: string;
+  busy?: boolean | null;
+  taskID?: string | null;
+  collectionID?: string | null;
+  createdAt: string;
+  updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
+};
+
+export type OnDeletePendingJobsSubscription = {
+  __typename: "PendingJobs";
+  jobID: string;
+  busy?: boolean | null;
+  taskID?: string | null;
+  collectionID?: string | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -3893,6 +4083,93 @@ export class APIService {
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <DeleteConnectionMutation>response.data.deleteConnection;
+  }
+  async CreatePendingJobs(
+    input: CreatePendingJobsInput,
+    condition?: ModelPendingJobsConditionInput
+  ): Promise<CreatePendingJobsMutation> {
+    const statement = `mutation CreatePendingJobs($input: CreatePendingJobsInput!, $condition: ModelPendingJobsConditionInput) {
+        createPendingJobs(input: $input, condition: $condition) {
+          __typename
+          jobID
+          busy
+          taskID
+          collectionID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <CreatePendingJobsMutation>response.data.createPendingJobs;
+  }
+  async UpdatePendingJobs(
+    input: UpdatePendingJobsInput,
+    condition?: ModelPendingJobsConditionInput
+  ): Promise<UpdatePendingJobsMutation> {
+    const statement = `mutation UpdatePendingJobs($input: UpdatePendingJobsInput!, $condition: ModelPendingJobsConditionInput) {
+        updatePendingJobs(input: $input, condition: $condition) {
+          __typename
+          jobID
+          busy
+          taskID
+          collectionID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <UpdatePendingJobsMutation>response.data.updatePendingJobs;
+  }
+  async DeletePendingJobs(
+    input: DeletePendingJobsInput,
+    condition?: ModelPendingJobsConditionInput
+  ): Promise<DeletePendingJobsMutation> {
+    const statement = `mutation DeletePendingJobs($input: DeletePendingJobsInput!, $condition: ModelPendingJobsConditionInput) {
+        deletePendingJobs(input: $input, condition: $condition) {
+          __typename
+          jobID
+          busy
+          taskID
+          collectionID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <DeletePendingJobsMutation>response.data.deletePendingJobs;
   }
   async Test(): Promise<string | null> {
     const statement = `query Test {
@@ -5266,6 +5543,119 @@ export class APIService {
     )) as any;
     return <SyncConnectionsQuery>response.data.syncConnections;
   }
+  async GetPendingJobs(jobID: string): Promise<GetPendingJobsQuery> {
+    const statement = `query GetPendingJobs($jobID: String!) {
+        getPendingJobs(jobID: $jobID) {
+          __typename
+          jobID
+          busy
+          taskID
+          collectionID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      jobID
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <GetPendingJobsQuery>response.data.getPendingJobs;
+  }
+  async ListPendingJobs(
+    jobID?: string,
+    filter?: ModelPendingJobsFilterInput,
+    limit?: number,
+    nextToken?: string,
+    sortDirection?: ModelSortDirection
+  ): Promise<ListPendingJobsQuery> {
+    const statement = `query ListPendingJobs($jobID: String, $filter: ModelPendingJobsFilterInput, $limit: Int, $nextToken: String, $sortDirection: ModelSortDirection) {
+        listPendingJobs(jobID: $jobID, filter: $filter, limit: $limit, nextToken: $nextToken, sortDirection: $sortDirection) {
+          __typename
+          items {
+            __typename
+            jobID
+            busy
+            taskID
+            collectionID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          nextToken
+          startedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (jobID) {
+      gqlAPIServiceArguments.jobID = jobID;
+    }
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    if (sortDirection) {
+      gqlAPIServiceArguments.sortDirection = sortDirection;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <ListPendingJobsQuery>response.data.listPendingJobs;
+  }
+  async SyncPendingJobs(
+    filter?: ModelPendingJobsFilterInput,
+    limit?: number,
+    nextToken?: string,
+    lastSync?: number
+  ): Promise<SyncPendingJobsQuery> {
+    const statement = `query SyncPendingJobs($filter: ModelPendingJobsFilterInput, $limit: Int, $nextToken: String, $lastSync: AWSTimestamp) {
+        syncPendingJobs(filter: $filter, limit: $limit, nextToken: $nextToken, lastSync: $lastSync) {
+          __typename
+          items {
+            __typename
+            jobID
+            busy
+            taskID
+            collectionID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          nextToken
+          startedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    if (lastSync) {
+      gqlAPIServiceArguments.lastSync = lastSync;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <SyncPendingJobsQuery>response.data.syncPendingJobs;
+  }
   async UserByEmail(
     user_email: string,
     sortDirection?: ModelSortDirection,
@@ -6470,5 +6860,74 @@ export class APIService {
     )
   ) as Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteConnection">>
+  >;
+
+  OnCreatePendingJobsListener: Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreatePendingJobs">>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnCreatePendingJobs {
+        onCreatePendingJobs {
+          __typename
+          jobID
+          busy
+          taskID
+          collectionID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreatePendingJobs">>
+  >;
+
+  OnUpdatePendingJobsListener: Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdatePendingJobs">>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnUpdatePendingJobs {
+        onUpdatePendingJobs {
+          __typename
+          jobID
+          busy
+          taskID
+          collectionID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdatePendingJobs">>
+  >;
+
+  OnDeletePendingJobsListener: Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeletePendingJobs">>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnDeletePendingJobs {
+        onDeletePendingJobs {
+          __typename
+          jobID
+          busy
+          taskID
+          collectionID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeletePendingJobs">>
   >;
 }

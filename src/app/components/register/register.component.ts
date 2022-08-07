@@ -61,16 +61,24 @@ export class RegisterComponent {
       return;
     }
 
-    this.apiController.tryRegister(user).then((resp: any) => {
-      if(resp === -1) {
+    this.apiController.tryRegister(user).subscribe({
+      next: (resp: any) => {
+        console.log("[CLIENT] tryRegister response: ", resp);
+        if(resp.statusCode == 200){
+          //Successful registration, log user in and redirect to dashboard
+          this.apiController.finishRegistration(user).then(async (res: number) => {
+            if (res == 1) {
+              this.router.navigate(['dashboard']);
+            }
+
+            this.registered.emit(res); //integration testing purposes
+          });
+        }
+      },
+      error: (err: any) => {
+        console.log(err);
         this.snackBar.open("Your email has not been invited.", "❌", { verticalPosition: 'top' });
       }
-      else {
-        //OTP is emailed to the user
-        this.openOtpDialog(user);
-      }
-
-      this.registered.emit(resp); //integration testing purposes
     });
   }
 

@@ -730,3 +730,51 @@ mutation DeleteConnection(
     _lastChangedAt
   }
 }
+mutation CreatePendingJobs(
+  $input: CreatePendingJobsInput!
+  $condition: ModelPendingJobsConditionInput
+) {
+  createPendingJobs(input: $input, condition: $condition) {
+    jobID
+    busy
+    taskID
+    collectionID
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation UpdatePendingJobs(
+  $input: UpdatePendingJobsInput!
+  $condition: ModelPendingJobsConditionInput
+) {
+  updatePendingJobs(input: $input, condition: $condition) {
+    jobID
+    busy
+    taskID
+    collectionID
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation DeletePendingJobs(
+  $input: DeletePendingJobsInput!
+  $condition: ModelPendingJobsConditionInput
+) {
+  deletePendingJobs(input: $input, condition: $condition) {
+    jobID
+    busy
+    taskID
+    collectionID
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}

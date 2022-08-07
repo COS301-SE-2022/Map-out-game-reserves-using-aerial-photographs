@@ -1,10 +1,11 @@
-import { ElementRef, Injectable, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Auth, Storage } from 'aws-amplify';
-import { APIService, CreateMapInput, CreateMapMutation, CreateMessageInput, CreateMessageMutation, CreateUserInput, DeletePendingInvitesInput, GetImageCollectionByTaskIdQuery, GetImageCollectionQuery, GetMessageByCollectionIdQuery, ImageCollection, ListImageCollectionsQuery, UpdateImageCollectionInput, UpdateImageCollectionMutation, User } from 'src/app/API.service';
+import { APIService, CreateMapInput, CreateMapMutation, CreateUserInput, GetImageCollectionByTaskIdQuery, ImageCollection, UpdateImageCollectionInput, User } from 'src/app/API.service';
 import { v4 as uuidv4 } from 'uuid';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { interval, Observable, startWith, Subject, Subscription, switchMap } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Injectable({
   providedIn: 'root'
@@ -124,72 +125,28 @@ export class ControllerService implements OnDestroy {
     this.pollingInterval.unsubscribe();
   }
 
-  async tryRegister(u: User): Promise<number> {
-    console.log('getting pending invite by email...');
-    return this.repo.GetPendingInvitesByEmail(u.user_email!).then((resp: any) => {
-      let invite: any;
-      if(resp != null && resp.items.length > 0) {
-        for(let item of resp.items) {
-          if(!item._deleted) {
-            invite = item;
-            break;
-          }
-        }
-      }
-      else {
-        return -1;
-      }
-
-      if(invite != null) {
-        if(invite.role == 'admin') {
-          u.user_role = 'admin';
-        }
-        else {
-          u.user_role = 'user';
-        }
-        const toDelete: DeletePendingInvitesInput = {
-          inviteID: invite.inviteID,
-          _version: 1
-        }
-        return this.repo.DeletePendingInvites(toDelete).then((res: any) => {
-          console.log("deleting pending invite...");
-          console.log(res);
-          return this.registerUser(u);
-        }).catch(() => { return -1; });
-      }
-      return -1;
-    }).catch(() => { return -1; });
+  //calls 'protected-signup' lambda function and tries to register user (if an invite exists)
+  tryRegister(u: User): Observable<any> {
+    console.log('[CLIENT] Trying to register user...');
+    const body = {
+      username: u.user_email,
+      password: u.user_password
+    }
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    return this.http.post('https://tjgr6foxa1.execute-api.us-east-1.amazonaws.com/development', JSON.stringify(body), { headers: headers });
   }
 
-  async registerUser(u: User): Promise<number> {
-    const newUser: CreateUserInput = {
-      userID: uuidv4(),
-      user_name: u.user_name,
-      user_email: u.user_email,
-      user_approved: true,
-      user_role: u.user_role
-    }
-
+  async finishRegistration(u: User): Promise<number> {
+    //success
     try {
-      const { user } = await Auth.signUp({
-        username: u.user_email!,
-        password: u.user_password!
-      });
+      await Auth.signIn(u.user_email!, u.user_password!);
+      return 1;
     } catch (error) {
-      console.log('error signing up:', error);
+      console.log('[CLIENT] error signing in:', error);
       return -1;
     }
-
-    return this.repo
-      .CreateUser(newUser)
-      .then(() => {
-        alert('Successfully registered!');
-        return 1;
-      })
-      .catch((e) => {
-        console.log('error creating user...', e);
-        return -1;
-      });
   }
 
   async S3upload(fileKey:string, collection:string, folder:string, fileData: File, dataType:string){

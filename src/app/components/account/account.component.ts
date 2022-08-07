@@ -74,20 +74,18 @@ export class AccountComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.api.UserByEmail("correct@email.com").then((res: any) => {
-      console.log(res);
-    })
-
     try {
       await Auth.currentAuthenticatedUser({ bypassCache: false }).then(async (res: any) => {
-        console.log(res);
+        const groups: Array<any> = res.signInUserSession.idToken.payload['cognito:groups'];
+        groups.forEach((group: any) => {
+          if(group == 'Admin') {
+            this.admin = true;
+          }
+        });
 
         this.api.UserByEmail(res.attributes.email).then((resp: any) => {
           if(resp.items.length > 0) {
             this.user = resp.items[0];
-            if(this.user.user_role == "admin") {
-              this.admin = true;
-            }
             this.currName = this.user.user_name;
             this.name.nativeElement.value = this.currName;
             this.email.nativeElement.value = this.user.user_email;
@@ -100,10 +98,11 @@ export class AccountComponent implements OnInit {
           if(err.errors[0].message == "Network Error"){
             this.snackBar.open("Network error...", "❌", { verticalPosition: 'top' });
           }
-        })
+        });
       });
-    } catch(error) {
+    } catch(error: any) {
       console.log(error);
+      this.snackBar.open("Network error...", "❌", { verticalPosition: 'top' });
     }
   }
 

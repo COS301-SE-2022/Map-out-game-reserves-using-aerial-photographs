@@ -882,6 +882,75 @@ query SyncConnections(
     startedAt
   }
 }
+query GetPendingJobs($jobID: String!) {
+  getPendingJobs(jobID: $jobID) {
+    jobID
+    busy
+    taskID
+    collectionID
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+query ListPendingJobs(
+  $jobID: String
+  $filter: ModelPendingJobsFilterInput
+  $limit: Int
+  $nextToken: String
+  $sortDirection: ModelSortDirection
+) {
+  listPendingJobs(
+    jobID: $jobID
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
+    items {
+      jobID
+      busy
+      taskID
+      collectionID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
+  }
+}
+query SyncPendingJobs(
+  $filter: ModelPendingJobsFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncPendingJobs(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
+  ) {
+    items {
+      jobID
+      busy
+      taskID
+      collectionID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
+  }
+}
 query UserByEmail(
   $user_email: String!
   $sortDirection: ModelSortDirection

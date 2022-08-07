@@ -4,7 +4,7 @@ import { schema } from './schema';
 
 
 
-const { User, GamePark, Message, ImageCollection, FlightDetails, Images, Map, PendingInvites, Connection } = initSchema(schema);
+const { User, GamePark, Message, ImageCollection, FlightDetails, Images, Map, PendingInvites, Connection, PendingJobs } = initSchema(schema);
 
 export {
   User,
@@ -15,5 +15,6 @@ export {
   Images,
   Map,
   PendingInvites,
-  Connection
+  Connection,
+  PendingJobs
 };

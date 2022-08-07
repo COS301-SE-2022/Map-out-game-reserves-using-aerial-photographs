@@ -563,3 +563,42 @@ subscription OnDeleteConnection {
     _lastChangedAt
   }
 }
+subscription OnCreatePendingJobs {
+  onCreatePendingJobs {
+    jobID
+    busy
+    taskID
+    collectionID
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnUpdatePendingJobs {
+  onUpdatePendingJobs {
+    jobID
+    busy
+    taskID
+    collectionID
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnDeletePendingJobs {
+  onDeletePendingJobs {
+    jobID
+    busy
+    taskID
+    collectionID
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
