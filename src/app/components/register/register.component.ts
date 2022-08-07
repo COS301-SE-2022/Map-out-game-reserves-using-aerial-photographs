@@ -5,7 +5,6 @@ import { ControllerService } from 'src/app/api/controller/controller.service';
 import { User } from 'src/app/API.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
-import { OtpDialogComponent } from './otp-dialog/otp-dialog.component';
 import { Auth } from 'aws-amplify';
 
 @Component({
@@ -82,35 +81,35 @@ export class RegisterComponent {
     });
   }
 
-  openOtpDialog(u: User): void {
-    const dialogRef = this.dialog.open(OtpDialogComponent, {
-      width: '500px',
-      data: { otp: ''},
-    });
+  // openOtpDialog(u: User): void {
+  //   const dialogRef = this.dialog.open(OtpDialogComponent, {
+  //     width: '500px',
+  //     data: { otp: ''},
+  //   });
 
-    this.dialogState.emit(dialogRef.getState());
+  //   this.dialogState.emit(dialogRef.getState());
 
-    dialogRef.afterClosed().subscribe(async code => {
-      if(code == undefined) {
-        return;
-      }
+  //   dialogRef.afterClosed().subscribe(async code => {
+  //     if(code == undefined) {
+  //       return;
+  //     }
 
-      //confirm user if OTP is correct
-      try {
-        await Auth.confirmSignUp(u.user_email!, code);
-        try {
-          await Auth.signIn(u.user_email!, u.user_password!);
-          this.router.navigate(['dashboard']);
-          this.snackBar.open("Successfully Registered!", "✔️", { duration: 3000, verticalPosition: 'top' });
-        } catch (error) {
-            console.log('error signing in', error);
-        }
-      } catch (error) {
-          console.log('error confirming sign up', error);
-          this.snackBar.open("Invalid OTP.", "❌", { verticalPosition: 'top' });
-      }
-    });
-  }
+  //     //confirm user if OTP is correct
+  //     try {
+  //       await Auth.confirmSignUp(u.user_email!, code);
+  //       try {
+  //         await Auth.signIn(u.user_email!, u.user_password!);
+  //         this.router.navigate(['dashboard']);
+  //         this.snackBar.open("Successfully Registered!", "✔️", { duration: 3000, verticalPosition: 'top' });
+  //       } catch (error) {
+  //           console.log('error signing in', error);
+  //       }
+  //     } catch (error) {
+  //         console.log('error confirming sign up', error);
+  //         this.snackBar.open("Invalid OTP.", "❌", { verticalPosition: 'top' });
+  //     }
+  //   });
+  // }
 
 
   public get email() { return this.registerForm.get('user_email'); }
