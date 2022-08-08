@@ -1,0 +1,53 @@
+<div class="background">
+  <!-- <div class="heading">
+    <h1>Image Catalogue</h1>
+  </div> -->
+  <aerial-mapping-side-navbar></aerial-mapping-side-navbar>
+  <app-footer></app-footer>
+  <div class="content">
+    <div class="title">
+      <h3>MAP CATALOGUE</h3>
+      <mat-divider></mat-divider>
+    </div>
+    <br/>
+    <div id="searchAndSortContainer">
+      <mat-form-field [ngStyle]="{ width: '75%', height: '63px' }" class="form">
+        <button id="searchBtn" matPrefix mat-icon-button aria-label="Search">
+          <mat-icon inline="true">search</mat-icon>
+        </button>
+
+        <input (keyup)="searchCatalogues()" (change)="searchCatalogues()"
+          id="searchInput" class="search" type="text" placeholder="Search" value="" matInput/>
+      </mat-form-field>
+
+        <div id="sort">
+          <mat-form-field [ngStyle]="{ width: '99%', height: '60px', backgroundColor: 'none' }">
+            <mat-label id="right" class="sortLabel">Sort By</mat-label>
+            <mat-select matInput (change)="onChangeSort($event)"
+              id="left" class="sort" style="display: inline">
+              <mat-option [value]="sort.date" selected>Upload Date</mat-option>
+              <mat-option [value]="sort.park">Park</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+    </div>
+
+    <div style="height: 69%; overflow-y: auto; margin-top: 2%; width: 100%">
+      <mat-card class="container" *ngFor="let catData of catalogues" id="{{ catData.catalogue.collectionID }}">
+        <mat-card-header class="head">
+          <span style="float: left">{{ catData.catalogue.parkID }}</span>
+          <span style="float: right">{{ catData.catalogue.createdAt }}</span>
+        </mat-card-header>
+        <br />
+        <mat-card-content class="cont">
+          <ng-container *ngFor="let img of catData.thumbnails">
+            <img style="width: 32%; display: inline-block; padding: 1%" [src]="img"/>
+          </ng-container>
+        </mat-card-content>
+        <mat-card-footer class="foot">
+          <button class="link" (click)="openImgaeDialog(catData)" matTooltip="View images & create maps">View</button>
+        </mat-card-footer>
+      </mat-card>
+    </div>
+  </div>
+</div>

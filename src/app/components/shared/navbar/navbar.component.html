@@ -1,0 +1,109 @@
+<div class="nav">
+  <!-- <ul>
+    <li>
+      <button id="navDashboard" routerLink="/dashboard" mat-button class="menu-button" class="tooltip" style="padding: 0; width: 100%; text-align: left;">
+        <mat-icon>dashboard</mat-icon>
+        <span class="navText">Dashboard</span>
+        <span class="tooltiptext">Information overview</span>
+      </button>
+    </li>
+
+    <li>
+      <button id="navAccount" routerLink="/account" mat-button class="menu-button" class="tooltip" style="padding: 0; width: 100%; text-align: left;">
+        <mat-icon>person</mat-icon>
+        <span class="navText">Account</span>
+        <span class="tooltiptext">User account details</span>
+      </button>
+    </li>
+
+    <li>
+      <button id="navMapCollections" routerLink="/map-collections" mat-button class="menu-button" class="tooltip" style="padding: 0; width: 100%; text-align: left;">
+        <mat-icon>map</mat-icon>
+        <span class="navText">Map Collections</span>
+        <span class="tooltiptext">View maps</span>
+      </button>
+    </li>
+
+    <li>
+      <button id="navImageCatalogue" routerLink="/image-catalogue" mat-button class="menu-button" class="tooltip" style="padding: 0; width: 100%; text-align: left;">
+        <mat-icon>collections</mat-icon>
+        <span class="navText">Image Catalogue</span>
+        <span class="tooltiptext">View processed images</span>
+      </button>
+    </li>
+
+    <li>
+      <button id="navFileUpload" routerLink="/file-upload" mat-button class="menu-button" class="tooltip" style="padding: 0; width: 100%; text-align: left;">
+        <mat-icon>add_photo_alternate</mat-icon>
+        <span class="navText">File Upload</span>
+        <span class="tooltiptext">Upload files for stitching</span>
+      </button>
+    </li>
+  </ul>
+</div> -->
+  <button id="titleButton" routerLink="/dashboard" mat-button>
+    <span id="title">AERIAL MAPPER</span>
+  </button>
+
+  <div id="buttons">
+    <button
+      routerLink="/dashboard"
+      mat-button
+      class="menu-button"
+      matTooltip="Information overview"
+      id="dashboard"
+      (click)="onClick('dashboard')"
+    >
+      <mat-icon>dashboard</mat-icon>
+      <span class="navText">DASHBOARD</span>
+    </button>
+
+    <button
+      routerLink="/create-map"
+      mat-button
+      class="menu-button"
+      matTooltip="Upload files for stitching"
+      id="create-map"
+      (click)="onClick('create-map')"
+    >
+      <mat-icon>add_photo_alternate</mat-icon>
+      <span class="navText">CREATE MAP</span>
+    </button>
+
+    <button
+      routerLink="/map-catalogue"
+      mat-button
+      class="menu-button"
+      matTooltip="View processed images"
+      id="map-catalogue"
+      (click)="onClick('map-catalogue')"
+    >
+      <mat-icon>collections</mat-icon>
+      <span class="navText">MAP CATALOGUE</span>
+    </button>
+
+    <!-- <button
+      routerLink="/map-collections"
+      mat-button
+      class="menu-button"
+      matTooltip="View maps"
+      id="map-collections"
+      (click)="onClick('map-collections')"
+    >
+      <mat-icon>map</mat-icon>
+      <span class="navText">MAP COLLECTIONS</span>
+    </button> -->
+
+    <button
+      routerLink="/account"
+      mat-button
+      class="menu-button"
+      matTooltip="User account details"
+      id="account"
+      (click)="onClick('account')"
+    >
+      <mat-icon>person</mat-icon>
+      <span class="navText">ACCOUNT</span>
+    </button>
+  </div>
+</div>

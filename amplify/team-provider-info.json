@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-aerialmapping-dev-80642-authRole",
+      "UnauthRoleArn": "arn:aws:iam::870416143884:role/amplify-aerialmapping-dev-80642-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::870416143884:role/amplify-aerialmapping-dev-80642-authRole",
+      "Region": "sa-east-1",
+      "DeploymentBucketName": "amplify-aerialmapping-dev-80642-deployment",
+      "UnauthRoleName": "amplify-aerialmapping-dev-80642-unauthRole",
+      "StackName": "amplify-aerialmapping-dev-80642",
+      "StackId": "arn:aws:cloudformation:sa-east-1:870416143884:stack/amplify-aerialmapping-dev-80642/49e1e5e0-16e0-11ed-9bb8-02f3256b55c8",
+      "AmplifyAppId": "d39fuyve7kjt5"
+    }
+  }
+}
