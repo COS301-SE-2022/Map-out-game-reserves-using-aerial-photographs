@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "aerialmapping",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authaerialmapping8dd8f7d2",
+      "Outputs.UserPoolId"
+    ]
+  }
+}

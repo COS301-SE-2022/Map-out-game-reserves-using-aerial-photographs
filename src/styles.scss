@@ -1,1 +1,188 @@
-/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import '~material-icons/iconfont/material-icons.scss';
+@import "~material-design-icons-iconfont/dist/material-design-icons.css";
+
+//Colours
+$primary-dark: #0b1c42;
+$primary-background: #efeff2;
+$primary-grey: #747c7c;
+$accent-colour: #c12223;
+$secondary-grey: #5c7484;
+$primary: #757575;
+// $primary-background: #ffffff;
+$primary-background-opaque: #ebebeb;
+// $primary-dark: #12172a;
+$primary-epi-dark: #001744;
+$primary-red: #ca1a20;
+$primary-super-dark: #222222;
+// $primary-epi-white: #ebebeb;
+// $primary-grey: #e8e8e8;
+$primary-brown: #5f5f5f;
+$primary-brown-opaque: #5f5f5fa9;
+
+//Body
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background-color: $primary-background;
+}
+
+@media only screen and (max-width: 768px) {
+  body {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .content {
+    height: 75vh !important;
+    top: 18vh !important;
+  }
+}
+
+.heading {
+  display: flex;
+  align-content: center;
+  width: 100%;
+  height: 10vh;
+  padding: 1%;
+  position: relative;
+  z-index: 99;
+  background-color: transparentize($primary-dark, 0.2);
+  box-shadow: 0 5px 16px 0 rgba(0, 0, 0, 0.24), 0 5px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+h3 {
+  font-size: 24px;
+  margin-bottom: 1%;
+  margin-top: 0;
+  font-weight: 400;
+  text-align: center;
+  color: $primary-dark
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
+}
+
+//scrollbar
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #d6dee1;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a8bbbf;
+}
+
+//tooltip
+.tooltip {
+  position: relative;
+  display: inline-block;
+  width: fit-content;
+  // margin: 5px;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  font-size: 14px;
+  width: 160px;
+  height: max-content;
+  background-color: $primary-super-dark;
+  color: #fff;
+  text-align: center;
+  border-radius: 3px;
+  padding: 5px 0;
+  // margin: 5px;
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: 105%;
+  //   bottom:25%;
+  left: 0;
+  //   right: 0%;
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.tooltip:hover .tooltiptext {
+  transition-delay: 1s;
+  -moz-transition-delay: 1s;
+  visibility: visible;
+  opacity: 1;
+}
+
+.content {
+  background-color: white;
+  // background-color: transparentize($primary-background-opaque, 1);
+  margin-top: 2vh;
+  margin-left: 2vw;
+  margin-right: 2vw;
+  // border-radius: 15px;
+  height: 80vh;
+  width: 96vw;
+  vertical-align: bottom;
+  position: absolute;
+  top: 11vh;
+  overflow-x: none;
+  overflow-y: auto;
+  display: inline-block;
+  padding: 1%;
+  //option 1
+//   box-shadow: 5px 5px 8px 0px rgba(0,0,0,0.42);
+// -webkit-box-shadow: 5px 5px 8px 0px rgba(0,0,0,0.42);
+// -moz-box-shadow: 5px 5px 8px 0px rgba(0,0,0,0.42);
+
+  //option 2
+  box-shadow: 4px 4px 10px -1px rgba(0,0,0,0.7);
+-webkit-box-shadow: 4px 4px 10px -1px rgba(0,0,0,0.7);
+-moz-box-shadow: 4px 4px 10px -1px rgba(0,0,0,0.7);
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mat-divider {
+  border-top-color: $accent-colour;
+}
+
+mat-icon {
+  color: $accent-colour;
+}
+
+.material-symbols-outlined {
+  color: $accent-colour;
+}
+
+.button {
+  background-color: $primary-epi-dark;
+  color:white;
+  width: 45%;
+  left: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 25px;
+  font-weight: 50;
+}

@@ -126,7 +126,7 @@ export class ControllerService implements OnDestroy {
   }
 
   //calls 'protected-signup' lambda function and tries to register user (if an invite exists)
-  tryRegister(u: User): Observable<any> {
+  tryRegister(u: CreateUserInput): Observable<any> {
     console.log('[CLIENT] Trying to register user...');
     const body = {
       username: u.user_email,
@@ -136,7 +136,7 @@ export class ControllerService implements OnDestroy {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-    return this.http.post('https://tjgr6foxa1.execute-api.us-east-1.amazonaws.com/development', JSON.stringify(body), { headers: headers });
+    return this.http.post('https://r3lz6pzaj9.execute-api.sa-east-1.amazonaws.com/development', JSON.stringify(body), { headers: headers });
   }
 
   async finishRegistration(u: User): Promise<number> {

@@ -9,7 +9,19 @@
       "UnauthRoleName": "amplify-aerialmapping-dev-80642-unauthRole",
       "StackName": "amplify-aerialmapping-dev-80642",
       "StackId": "arn:aws:cloudformation:sa-east-1:870416143884:stack/amplify-aerialmapping-dev-80642/49e1e5e0-16e0-11ed-9bb8-02f3256b55c8",
-      "AmplifyAppId": "d39fuyve7kjt5"
+      "AmplifyAppId": "d39fuyve7kjt5",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-aerialmapping-dev-80642-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+    },
+    "categories": {
+      "auth": {
+        "aerialmapping8dd8f7d2": {}
+      },
+      "function": {
+        "aerialmapping8dd8f7d2PostConfirmation": {
+          "deploymentBucketName": "amplify-aerialmapping-dev-80642-deployment",
+          "s3Key": "amplify-builds/aerialmapping8dd8f7d2PostConfirmation-385a7856397635673577-build.zip"
+        }
+      }
     }
   }
 }

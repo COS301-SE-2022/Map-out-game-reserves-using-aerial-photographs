@@ -176,6 +176,8 @@ export class ImageCatalogueComponent {
   openImgaeDialog(catalogue:CatalogData): void {
     this.selectedCatalogue = catalogue
 
+    console.log(this.selectedCatalogue);
+
     const dialogRef = this.dialog.open(ImageDialogComponent, {
       width: '100vw',
       data: { selectedCatalogue: this.selectedCatalogue},

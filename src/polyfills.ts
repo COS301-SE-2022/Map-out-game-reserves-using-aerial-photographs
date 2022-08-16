@@ -47,6 +47,7 @@
  */
 import 'zone.js';  // Included with Angular CLI.
 
+(window as any).Zone['__zone_symbol__ignoreConsoleErrorUncaughtError'] = true;
 
 /***************************************************************************************************
  * APPLICATION IMPORTS

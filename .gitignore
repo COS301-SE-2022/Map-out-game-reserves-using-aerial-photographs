@@ -11,6 +11,10 @@
 npm-debug.log
 yarn-error.log
 
+# Cypress
+cypress/screenshots
+cypress/videos
+
 # IDEs and editors
 .idea/
 .project

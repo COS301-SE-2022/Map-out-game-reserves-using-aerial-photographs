@@ -40,13 +40,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "4mb",
+                  "maximumError": "10mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "10mb"
                 }
               ],
               "fileReplacements": [
@@ -103,9 +103,42 @@
             ],
             "scripts": []
           }
+        },
+        "cypress-run": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "AerialMappingClient:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "AerialMappingClient:serve:production"
+            }
+          }
+        },
+        "cypress-open": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "watch": true,
+            "headless": false
+          }
+        },
+        "e2e": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "AerialMappingClient:serve",
+            "watch": true,
+            "headless": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "AerialMappingClient:serve:production"
+            }
+          }
         }
       }
     }
   },
-  "defaultProject": "AerialMappingClient"
+  "cli": {
+    "analytics": "a75023fe-ca2d-4662-9372-ba5e27d4169d"
+  }
 }
