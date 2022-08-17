@@ -19,8 +19,11 @@ describe('ControllerService', () => {
     //_lastChangedAt: 1
   }
 
-
+  let originalTimeout: number;
   beforeEach(async() => {
+    originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
+
     await TestBed.configureTestingModule({
       imports: [ HttpClientModule, MatSnackBarModule ],
       providers: [ HttpClient ]
@@ -41,6 +44,10 @@ describe('ControllerService', () => {
       expect(resp.body.result).toBe('Invite does not exist.');
       done();
     });
+  });
+
+  afterEach(() => {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
   });
 
   //test registerUser function (integration test)

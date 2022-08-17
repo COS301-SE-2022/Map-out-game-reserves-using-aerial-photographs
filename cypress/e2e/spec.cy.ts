@@ -1,4 +1,4 @@
-import { getCreateMap, getDashboard, getLoginButton, getLoginEmailInput, getLoginEmailPrompt, getLoginPasswordInput, getLoginPasswordPrompt, getLogoutButton, getMapCatalogue, getNavAccount } from './app.po';
+import { getConfirmNewPasswordField, getCreateMap, getCurrNameField, getDashboard, getLoginButton, getLoginEmailInput, getLoginEmailPrompt, getLoginPasswordInput, getLoginPasswordPrompt, getLogoutButton, getMapCatalogue, getNameEdit, getNavAccount, getNewNameField, getNewPasswordField, getPasswordEdit, getSaveNewNameButton, getSaveNewPasswordButton } from './app.po';
 
 describe('Initial App Test', () => {
   it('Visits the initial project page', () => {
@@ -11,6 +11,7 @@ describe('Initial App Test', () => {
 
 describe('Logging the user in', () => {
   beforeEach(() => {
+    Cypress.config('defaultCommandTimeout', 10000);
     cy.visit('/login');
   });
 
@@ -41,12 +42,17 @@ describe('Logging the user in', () => {
     cy.url().should('include', '/dashboard')
   });
 
+  afterEach(() => {
+    Cypress.config('defaultCommandTimeout', 4000);
+  });
+
 });
 
 // Testing Navigation
 
 describe('Navigation', () => {
   beforeEach(() => {
+    Cypress.config('defaultCommandTimeout', 10000);
     cy.visit('/login');
     getLoginEmailInput().type('correct@email.com');
     getLoginPasswordInput().type('12345678');
@@ -72,18 +78,27 @@ describe('Navigation', () => {
     getCreateMap().click();
     cy.url().should('include', '/create-map');
   });
+
+  afterEach(() => {
+    Cypress.config('defaultCommandTimeout', 4000);
+  });
 });
 
 // Testing File Upload Page
 
 describe('File Upload', () => {
   beforeEach(() => {
+    Cypress.config('defaultCommandTimeout', 10000);
     cy.visit('/login');
     getLoginEmailInput().type('correct@email.com');
     getLoginPasswordInput().type('12345678');
     getLoginButton().click();
   });
   //it.only('displays the ')
+
+  afterEach(() => {
+    Cypress.config('defaultCommandTimeout', 4000);
+  });
 });
 
 // Testing Map-Catalogue Page
@@ -101,29 +116,56 @@ describe('Testing Account Page functions', () => {
 
 // Testing Logout
 
+describe('Account Page', () => {
+  beforeEach(() => {
+    Cypress.config('defaultCommandTimeout', 10000);
+    cy.visit('/login');
+    getLoginEmailInput().type('correct@email.com');
+    getLoginPasswordInput().type('12345678');
+    getLoginButton().click();
+    getNavAccount().click();
+  });
+
+  it.only("successfully changes the user's name", () => {
+    getNameEdit().click();
+    getNewNameField().type('New Name');
+    getSaveNewNameButton().click();
+    getNameEdit().click();
+    getCurrNameField().should('have.value', 'New Name');
+  });
+
+  it.only("successfully changes the user's password", () => {
+    getPasswordEdit().click();
+    getNewPasswordField().type('12345678');
+    getConfirmNewPasswordField().type('12345678');
+    getSaveNewPasswordButton().click();
+  });
+
+  it.only("successfully changes the user's email", () => {
+    getLogoutButton().click();
+    cy.url().should('include', '/login');
+  });
+
+  afterEach(() => {
+    Cypress.config('defaultCommandTimeout', 4000);
+  });
+});
+
 describe('Logging the user out', () => {
   beforeEach(() => {
+    Cypress.config('defaultCommandTimeout', 10000);
     cy.visit('/login');
     getLoginEmailInput().type('correct@email.com');
     getLoginPasswordInput().type('12345678');
     getLoginButton().click();
   });
 
-  it.only("successfully changes the user's name", () => {
-    getNavAccount().click();
+  it('logs the user out', () => {
     getLogoutButton().click();
     cy.url().should('include', '/login');
   });
 
-  it.only("successfully changes the user's password", () => {
-    getNavAccount().click();
-    getLogoutButton().click();
-    cy.url().should('include', '/login');
-  });
-
-  it.only("successfully changes the user's email", () => {
-    getNavAccount().click();
-    getLogoutButton().click();
-    cy.url().should('include', '/login');
+  afterEach(() => {
+    Cypress.config('defaultCommandTimeout', 4000);
   });
 });
