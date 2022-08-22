@@ -1,5 +1,5 @@
 projects:
-  amplifyapp:
+  aerialmapping:
     schemaPath: src/graphql/schema.json
     includes:
       - src/graphql/**/*.graphql
@@ -10,7 +10,6 @@ projects:
         codeGenTarget: angular
         generatedFileName: src/app/API.service.ts
         docsFilePath: src/graphql
-        maxDepth: 2
 extensions:
   amplify:
     version: 3

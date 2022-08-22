@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ControllerService } from 'src/app/api/controller/controller.service';
 import { Auth } from 'aws-amplify';
@@ -13,13 +13,13 @@ import { Auth } from 'aws-amplify';
 export class LoginComponent {
   @Output() loggedIn = new EventEmitter<any>();  //for unit testing purposes
 
-  loginForm: FormGroup;
+  loginForm: UntypedFormGroup;
   isSubmitted: boolean;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient) {
+  constructor(private formBuilder: UntypedFormBuilder, private router: Router, private http: HttpClient) {
     this.loginForm = this.formBuilder.group({
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required])
+      email: new UntypedFormControl('', [Validators.required, Validators.email]),
+      password: new UntypedFormControl('', [Validators.required])
     });
     this.isSubmitted = false;
   }

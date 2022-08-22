@@ -1,18 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   APIService,
   CreateImagesInput,
   CreateImageCollectionInput,
-  CreateFlightDetailsInput
+  CreateFlightDetailsInput,
+  CreatePendingJobsInput
 } from 'src/app/API.service';
-import {
-  ControllerService,
-  WebODMCreateTaskResponse,
-} from 'src/app/api/controller/controller.service';
+import { ControllerService } from 'src/app/api/controller/controller.service';
 import { v4 as uuidv4 } from 'uuid';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { fromBlob } from 'image-resize-compress';
-import { Observable } from 'rxjs';
+import { SNS } from 'aws-sdk';
 
 interface Park {
   value: string | undefined;
@@ -35,7 +33,7 @@ interface ImageSize {
   styleUrls: ['./file-upload.component.scss'],
 })
 
-export class FileUploadComponent implements OnInit {
+export class FileUploadComponent {
   requiredFileType: string | undefined;
   submitPressed = false;
   fileName = '';
@@ -93,27 +91,6 @@ export class FileUploadComponent implements OnInit {
       }
       //console.log(this.parks);
     });
-  }
-
-  ngOnInit(): void {
-    // const formElem = document.getElementById('formElem') as HTMLFormElement;
-    // formElem!.onsubmit = async (event) => {
-    //   event.preventDefault();
-
-    //   let response = await fetch('http://localhost:8000/api/projects/1/tasks/', {
-    //     method: 'POST',
-    //     body: new FormData(formElem),
-    //     headers: {
-    //         "Authorization": "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJlbWFpbCI6IiIsInVzZXJuYW1lIjoiYWRtaW4iLCJleHAiOjE2NTkwNjUxNTd9.qMrsgc0LrfuBy91n1aVt0fVPq3onVsqZcRqFAOZqHVI"
-    //     }
-    //   });
-
-    //   let result = await response.json();
-
-    //   console.log("RESULT", result);
-    //   this.uploadFileLocal(result.id);
-    //   console.log('result.id: ' + result.id);
-    // };
   }
 
   uploadFileLocal(ev: Event) {
@@ -201,33 +178,36 @@ export class FileUploadComponent implements OnInit {
       };
 
       this.api.CreateImageCollection(imageCollection).then((res: any) => {
-        console.log("CreateImageCollection response", res);
+        console.log("CreateImageCollection response:", res);
         if (this.files.length > 1) {
           this.uploadImages(imageCollection.collectionID);
         } else {
           this.uploadVideo(imageCollection.collectionID);
         }
+
+        //create a pending job in the PendingJobs table
+        const pendingJob: CreatePendingJobsInput = {
+          jobID: uuidv4(),
+          busy: false,
+          collectionID: imageCollection.collectionID
+        }
+        this.api.CreatePendingJobs(pendingJob).then((resp: any) => {
+          console.log("CreatePendingJob response:", resp);
+
+          //publish SNS message to 'stitch_jobs' topic with the jobID
+          const params = {
+            Message: pendingJob.jobID,
+            TopicArn: 'arn:aws:sns:us-east-1:870416143884:stitch_jobs'
+          }
+          let publishTextPromise = new SNS({apiVersion: '2010-03-31'}).publish(params).promise();
+          publishTextPromise.then((_data: any) => {
+            console.log(`Message ${params.Message} sent to the topic ${params.TopicArn}`);
+          }).catch((err: any) => {
+            console.error(err, err.stack);
+          });
+        });
       }).catch(e => { console.log(e) });
       this.submitPressed = true;
-
-      //createTask
-      // console.log('Attempting to submit...')
-      // const formElem = document.getElementById('formElem') as HTMLFormElement;
-      // let response = await fetch('http://localhost:8000/api/projects/1/tasks/', {
-      //   method: 'POST',
-      //   body: new FormData(formElem)
-      // }).catch(e => console.log(e));
-
-      // let result = await response!.json().catch(e => console.log(e));
-      // console.log('RESULT', result);
-
-      // const updateCollection: UpdateImageCollectionInput = {
-      //   collectionID: collectionID,
-      //   taskID: response.id
-      // }
-      // this.api.UpdateImageCollection(updateCollection).then((_res: UpdateImageCollectionMutation) => {
-      //   console.log("Updated collection");
-      // });
     } else {
       this.snackBar.open('Fill in all the details about the upload.', '❌');
     }
@@ -296,7 +276,6 @@ export class FileUploadComponent implements OnInit {
   }
 
   uploadVideo(collectionID: string) {
-    console.log('here');
     //Load video
     const img = new Image();
     img.crossOrigin = 'anonymous';

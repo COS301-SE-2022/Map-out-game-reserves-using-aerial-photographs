@@ -23,7 +23,7 @@
             <input readonly #name matInput style="user-select: none;">
           </label>
           <div matSuffix style="height: 100% !important; margin: 0;">
-            <button mat-button class="tooltip" (click)="openNameDialog()">
+            <button id="nameEdit" mat-button class="tooltip" (click)="openNameDialog()">
               <span class="material-symbols-outlined">
                 edit
               </span>
@@ -43,7 +43,7 @@
             <input readonly #email matInput style="user-select: none;">
           </label>
           <div matSuffix style="height: 100% !important; margin: 0;">
-            <button mat-button class="tooltip" (click)="openEmailDialog()">
+            <button id="emailEdit" mat-button class="tooltip" (click)="openEmailDialog()">
               <span class="material-symbols-outlined">
                 edit
               </span>
@@ -68,7 +68,7 @@
       <!-- Bottom Buttons -->
       <div class="contains">
         <div class="center">
-          <button (click)="openPasswordDialog()" class="btn">
+          <button id="passwordEdit" (click)="openPasswordDialog()" class="btn">
             Change Password
           </button>
           <button (click)="openRegisterLinkDialog()" *ngIf="this.admin" class="btn">

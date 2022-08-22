@@ -62,10 +62,13 @@ type GamePark @model {
 
 type ImageCollection @model {
   collectionID: String! @primaryKey
+  taskID: String @index(name: "byTaskId", queryField: "getImageCollectionByTaskId")
   parkID: String
   GamePark: GamePark @hasOne(fields: ["parkID"])
   upload_date_time: AWSDateTime
   completed: Boolean
+  error: Boolean
+  pending: Boolean
   flightID: String
   FlightDetails: FlightDetails @hasOne(fields: ["flightID"])
 }
@@ -82,8 +85,8 @@ type Message @model {
   messageID: String! @primaryKey
   message_status: String
   message_description: String
-  #collectionID: Int
-  ImageCollection: ImageCollection @hasOne
+  collectionID: String @index(name: "byCollectionId", queryField: "getMessageByCollectionId")
+  ImageCollection: ImageCollection @hasOne(fields: ["collectionID"])
 }
 
 # type Video_In_Collection {
@@ -117,4 +120,11 @@ type PendingInvites @model {
 type Connection @model {
   connectionID: String! @primaryKey
   topic: String! @index(name: "byTopic", queryField: "getConnectionsByTopic")
+}
+
+type PendingJobs @model {
+  jobID: String! @primaryKey
+  busy: Boolean
+  taskID: String
+  collectionID: String
 }

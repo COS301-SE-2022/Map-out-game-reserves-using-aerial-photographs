@@ -8,3 +8,13 @@ export const getNavAccount = () => cy.get('#account');
 export const getDashboard = () => cy.get('#dashboard');
 export const getMapCatalogue =() => cy.get('#map-catalogue');
 export const getCreateMap = () => cy.get('#create-map');
+
+export const getNameEdit = () => cy.get('#nameEdit');
+export const getPasswordEdit = () => cy.get('#passwordEdit');
+export const getEmailEdit = () => cy.get('#emailEdit');
+export const getNewNameField = () => cy.get('#newNameField');
+export const getCurrNameField = () => cy.get('#currNameField');
+export const getSaveNewNameButton = () => cy.get('#saveNewName');
+export const getNewPasswordField = () => cy.get('#newPassField');
+export const getConfirmNewPasswordField = () => cy.get('#confirmNewPassField');
+export const getSaveNewPasswordButton = () => cy.get('#saveNewPassword');
