@@ -19,7 +19,8 @@
       "function": {
         "aerialmapping8dd8f7d2PostConfirmation": {
           "deploymentBucketName": "amplify-aerialmapping-dev-80642-deployment",
-          "s3Key": "amplify-builds/aerialmapping8dd8f7d2PostConfirmation-385a7856397635673577-build.zip"
+          "s3Key": "amplify-builds/aerialmapping8dd8f7d2PostConfirmation-385a7856397635673577-build.zip",
+          "GROUP": "Users"
         }
       }
     }
