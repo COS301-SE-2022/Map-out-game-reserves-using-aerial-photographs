@@ -28,7 +28,7 @@
             <!-- <input id="files" class="file" style="display:none;" type="file" multiple (change)="onFileSelected($event)" #fileUpload> -->
           </div>
           <div class="buttonCenter">
-            <button type="button" mat-flat-button color="primary" class="clearbtn" (click)="fileUpload.click()">
+            <button type="button" color="primary" class="clearbtn" (click)="fileUpload.click()">
               Choose file
             </button>
 
@@ -47,13 +47,13 @@
               <div class = "parkdd" style="display: inline-block;">
                 <select ng-model="selectedPark" class="parks tooltip" id="parks">
                   <option value="" disabled selected>Select a park</option>
-                  <option *ngFor="let park of parks" [value]="park.value">
+                  <option *ngFor="let park of parksList" [value]="park.value">
                     {{ park.viewValue }}
                   </option>
 
                 </select>
                 <!-- <div style="height: 100% !important; margin: 0;"> -->
-                  <button mat-button style ="background-color: white; border:none; font-size: 20px;">
+                  <button style ="background-color: white; border:none; font-size: 20px;" (click) = "openParksDialog()">
                     <mat-icon style="padding-top: 12px;
                     line-height: 8px;">
                       add
@@ -90,7 +90,7 @@
             <br />
             <div *ngIf="!submitPressed">
               <div class="buttonCenter">
-                <button class="clearbtn" type="submit" mat-flat-button (click)="uploadFileLocal($event)">
+                <button class="clearbtn" type="submit" (click)="uploadFileLocal($event)">
                   Submit
                 </button>
               </div>
@@ -101,12 +101,12 @@
             <div class="successful-submit" *ngIf="submitPressed">
               <h4 class="variable">File Uploaded Successfully</h4>
             </div>
-            <h4 class="variable">{{ fileName || "No file uploaded yet." }}</h4>
+            <!-- <h4 class="variable">{{ fileName}}</h4> -->
               <div class="videoSplitting" *ngIf="splittingProgress != 0">
                 <mat-progress-bar mode="determinate" value={{splittingProgress}}></mat-progress-bar>
                 Splitting Video {{ splittingProgress }}%
               </div>
-              <div class="videoSplitting" *ngIf="uploadingProgress != 0">
+              <div class="videoSplitting" *ngIf="splittingProgress>0">
                 <mat-progress-bar mode="determinate" value={{uploadingProgress}}></mat-progress-bar>
                 Uploading Frames {{ uploadingProgress }}%
               </div>
@@ -118,8 +118,6 @@
 
     <!-- <input type="file" class="file" multiple (change)="onFileSelected($event)" #fileUpload> -->
 
-    <div id="test"></div>
-  </div>
   <!-- </div> -->
   <!-- </div> -->
 </div>
