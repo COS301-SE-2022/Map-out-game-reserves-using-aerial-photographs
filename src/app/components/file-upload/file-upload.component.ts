@@ -1,15 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Auth } from 'aws-amplify';
 import {
   APIService,
   CreateImagesInput,
   CreateImageCollectionInput,
   CreateFlightDetailsInput,
-  CreatePendingJobsInput
+  CreatePendingJobsInput,
+  CreateGameParkInput
 } from 'src/app/API.service';
 import { ControllerService } from 'src/app/api/controller/controller.service';
 import { v4 as uuidv4 } from 'uuid';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { fromBlob } from 'image-resize-compress';
+import { MatDialog } from '@angular/material/dialog';
+import { ParksDialogComponent } from './parks-dialog/parks-dialog.component';
 import { SNS } from 'aws-sdk';
 
 interface Park {
@@ -33,7 +39,9 @@ interface ImageSize {
   styleUrls: ['./file-upload.component.scss'],
 })
 
-export class FileUploadComponent {
+export class FileUploadComponent implements OnInit{
+  @ViewChild("parks") parks!: ElementRef<HTMLInputElement>;
+
   requiredFileType: string | undefined;
   submitPressed = false;
   fileName = '';
@@ -46,8 +54,11 @@ export class FileUploadComponent {
   uploadingProgress = 0;
   finalWidth = 0;
   finalHeight = 0;
+  name: string = "";
+  location: string = "";
+  address: string = "";
 
-  parks: Park[] = [
+  parksList: Park[] = [
     // {value: 'Somkhanda-1', viewValue: 'Somkhanda'},
     // {value: 'RietVlei-2', viewValue: 'Riet Vlei'},
   ];
@@ -67,7 +78,8 @@ export class FileUploadComponent {
   constructor(
     private apiController: ControllerService,
     private api: APIService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    public dialog: MatDialog
   ) {
     //      const imageForm = document.querySelector("#imageForm");
     // const imageInput = document.querySelector("#fileUpload");
@@ -84,13 +96,17 @@ export class FileUploadComponent {
       //console.log(event.items[0]?.park_name);
       for (let i = 0; i < event.items.length; i++) {
         const element = event.items[i];
-        this.parks.push({
+        this.parksList.push({
           value: element?.parkID,
           viewValue: element?.park_name,
         });
       }
       //console.log(this.parks);
     });
+  }
+
+  async ngOnInit() {
+      
   }
 
   uploadFileLocal(ev: Event) {
@@ -432,4 +448,62 @@ export class FileUploadComponent {
       });
     }
   }
+
+  //TODO: insert a new park
+  openParksDialog(): void {
+    const dialogRef = this.dialog.open(ParksDialogComponent, {
+      width: '500px',
+      data: {name:'', location:'', address:''}
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == undefined) {
+        return;
+      }
+      this.name = result.name;
+      this.location = result.location;
+      this.address = result.address;
+
+      // console.log(result);
+  
+      // //change username in DynamoDB
+      // const updatedUser: UpdateUserInput = {
+      //   userID: this.currUserID,
+      //   user_name: this.newName
+      //   //_version: this.user._version
+      // }
+      // this.user._version++;
+      // this.api.UpdateUser(updatedUser).then((res: any) => {
+      //   this.name.nativeElement.innerHTML = this.newName;
+      //   this.currName = this.newName;
+      //   this.name.nativeElement.value = this.newName;
+      //   console.log(res);
+      // });
+      this.createPark();
+    });
+
+    
+  }
+  //this is park stuff that might work
+  private createPark():void {
+    const newPark: CreateGameParkInput = {
+      parkID: uuidv4(),
+      park_name: this.name,
+      park_location: this.location,
+      park_address: this.address,
+      // _version: 1
+    }
+    this.api.CreateGamePark(newPark)
+          .then((resp:any) => {
+            console.log(resp);
+            alert('Successfully created!');
+            return 1;
+          })
+          .catch((e) => {
+            console.log('error creating park...', e);
+            return -1;
+          });
+  }
 }
+
+
