@@ -1,16 +1,15 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { faMap as mapIcon, faExclamationTriangle as warning, faExclamationCircle as error, faCheck as good, faCheckCircle as complete, faSpinner as progress, } from '@fortawesome/free-solid-svg-icons';
 import { BarChart } from './bar-chart/bar-chart.model';
 import { APIService, ListImageCollectionsQuery, ImageCollection, ListMessagesQuery, CreateMessageInput } from 'src/app/API.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { interval, Subscription, startWith, switchMap } from 'rxjs';
 
 @Component({
   selector: 'aerial-mapping-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit, OnDestroy {
+export class DashboardComponent implements OnInit {
   collectionData: ImageCollection[] = [];
   completed: ImageCollection[] = [];
   processing: ImageCollection[] = [];
@@ -77,7 +76,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     //get all the messages from DynamoDB - check each message's status
     this.api.ListMessages().then((messages: ListMessagesQuery) => {
       if (messages.items.length != 0) {
-        console.log(messages);
         this.messagesData = [];
         this.messages = [];
         for (const element of messages.items) {
@@ -200,11 +198,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     //       return -1;
     //     }
     //   });
-  }
-
-  ngOnDestroy(): void {
-    this.statusPollingInterval.unsubscribe();
-    this.messagePollingInterval.unsubscribe();
   }
 }
 
