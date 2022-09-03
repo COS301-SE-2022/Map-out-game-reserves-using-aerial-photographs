@@ -224,7 +224,7 @@ async function pollWebODM() {
   })
     .then(async (resp: any) => {
       const listOfTasks: WebODMListTasksResponse[] = await resp.json();
-      console.log("[LIST OF TASKS]", listOfTasks);
+      //console.log("[LIST OF TASKS]", listOfTasks);
 
       listOfTasks.forEach((task: WebODMListTasksResponse) => {
         //if not in the completedJobs array
@@ -233,6 +233,7 @@ async function pollWebODM() {
 
           if (task.status == 40) {
             //COMPLETED
+            console.log("TASK: ", task);
 
             // add taskID to "CompletedJobs" db table and completedJobs array
             addCompletedJob(task.id);

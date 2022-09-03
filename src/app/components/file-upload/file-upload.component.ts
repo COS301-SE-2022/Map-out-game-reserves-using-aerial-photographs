@@ -17,6 +17,13 @@ import { fromBlob } from 'image-resize-compress';
 import { MatDialog } from '@angular/material/dialog';
 import { ParksDialogComponent } from './parks-dialog/parks-dialog.component';
 import { SNS } from 'aws-sdk';
+const REGION = "sa-east-1";
+const sns = new SNS({ 
+  apiVersion: '2010-03-31', 
+  region: REGION,
+  accessKeyId: process.env['AWS_ACCESS_KEY_ID'],
+  secretAccessKey: process.env['AWS_SECRET_ACCESS_KEY']
+});
 
 interface Park {
   value: string | undefined;
@@ -81,6 +88,7 @@ export class FileUploadComponent implements OnInit{
     private snackBar: MatSnackBar,
     public dialog: MatDialog
   ) {
+    console.log('ENV: ', process.env['AWS_ACCESS_KEY_ID']);
     //      const imageForm = document.querySelector("#imageForm");
     // const imageInput = document.querySelector("#fileUpload");
 
@@ -103,10 +111,13 @@ export class FileUploadComponent implements OnInit{
       }
       //console.log(this.parks);
     });
+
+    //test
+    this.publishSNSNotification();
   }
 
   async ngOnInit() {
-      
+
   }
 
   uploadFileLocal(ev: Event) {
@@ -182,7 +193,7 @@ export class FileUploadComponent implements OnInit{
       //
 
       const imageCollection: CreateImageCollectionInput = {
-        collectionID: uuidv4(), //not sure!!!!!!!!!!!!!!! TODO: check
+        collectionID: uuidv4(),
         parkID: parkSel,
         //   upload_date_time: string,
         flightID: flight.flightID,
@@ -211,16 +222,7 @@ export class FileUploadComponent implements OnInit{
           console.log("CreatePendingJob response:", resp);
 
           //publish SNS message to 'stitch_jobs' topic with the jobID
-          const params = {
-            Message: pendingJob.jobID,
-            TopicArn: 'arn:aws:sns:us-east-1:870416143884:stitch_jobs'
-          }
-          let publishTextPromise = new SNS({apiVersion: '2010-03-31'}).publish(params).promise();
-          publishTextPromise.then((_data: any) => {
-            console.log(`Message ${params.Message} sent to the topic ${params.TopicArn}`);
-          }).catch((err: any) => {
-            console.error(err, err.stack);
-          });
+          this.publishSNSNotification();
         });
       }).catch(e => { console.log(e) });
       this.submitPressed = true;
@@ -449,13 +451,27 @@ export class FileUploadComponent implements OnInit{
     }
   }
 
+  async publishSNSNotification() {
+    const publishParams = {
+      Message: 'New pending stitch job published!',
+      TopicArn: 'arn:aws:sns:sa-east-1:870416143884:stitch_jobs'
+    };
+    const publishJobPromise = sns.publish(publishParams).promise();
+    await publishJobPromise.then((data) => {
+      console.log(`'New pending job' message sent to back-end using SNS`);
+    }).catch((err) => {
+      console.log("Error in SNS publishing")
+      console.error(err, err.stack);
+    });
+  }
+
   //TODO: insert a new park
   openParksDialog(): void {
     const dialogRef = this.dialog.open(ParksDialogComponent, {
       width: '500px',
       data: {name:'', location:'', address:''}
     });
-  
+
     dialogRef.afterClosed().subscribe(result => {
       if(result == undefined) {
         return;
@@ -465,7 +481,7 @@ export class FileUploadComponent implements OnInit{
       this.address = result.address;
 
       // console.log(result);
-  
+
       // //change username in DynamoDB
       // const updatedUser: UpdateUserInput = {
       //   userID: this.currUserID,
@@ -482,7 +498,7 @@ export class FileUploadComponent implements OnInit{
       this.createPark();
     });
 
-    
+
   }
   //this is park stuff that might work
   private createPark():void {
