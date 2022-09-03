@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SafeUrl } from '@angular/platform-browser';
 import {
@@ -39,7 +39,7 @@ interface CatalogData {
     { provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: myCustomTooltipDefaults },
   ],
 })
-export class ImageCatalogueComponent {
+export class ImageCatalogueComponent implements OnInit {
   selected: string;
   tempCatalogues: Array<any> = [];
   catalogues: CatalogData[] = [];
@@ -53,12 +53,19 @@ export class ImageCatalogueComponent {
   constructor(
     public dialog: MatDialog,
     private api: APIService,
-    private apiController: ControllerService,
+    private controller: ControllerService,
     private snackbar: MatSnackBar
   ) {
     this.selected = 'date';
 
     this.getAllCatalogues();
+  }
+
+  ngOnInit() {
+    this.controller.websocket.onmessage = (msg: any) => {
+      console.log("SNS message received ", msg);
+      this.getAllCatalogues();
+    };
   }
 
   getAllCatalogues() {
@@ -86,7 +93,7 @@ export class ImageCatalogueComponent {
                 }
 
                 for (const i of catalogData.images) {
-                  this.apiController
+                  this.controller
                     .S3download(
                       i.image.imageID,
                       catalogData.catalogue.collectionID,
@@ -99,7 +106,7 @@ export class ImageCatalogueComponent {
                 }
 
                 for(var i = 0;i<3;i++){
-                  this.apiController
+                  this.controller
                     .S3download(
                       "thumbnail_"+i,
                       catalogData.catalogue.collectionID,
@@ -173,7 +180,7 @@ export class ImageCatalogueComponent {
     }
   }
 
-  openImgaeDialog(catalogue:CatalogData): void {
+  openImageDialog(catalogue:CatalogData): void {
     this.selectedCatalogue = catalogue
 
     console.log(this.selectedCatalogue);
