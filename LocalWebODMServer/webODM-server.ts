@@ -161,16 +161,16 @@ async function authenticateWithWebOdm(): Promise<void> {
           })
           .catch(err => {
             //console.log("Error: ", err);
-            throw new Error('Error while authenticating with WebODM. Make sure WebODM is running.');
+            throw new Error('\nError while authenticating with WebODM. Make sure WebODM is running.\n\n');
           });
       })
       .catch(err => {
         //console.log("Error: ", err);
-        throw new Error('Error while authenticating with WebODM. Make sure WebODM is running.');
+        throw new Error('\nError while authenticating with WebODM. Make sure WebODM is running.\n\n');
         //inform user that WebODM is not running here
       });
   } catch (e) {
-    throw new Error('Error while authenticating with WebODM. Make sure WebODM is running.');
+    throw new Error('\nError while authenticating with WebODM. Make sure WebODM is running.\n\n');
   }
 }
 
