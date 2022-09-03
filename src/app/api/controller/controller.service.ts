@@ -4,6 +4,7 @@ import { APIService, CreateMapInput, CreateMapMutation, CreateUserInput, GetImag
 import { v4 as uuidv4 } from 'uuid';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,21 @@ export class ControllerService {
   //@ViewChild('formElem') formElem!: ElementRef<HTMLFormElement>;
   collectionData: ImageCollection[] = [];
   errorState: boolean = false;
+  websocket: WebSocket;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {
+    // open client WebSocket
+    this.websocket = new WebSocket("wss://ha3u3iiggc.execute-api.sa-east-1.amazonaws.com/production/");
+    this.websocket.onopen = () => {
+      this.websocket.send(JSON.stringify({
+        message: "subscribe", //this selects the 'subscribe' API Gateway route (which triggers the onSubscribe lambda function)
+        topic: "maps" //this is the topic we want to subscribe to
+      }));
+    }
+    this.websocket.onclose = () => {
+      console.log("Websocket connection closed");
+    }
+  }
 
   //calls 'protected-signup' lambda function and tries to register user (if an invite exists)
   tryRegister(u: CreateUserInput): Observable<any> {
@@ -74,10 +88,6 @@ export class ControllerService {
       }
     );
   }
-
-
-
-
 
   //------------------------------------------------------------------------
   //This is temporary code used to populate the database with temporary data

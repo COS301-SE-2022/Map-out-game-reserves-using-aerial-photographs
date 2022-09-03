@@ -3,6 +3,7 @@ import { faMap as mapIcon, faExclamationTriangle as warning, faExclamationCircle
 import { BarChart } from './bar-chart/bar-chart.model';
 import { APIService, ListImageCollectionsQuery, ImageCollection, ListMessagesQuery, CreateMessageInput } from 'src/app/API.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ControllerService } from 'src/app/api/controller/controller.service';
 
 @Component({
   selector: 'aerial-mapping-dashboard',
@@ -31,7 +32,7 @@ export class DashboardComponent implements OnInit {
 
   values = [3, 5, 2, 3, 2, 1, 7, 4];
 
-  constructor(private api: APIService, private snackbar: MatSnackBar) {
+  constructor(private api: APIService, private controller: ControllerService, private snackbar: MatSnackBar) {
     //TODO integrate this bar chart with real data
     this.maps = [
       { Value: this.values[0] },
@@ -50,72 +51,13 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // get all map collections from DynamoDB - and check statuses of each one.
-    this.api.ListImageCollections().then((resp: ListImageCollectionsQuery) => {
-      this.completed = [];
-      this.processing = [];
-      for(const collection of resp.items) {
-        if (collection) {
-          if (collection.completed) {
-            this.completed.push(collection);
-          }
-          else if (collection.pending) {
-            this.processing.push(collection);
-          }
-        }
-      }
-    }).catch((err: any) => {
-      if (err.errors[0].message == "Network Error") {
-        if (!this.errorState) {
-          this.errorState = true;
-          this.snackbar.open("Network error...", "❌", { verticalPosition: 'top' });
-        }
-      }
-    });
+    this.refreshDashboard();
 
-    //get all the messages from DynamoDB - check each message's status
-    this.api.ListMessages().then((messages: ListMessagesQuery) => {
-      if (messages.items.length != 0) {
-        this.messagesData = [];
-        this.messages = [];
-        for (const element of messages.items) {
-          if (element) {
-            //not creating a message, just using CreateMessageInput as an interface here
-            const msg: CreateMessageInput = {
-              message_status: element.message_status,
-              message_description: element.message_description,
-              collectionID: element.collectionID,
-              messageID: element.messageID
-            }
-            this.messagesData.push(msg)
-          }
-        }
-        for (let i = 0; i < this.messagesData.length; i++) {
-          let status = good;
-          let status_color = 'green-icon';
-          if (this.messagesData[i].message_status?.toLowerCase() == 'warning') {
-            status = warning;
-            status_color = 'orange-icon';
-          } else if (this.messagesData[i].message_status?.toLowerCase() == 'error') {
-            status = error;
-            status_color = 'red-icon';
-          }
-          this.messages[i] = {
-            message_status: status,
-            color: status_color,
-            message_description: this.messagesData[i].message_description,
-            collectionID: this.messagesData[i].collectionID,
-          };
-        }
-      }
-    }).catch((err: any) => {
-      if (err.errors[0].message == "Network Error") {
-        if (!this.errorState) {
-          this.errorState = true;
-          this.snackbar.open("Network error...", "❌", { verticalPosition: 'top' });
-        }
-      }
-    });
+    // refresh map collections and messages when a notification is received from the websocket
+    this.controller.websocket.onmessage = (msg: any) => {
+      console.log("SNS message received ", msg);
+      this.refreshDashboard();
+    };
 
     //poll DynamoDB (OLD)
     // this.statusPollingInterval = interval(5000)
@@ -198,6 +140,75 @@ export class DashboardComponent implements OnInit {
     //       return -1;
     //     }
     //   });
+  }
+
+  refreshDashboard() {
+    // get all map collections from DynamoDB - and check statuses of each one.
+    this.api.ListImageCollections().then((resp: ListImageCollectionsQuery) => {
+      this.completed = [];
+      this.processing = [];
+      for (const collection of resp.items) {
+        if (collection) {
+          if (collection.completed) {
+            this.completed.push(collection);
+          }
+          else if (collection.pending) {
+            this.processing.push(collection);
+          }
+        }
+      }
+    }).catch((err: any) => {
+      if (err.errors[0].message == "Network Error") {
+        if (!this.errorState) {
+          this.errorState = true;
+          this.snackbar.open("Network error...", "❌", { verticalPosition: 'top' });
+        }
+      }
+    });
+
+    // get all the messages from DynamoDB - check each message's status
+    this.api.ListMessages().then((messages: ListMessagesQuery) => {
+      if (messages.items.length != 0) {
+        this.messagesData = [];
+        this.messages = [];
+        for (const element of messages.items) {
+          if (element) {
+            //not creating a message, just using CreateMessageInput as an interface here
+            const msg: CreateMessageInput = {
+              message_status: element.message_status,
+              message_description: element.message_description,
+              collectionID: element.collectionID,
+              messageID: element.messageID
+            }
+            this.messagesData.push(msg)
+          }
+        }
+        for (let i = 0; i < this.messagesData.length; i++) {
+          let status = good;
+          let status_color = 'green-icon';
+          if (this.messagesData[i].message_status?.toLowerCase() == 'warning') {
+            status = warning;
+            status_color = 'orange-icon';
+          } else if (this.messagesData[i].message_status?.toLowerCase() == 'error') {
+            status = error;
+            status_color = 'red-icon';
+          }
+          this.messages[i] = {
+            message_status: status,
+            color: status_color,
+            message_description: this.messagesData[i].message_description,
+            collectionID: this.messagesData[i].collectionID,
+          };
+        }
+      }
+    }).catch((err: any) => {
+      if (err.errors[0].message == "Network Error") {
+        if (!this.errorState) {
+          this.errorState = true;
+          this.snackbar.open("Network error...", "❌", { verticalPosition: 'top' });
+        }
+      }
+    });
   }
 }
 
