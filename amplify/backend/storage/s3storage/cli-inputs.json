@@ -1,7 +1,7 @@
 {
-  "resourceName": "s3storage",
-  "policyUUID": "2ab9862e",
-  "bucketName": "aerial-mapping-bucket",
+  "resourceName": "S3Storage",
+  "policyUUID": "a017089e",
+  "bucketName": "aerial-images",
   "storageAccess": "auth",
   "guestAccess": [],
   "authAccess": [
@@ -9,5 +9,6 @@
     "READ",
     "DELETE"
   ],
+  "triggerFunction": "S3Trigger3ac458d4",
   "groupAccess": {}
 }

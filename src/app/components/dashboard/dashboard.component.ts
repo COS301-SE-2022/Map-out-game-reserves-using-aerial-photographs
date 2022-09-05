@@ -11,6 +11,9 @@ import { interval, Subscription, startWith, switchMap } from 'rxjs';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit, OnDestroy {
+  
+  title = 'dashboard-component';
+  
   collectionData: ImageCollection[] = [];
   completed: ImageCollection[] = [];
   processing: ImageCollection[] = [];

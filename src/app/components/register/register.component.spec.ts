@@ -55,6 +55,11 @@ describe('RegisterComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it("should have as title 'register-component'", () => {  
+    // const app = fixture.debugElement.componentInstance;
+    expect(component.title).toEqual('register-component');
+  });
+
   it('component variables initialised correctly', () => {
     spyOn(component.snackBar,"open").and.callThrough();
     expect(component.isSubmitted).toBeFalsy();
