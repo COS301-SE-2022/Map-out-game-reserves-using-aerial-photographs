@@ -18,6 +18,7 @@ export class RegisterComponent {
   registerForm: UntypedFormGroup;
   isSubmitted: boolean;
 
+  title = 'register-component';
 
   constructor(private apiController: ControllerService, private router: Router, public snackBar: MatSnackBar, public dialog: MatDialog) {
     this.registerForm = new UntypedFormGroup({

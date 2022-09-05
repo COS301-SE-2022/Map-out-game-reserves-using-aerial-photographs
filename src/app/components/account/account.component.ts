@@ -26,11 +26,14 @@ export interface DialogData {
   styleUrls: ['./account.component.scss'],
 })
 export class AccountComponent implements OnInit {
+
   @ViewChild("name") name!: ElementRef<HTMLInputElement>;
   @ViewChild("email") email!: ElementRef<HTMLInputElement>;
   @ViewChild("role") role!: ElementRef<HTMLInputElement>;
   @ViewChild("password") password!: ElementRef<HTMLInputElement>;
   @ViewChild("closedEyeIcon") closedEyeIcon!: ElementRef<FaIconComponent>;
+
+  title = 'account-component';
 
   user: any;
   admin: boolean = false;

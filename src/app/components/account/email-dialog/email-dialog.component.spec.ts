@@ -48,4 +48,13 @@ describe('EmailDialogComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  // it('component variables initialised correctly', () => {
+  //   spyOn(component.snackBar,"open").and.callThrough();
+  //   expect(component.isSubmitted).toBeFalsy();
+  //   expect(component.email!.value).toBe('');
+  //   expect(component.password!.value).toBe('');
+  //   expect(component.repeatedPassword!.value).toBe('');
+  //   expect(component.name!.value).toBe('');
+  // });
 });
