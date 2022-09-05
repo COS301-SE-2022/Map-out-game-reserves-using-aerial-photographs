@@ -26,6 +26,11 @@ describe('LoginComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it("should have as title 'login-component'", () => {  
+    // const app = fixture.debugElement.componentInstance;
+    expect(component.title).toEqual('login-component');
+  });
+
   it('component variables initialised correctly', () => {
     expect(component.isSubmitted).toBeFalsy();
     expect(component.email!.value).toBe('');

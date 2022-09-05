@@ -29,4 +29,9 @@ describe('DashboardComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it("should have as title 'dashboard-component'", () => {  
+    // const app = fixture.debugElement.componentInstance;
+    expect(component.title).toEqual('dashboard-component');
+  });
 });

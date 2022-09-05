@@ -35,4 +35,9 @@ describe('FileUploadComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it("should have as title 'file-upload-component'", () => {  
+    // const app = fixture.debugElement.componentInstance;
+    expect(component.title).toEqual('file-upload-component');
+  });
 });
