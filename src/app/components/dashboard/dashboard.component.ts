@@ -10,7 +10,7 @@ import { ControllerService } from 'src/app/api/controller/controller.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit, OnDestroy {
+export class DashboardComponent implements OnInit {
 
   title = 'dashboard-component';
 

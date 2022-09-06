@@ -18,14 +18,15 @@ import { MatDialog } from '@angular/material/dialog';
 import { ParksDialogComponent } from './parks-dialog/parks-dialog.component';
 import { PublishCommand } from '@aws-sdk/client-sns';
 import { SNSClient } from '@aws-sdk/client-sns';
+import { environment } from 'src/environments/environment';
 const REGION = "sa-east-1";
 
 const snsClient = new SNSClient({
   apiVersion: '2010-03-31',
   region: REGION,
   credentials: {
-    accessKeyId: 'AKIA4VKGYKYGNRFNQO57',
-    secretAccessKey: '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'
+    accessKeyId: environment.AWS_ACCESS_KEY_ID,
+    secretAccessKey: environment.AWS_SECRET_ACCESS_KEY
   }
 });
 
