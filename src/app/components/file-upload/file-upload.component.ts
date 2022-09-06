@@ -53,6 +53,8 @@ interface ImageSize {
 export class FileUploadComponent implements OnInit{
   @ViewChild("parks") parks!: ElementRef<HTMLInputElement>;
 
+  title = 'file-upload-component';
+
   requiredFileType: string | undefined;
   submitPressed = false;
   fileName = '';

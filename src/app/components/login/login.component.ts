@@ -13,6 +13,8 @@ import { Auth } from 'aws-amplify';
 export class LoginComponent {
   @Output() loggedIn = new EventEmitter<any>();  //for unit testing purposes
 
+  title = 'login-component';
+
   loginForm: UntypedFormGroup;
   isSubmitted: boolean;
 

@@ -10,7 +10,10 @@ import { ControllerService } from 'src/app/api/controller/controller.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
+
+  title = 'dashboard-component';
+
   collectionData: ImageCollection[] = [];
   completed: ImageCollection[] = [];
   processing: ImageCollection[] = [];
