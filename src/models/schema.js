@@ -292,7 +292,7 @@ export const schema = {
                     "name": "taskID",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "parkID": {
@@ -826,5 +826,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "771b16f6ee5cf54772432a48d8006265"
+    "version": "43346db7b7c2ec86319a6c9b2d763412"
 };

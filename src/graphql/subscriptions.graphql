@@ -1,6 +1,6 @@
 # this is an auto generated file. This will be overwritten
-subscription OnCreateUser {
-  onCreateUser {
+subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
+  onCreateUser(filter: $filter) {
     userID
     user_email
     user_password
@@ -10,13 +10,10 @@ subscription OnCreateUser {
     user_approved
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
-subscription OnUpdateUser {
-  onUpdateUser {
+subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
+  onUpdateUser(filter: $filter) {
     userID
     user_email
     user_password
@@ -26,13 +23,10 @@ subscription OnUpdateUser {
     user_approved
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
-subscription OnDeleteUser {
-  onDeleteUser {
+subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
+  onDeleteUser(filter: $filter) {
     userID
     user_email
     user_password
@@ -42,52 +36,42 @@ subscription OnDeleteUser {
     user_approved
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
-subscription OnCreateGamePark {
-  onCreateGamePark {
+subscription OnCreateGamePark($filter: ModelSubscriptionGameParkFilterInput) {
+  onCreateGamePark(filter: $filter) {
     parkID
     park_name
     park_location
     park_address
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
-subscription OnUpdateGamePark {
-  onUpdateGamePark {
+subscription OnUpdateGamePark($filter: ModelSubscriptionGameParkFilterInput) {
+  onUpdateGamePark(filter: $filter) {
     parkID
     park_name
     park_location
     park_address
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
-subscription OnDeleteGamePark {
-  onDeleteGamePark {
+subscription OnDeleteGamePark($filter: ModelSubscriptionGameParkFilterInput) {
+  onDeleteGamePark(filter: $filter) {
     parkID
     park_name
     park_location
     park_address
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
-subscription OnCreateImageCollection {
-  onCreateImageCollection {
+subscription OnCreateImageCollection(
+  $filter: ModelSubscriptionImageCollectionFilterInput
+) {
+  onCreateImageCollection(filter: $filter) {
     collectionID
     taskID
     parkID
@@ -98,9 +82,6 @@ subscription OnCreateImageCollection {
       park_address
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     upload_date_time
     completed
@@ -112,21 +93,28 @@ subscription OnCreateImageCollection {
       flight_height
       flight_type
       pilotID
+      Pilot {
+        userID
+        user_email
+        user_password
+        user_password_salt
+        user_name
+        user_role
+        user_approved
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
-subscription OnUpdateImageCollection {
-  onUpdateImageCollection {
+subscription OnUpdateImageCollection(
+  $filter: ModelSubscriptionImageCollectionFilterInput
+) {
+  onUpdateImageCollection(filter: $filter) {
     collectionID
     taskID
     parkID
@@ -137,9 +125,6 @@ subscription OnUpdateImageCollection {
       park_address
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     upload_date_time
     completed
@@ -151,21 +136,28 @@ subscription OnUpdateImageCollection {
       flight_height
       flight_type
       pilotID
+      Pilot {
+        userID
+        user_email
+        user_password
+        user_password_salt
+        user_name
+        user_role
+        user_approved
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
-subscription OnDeleteImageCollection {
-  onDeleteImageCollection {
+subscription OnDeleteImageCollection(
+  $filter: ModelSubscriptionImageCollectionFilterInput
+) {
+  onDeleteImageCollection(filter: $filter) {
     collectionID
     taskID
     parkID
@@ -176,9 +168,6 @@ subscription OnDeleteImageCollection {
       park_address
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     upload_date_time
     completed
@@ -190,21 +179,26 @@ subscription OnDeleteImageCollection {
       flight_height
       flight_type
       pilotID
+      Pilot {
+        userID
+        user_email
+        user_password
+        user_password_salt
+        user_name
+        user_role
+        user_approved
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
-subscription OnCreateMap {
-  onCreateMap {
+subscription OnCreateMap($filter: ModelSubscriptionMapFilterInput) {
+  onCreateMap(filter: $filter) {
     mapID
     bucket_name
     file_name
@@ -213,26 +207,36 @@ subscription OnCreateMap {
       collectionID
       taskID
       parkID
+      GamePark {
+        parkID
+        park_name
+        park_location
+        park_address
+        createdAt
+        updatedAt
+      }
       upload_date_time
       completed
       error
       pending
       flightID
+      FlightDetails {
+        flightID
+        flight_height
+        flight_type
+        pilotID
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
-subscription OnUpdateMap {
-  onUpdateMap {
+subscription OnUpdateMap($filter: ModelSubscriptionMapFilterInput) {
+  onUpdateMap(filter: $filter) {
     mapID
     bucket_name
     file_name
@@ -241,26 +245,36 @@ subscription OnUpdateMap {
       collectionID
       taskID
       parkID
+      GamePark {
+        parkID
+        park_name
+        park_location
+        park_address
+        createdAt
+        updatedAt
+      }
       upload_date_time
       completed
       error
       pending
       flightID
+      FlightDetails {
+        flightID
+        flight_height
+        flight_type
+        pilotID
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
-subscription OnDeleteMap {
-  onDeleteMap {
+subscription OnDeleteMap($filter: ModelSubscriptionMapFilterInput) {
+  onDeleteMap(filter: $filter) {
     mapID
     bucket_name
     file_name
@@ -269,26 +283,36 @@ subscription OnDeleteMap {
       collectionID
       taskID
       parkID
+      GamePark {
+        parkID
+        park_name
+        park_location
+        park_address
+        createdAt
+        updatedAt
+      }
       upload_date_time
       completed
       error
       pending
       flightID
+      FlightDetails {
+        flightID
+        flight_height
+        flight_type
+        pilotID
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
-subscription OnCreateMessage {
-  onCreateMessage {
+subscription OnCreateMessage($filter: ModelSubscriptionMessageFilterInput) {
+  onCreateMessage(filter: $filter) {
     messageID
     message_status
     message_description
@@ -297,26 +321,36 @@ subscription OnCreateMessage {
       collectionID
       taskID
       parkID
+      GamePark {
+        parkID
+        park_name
+        park_location
+        park_address
+        createdAt
+        updatedAt
+      }
       upload_date_time
       completed
       error
       pending
       flightID
+      FlightDetails {
+        flightID
+        flight_height
+        flight_type
+        pilotID
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
-subscription OnUpdateMessage {
-  onUpdateMessage {
+subscription OnUpdateMessage($filter: ModelSubscriptionMessageFilterInput) {
+  onUpdateMessage(filter: $filter) {
     messageID
     message_status
     message_description
@@ -325,26 +359,36 @@ subscription OnUpdateMessage {
       collectionID
       taskID
       parkID
+      GamePark {
+        parkID
+        park_name
+        park_location
+        park_address
+        createdAt
+        updatedAt
+      }
       upload_date_time
       completed
       error
       pending
       flightID
+      FlightDetails {
+        flightID
+        flight_height
+        flight_type
+        pilotID
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
-subscription OnDeleteMessage {
-  onDeleteMessage {
+subscription OnDeleteMessage($filter: ModelSubscriptionMessageFilterInput) {
+  onDeleteMessage(filter: $filter) {
     messageID
     message_status
     message_description
@@ -353,26 +397,36 @@ subscription OnDeleteMessage {
       collectionID
       taskID
       parkID
+      GamePark {
+        parkID
+        park_name
+        park_location
+        park_address
+        createdAt
+        updatedAt
+      }
       upload_date_time
       completed
       error
       pending
       flightID
+      FlightDetails {
+        flightID
+        flight_height
+        flight_type
+        pilotID
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
-subscription OnCreateImages {
-  onCreateImages {
+subscription OnCreateImages($filter: ModelSubscriptionImagesFilterInput) {
+  onCreateImages(filter: $filter) {
     imageID
     collectionID
     name
@@ -380,13 +434,10 @@ subscription OnCreateImages {
     file_name
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
-subscription OnUpdateImages {
-  onUpdateImages {
+subscription OnUpdateImages($filter: ModelSubscriptionImagesFilterInput) {
+  onUpdateImages(filter: $filter) {
     imageID
     collectionID
     name
@@ -394,13 +445,10 @@ subscription OnUpdateImages {
     file_name
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
-subscription OnDeleteImages {
-  onDeleteImages {
+subscription OnDeleteImages($filter: ModelSubscriptionImagesFilterInput) {
+  onDeleteImages(filter: $filter) {
     imageID
     collectionID
     name
@@ -408,13 +456,12 @@ subscription OnDeleteImages {
     file_name
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
-subscription OnCreateFlightDetails {
-  onCreateFlightDetails {
+subscription OnCreateFlightDetails(
+  $filter: ModelSubscriptionFlightDetailsFilterInput
+) {
+  onCreateFlightDetails(filter: $filter) {
     flightID
     flight_height
     flight_type
@@ -429,19 +476,15 @@ subscription OnCreateFlightDetails {
       user_approved
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
-subscription OnUpdateFlightDetails {
-  onUpdateFlightDetails {
+subscription OnUpdateFlightDetails(
+  $filter: ModelSubscriptionFlightDetailsFilterInput
+) {
+  onUpdateFlightDetails(filter: $filter) {
     flightID
     flight_height
     flight_type
@@ -456,19 +499,15 @@ subscription OnUpdateFlightDetails {
       user_approved
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
-subscription OnDeleteFlightDetails {
-  onDeleteFlightDetails {
+subscription OnDeleteFlightDetails(
+  $filter: ModelSubscriptionFlightDetailsFilterInput
+) {
+  onDeleteFlightDetails(filter: $filter) {
     flightID
     flight_height
     flight_type
@@ -483,83 +522,107 @@ subscription OnDeleteFlightDetails {
       user_approved
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
-subscription OnCreatePendingInvites {
-  onCreatePendingInvites {
+subscription OnCreatePendingInvites(
+  $filter: ModelSubscriptionPendingInvitesFilterInput
+) {
+  onCreatePendingInvites(filter: $filter) {
     inviteID
     email
     role
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
-subscription OnUpdatePendingInvites {
-  onUpdatePendingInvites {
+subscription OnUpdatePendingInvites(
+  $filter: ModelSubscriptionPendingInvitesFilterInput
+) {
+  onUpdatePendingInvites(filter: $filter) {
     inviteID
     email
     role
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
-subscription OnDeletePendingInvites {
-  onDeletePendingInvites {
+subscription OnDeletePendingInvites(
+  $filter: ModelSubscriptionPendingInvitesFilterInput
+) {
+  onDeletePendingInvites(filter: $filter) {
     inviteID
     email
     role
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
-subscription OnCreateConnection {
-  onCreateConnection {
+subscription OnCreateConnection(
+  $filter: ModelSubscriptionConnectionFilterInput
+) {
+  onCreateConnection(filter: $filter) {
     connectionID
     topic
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
-subscription OnUpdateConnection {
-  onUpdateConnection {
+subscription OnUpdateConnection(
+  $filter: ModelSubscriptionConnectionFilterInput
+) {
+  onUpdateConnection(filter: $filter) {
     connectionID
     topic
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
-subscription OnDeleteConnection {
-  onDeleteConnection {
+subscription OnDeleteConnection(
+  $filter: ModelSubscriptionConnectionFilterInput
+) {
+  onDeleteConnection(filter: $filter) {
     connectionID
     topic
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
+  }
+}
+subscription OnCreatePendingJobs(
+  $filter: ModelSubscriptionPendingJobsFilterInput
+) {
+  onCreatePendingJobs(filter: $filter) {
+    jobID
+    busy
+    taskID
+    collectionID
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdatePendingJobs(
+  $filter: ModelSubscriptionPendingJobsFilterInput
+) {
+  onUpdatePendingJobs(filter: $filter) {
+    jobID
+    busy
+    taskID
+    collectionID
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeletePendingJobs(
+  $filter: ModelSubscriptionPendingJobsFilterInput
+) {
+  onDeletePendingJobs(filter: $filter) {
+    jobID
+    busy
+    taskID
+    collectionID
+    createdAt
+    updatedAt
   }
 }

@@ -1,12 +1,9 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "cli": {
-    "analytics": "9b44dc85-90ac-4f18-b52b-8997dafc25fa"
-  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "amplify-app": {
+    "AerialMappingClient": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -23,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/amplify-app",
+            "outputPath": "dist/aerial-mapping-client",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -36,40 +33,7 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": [],
-            "allowedCommonJsDependencies": [
-              "paho-mqtt",
-              "@aws-amplify/ui",
-              "cookie",
-              "@aws-crypto/crc32",
-              "@aws-crypto/sha256-browser",
-              "@aws-crypto/sha256-js",
-              "crypto-js/sha256",
-              "axios",
-              "buffer",
-              "camelcase-keys",
-              "crypto-js/core",
-              "crypto-js/enc-base64",
-              "crypto-js/hmac-sha256",
-              "crypto-js/lib-typedarrays",
-              "events",
-              "fast-xml-parser",
-              "isomorphic-unfetch",
-              "js-cookie",
-              "lodash",
-              "lodash/get",
-              "lodash/isEmpty",
-              "lodash/isEqual",
-              "qrcode",
-              "style-dictionary/lib/utils/deepExtend",
-              "style-dictionary/lib/utils/flattenProperties",
-              "style-dictionary/lib/utils/references/usesReference",
-              "ulid",
-              "url",
-              "uuid",
-              "xstate/lib/actions",
-              "zen-observable"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -77,12 +41,12 @@
                 {
                   "type": "initial",
                   "maximumWarning": "4mb",
-                  "maximumError": "5mb"
+                  "maximumError": "10mb"
                 },
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumError": "10mb"
                 }
               ],
               "fileReplacements": [
@@ -108,10 +72,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "amplify-app:build:production"
+              "browserTarget": "AerialMappingClient:build:production"
             },
             "development": {
-              "browserTarget": "amplify-app:build:development"
+              "browserTarget": "AerialMappingClient:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -119,7 +83,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "amplify-app:build"
+            "browserTarget": "AerialMappingClient:build"
           }
         },
         "test": {
@@ -143,11 +107,11 @@
         "cypress-run": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "amplify-app:serve"
+            "devServerTarget": "AerialMappingClient:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "amplify-app:serve:production"
+              "devServerTarget": "AerialMappingClient:serve:production"
             }
           }
         },
@@ -161,17 +125,20 @@
         "e2e": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "amplify-app:serve",
+            "devServerTarget": "AerialMappingClient:serve",
             "watch": true,
             "headless": false
           },
           "configurations": {
             "production": {
-              "devServerTarget": "amplify-app:serve:production"
+              "devServerTarget": "AerialMappingClient:serve:production"
             }
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "a75023fe-ca2d-4662-9372-ba5e27d4169d"
   }
 }

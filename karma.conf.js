@@ -25,11 +25,11 @@ module.exports = function(config) {
             suppressAll: true // removes the duplicated traces
         },
         coverageReporter: {
-            dir: require('path').join(__dirname, './coverage/amplify-app'),
+            dir: require('path').join(__dirname, './coverage/aerial-mapping-client'),
             subdir: '.',
             reporters: [
-                { type: 'text-summary' },
                 { type: 'lcovonly' },
+                { type: 'text-summary' }
             ]
         },
         reporters: ['progress', 'kjhtml'],

@@ -1,8 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Auth } from 'aws-amplify';
-import { APIService, CreatePendingInvitesInput, DeletePendingInvitesInput, ModelPendingInvitesFilterInput, UpdateUserInput, User } from 'src/app/api.service';
+import { APIService, CreatePendingInvitesInput, DeletePendingInvitesInput, ModelPendingInvitesFilterInput, UpdateUserInput, User } from 'src/app/API.service';
 import { faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { MatDialog } from '@angular/material/dialog';
@@ -26,11 +26,14 @@ export interface DialogData {
   styleUrls: ['./account.component.scss'],
 })
 export class AccountComponent implements OnInit {
+
   @ViewChild("name") name!: ElementRef<HTMLInputElement>;
   @ViewChild("email") email!: ElementRef<HTMLInputElement>;
   @ViewChild("role") role!: ElementRef<HTMLInputElement>;
   @ViewChild("password") password!: ElementRef<HTMLInputElement>;
   @ViewChild("closedEyeIcon") closedEyeIcon!: ElementRef<FaIconComponent>;
+
+  title = 'account-component';
 
   user: any;
   admin: boolean = false;
@@ -40,11 +43,11 @@ export class AccountComponent implements OnInit {
   newPassword: string = "";
   newName: string = "";
   currUser: User|null = null;
-  registerForm: FormGroup;
-  passwordForm: FormGroup;
-  emailForm: FormGroup;
-  nameForm: FormGroup;
-  roleForm: FormGroup;
+  registerForm: UntypedFormGroup;
+  passwordForm: UntypedFormGroup;
+  emailForm: UntypedFormGroup;
+  nameForm: UntypedFormGroup;
+  roleForm: UntypedFormGroup;
   passwordVisible: boolean = false;
   closedeye = faEyeSlash;
 
@@ -55,39 +58,37 @@ export class AccountComponent implements OnInit {
     public dialog: MatDialog,
     private snackBar: MatSnackBar
   ) {
-    this.registerForm = new FormGroup({
-      inviteEmail: new FormControl('', [Validators.required, Validators.email]),
+    this.registerForm = new UntypedFormGroup({
+      inviteEmail: new UntypedFormControl('', [Validators.required, Validators.email]),
     });
-    this.passwordForm = new FormGroup({
-      password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-      confirmedPassword: new FormControl('', [Validators.required, Validators.minLength(8)])
+    this.passwordForm = new UntypedFormGroup({
+      password: new UntypedFormControl('', [Validators.required, Validators.minLength(8)]),
+      confirmedPassword: new UntypedFormControl('', [Validators.required, Validators.minLength(8)])
     });
-    this.nameForm = new FormGroup({
-      name: new FormControl('', [Validators.required])
+    this.nameForm = new UntypedFormGroup({
+      name: new UntypedFormControl('', [Validators.required])
     });
-    this.emailForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email])
+    this.emailForm = new UntypedFormGroup({
+      email: new UntypedFormControl('', [Validators.required, Validators.email])
     });
-    this.roleForm = new FormGroup({
-      role: new FormControl('', [Validators.required])
+    this.roleForm = new UntypedFormGroup({
+      role: new UntypedFormControl('', [Validators.required])
     });
   }
 
   async ngOnInit() {
-    this.api.UserByEmail("correct@email.com").then((res: any) => {
-      console.log(res);
-    })
-
     try {
       await Auth.currentAuthenticatedUser({ bypassCache: false }).then(async (res: any) => {
-        console.log(res);
+        const groups: Array<any> = res.signInUserSession.idToken.payload['cognito:groups'];
+        groups.forEach((group: any) => {
+          if(group == 'Admin') {
+            this.admin = true;
+          }
+        });
 
         this.api.UserByEmail(res.attributes.email).then((resp: any) => {
           if(resp.items.length > 0) {
             this.user = resp.items[0];
-            if(this.user.user_role == "admin") {
-              this.admin = true;
-            }
             this.currName = this.user.user_name;
             this.name.nativeElement.value = this.currName;
             this.email.nativeElement.value = this.user.user_email;
@@ -100,10 +101,11 @@ export class AccountComponent implements OnInit {
           if(err.errors[0].message == "Network Error"){
             this.snackBar.open("Network error...", "❌", { verticalPosition: 'top' });
           }
-        })
+        });
       });
-    } catch(error) {
+    } catch(error: any) {
       console.log(error);
+      this.snackBar.open("Network error...", "❌", { verticalPosition: 'top' });
     }
   }
 
@@ -142,8 +144,8 @@ export class AccountComponent implements OnInit {
       //change username in DynamoDB
       const updatedUser: UpdateUserInput = {
         userID: this.currUserID,
-        user_name: this.newName,
-        _version: this.user._version
+        user_name: this.newName
+        //_version: this.user._version
       }
       this.user._version++;
       this.api.UpdateUser(updatedUser).then((res: any) => {
@@ -173,8 +175,8 @@ export class AccountComponent implements OnInit {
       //change email in DynamoDB
       const updatedUser: UpdateUserInput = {
         userID: this.currUserID,
-        user_email: newEmail,
-        _version: this.user._version
+        user_email: newEmail
+        //_version: this.user._version
       }
       this.user._version++;
       this.api.UpdateUser(updatedUser).then((res: any) => {

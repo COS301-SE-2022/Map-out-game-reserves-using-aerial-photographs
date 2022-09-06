@@ -37,7 +37,6 @@ import { ControllerService } from './api/controller/controller.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatDividerModule} from '@angular/material/divider';
-import { RouterTestingModule } from '@angular/router/testing';
 
 @NgModule({
   declarations: [
@@ -53,7 +52,6 @@ import { RouterTestingModule } from '@angular/router/testing';
     ReactiveFormsModule,
     RegisterModule,
     RouterModule,
-    RouterTestingModule,
     DashboardModule,
     LoginModule,
     AccountModule,
@@ -82,6 +80,7 @@ import { RouterTestingModule } from '@angular/router/testing';
     HttpClient,
     MatDialog,
     MatSnackBar,
+    ControllerService,
     {
       provide: MatDialogRef,
       useValue: {}

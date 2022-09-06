@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { BarChart } from './bar-chart.model';
 import { ChartOptions, ChartData } from 'chart.js';
 import { ControllerService } from 'src/app/api/controller/controller.service';
-import { APIService } from 'src/app/api.service';
+import { APIService } from 'src/app/API.service';
 
 @Component({
   selector: 'aerial-mapping-bar-chart',

@@ -12,7 +12,7 @@ export class AppComponent {
 
   constructor() {
 
-    // this.websocket = new WebSocket("wss://yg39xocfj9.execute-api.us-east-1.amazonaws.com/production/");
+    // this.websocket = new WebSocket("wss://ha3u3iiggc.execute-api.sa-east-1.amazonaws.com/production/");
 
     // this.websocket.onopen = () => {
     //   console.log("Websocket opened");

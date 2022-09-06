@@ -1,13 +1,21 @@
 export type AmplifyDependentResourcesAttributes = {
     "api": {
-        "amplifyapp": {
+        "aerialmapping": {
             "GraphQLAPIKeyOutput": "string",
             "GraphQLAPIIdOutput": "string",
             "GraphQLAPIEndpointOutput": "string"
         }
     },
+    "function": {
+        "aerialmapping8dd8f7d2PostConfirmation": {
+            "Name": "string",
+            "Arn": "string",
+            "LambdaExecutionRole": "string",
+            "Region": "string"
+        }
+    },
     "auth": {
-        "amplifyappc10a5bb3": {
+        "aerialmapping8dd8f7d2": {
             "IdentityPoolId": "string",
             "IdentityPoolName": "string",
             "UserPoolId": "string",
@@ -17,22 +25,8 @@ export type AmplifyDependentResourcesAttributes = {
             "AppClientID": "string"
         }
     },
-    "function": {
-        "S3Trigger3ac458d4": {
-            "Name": "string",
-            "Arn": "string",
-            "Region": "string",
-            "LambdaExecutionRole": "string"
-        },
-        "registerlinkemailer": {
-            "Name": "string",
-            "Arn": "string",
-            "Region": "string",
-            "LambdaExecutionRole": "string"
-        }
-    },
     "storage": {
-        "S3Storage": {
+        "s3storage": {
             "BucketName": "string",
             "Region": "string"
         }

@@ -25,9 +25,6 @@ mutation RegisterUser(
     user_approved
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation Login($email: String, $password: String) {
@@ -52,15 +49,9 @@ mutation CreateFlight($pilotID: String, $height: Int, $type: String) {
       user_approved
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation CreateImage(
@@ -80,9 +71,6 @@ mutation CreateImage(
     file_name
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation CreateUser(
@@ -99,9 +87,6 @@ mutation CreateUser(
     user_approved
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation UpdateUser(
@@ -118,9 +103,6 @@ mutation UpdateUser(
     user_approved
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation DeleteUser(
@@ -137,9 +119,6 @@ mutation DeleteUser(
     user_approved
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation CreateGamePark(
@@ -153,9 +132,6 @@ mutation CreateGamePark(
     park_address
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation UpdateGamePark(
@@ -169,9 +145,6 @@ mutation UpdateGamePark(
     park_address
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation DeleteGamePark(
@@ -185,9 +158,6 @@ mutation DeleteGamePark(
     park_address
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation CreateImageCollection(
@@ -205,9 +175,6 @@ mutation CreateImageCollection(
       park_address
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     upload_date_time
     completed
@@ -219,17 +186,22 @@ mutation CreateImageCollection(
       flight_height
       flight_type
       pilotID
+      Pilot {
+        userID
+        user_email
+        user_password
+        user_password_salt
+        user_name
+        user_role
+        user_approved
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation UpdateImageCollection(
@@ -247,9 +219,6 @@ mutation UpdateImageCollection(
       park_address
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     upload_date_time
     completed
@@ -261,17 +230,22 @@ mutation UpdateImageCollection(
       flight_height
       flight_type
       pilotID
+      Pilot {
+        userID
+        user_email
+        user_password
+        user_password_salt
+        user_name
+        user_role
+        user_approved
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation DeleteImageCollection(
@@ -289,9 +263,6 @@ mutation DeleteImageCollection(
       park_address
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     upload_date_time
     completed
@@ -303,17 +274,22 @@ mutation DeleteImageCollection(
       flight_height
       flight_type
       pilotID
+      Pilot {
+        userID
+        user_email
+        user_password
+        user_password_salt
+        user_name
+        user_role
+        user_approved
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation CreateMap(
@@ -329,22 +305,32 @@ mutation CreateMap(
       collectionID
       taskID
       parkID
+      GamePark {
+        parkID
+        park_name
+        park_location
+        park_address
+        createdAt
+        updatedAt
+      }
       upload_date_time
       completed
       error
       pending
       flightID
+      FlightDetails {
+        flightID
+        flight_height
+        flight_type
+        pilotID
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation UpdateMap(
@@ -360,22 +346,32 @@ mutation UpdateMap(
       collectionID
       taskID
       parkID
+      GamePark {
+        parkID
+        park_name
+        park_location
+        park_address
+        createdAt
+        updatedAt
+      }
       upload_date_time
       completed
       error
       pending
       flightID
+      FlightDetails {
+        flightID
+        flight_height
+        flight_type
+        pilotID
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation DeleteMap(
@@ -391,22 +387,32 @@ mutation DeleteMap(
       collectionID
       taskID
       parkID
+      GamePark {
+        parkID
+        park_name
+        park_location
+        park_address
+        createdAt
+        updatedAt
+      }
       upload_date_time
       completed
       error
       pending
       flightID
+      FlightDetails {
+        flightID
+        flight_height
+        flight_type
+        pilotID
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation CreateMessage(
@@ -422,22 +428,32 @@ mutation CreateMessage(
       collectionID
       taskID
       parkID
+      GamePark {
+        parkID
+        park_name
+        park_location
+        park_address
+        createdAt
+        updatedAt
+      }
       upload_date_time
       completed
       error
       pending
       flightID
+      FlightDetails {
+        flightID
+        flight_height
+        flight_type
+        pilotID
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation UpdateMessage(
@@ -453,22 +469,32 @@ mutation UpdateMessage(
       collectionID
       taskID
       parkID
+      GamePark {
+        parkID
+        park_name
+        park_location
+        park_address
+        createdAt
+        updatedAt
+      }
       upload_date_time
       completed
       error
       pending
       flightID
+      FlightDetails {
+        flightID
+        flight_height
+        flight_type
+        pilotID
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation DeleteMessage(
@@ -484,22 +510,32 @@ mutation DeleteMessage(
       collectionID
       taskID
       parkID
+      GamePark {
+        parkID
+        park_name
+        park_location
+        park_address
+        createdAt
+        updatedAt
+      }
       upload_date_time
       completed
       error
       pending
       flightID
+      FlightDetails {
+        flightID
+        flight_height
+        flight_type
+        pilotID
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation CreateImages(
@@ -514,9 +550,6 @@ mutation CreateImages(
     file_name
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation UpdateImages(
@@ -531,9 +564,6 @@ mutation UpdateImages(
     file_name
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation DeleteImages(
@@ -548,9 +578,6 @@ mutation DeleteImages(
     file_name
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation CreateFlightDetails(
@@ -572,15 +599,9 @@ mutation CreateFlightDetails(
       user_approved
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation UpdateFlightDetails(
@@ -602,15 +623,9 @@ mutation UpdateFlightDetails(
       user_approved
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation DeleteFlightDetails(
@@ -632,15 +647,9 @@ mutation DeleteFlightDetails(
       user_approved
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation CreatePendingInvites(
@@ -653,9 +662,6 @@ mutation CreatePendingInvites(
     role
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation UpdatePendingInvites(
@@ -668,9 +674,6 @@ mutation UpdatePendingInvites(
     role
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation DeletePendingInvites(
@@ -683,9 +686,6 @@ mutation DeletePendingInvites(
     role
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation CreateConnection(
@@ -697,9 +697,6 @@ mutation CreateConnection(
     topic
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation UpdateConnection(
@@ -711,9 +708,6 @@ mutation UpdateConnection(
     topic
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation DeleteConnection(
@@ -725,8 +719,44 @@ mutation DeleteConnection(
     topic
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
+  }
+}
+mutation CreatePendingJobs(
+  $input: CreatePendingJobsInput!
+  $condition: ModelPendingJobsConditionInput
+) {
+  createPendingJobs(input: $input, condition: $condition) {
+    jobID
+    busy
+    taskID
+    collectionID
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdatePendingJobs(
+  $input: UpdatePendingJobsInput!
+  $condition: ModelPendingJobsConditionInput
+) {
+  updatePendingJobs(input: $input, condition: $condition) {
+    jobID
+    busy
+    taskID
+    collectionID
+    createdAt
+    updatedAt
+  }
+}
+mutation DeletePendingJobs(
+  $input: DeletePendingJobsInput!
+  $condition: ModelPendingJobsConditionInput
+) {
+  deletePendingJobs(input: $input, condition: $condition) {
+    jobID
+    busy
+    taskID
+    collectionID
+    createdAt
+    updatedAt
   }
 }

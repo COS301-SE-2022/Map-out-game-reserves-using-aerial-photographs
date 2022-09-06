@@ -1,18 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Auth } from 'aws-amplify';
 import {
   APIService,
   CreateImagesInput,
   CreateImageCollectionInput,
-  CreateFlightDetailsInput
-} from 'src/app/api.service';
-import {
-  ControllerService,
-  WebODMCreateTaskResponse,
-} from 'src/app/api/controller/controller.service';
+  CreateFlightDetailsInput,
+  CreatePendingJobsInput,
+  CreateGameParkInput
+} from 'src/app/API.service';
+import { ControllerService } from 'src/app/api/controller/controller.service';
 import { v4 as uuidv4 } from 'uuid';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { fromBlob } from 'image-resize-compress';
-import { Observable } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { ParksDialogComponent } from './parks-dialog/parks-dialog.component';
+import { SNS } from 'aws-sdk';
 
 interface Park {
   value: string | undefined;
@@ -35,7 +39,11 @@ interface ImageSize {
   styleUrls: ['./file-upload.component.scss'],
 })
 
-export class FileUploadComponent implements OnInit {
+export class FileUploadComponent implements OnInit{
+  @ViewChild("parks") parks!: ElementRef<HTMLInputElement>;
+
+  title = 'file-upload-component';
+
   requiredFileType: string | undefined;
   submitPressed = false;
   fileName = '';
@@ -48,8 +56,11 @@ export class FileUploadComponent implements OnInit {
   uploadingProgress = 0;
   finalWidth = 0;
   finalHeight = 0;
+  name: string = "";
+  location: string = "";
+  address: string = "";
 
-  parks: Park[] = [
+  parksList: Park[] = [
     // {value: 'Somkhanda-1', viewValue: 'Somkhanda'},
     // {value: 'RietVlei-2', viewValue: 'Riet Vlei'},
   ];
@@ -69,7 +80,8 @@ export class FileUploadComponent implements OnInit {
   constructor(
     private apiController: ControllerService,
     private api: APIService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    public dialog: MatDialog
   ) {
     //      const imageForm = document.querySelector("#imageForm");
     // const imageInput = document.querySelector("#fileUpload");
@@ -86,7 +98,7 @@ export class FileUploadComponent implements OnInit {
       //console.log(event.items[0]?.park_name);
       for (let i = 0; i < event.items.length; i++) {
         const element = event.items[i];
-        this.parks.push({
+        this.parksList.push({
           value: element?.parkID,
           viewValue: element?.park_name,
         });
@@ -95,28 +107,12 @@ export class FileUploadComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    const formElem = document.getElementById('formElem') as HTMLFormElement;
-    formElem!.onsubmit = async (event) => {
-      event.preventDefault();
-
-      let response = await fetch('http://localhost:8000/api/projects/1/tasks/', {
-        method: 'POST',
-        body: new FormData(formElem),
-        headers: {
-            "Authorization": "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJlbWFpbCI6IiIsInVzZXJuYW1lIjoiYWRtaW4iLCJleHAiOjE2NTkwNjUxNTd9.qMrsgc0LrfuBy91n1aVt0fVPq3onVsqZcRqFAOZqHVI"
-        }
-      });
-
-      let result = await response.json();
-
-      console.log("RESULT", result);
-      this.uploadFileLocal(result.id);
-      console.log('result.id: ' + result.id);
-    };
+  async ngOnInit() {
+      
   }
 
-  uploadFileLocal(taskId: string) {
+  uploadFileLocal(ev: Event) {
+    ev.preventDefault();
     console.log('Submit button pressed');
     this.frameCount = 0;
     this.uploadCount = 0;
@@ -191,40 +187,45 @@ export class FileUploadComponent implements OnInit {
         collectionID: uuidv4(), //not sure!!!!!!!!!!!!!!! TODO: check
         parkID: parkSel,
         //   upload_date_time: string,
-        completed: false,
         flightID: flight.flightID,
-        taskID: taskId
+        completed: false,
+        pending: true,
+        error: false
+        //taskID: taskId
         // _version?: number | null;
       };
 
       this.api.CreateImageCollection(imageCollection).then((res: any) => {
-        console.log("CreateImageCollection response", res);
+        console.log("CreateImageCollection response:", res);
         if (this.files.length > 1) {
           this.uploadImages(imageCollection.collectionID);
         } else {
           this.uploadVideo(imageCollection.collectionID);
         }
+
+        //create a pending job in the PendingJobs table
+        const pendingJob: CreatePendingJobsInput = {
+          jobID: uuidv4(),
+          busy: false,
+          collectionID: imageCollection.collectionID
+        }
+        this.api.CreatePendingJobs(pendingJob).then((resp: any) => {
+          console.log("CreatePendingJob response:", resp);
+
+          //publish SNS message to 'stitch_jobs' topic with the jobID
+          const params = {
+            Message: pendingJob.jobID,
+            TopicArn: 'arn:aws:sns:us-east-1:870416143884:stitch_jobs'
+          }
+          let publishTextPromise = new SNS({apiVersion: '2010-03-31'}).publish(params).promise();
+          publishTextPromise.then((_data: any) => {
+            console.log(`Message ${params.Message} sent to the topic ${params.TopicArn}`);
+          }).catch((err: any) => {
+            console.error(err, err.stack);
+          });
+        });
       }).catch(e => { console.log(e) });
       this.submitPressed = true;
-
-      //createTask
-      // console.log('Attempting to submit...')
-      // const formElem = document.getElementById('formElem') as HTMLFormElement;
-      // let response = await fetch('http://localhost:8000/api/projects/1/tasks/', {
-      //   method: 'POST',
-      //   body: new FormData(formElem)
-      // }).catch(e => console.log(e));
-
-      // let result = await response!.json().catch(e => console.log(e));
-      // console.log('RESULT', result);
-
-      // const updateCollection: UpdateImageCollectionInput = {
-      //   collectionID: collectionID,
-      //   taskID: response.id
-      // }
-      // this.api.UpdateImageCollection(updateCollection).then((_res: UpdateImageCollectionMutation) => {
-      //   console.log("Updated collection");
-      // });
     } else {
       this.snackBar.open('Fill in all the details about the upload.', '❌');
     }
@@ -293,7 +294,6 @@ export class FileUploadComponent implements OnInit {
   }
 
   uploadVideo(collectionID: string) {
-    console.log('here');
     //Load video
     const img = new Image();
     img.crossOrigin = 'anonymous';
@@ -450,4 +450,62 @@ export class FileUploadComponent implements OnInit {
       });
     }
   }
+
+  //TODO: insert a new park
+  openParksDialog(): void {
+    const dialogRef = this.dialog.open(ParksDialogComponent, {
+      width: '500px',
+      data: {name:'', location:'', address:''}
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == undefined) {
+        return;
+      }
+      this.name = result.name;
+      this.location = result.location;
+      this.address = result.address;
+
+      // console.log(result);
+  
+      // //change username in DynamoDB
+      // const updatedUser: UpdateUserInput = {
+      //   userID: this.currUserID,
+      //   user_name: this.newName
+      //   //_version: this.user._version
+      // }
+      // this.user._version++;
+      // this.api.UpdateUser(updatedUser).then((res: any) => {
+      //   this.name.nativeElement.innerHTML = this.newName;
+      //   this.currName = this.newName;
+      //   this.name.nativeElement.value = this.newName;
+      //   console.log(res);
+      // });
+      this.createPark();
+    });
+
+    
+  }
+  //this is park stuff that might work
+  private createPark():void {
+    const newPark: CreateGameParkInput = {
+      parkID: uuidv4(),
+      park_name: this.name,
+      park_location: this.location,
+      park_address: this.address,
+      // _version: 1
+    }
+    this.api.CreateGamePark(newPark)
+          .then((resp:any) => {
+            console.log(resp);
+            alert('Successfully created!');
+            return 1;
+          })
+          .catch((e) => {
+            console.log('error creating park...', e);
+            return -1;
+          });
+  }
 }
+
+

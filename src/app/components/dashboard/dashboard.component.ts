@@ -1,9 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { faMap as mapIcon, faExclamationTriangle as warning, faExclamationCircle as error, faCheck as good, faCheckCircle as complete, faSpinner as progress, } from '@fortawesome/free-solid-svg-icons';
 import { BarChart } from './bar-chart/bar-chart.model';
-import { DomSanitizer } from '@angular/platform-browser';
-import { ControllerService } from 'src/app/api/controller/controller.service';
-import { APIService, ListImageCollectionsQuery, ImageCollection, ListMessagesQuery, CreateMessageInput } from 'src/app/api.service';
+import { APIService, ListImageCollectionsQuery, ImageCollection, ListMessagesQuery, CreateMessageInput } from 'src/app/API.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { interval, Subscription, startWith, switchMap } from 'rxjs';
 
@@ -13,6 +11,9 @@ import { interval, Subscription, startWith, switchMap } from 'rxjs';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit, OnDestroy {
+  
+  title = 'dashboard-component';
+  
   collectionData: ImageCollection[] = [];
   completed: ImageCollection[] = [];
   processing: ImageCollection[] = [];
