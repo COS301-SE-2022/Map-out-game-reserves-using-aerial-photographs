@@ -116,8 +116,7 @@ async function main(): Promise<void> {
     }
 
     websocket.onmessage = function (str: any) {
-      const responseData = JSON.parse(str.data);
-      console.log("[SERVER] SNS message received: ", responseData);
+      console.log("[SERVER] SNS message received");
 
       //brand new job received, check the pending jobs table for the new job
       checkPendingJobs();
@@ -198,18 +197,25 @@ async function refreshCompletedJobs(): Promise<void> {
   } while (typeof items.LastEvaluatedKey !== "undefined");
 }
 
-function S3download(keyFile) {
-  return new Promise(function (success, reject) {
-    S3.getObject(
-      { Bucket: S3_BUCKET, Key: keyFile },
-      function (error, data) {
-        if (error) {
-          reject(error);
-        } else {
-          success(data);
+function S3download(keyFile): Promise<any> {
+  console.log("In S3download function. keyFile: ", keyFile);
+  return new Promise(function (resolve, reject) {
+    try {
+      S3.getObject(
+        { Bucket: S3_BUCKET, Key: keyFile },
+        function (error, data) {
+          if (error) {
+            console.log("S3download error: ", error);
+            reject(error);
+          } else {
+            console.log("S3download resolve!: ", data);
+            resolve(data);
+          }
         }
-      }
-    );
+      );
+    } catch (e) {
+      console.log("S3.getobject error: ", e);
+    }
   });
 }
 
@@ -270,13 +276,14 @@ async function pollWebODM() {
                 }
                 docClient.update(params, function (err, data) {
                   if (err) console.log(err);
-                  else console.log(data);
+                  else {
+                    console.log(data);
+                    //publish SNS notification
+                    publishSNSNotification(imgCol.collectionID);
+                  }
                 });
               }
             });
-
-            //publish SNS notification
-            publishSNSNotification();
           }
           else if (task.status == 30) {
             //FAILED
@@ -317,13 +324,14 @@ async function pollWebODM() {
                 }
                 docClient.update(params, function (err, data) {
                   if (err) console.log(err);
-                  else console.log(data);
+                  else{
+                    console.log(data);
+                    //publish SNS notification
+                    publishSNSNotification(imgCol.collectionID);
+                  }
                 });
               }
             });
-
-            //publish SNS notification
-            publishSNSNotification();
           }
           else if (task.status == 20) {
             //RUNNING - do nothing
@@ -344,12 +352,12 @@ async function pollWebODM() {
 }
 
 async function createMap(jobID: string) {
-  console.log("\n[SERVER] Creating map for collectionID: ", jobID);
+  console.log("\n[SERVER] Creating map for jobID: ", jobID);
 
   //TODO pull images from S3 cloud storage for this collectionID
-  var promises = [];
-  var fileContentList = [];
-  var fileKeyList = [];
+  let promises = [];
+  let fileContentList = [];
+  let fileKeyList = [];
   //get all images in this collection (jobID = collectionID) from DynamoDB
   const queryParams = {
     TableName: IMAGE_TABLE,
@@ -359,9 +367,10 @@ async function createMap(jobID: string) {
       ':collection': jobID
     }
   };
-  docClient.query(queryParams, function (err, data) {
+  docClient.query(queryParams, (err, data) => {
     if (err) {
       console.log("Query error: ", err);
+      return -1;
     }
     else {
       for (let img of data.Items) {
@@ -371,14 +380,13 @@ async function createMap(jobID: string) {
       for (let key of fileKeyList) {
         promises.push(S3download(key));
       }
-
       Promise.all(promises)
         .then(async function (results) {
+          console.log("[SERVER] S3 download results: ", results);
           //add all images from S3 into fileContentList array
           for (let index in results) {
             let content = results[index];
             fileContentList.push(content.Body); //.toString()
-            console.log("New File Content: ", content.ETag);
           }
 
           // append all image's content to formData
@@ -400,6 +408,10 @@ async function createMap(jobID: string) {
           let result: WebODMCreateTaskResponse = await response.json();
           console.log("CREATE TASK RESULT: ", result);
 
+          if (result.id == undefined) {
+            console.log("Error: Cannot create task");
+            return -1;
+          }
           const taskID = result.id;
 
           //set the taskID and set 'pending' to true on this image collection in DynamoDB
@@ -483,11 +495,11 @@ function addCompletedJob(taskID: string) {
   completedJobs.push(taskID);
 }
 
-async function publishSNSNotification() {
+async function publishSNSNotification(collectionID: string) {
   console.log("[SERVER] Publishing SNS notification");
 
   const publishParams = {
-    Message: 'New stitched map completed!',
+    Message: collectionID,
     TopicArn: 'arn:aws:sns:sa-east-1:870416143884:maps'
   };
   const publishMapPromise = SNS.publish(publishParams).promise();

@@ -35,8 +35,10 @@
     <div style="height: 69%; overflow-y: auto; margin-top: 2%; width: 100%">
       <mat-card class="container" *ngFor="let catData of catalogues" id="{{ catData.catalogue.collectionID }}">
         <mat-card-header class="head">
-          <span style="float: left">{{ catData.catalogue.parkID }}</span>
-          <span style="float: right">{{ catData.catalogue.createdAt }}</span>
+          <!-- Just commented out for now -->
+          <!-- <span style="float: left">{{ catData.catalogue.parkID }}</span>
+          <span style="float: right">{{ catData.catalogue.createdAt }}</span> -->
+          <span style="float: left">{{ catData.catalogue.collectionID }}</span>
         </mat-card-header>
         <br />
         <mat-card-content class="cont">

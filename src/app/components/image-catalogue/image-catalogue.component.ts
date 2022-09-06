@@ -29,6 +29,8 @@ interface CatalogData {
   catalogue: any;
   images: ImageData[];
   thumbnails: string[];
+  collectionID?: string;
+  completed: boolean | null | undefined;
 }
 
 @Component({
@@ -57,8 +59,12 @@ export class ImageCatalogueComponent implements OnInit {
     private snackbar: MatSnackBar
   ) {
     this.selected = 'date';
-
     this.getAllCatalogues();
+    this.controller.websocket.onmessage = (msg: any) => {
+      this.snackbar.open(`New map stitching job (${msg}) completed.`, "✔️", { verticalPosition: 'top', duration: 3000 });
+      //make 'View Map' button visible
+      this.getAllCatalogues();
+    }
   }
 
   ngOnInit() {
@@ -78,16 +84,18 @@ export class ImageCatalogueComponent implements OnInit {
           this.catalogues.push({
             catalogue: catalog,
             images: [],
-            thumbnails: []
+            thumbnails: [],
+            collectionID: catalog?.collectionID,
+            completed: catalog?.completed
           })
         }
 
         for (const catalogData of this.catalogues){
-            console.log(22,catalogData.catalogue.collectionID);
+            //console.log(22,catalogData.catalogue.collectionID);
             this.api
               .ImagesByCollectionId(catalogData.catalogue.collectionID)
               .then((resp: any) => {
-                console.log(resp.items);
+                //console.log(resp.items);
                 for (const image of resp.items) {
                   catalogData.images.push({ image: image, url: '' });
                 }

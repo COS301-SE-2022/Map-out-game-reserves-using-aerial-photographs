@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class ControllerService {
   errorState: boolean = false;
   websocket: WebSocket;
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private snackBar: MatSnackBar) {
     // open client WebSocket
     this.websocket = new WebSocket("wss://ha3u3iiggc.execute-api.sa-east-1.amazonaws.com/production/");
     this.websocket.onopen = () => {
@@ -23,6 +24,10 @@ export class ControllerService {
         message: "subscribe", //this selects the 'subscribe' API Gateway route (which triggers the onSubscribe lambda function)
         topic: "maps" //this is the topic we want to subscribe to
       }));
+    }
+    this.websocket.onmessage = (msg: any) => {
+      console.log("SNS Message: ", msg);
+      this.snackBar.open(`New map stitching job (${msg}) completed.`, "✔️", { verticalPosition: 'top', duration: 3000 });
     }
     this.websocket.onclose = () => {
       console.log("Websocket connection closed");
@@ -55,18 +60,22 @@ export class ControllerService {
   }
 
   async S3upload(fileKey:string, collection:string, folder:string, fileData: File, dataType:string){
-    const result = await Storage.put(collection+"/"+folder+"/"+fileKey, fileData, {
-      contentType: dataType,
-    });
-    console.log(21, result);
+    try {
+      const result = await Storage.put(collection+"/"+folder+"/"+fileKey, fileData, {
+        contentType: dataType,
+      });
+      console.log(21, result);
+    } catch(e) {
+      console.log("S3upload error: ", e);
+    }
   };
 
   async S3download(fileKey:string, collection:string, folder:string, fetch_data:boolean){
     // Storage.list('public/') // for listing ALL files without prefix, pass '' instead
     // .then(result => console.log(result))
-    console.log("sent: "+collection+"/"+folder+"/"+fileKey);
+    //console.log("sent: "+collection+"/"+folder+"/"+fileKey);
     const result = await Storage.get(collection+"/"+folder+"/"+fileKey, { download: fetch_data });
-    console.log(result);
+    //console.log(result);
     return result;
   }
 
