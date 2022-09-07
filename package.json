@@ -3,12 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "config": "ts-node ./scripts/setenv.ts",
+    "config": "ts-node ./scripts/setenv.js",
     "start": "npm run config -- --environment=dev && ng serve",
     "build": "npm run config -- --environment=prod && ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "e2e": "ng e2e",
+    "test": "npm run config -- --environment=dev && ng test",
+    "e2e": "npm run config -- --environment=dev && ng e2e",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run"
   },
