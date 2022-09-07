@@ -31,6 +31,7 @@ interface CatalogData {
   thumbnails: string[];
   collectionID?: string;
   completed: boolean | null | undefined;
+  error: boolean | null | undefined;
 }
 
 @Component({
@@ -86,7 +87,8 @@ export class ImageCatalogueComponent implements OnInit {
             images: [],
             thumbnails: [],
             collectionID: catalog?.collectionID,
-            completed: catalog?.completed
+            completed: catalog?.completed,
+            error: catalog?.error
           })
         }
 

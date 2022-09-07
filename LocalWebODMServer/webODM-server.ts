@@ -279,7 +279,7 @@ async function pollWebODM() {
                   else {
                     console.log(data);
                     //publish SNS notification
-                    publishSNSNotification(imgCol.collectionID);
+                    publishSNSNotification(imgCol.collectionID, 'completed');
                   }
                 });
               }
@@ -327,7 +327,7 @@ async function pollWebODM() {
                   else{
                     console.log(data);
                     //publish SNS notification
-                    publishSNSNotification(imgCol.collectionID);
+                    publishSNSNotification(imgCol.collectionID, 'error');
                   }
                 });
               }
@@ -382,20 +382,59 @@ async function createMap(jobID: string) {
       }
       Promise.all(promises)
         .then(async function (results) {
-          console.log("[SERVER] S3 download results: ", results);
           //add all images from S3 into fileContentList array
           for (let index in results) {
             let content = results[index];
-            fileContentList.push(content.Body); //.toString()
+            fileContentList.push(content.Body);
           }
 
           // append all image's content to formData
           let formData = new formdata();
           let count = 0;
           for (let img of fileContentList) {
-            formData.append('data', img, { filename: `${fileKeyList[count]}.png` });
+            formData.append('images', img, { filename: `${fileKeyList[count]}.png` });
             count++;
           }
+
+          // Set options for new task
+          const optionsArr = [
+            // Set feature extraction quality. Higher quality generates better features, but requires more memory and takes longer.
+            {
+            "name": "feature-quality",
+            "value": "low"            // values are: ultra, high, medium, low, lowest
+            },
+            // Matcher algorithm, Fast Library for Approximate Nearest Neighbors or Bag of Words. FLANN is slower, but more stable. BOW is faster, but can sometimes miss valid matches. BRUTEFORCE is very slow but robust.
+            {
+              "name": "matcher-type",
+              "value": "bruteforce"     // values are: bruteforce, flann, bow
+            },
+            // Controls the density of the point cloud by setting the resolution of the depthmap images. Higher values take longer to compute but produce denser point clouds.
+            // {
+            //   "name": "depthmap-resolution",
+            //   "value": "1280"           // default: 640
+            // },
+            // Skip generation of PDF report. This can save time if you don't need a report.
+            {
+              "name": "skip-report",
+              "value": "true"
+            },
+            // Ignore Ground Sampling Distance (GSD). GSD caps the maximum resolution of image outputs and resizes images when necessary, resulting in faster processing and lower memory usage. Since GSD is an estimate, sometimes ignoring it can result in slightly better image output quality.
+            {
+              "name": "ignore-gsd",
+              "value": "true"
+            },
+            // Set point cloud quality. Higher quality generates better, denser point clouds, but requires more memory and takes longer. Each step up in quality increases processing time roughly by a factor of 4x.
+            {
+              "name": "pc-quality",
+              "value": "ultra"      // values are: ultra, high, medium, low, lowest
+            },
+            // Improve the accuracy of the point cloud by computing geometrically consistent depthmaps. This increases processing time, but can improve results in urban scenes.
+            {
+              "name": "pc-geometric",
+              "value": "true"       // default: false
+            }
+          ];
+          formData.append('options', JSON.stringify(optionsArr));
 
           // start new WebODM stitching job - call createTask API endpoint
           let response = await fetch('http://localhost:8000/api/projects/1/tasks/', {
@@ -495,11 +534,16 @@ function addCompletedJob(taskID: string) {
   completedJobs.push(taskID);
 }
 
-async function publishSNSNotification(collectionID: string) {
+async function publishSNSNotification(collectionID: string, status: string) {
   console.log("[SERVER] Publishing SNS notification");
 
+  const msg = {
+    collectionID: collectionID,
+    status: status
+  }
+
   const publishParams = {
-    Message: collectionID,
+    Message: JSON.stringify(msg),
     TopicArn: 'arn:aws:sns:sa-east-1:870416143884:maps'
   };
   const publishMapPromise = SNS.publish(publishParams).promise();

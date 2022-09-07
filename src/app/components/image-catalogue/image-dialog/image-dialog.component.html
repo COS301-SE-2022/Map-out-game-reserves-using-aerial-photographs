@@ -9,6 +9,9 @@
   <button mat-button (click)="onNoClick()" color="warn">Close</button>
   <button *ngIf="selectCatalogue.completed; else elseBlock" mat-button (click)="onSubmit()" color="primary" type="button" matTooltip="View the stitched map">View Map</button>
   <ng-template #elseBlock>
-    <button mat-button (click)="onSubmit()" color="primary" type="button" matTooltip="The map is busy processing" disabled>Map Pending</button>
+    <button *ngIf="selectCatalogue.error; else lastElseBlock" mat-button color="primary" type="button" matTooltip="The map cannot be processed" disabled>Error</button>
+    <ng-template #lastElseBlock>
+      <button mat-button (click)="onSubmit()" color="primary" type="button" matTooltip="The map is busy processing" disabled>Map Pending</button>
+    </ng-template>
   </ng-template>
 </mat-dialog-actions>

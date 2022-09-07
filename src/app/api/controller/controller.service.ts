@@ -26,8 +26,14 @@ export class ControllerService {
       }));
     }
     this.websocket.onmessage = (msg: any) => {
-      console.log("SNS Message: ", msg);
-      this.snackBar.open(`New map stitching job (${msg}) completed.`, "✔️", { verticalPosition: 'top', duration: 3000 });
+      console.log("SNS Message Received");
+      msg = JSON.parse(msg);
+      if(msg.status == 'error') {
+        this.snackBar.open(`Failed to process collectionID: ${msg.collectionID}`, "❌", { verticalPosition: 'top', duration: 3000 });
+      }
+      else {
+        this.snackBar.open(`New map stitching job (${msg}) completed.`, "✔️", { verticalPosition: 'top', duration: 3000 });
+      }
     }
     this.websocket.onclose = () => {
       console.log("Websocket connection closed");
@@ -52,10 +58,10 @@ export class ControllerService {
     //success
     try {
       await Auth.signIn(u.user_email!, u.user_password!);
-      return 1;
+      return 1; //for testing purposes
     } catch (error) {
       console.log('[CLIENT] error signing in:', error);
-      return -1;
+      return -1;  //for testing purposes
     }
   }
 
