@@ -16,7 +16,19 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { fromBlob } from 'image-resize-compress';
 import { MatDialog } from '@angular/material/dialog';
 import { ParksDialogComponent } from './parks-dialog/parks-dialog.component';
-import { SNS } from 'aws-sdk';
+import { PublishCommand } from '@aws-sdk/client-sns';
+import { SNSClient } from '@aws-sdk/client-sns';
+import { environment } from 'src/environments/environment';
+const REGION = "sa-east-1";
+
+const snsClient = new SNSClient({
+  apiVersion: '2010-03-31',
+  region: REGION,
+  credentials: {
+    accessKeyId: environment.AWS_ACCESS_KEY_ID,
+    secretAccessKey: environment.AWS_SECRET_ACCESS_KEY
+  }
+});
 
 interface Park {
   value: string | undefined;
@@ -83,7 +95,7 @@ export class FileUploadComponent implements OnInit{
     private snackBar: MatSnackBar,
     public dialog: MatDialog
   ) {
-    //      const imageForm = document.querySelector("#imageForm");
+    // const imageForm = document.querySelector("#imageForm");
     // const imageInput = document.querySelector("#fileUpload");
 
     // imageForm?.addEventListener("submit", async event =>{
@@ -103,12 +115,11 @@ export class FileUploadComponent implements OnInit{
           viewValue: element?.park_name,
         });
       }
-      //console.log(this.parks);
     });
   }
 
   async ngOnInit() {
-      
+
   }
 
   uploadFileLocal(ev: Event) {
@@ -166,6 +177,7 @@ export class FileUploadComponent implements OnInit{
 
     if (this.files[0] && parkSel != '' && typeSel != '' && height != '') {
       const h: number = +height;
+      let promises: Promise<any>[] = [];
 
       //create a flight object
       const flight: CreateFlightDetailsInput = {
@@ -183,8 +195,10 @@ export class FileUploadComponent implements OnInit{
 
       //
 
+      const newColID = uuidv4();
+
       const imageCollection: CreateImageCollectionInput = {
-        collectionID: uuidv4(), //not sure!!!!!!!!!!!!!!! TODO: check
+        collectionID: newColID,
         parkID: parkSel,
         //   upload_date_time: string,
         flightID: flight.flightID,
@@ -198,30 +212,24 @@ export class FileUploadComponent implements OnInit{
       this.api.CreateImageCollection(imageCollection).then((res: any) => {
         console.log("CreateImageCollection response:", res);
         if (this.files.length > 1) {
-          this.uploadImages(imageCollection.collectionID);
+          promises.push(this.uploadImages(newColID));
         } else {
-          this.uploadVideo(imageCollection.collectionID);
+          promises.push(this.uploadVideo(newColID));
         }
 
-        //create a pending job in the PendingJobs table
+        //create a pending job in the PendingJobs table, with jobID = this collectionID
         const pendingJob: CreatePendingJobsInput = {
-          jobID: uuidv4(),
+          jobID: newColID,
           busy: false,
           collectionID: imageCollection.collectionID
         }
         this.api.CreatePendingJobs(pendingJob).then((resp: any) => {
           console.log("CreatePendingJob response:", resp);
 
-          //publish SNS message to 'stitch_jobs' topic with the jobID
-          const params = {
-            Message: pendingJob.jobID,
-            TopicArn: 'arn:aws:sns:us-east-1:870416143884:stitch_jobs'
-          }
-          let publishTextPromise = new SNS({apiVersion: '2010-03-31'}).publish(params).promise();
-          publishTextPromise.then((_data: any) => {
-            console.log(`Message ${params.Message} sent to the topic ${params.TopicArn}`);
-          }).catch((err: any) => {
-            console.error(err, err.stack);
+          //wait for all promises to resolve
+          Promise.all(promises).then(() => {
+            //publish SNS message to 'stitch_jobs' topic with the jobID - once all image uploads are complete
+            this.publishSNSNotification();
           });
         });
       }).catch(e => { console.log(e) });
@@ -256,108 +264,131 @@ export class FileUploadComponent implements OnInit{
     window.location.reload();
   }
 
-  async uploadImages(collectionID: string) {
-    const frames = [];
-    this.frameCount = this.files.length;
-    for (var i = 0; i < this.files.length; i++) {
-      //TODO: get from dropdown
+  async uploadImages(collectionID: string): Promise<any> {
+    return new Promise<any>(async (resolve) => {
+      let promises = [];
+      const frames = [];
+      this.frameCount = this.files.length;
+      for (var i = 0; i < this.files.length; i++) {
+        //TODO: get from dropdown
 
-      const inp: CreateImagesInput = {
-        imageID: uuidv4(),
-        collectionID: collectionID,
-        bucket_name: 'dylpickles-image-bucket',
-        file_name: collectionID + '-frame-' + i + '.png',
-      };
-
-      frames[i] = new File([this.files[i]], inp.imageID + '.png');
-      var newBlob = this.resizeImage(
-        frames[i],
-        this.finalWidth,
-        this.finalHeight
-      );
-      await newBlob.then((newBlob) => {
-        frames[i] = newBlob;
-      });
-
-      this.api
-        .CreateImages(inp)
-        .then((resp: any) => {
-          console.log(resp);
-        })
-        .catch(() => {
-          return -1;
-        });
-
-      this.uploadToS3(collectionID, inp.imageID, frames[i]);
-    }
-    this.makeThumbnails(collectionID, frames);
-  }
-
-  uploadVideo(collectionID: string) {
-    //Load video
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.src = URL.createObjectURL(this.files[0]);
-
-    // extract frames (video, interval(time), quality(0-1), final width, final height)
-    const interval = 1; //fps
-    const quality = 1.0;
-    // TODO: NEED TO GET THESE VALUES FROM THE DROP DOWN @STEVEN
-    const frames = this.extractFramesFromVideo(
-      img.src,
-      interval,
-      quality,
-      this.finalWidth,
-      this.finalHeight
-    );
-
-    //Do after frames are extracted
-    frames.then((frames) => {
-      this.frameCount = frames.length;
-
-      // const frame = frames[1];
-      var fCount = 0;
-      //code in lines 215-____ replaces commented code in lines ___-___
-
-      //create an image collection
-      for (let i = 0; i < frames.length; i++) {
         const inp: CreateImagesInput = {
           imageID: uuidv4(),
           collectionID: collectionID,
-          bucket_name: 'dylpickles-image-bucket',
+          bucket_name: 'aerial-mapping-bucket80642-dev',
           file_name: collectionID + '-frame-' + i + '.png',
         };
 
-        console.log(i + '|' + inp.imageID);
-        this.api
-          .CreateImages(inp)
-          .then((resp: any) => {
-            console.log(resp);
-          })
-          .catch(() => {
-            return -1;
-          });
+        frames[i] = new File([this.files[i]], inp.imageID + '.png');
+        var newBlob = this.resizeImage(
+          frames[i],
+          this.finalWidth,
+          this.finalHeight
+        );
+        await newBlob.then((newBlob) => {
+          frames[i] = newBlob;
+        });
 
-        this.uploadToS3(collectionID, inp.imageID, frames[fCount++]);
+        promises.push(
+          this.api
+            .CreateImages(inp)
+            .then((resp: any) => {
+              console.log(resp);
+            })
+            .catch((e: any) => {
+              console.log(e);
+            })
+        );
+
+        promises.push(this.uploadToS3(collectionID, inp.imageID, frames[i]));
       }
+      promises.push(this.makeThumbnails(collectionID, frames));
 
-      this.makeThumbnails(collectionID, frames);
+      Promise.all(promises).then((resp: any) => {
+        resolve(resp);
+      });
     });
   }
 
-  uploadToS3(collectionID: string, imageID: string, file: any) {
-    //converting blob to png
-    var newFile = new File([file], imageID + '.png');
-    //upload png to S3
-    this.apiController
-      .S3upload(imageID, collectionID, 'images', newFile, 'image/png')
-      .then(() => {
-        this.uploadCount++;
-        this.uploadingProgress = Math.round((this.uploadCount / this.frameCount) * 100);
-        if (this.uploadingProgress > 100) {
-          this.uploadingProgress = 100;
-        }
+  uploadVideo(collectionID: string): Promise<any> {
+    return new Promise<any>((resolve) => {
+      let promises: Promise<any>[] = [];
+      //Load video
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.src = URL.createObjectURL(this.files[0]);
+
+      // extract frames (video, interval(time), quality(0-1), final width, final height)
+      const interval = 1; //fps
+      const quality = 1.0;
+      // TODO: NEED TO GET THESE VALUES FROM THE DROP DOWN @STEVEN
+      const frames = this.extractFramesFromVideo(
+        img.src,
+        interval,
+        quality,
+        this.finalWidth,
+        this.finalHeight
+      );
+
+      //Do after frames are extracted
+      frames.then((frames) => {
+        this.frameCount = frames.length;
+
+        // const frame = frames[1];
+        var fCount = 0;
+        //code in lines 215-____ replaces commented code in lines ___-___
+
+        //create an image collection
+        for (let i = 0; i < frames.length; i++) {
+          const inp: CreateImagesInput = {
+            imageID: uuidv4(),
+            collectionID: collectionID,
+            bucket_name: 'dylpickles-image-bucket',
+            file_name: collectionID + '-frame-' + i + '.png',
+          };
+
+          console.log(i + '|' + inp.imageID);
+          this.api
+            .CreateImages(inp)
+            .then((resp: any) => {
+              console.log(resp);
+              promises.push(this.uploadToS3(collectionID, inp.imageID, frames[fCount++]));
+            })
+            .catch((e: any) => {
+              console.log(e);
+            });
+
+            promises.push(this.uploadToS3(collectionID, inp.imageID, frames[fCount++]));
+          }
+
+        promises.push(this.makeThumbnails(collectionID, frames));
       });
+
+      Promise.all(promises).then((resp: any) => {
+        resolve(resp);
+      });
+    });
+  }
+
+  uploadToS3(collectionID: string, imageID: string, file: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      //converting blob to png
+      var newFile = new File([file], imageID + '.png');
+      //upload png to S3
+      this.apiController
+        .S3upload(imageID, collectionID, 'images', newFile, 'image/png')
+        .then((data: any) => {
+          this.uploadCount++;
+          this.uploadingProgress = Math.round((this.uploadCount / this.frameCount) * 100);
+          if (this.uploadingProgress > 100) {
+            this.uploadingProgress = 100;
+          }
+          resolve(data);
+        }).catch(e => {
+          console.log(e);
+          reject(e);
+        });
+    });
   }
 
   extractFramesFromVideo = async (
@@ -421,33 +452,57 @@ export class FileUploadComponent implements OnInit{
   }
 
   async makeThumbnails(collectionID: string, frames: any[]) {
-    var thumbnails: any[] = [];
-    thumbnails.push(frames[0]);
-    thumbnails.push(frames[frames.length / 2]);
-    thumbnails.push(frames[frames.length - 1]);
+    return new Promise(async (resolve) => {
+      let promises: Promise<any>[] = [];
+      var thumbnails: any[] = [];
+      thumbnails.push(frames[0]);
+      thumbnails.push(frames[frames.length / 2]);
+      thumbnails.push(frames[frames.length - 1]);
 
-    for (var i = 0; i < 3; i++) {
-      var newBlob = this.resizeImage(thumbnails[i], 240, 180);
-      await newBlob.then((newBlob) => {
-        // let newBlob = thumbnails[i];
-        var newFile = new File([newBlob], 'thumbnail_' + i + '.png');
+      for (var i = 0; i < 3; i++) {
+        var newBlob = this.resizeImage(thumbnails[i], 240, 180);
+        await newBlob.then((newBlob) => {
+          // let newBlob = thumbnails[i];
+          var newFile = new File([newBlob], 'thumbnail_' + i + '.png');
 
-        this.apiController
-          .S3upload(
-            'thumbnail_' + i,
-            collectionID,
-            'thumbnails',
-            newFile,
-            'image/png'
-          )
-          .then(() => {
-            this.uploadCount++;
-            this.uploadingProgress = Math.round((this.uploadCount / this.frameCount) * 100);
-            if (this.uploadingProgress > 100) {
-              this.uploadingProgress = 100;
-            }
-          });
+          promises.push(this.apiController
+            .S3upload(
+              'thumbnail_' + i,
+              collectionID,
+              'thumbnails',
+              newFile,
+              'image/png'
+            )
+            .then(() => {
+              this.uploadCount++;
+              this.uploadingProgress = Math.round((this.uploadCount / this.frameCount) * 100);
+              if (this.uploadingProgress > 100) {
+                this.uploadingProgress = 100;
+              }
+            }).catch(e => {
+              console.log(e);
+            }));
+        });
+      }
+
+      Promise.all(promises).then((res: any) => {
+        resolve(res);
       });
+    });
+  }
+
+  async publishSNSNotification() {
+    const publishParams = {
+      Message: 'New pending stitch job published!',
+      TopicArn: 'arn:aws:sns:sa-east-1:870416143884:stitch_jobs'
+    };
+    try {
+      const data = await snsClient.send(new PublishCommand(publishParams));
+      console.log("Successfully published SNS notification", data);
+      return data; //For unit tests
+    } catch (e) {
+      console.log(e);
+      return e; //For unit tests
     }
   }
 
@@ -457,7 +512,7 @@ export class FileUploadComponent implements OnInit{
       width: '500px',
       data: {name:'', location:'', address:''}
     });
-  
+
     dialogRef.afterClosed().subscribe(result => {
       if(result == undefined) {
         return;
@@ -467,7 +522,7 @@ export class FileUploadComponent implements OnInit{
       this.address = result.address;
 
       // console.log(result);
-  
+
       // //change username in DynamoDB
       // const updatedUser: UpdateUserInput = {
       //   userID: this.currUserID,
@@ -484,7 +539,7 @@ export class FileUploadComponent implements OnInit{
       this.createPark();
     });
 
-    
+
   }
   //this is park stuff that might work
   private createPark():void {
@@ -496,15 +551,15 @@ export class FileUploadComponent implements OnInit{
       // _version: 1
     }
     this.api.CreateGamePark(newPark)
-          .then((resp:any) => {
-            console.log(resp);
-            alert('Successfully created!');
-            return 1;
-          })
-          .catch((e) => {
-            console.log('error creating park...', e);
-            return -1;
-          });
+      .then((resp:any) => {
+        console.log(resp);
+        alert('Successfully created!');
+        return 1;
+      })
+      .catch((e) => {
+        console.log('error creating park...', e);
+        return -1;
+      });
   }
 }
 
