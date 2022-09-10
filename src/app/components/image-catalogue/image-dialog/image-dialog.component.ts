@@ -23,8 +23,11 @@ export class ImageDialogComponent {
     this.dialogRef.close();
   }
 
-  onSubmit(/* taskID : string */) {
-    //TODO: pass taskID as a parameter to map page
+  onSubmit(taskID?: string) {
+    if(taskID != null) {
+      this.router.navigateByUrl('/map', { state: { taskID: taskID } });
+      return;
+    }
     this.router.navigate(['map']);
     this.dialogRef.close();
   }
