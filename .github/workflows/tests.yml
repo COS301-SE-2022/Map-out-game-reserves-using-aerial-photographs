@@ -41,6 +41,12 @@ jobs:
       - name: Install packages
         run: npm install
 
+      - name: Testing to see if first env secret is available
+        run: echo "The Access Key ID is: ${{secrets.AWS_ACCESS_KEY_ID}}"
+
+      - name: Testing to see if first env secret is available
+        run: echo "The Access Key ID is: ${{secrets.AWS_SECRET_ACCESS_KEY}}"
+
         #generates env variables
       - name: Generate environment.ts file
         run: node ./scripts/setenv.js -- --environment=dev

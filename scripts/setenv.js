@@ -18,10 +18,6 @@ const targetPath = isProduction
 // we have access to our environment variables
 // in the process.env object thanks to dotenv
 console.log("\n\n");
-console.log("secrets.AWS_ACCESS_KEY_ID: " + secrets.AWS_ACCESS_KEY_ID);
-console.log("\n\n");
-console.log("secrets.AWS_SECRET_ACCESS_KEY" + secrets.AWS_SECRET_ACCESS_KEY);
-console.log("\n\n");
 console.log("process.env: " + process.env);
 console.log("\n\n");
 console.log("process.env.AWS_ACCESS_KEY_ID" + process.env.AWS_ACCESS_KEY_ID);
