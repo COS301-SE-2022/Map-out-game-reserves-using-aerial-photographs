@@ -2,6 +2,13 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
+export interface CatalogData {
+  completed: boolean | undefined,
+  error: boolean | undefined,
+  images: any,
+  taskID: string | undefined
+}
+
 export interface DialogData {
   selectedCatalogue: any,
   newName: string;
@@ -13,7 +20,7 @@ export interface DialogData {
   styleUrls: ['./image-dialog.component.scss']
 })
 export class ImageDialogComponent {
-  selectCatalogue: any = null;
+  selectCatalogue: CatalogData;
   constructor( private router : Router,
     public dialogRef: MatDialogRef<ImageDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
