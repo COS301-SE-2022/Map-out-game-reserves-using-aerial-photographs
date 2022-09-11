@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MapComponent } from './map.component';
+import { SafePipe } from './safe.pipe';
 
 describe('MapComponent', () => {
   let component: MapComponent;
@@ -8,7 +9,7 @@ describe('MapComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MapComponent ]
+      declarations: [ MapComponent, SafePipe ]
     })
     .compileComponents();
 
