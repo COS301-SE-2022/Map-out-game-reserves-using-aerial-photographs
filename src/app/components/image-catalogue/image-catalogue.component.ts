@@ -13,6 +13,7 @@ import {
   MAT_TOOLTIP_DEFAULT_OPTIONS,
   MatTooltipDefaultOptions,
 } from '@angular/material/tooltip';
+import { number, string } from 'yargs';
 
 /** Custom options the configure the tooltip's default show/hide delays. */
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
@@ -46,7 +47,7 @@ export class ImageCatalogueComponent implements OnInit {
   selected: string;
   tempCatalogues: Array<any> = [];
   catalogues: CatalogData[] = [];
-  selectedCatalogue:any = null;
+  selectedCatalogue: any = null;
 
   sort = {
     date: 'date',
@@ -62,15 +63,18 @@ export class ImageCatalogueComponent implements OnInit {
     this.selected = 'date';
     this.getAllCatalogues();
     this.controller.websocket.onmessage = (msg: any) => {
-      this.snackbar.open(`New map stitching job (${msg}) completed.`, "✔️", { verticalPosition: 'top', duration: 3000 });
+      this.snackbar.open(`New map stitching job (${msg}) completed.`, '✔️', {
+        verticalPosition: 'top',
+        duration: 3000,
+      });
       //make 'View Map' button visible
       this.getAllCatalogues();
-    }
+    };
   }
 
   ngOnInit() {
     this.controller.websocket.onmessage = (msg: any) => {
-      console.log("SNS message received ", msg);
+      console.log('SNS message received ', msg);
       this.getAllCatalogues();
     };
   }
@@ -88,51 +92,50 @@ export class ImageCatalogueComponent implements OnInit {
             thumbnails: [],
             collectionID: catalog?.collectionID,
             completed: catalog?.completed,
-            error: catalog?.error
-          })
+            error: catalog?.error,
+          });
         }
 
-        for (const catalogData of this.catalogues){
-            //console.log(22,catalogData.catalogue.collectionID);
-            this.api
-              .ImagesByCollectionId(catalogData.catalogue.collectionID)
-              .then((resp: any) => {
-                //console.log(resp.items);
-                for (const image of resp.items) {
-                  catalogData.images.push({ image: image, url: '' });
-                }
+        for (const catalogData of this.catalogues) {
+          //console.log(22,catalogData.catalogue.collectionID);
+          this.api
+            .ImagesByCollectionId(catalogData.catalogue.collectionID)
+            .then((resp: any) => {
+              //console.log(resp.items);
+              for (const image of resp.items) {
+                catalogData.images.push({ image: image, url: '' });
+              }
 
-                for (const i of catalogData.images) {
-                  this.controller
-                    .S3download(
-                      i.image.imageID,
-                      catalogData.catalogue.collectionID,
-                      'images',
-                      false
-                    )
-                    .then((signedURL) => {
-                      i.url = signedURL;
-                    });
-                }
+              for (const i of catalogData.images) {
+                this.controller
+                  .S3download(
+                    i.image.imageID,
+                    catalogData.catalogue.collectionID,
+                    'images',
+                    false
+                  )
+                  .then((signedURL) => {
+                    i.url = signedURL;
+                  });
+              }
 
-                for(var i = 0;i<3;i++){
-                  this.controller
-                    .S3download(
-                      "thumbnail_"+i,
-                      catalogData.catalogue.collectionID,
-                      'thumbnails',
-                      false
-                    )
-                    .then((signedURL) => {
-                      catalogData.thumbnails.push(signedURL);
-                    });
-                }
-                // this.sortByDate();
-                this.tempCatalogues = this.catalogues;
-              })
-              .catch((e) => console.log(e));
-          }
-
+              for (var i = 0; i < 3; i++) {
+                this.controller
+                  .S3download(
+                    'thumbnail_' + i,
+                    catalogData.catalogue.collectionID,
+                    'thumbnails',
+                    false
+                  )
+                  .then((signedURL) => {
+                    catalogData.thumbnails.push(signedURL);
+                  });
+              }
+              // this.sortByDate();
+              this.tempCatalogues = this.catalogues;
+            })
+            .catch((e) => console.log(e));
+        }
 
         return data.items;
       })
@@ -146,6 +149,32 @@ export class ImageCatalogueComponent implements OnInit {
       });
   }
 
+  orderByDate() {
+    for (let i = 0; i < this.catalogues.length - 1; i++) {
+      let swapped = false;
+      for (let j = 0; j < this.catalogues.length - i - 1; j++) {
+        if (
+          this.catalogues[j].catalogue.createdAt >
+          this.catalogues[j + 1].catalogue.createdAt
+        ) {
+          let temp = this.catalogues[j];
+          this.catalogues[j] = this.catalogues[j + 1];
+          this.catalogues[j + 1] = temp;
+          swapped = true;
+        }
+      }
+      if (swapped == false) break;
+    }
+  }
+
+  orderByPark() {
+  //   this.catalogues.sort(function(a, b){
+  //     if(a. < b.firstname) { return -1; }
+  //     if(a.firstname > b.firstname) { return 1; }
+  //     return 0;
+  // })
+  }
+
   searchCatalogues() {
     // search for either a matching date string or a collection name
     // or a park name?
@@ -155,7 +184,9 @@ export class ImageCatalogueComponent implements OnInit {
 
     this.catalogues = this.tempCatalogues;
     this.catalogues = this.catalogues.filter((c) => {
-      const date = new Date(c.catalogue.upload_date_time!).toDateString().toLowerCase();
+      const date = new Date(c.catalogue.upload_date_time!)
+        .toDateString()
+        .toLowerCase();
       return date.includes(searchTerm);
     });
   }
@@ -182,7 +213,7 @@ export class ImageCatalogueComponent implements OnInit {
     this.catalogues.sort((a: any, b: any) => a.parkID - b.parkID!);
   }
 
-  enlarge(catalogue:CatalogData) {
+  enlarge(catalogue: CatalogData) {
     const doc = document.getElementById('popup');
     if (doc !== null) {
       this.selectedCatalogue = catalogue;
@@ -190,18 +221,18 @@ export class ImageCatalogueComponent implements OnInit {
     }
   }
 
-  openImageDialog(catalogue:CatalogData): void {
-    this.selectedCatalogue = catalogue
+  openImageDialog(catalogue: CatalogData): void {
+    this.selectedCatalogue = catalogue;
 
     console.log(this.selectedCatalogue);
 
     const dialogRef = this.dialog.open(ImageDialogComponent, {
       width: '100vw',
-      data: { selectedCatalogue: this.selectedCatalogue},
+      data: { selectedCatalogue: this.selectedCatalogue },
     });
   }
 
-  showmap(taskID : string){
-    console.log(taskID)
+  showmap(taskID: string) {
+    console.log(taskID);
   }
 }

@@ -25,8 +25,8 @@
             <mat-label id="right" class="sortLabel">Sort By</mat-label>
             <mat-select matInput (change)="onChangeSort($event)"
               id="left" class="sort" style="display: inline">
-              <mat-option [value]="sort.date" selected>Upload Date</mat-option>
-              <mat-option [value]="sort.park">Park</mat-option>
+              <mat-option [value]="sort.date" selected (click)="orderByDate()">Upload Date</mat-option>
+              <mat-option [value]="sort.park" (click)="orderByPark()">Park</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
