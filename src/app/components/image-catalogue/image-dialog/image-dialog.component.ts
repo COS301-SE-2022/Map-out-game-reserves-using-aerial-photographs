@@ -24,7 +24,9 @@ export class ImageDialogComponent {
   constructor( private router : Router,
     public dialogRef: MatDialogRef<ImageDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
-  ) {this.selectCatalogue = data.selectedCatalogue}
+  ) {
+    this.selectCatalogue = data.selectedCatalogue
+  }
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -33,6 +35,7 @@ export class ImageDialogComponent {
   onSubmit(taskID?: string) {
     if(taskID != null) {
       this.router.navigateByUrl('/map', { state: { taskID: taskID } });
+      this.dialogRef.close();
       return;
     }
     this.router.navigate(['map']);
