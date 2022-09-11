@@ -150,29 +150,43 @@ export class ImageCatalogueComponent implements OnInit {
   }
 
   orderByDate() {
-    for (let i = 0; i < this.catalogues.length - 1; i++) {
-      let swapped = false;
-      for (let j = 0; j < this.catalogues.length - i - 1; j++) {
-        if (
-          this.catalogues[j].catalogue.createdAt >
-          this.catalogues[j + 1].catalogue.createdAt
-        ) {
-          let temp = this.catalogues[j];
-          this.catalogues[j] = this.catalogues[j + 1];
-          this.catalogues[j + 1] = temp;
-          swapped = true;
-        }
+    // for (let i = 0; i < this.catalogues.length - 1; i++) {
+    //   let swapped = false;
+    //   for (let j = 0; j < this.catalogues.length - i - 1; j++) {
+    //     if (
+    //       this.catalogues[j].catalogue.createdAt >
+    //       this.catalogues[j + 1].catalogue.createdAt
+    //     ) {
+    //       let temp = this.catalogues[j];
+    //       this.catalogues[j] = this.catalogues[j + 1];
+    //       this.catalogues[j + 1] = temp;
+    //       swapped = true;
+    //     }
+    //   }
+    //   if (swapped == false) break;
+    // }
+
+    this.catalogues.sort(function (a, b) {
+      if (a.catalogue.createdAt < b.catalogue.createdAt) {
+        return -1;
       }
-      if (swapped == false) break;
-    }
+      if (a.catalogue.createdAt > b.catalogue.createdAt) {
+        return 1;
+      }
+      return 0;
+    });
   }
 
   orderByPark() {
-  //   this.catalogues.sort(function(a, b){
-  //     if(a. < b.firstname) { return -1; }
-  //     if(a.firstname > b.firstname) { return 1; }
-  //     return 0;
-  // })
+    this.catalogues.sort(function (a, b) {
+      if (a.catalogue.GamePark.park_name < b.catalogue.GamePark.park_name) {
+        return -1;
+      }
+      if (a.catalogue.GamePark.park_name > b.catalogue.GamePark.park_name) {
+        return 1;
+      }
+      return 0;
+    });
   }
 
   searchCatalogues() {
