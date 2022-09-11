@@ -198,10 +198,11 @@ export class ImageCatalogueComponent implements OnInit {
 
     this.catalogues = this.tempCatalogues;
     this.catalogues = this.catalogues.filter((c) => {
-      const date = new Date(c.catalogue.upload_date_time!)
-        .toDateString()
-        .toLowerCase();
-      return date.includes(searchTerm);
+      let id = '';
+      if (c.collectionID) {
+        id = c.collectionID.toLowerCase();
+      }
+      return id.includes(searchTerm);
     });
   }
 
