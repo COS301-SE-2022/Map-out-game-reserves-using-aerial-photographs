@@ -31,8 +31,9 @@ interface CatalogData {
   images: ImageData[];
   thumbnails: string[];
   collectionID?: string;
-  completed: boolean | null | undefined;
-  error: boolean | null | undefined;
+  completed: boolean | undefined | null;
+  error: boolean | undefined | null;
+  taskID: string | undefined | null;
 }
 
 @Component({
@@ -93,6 +94,7 @@ export class ImageCatalogueComponent implements OnInit {
             collectionID: catalog?.collectionID,
             completed: catalog?.completed,
             error: catalog?.error,
+            taskID: catalog?.taskID
           });
         }
 
@@ -106,48 +108,68 @@ export class ImageCatalogueComponent implements OnInit {
                 catalogData.images.push({ image: image, url: '' });
               }
 
-              for (const i of catalogData.images) {
-                this.controller
-                  .S3download(
-                    i.image.imageID,
-                    catalogData.catalogue.collectionID,
-                    'images',
-                    false
-                  )
-                  .then((signedURL) => {
-                    i.url = signedURL;
-                  });
-              }
+                for (const i of catalogData.images) {
+                  this.controller
+                    .S3download(
+                      i.image.imageID,
+                      catalogData.catalogue.collectionID,
+                      'images',
+                      false
+                    )
+                    .then((signedURL) => {
+                      i.url = signedURL;
+                    });
+                }
 
-              for (var i = 0; i < 3; i++) {
-                this.controller
-                  .S3download(
-                    'thumbnail_' + i,
-                    catalogData.catalogue.collectionID,
-                    'thumbnails',
-                    false
-                  )
-                  .then((signedURL) => {
-                    catalogData.thumbnails.push(signedURL);
-                  });
-              }
-              // this.sortByDate();
-              this.tempCatalogues = this.catalogues;
-            })
-            .catch((e) => console.log(e));
-        }
+                for(let i = 0;i<3;i++){
+                  this.controller
+                    .S3download(
+                      "thumbnail_"+i,
+                      catalogData.catalogue.collectionID,
+                      'thumbnails',
+                      false
+                    )
+                    .then((signedURL) => {
+                      catalogData.thumbnails.push(signedURL);
+                    });
+                }
+                // this.sortByDate();
+                this.tempCatalogues = this.catalogues;
+              })
+              .catch((e) => console.log(e));
+          }
+        });
+      }
 
-        return data.items;
-      })
-      .catch((e) => {
-        console.log(e);
-        if (e.errors[0].message == 'Network Error') {
-          this.snackbar.open('Network error...', '❌', {
-            verticalPosition: 'top',
-          });
-        }
-      });
-  }
+  //             for (var i = 0; i < 3; i++) {
+  //               this.controller
+  //                 .S3download(
+  //                   'thumbnail_' + i,
+  //                   catalogData.catalogue.collectionID,
+  //                   'thumbnails',
+  //                   false
+  //                 )
+  //                 .then((signedURL) => {
+  //                   catalogData.thumbnails.push(signedURL);
+  //                 });
+  //             }
+  //             // this.sortByDate();
+  //             this.tempCatalogues = this.catalogues;
+  //           })
+  //           .catch((e) => console.log(e));
+  //       }
+
+  //       return data.items;
+  //     })
+  //     .catch((e) => {
+  //       console.log(e);
+  //       if (e.errors[0].message == 'Network Error') {
+  //         this.snackbar.open('Network error...', '❌', {
+  //           verticalPosition: 'top',
+  //         });
+  //       }
+  //     });
+  // }
 
   orderByDate() {
     // for (let i = 0; i < this.catalogues.length - 1; i++) {
