@@ -89,6 +89,8 @@ export class FileUploadComponent implements OnInit{
     { value: '360', viewValue: '360p' },
   ];
 
+  inAnimation: boolean;
+
   constructor(
     private apiController: ControllerService,
     private api: APIService,
@@ -103,8 +105,9 @@ export class FileUploadComponent implements OnInit{
     //   this.uploadFileLocal();
     //   console.log(this.file?.name);
     // })
-
-    //TODO: add park ui
+    //loader
+    this.inAnimation = false;
+    this.fadeOut();
 
     this.api.ListGameParks().then((event: any) => {
       //console.log(event.items[0]?.park_name);
@@ -561,6 +564,23 @@ export class FileUploadComponent implements OnInit{
         return -1;
       });
   }
+  
+  fadeOut () {
+    if (!this.inAnimation){
+      this.inAnimation = true;
+      document.addEventListener('readystatechange', (event) => {
+        if(document.readyState === 'complete'){
+          const loader = document.getElementById("pre-loader");
+          loader!.setAttribute("class", "fade-out");
+          let count = 0;
+          setTimeout(() => {
+            this.inAnimation = false;
+            loader?.remove();
+          }, 3000);
+        }
+      });
+  }
+}
 }
 
 
