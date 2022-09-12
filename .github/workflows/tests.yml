@@ -19,9 +19,6 @@ jobs:
     name: Generate cache
     runs-on: ubuntu-latest
     steps:
-      - env:
-          AWS_ACCESS_KEY_ID: '${{ secrets.AWS_ACCESS_KEY_ID }}'
-          AWS_SECRET_ACCESS_KEY: '${{ secrets.AWS_SECRET_ACCESS_KEY }}'
         #Checking out to the develop branch
       - name: Checkout develop
         uses: actions/checkout@v2
@@ -47,6 +44,9 @@ jobs:
         #generates env variables
       - name: Generate environment.ts file
         run: node ./scripts/setenv.js -- --environment=dev
+        env:
+          AWS_ACCESS_KEY_ID: '${{ secrets.AWS_ACCESS_KEY_ID }}'
+          AWS_SECRET_ACCESS_KEY: '${{ secrets.AWS_SECRET_ACCESS_KEY }}'
 
         #run tests on the entire repository
       - name: Unit Test all
