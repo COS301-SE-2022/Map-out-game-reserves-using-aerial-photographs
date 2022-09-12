@@ -433,10 +433,14 @@ async function createMap(jobID: string) {
             //   "name": "pc-geometric",
             //   "value": "true"       // default: false
             // },
+            {
+              "name": "ignore-gsd",
+              "value": true
+            },
             // IMPORTANT
             {
               "name": "orthophoto-resolution",
-              "value": 5
+              "value": 100
             }
           ];
           formData.append('options', JSON.stringify(optionsArr));
