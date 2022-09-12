@@ -20,15 +20,18 @@ import { PublishCommand } from '@aws-sdk/client-sns';
 import { SNSClient } from '@aws-sdk/client-sns';
 import { environment } from 'src/environments/environment';
 const REGION = "sa-east-1";
+let snsClient: any = null;
 
-const snsClient = new SNSClient({
-  apiVersion: '2010-03-31',
-  region: REGION,
-  credentials: {
-    accessKeyId: environment.AWS_ACCESS_KEY_ID,
-    secretAccessKey: environment.AWS_SECRET_ACCESS_KEY
-  }
-});
+if(!environment.AWS_ACCESS_KEY_ID || ! environment.AWS_SECRET_ACCESS_KEY) {
+  snsClient = new SNSClient({
+    apiVersion: '2010-03-31',
+    region: REGION,
+    credentials: {
+      accessKeyId: environment.AWS_ACCESS_KEY_ID,
+      secretAccessKey: environment.AWS_SECRET_ACCESS_KEY
+    }
+  });
+}
 
 interface Park {
   value: string | undefined;
@@ -564,7 +567,7 @@ export class FileUploadComponent implements OnInit{
         return -1;
       });
   }
-  
+
   fadeOut () {
     if (!this.inAnimation){
       this.inAnimation = true;
