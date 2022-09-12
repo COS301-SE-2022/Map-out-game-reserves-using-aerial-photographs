@@ -20,7 +20,7 @@ const targetPath = isProduction
 let environmentFileContent = "";
 
 if(!process.env.CODECOV_TOKEN) {
-  console.error('CODECOV_TOKEN also not found in environment variables');
+  console.log('CODECOV_TOKEN also not found in environment variables');
 }
 else {
   console.log('CODECOV_TOKEN found in env variable!');
