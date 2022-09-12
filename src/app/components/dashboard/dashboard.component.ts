@@ -35,7 +35,13 @@ export class DashboardComponent implements OnInit {
 
   values = [3, 5, 2, 3, 2, 1, 7, 4];
 
+  inAnimation: boolean;
+
   constructor(private api: APIService, private controller: ControllerService, private snackbar: MatSnackBar) {
+    //loader
+    this.inAnimation = false;
+    this.fadeOut();
+    
     //TODO integrate this bar chart with real data
     this.maps = [
       { Value: this.values[0] },
@@ -213,6 +219,23 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
+
+  fadeOut () {
+    if (!this.inAnimation){
+      this.inAnimation = true;
+      document.addEventListener('readystatechange', (event) => {
+        if(document.readyState === 'complete'){
+          const loader = document.getElementById("pre-loader");
+          loader!.setAttribute("class", "fade-out");
+          let count = 0;
+          setTimeout(() => {
+            this.inAnimation = false;
+            loader?.remove();
+          }, 3000);
+        }
+      });
+  }
+}
 }
 
 class Dashboard_Message {

@@ -54,12 +54,21 @@ export class ImageCatalogueComponent implements OnInit {
     park: 'park',
   };
 
+  inAnimation: boolean;
+  
+  flag=false;
+
   constructor(
     public dialog: MatDialog,
     private api: APIService,
     private controller: ControllerService,
     private snackbar: MatSnackBar
   ) {
+    // window.location.reload();
+    //loader
+    this.inAnimation = false;
+    this.fadeOut();
+
     this.selected = 'date';
     this.getAllCatalogues();
     this.controller.websocket.onmessage = (msg: any) => {
@@ -206,4 +215,24 @@ export class ImageCatalogueComponent implements OnInit {
   showmap(taskID : string){
     console.log(taskID)
   }
+
+  fadeOut () {
+    if (!this.inAnimation){
+      this.inAnimation = true;
+      
+      document.addEventListener('readystatechange', () => {
+        // console.log("YES");
+        if(document.readyState === 'complete'||document.readyState==='interactive'){
+          // console.log("HELLO!!!!!!!!!!!");
+          const loader = document.getElementById("pre-loader");
+          loader!.setAttribute("class", "");
+          loader!.setAttribute("class", "fade-out");
+          setTimeout(() => {
+            this.inAnimation = false;
+            loader?.remove();
+          }, 3000);
+        }
+      });
+  }
+}
 }

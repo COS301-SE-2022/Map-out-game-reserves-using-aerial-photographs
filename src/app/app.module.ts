@@ -37,6 +37,7 @@ import { ControllerService } from './api/controller/controller.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatDividerModule} from '@angular/material/divider';
+import { SpinnerModule } from './components/shared/spinner/spinner.module';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import {MatDividerModule} from '@angular/material/divider';
     FontAwesomeModule,
     MatTooltipModule,
     FlexLayoutModule,
-    MatDividerModule
+    MatDividerModule,
+    SpinnerModule
   ],
   providers: [
     HttpClient,
