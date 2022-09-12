@@ -45,7 +45,7 @@ jobs:
       - name: Generate environment.ts file
         run: node ./scripts/setenv.js -- --environment=dev
         env:
-          CODECOV_TOKEN: ${{ secret.CODECOV_TOKEN }}
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
