@@ -19,6 +19,13 @@ const targetPath = isProduction
 // in the process.env object thanks to dotenv
 let environmentFileContent = "";
 
+if(!process.env.CODECOV_TOKEN) {
+  console.error('CODECOV_TOKEN also not found in environment variables');
+}
+else {
+  console.log('CODECOV_TOKEN found in env variable!');
+}
+
 if(!process.env.AWS_ACCESS_KEY_ID || !process.env.AWS_SECRET_ACCESS_KEY) {
   if(!env.AWS_ACCESS_KEY_ID || !env.AWS_SECRET_ACCESS_KEY){
     console.error('All the required environment variables were not provided.');
