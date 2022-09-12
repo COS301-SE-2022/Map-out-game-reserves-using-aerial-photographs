@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard.component';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
+import { MapboxComponent } from './mapbox/mapbox.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatListModule } from '@angular/material/list';
 import { NavbarModule } from '../shared/navbar/navbar.module';
@@ -12,7 +13,7 @@ import { FooterModule } from '../shared/footer/footer.module';
 
 
 @NgModule({
-  declarations: [DashboardComponent, BarChartComponent],
+  declarations: [DashboardComponent, BarChartComponent, MapboxComponent],
   imports: [
     CommonModule,
     FontAwesomeModule,
