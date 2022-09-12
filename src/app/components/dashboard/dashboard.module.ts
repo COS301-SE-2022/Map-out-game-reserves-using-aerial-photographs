@@ -9,7 +9,7 @@ import { NavbarModule } from '../shared/navbar/navbar.module';
 import { NgChartsModule } from 'ng2-charts';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { FooterModule } from '../shared/footer/footer.module';
-
+import { SpinnerModule } from '../shared/spinner/spinner.module';
 
 
 @NgModule({
@@ -21,7 +21,8 @@ import { FooterModule } from '../shared/footer/footer.module';
     MatSnackBarModule,
     NavbarModule,
     FooterModule,
-    NgChartsModule
+    NgChartsModule,
+    SpinnerModule
   ]
 })
 export class DashboardModule { }

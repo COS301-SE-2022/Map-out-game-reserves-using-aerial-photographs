@@ -1,7 +1,7 @@
-<div id="id01" class="modal">
+  <div id="id01" class="modal">
   <!-- <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span> -->
   <app-footer></app-footer>
-  <form [formGroup]="registerForm" (ngSubmit)="onRegisterFormSubmit(registerForm.value)" class="modal-content">
+  <form [formGroup]="registerForm" (ngSubmit)="onRegisterFormSubmit(registerForm.value)" class="modal-content" id = "form">
     <div class="image" style="display: inline-block">
       <img
         src="../../assets/erpngo-header-full.jpg"
@@ -10,8 +10,11 @@
         height="auto"
       />
     </div>
+    
     <div class="container">
+      
       <div class="container2">
+        
         <h2>REGISTER</h2>
         <hr />
         <!-- <mat-divider></mat-divider> -->
@@ -78,8 +81,14 @@
           <!-- <a  class="button2" aria-current="page">
 
           </a> -->
+          <app-spinner></app-spinner>
         </div>
       </div>
     </div>
+    
   </form>
+  <!-- <app-spinner></app-spinner> -->
+  
 </div>
+
+
