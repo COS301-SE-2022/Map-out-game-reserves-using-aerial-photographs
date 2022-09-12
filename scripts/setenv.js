@@ -4,7 +4,7 @@
 */
 
 const { writeFile } = require('fs');
-const { argv } = require('yargs');
+const { argv, env } = require('yargs');
 
 // read environment variables from .env file
 require('dotenv').config();
@@ -17,13 +17,22 @@ const targetPath = isProduction
    : `./src/environments/environment.ts`;
 // we have access to our environment variables
 // in the process.env object thanks to dotenv
+let environmentFileContent = "";
 
 if(!process.env.AWS_ACCESS_KEY_ID || !process.env.AWS_SECRET_ACCESS_KEY) {
-  console.error('All the required environment variables were not provided.');
-  process.exit(-1);
+  if(!env.AWS_ACCESS_KEY_ID || !env.AWS_SECRET_ACCESS_KEY){
+    console.error('All the required environment variables were not provided.');
+    process.exit(-1);
+  }
+  environmentFileContent = `export const environment = {
+    production: ${isProduction},
+    AWS_ACCESS_KEY_ID: '${env.AWS_ACCESS_KEY_ID}',
+    AWS_SECRET_ACCESS_KEY: '${env.AWS_SECRET_ACCESS_KEY}'
+  };
+  `;
 }
 
-const environmentFileContent = `export const environment = {
+environmentFileContent = `export const environment = {
   production: ${isProduction},
   AWS_ACCESS_KEY_ID: '${process.env.AWS_ACCESS_KEY_ID}',
   AWS_SECRET_ACCESS_KEY: '${process.env.AWS_SECRET_ACCESS_KEY}'
