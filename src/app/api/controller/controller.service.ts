@@ -19,12 +19,6 @@ export class ControllerService {
   constructor(private http: HttpClient, private router: Router, private snackBar: MatSnackBar) {
     // open client WebSocket
     this.websocket = new WebSocket("wss://ha3u3iiggc.execute-api.sa-east-1.amazonaws.com/production/");
-    this.websocket.onopen = () => {
-      this.websocket.send(JSON.stringify({
-        message: "subscribe", //this selects the 'subscribe' API Gateway route (which triggers the onSubscribe lambda function)
-        topic: "maps" //this is the topic we want to subscribe to
-      }));
-    }
     this.websocket.onmessage = (msg: any) => {
       console.log("SNS Message Received");
       msg = JSON.parse(msg);
@@ -37,6 +31,39 @@ export class ControllerService {
     }
     this.websocket.onclose = () => {
       console.log("Websocket connection closed");
+      setTimeout(this.configWebSocket, 250); //reopen websocket in 250ms
+    }
+    this.websocket.onopen = () => {
+      console.log("Websocket connection opened");
+      this.websocket.send(JSON.stringify({
+        message: "subscribe", //this selects the 'subscribe' API Gateway route (which triggers the onSubscribe lambda function)
+        topic: "maps" //this is the topic we want to subscribe to
+      }));
+    }
+  }
+
+  configWebSocket() {
+    this.websocket = new WebSocket("wss://ha3u3iiggc.execute-api.sa-east-1.amazonaws.com/production/");
+    this.websocket.onopen = () => {
+      console.log("Websocket connection opened");
+      this.websocket.send(JSON.stringify({
+        message: "subscribe", //this selects the 'subscribe' API Gateway route (which triggers the onSubscribe lambda function)
+        topic: "maps" //this is the topic we want to subscribe to
+      }));
+    }
+    this.websocket.onmessage = (msg: any) => {
+      console.log("SNS Message Received");
+      msg = JSON.parse(msg);
+      if(msg.status != null && msg.status == 'error') {
+        this.snackBar.open(`Failed to process collectionID: ${msg.collectionID}`, "❌", { verticalPosition: 'top', duration: 3000 });
+      }
+      else {
+        this.snackBar.open(`New map stitching job (${msg}) completed.`, "✔️", { verticalPosition: 'top', duration: 3000 });
+      }
+    }
+    this.websocket.onclose = () => {
+      console.log("Websocket connection closed");
+      setTimeout(this.configWebSocket, 250); //reopen websocket in 250ms
     }
   }
 
