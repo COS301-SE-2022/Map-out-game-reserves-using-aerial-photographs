@@ -17,6 +17,7 @@ const targetPath = isProduction
    : `./src/environments/environment.ts`;
 // we have access to our environment variables
 // in the process.env object thanks to dotenv
+
 if(!process.env.AWS_ACCESS_KEY_ID || !process.env.AWS_SECRET_ACCESS_KEY) {
   console.error('All the required environment variables were not provided.');
   process.exit(-1);
@@ -29,7 +30,7 @@ const environmentFileContent = `export const environment = {
 };
 `;
 // write the content to the respective file
-writeFile(targetPath, environmentFileContent, function (err: any) {
+writeFile(targetPath, environmentFileContent, function (err) {
    if (err) {
       console.log(err);
    }

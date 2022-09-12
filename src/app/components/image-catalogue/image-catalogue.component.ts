@@ -30,8 +30,9 @@ interface CatalogData {
   images: ImageData[];
   thumbnails: string[];
   collectionID?: string;
-  completed: boolean | null | undefined;
-  error: boolean | null | undefined;
+  completed: boolean | undefined | null;
+  error: boolean | undefined | null;
+  taskID: string | undefined | null;
 }
 
 @Component({
@@ -88,8 +89,9 @@ export class ImageCatalogueComponent implements OnInit {
             thumbnails: [],
             collectionID: catalog?.collectionID,
             completed: catalog?.completed,
-            error: catalog?.error
-          })
+            error: catalog?.error,
+            taskID: catalog?.taskID
+          });
         }
 
         for (const catalogData of this.catalogues){
@@ -115,7 +117,7 @@ export class ImageCatalogueComponent implements OnInit {
                     });
                 }
 
-                for(var i = 0;i<3;i++){
+                for(let i = 0;i<3;i++){
                   this.controller
                     .S3download(
                       "thumbnail_"+i,
