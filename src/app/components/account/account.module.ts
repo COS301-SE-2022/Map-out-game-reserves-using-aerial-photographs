@@ -18,6 +18,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import {MatDividerModule} from '@angular/material/divider';
 import { FooterModule } from '../shared/footer/footer.module';
+import { SpinnerModule } from '../shared/spinner/spinner.module';
 
 @NgModule({
   declarations: [ AccountComponent, PasswordDialogComponent, NameDialogComponent, EmailDialogComponent, RegisterLinkDialogComponent ],
@@ -36,7 +37,8 @@ import { FooterModule } from '../shared/footer/footer.module';
     ReactiveFormsModule,
     FontAwesomeModule,
     FooterModule,
-    MatDividerModule
+    MatDividerModule, 
+    SpinnerModule
   ]
 })
 export class AccountModule { }

@@ -50,6 +50,7 @@ export class AccountComponent implements OnInit {
   roleForm: UntypedFormGroup;
   passwordVisible: boolean = false;
   closedeye = faEyeSlash;
+  inAnimation: boolean;
 
 
   constructor(
@@ -58,6 +59,9 @@ export class AccountComponent implements OnInit {
     public dialog: MatDialog,
     private snackBar: MatSnackBar
   ) {
+     //loader
+     this.inAnimation = false;
+     this.fadeOut();
     this.registerForm = new UntypedFormGroup({
       inviteEmail: new UntypedFormControl('', [Validators.required, Validators.email]),
     });
@@ -229,4 +233,20 @@ export class AccountComponent implements OnInit {
         console.log('error signing out: ', error);
     }
   }
+  fadeOut () {
+    if (!this.inAnimation){
+      this.inAnimation = true;
+      document.addEventListener('readystatechange', (event) => {
+        if(document.readyState === 'complete'){
+          const loader = document.getElementById("pre-loader");
+          loader!.setAttribute("class", "fade-out");
+          let count = 0;
+          setTimeout(() => {
+            this.inAnimation = false;
+            loader?.remove();
+          }, 3000);
+        }
+      });
+  }
+}
 }

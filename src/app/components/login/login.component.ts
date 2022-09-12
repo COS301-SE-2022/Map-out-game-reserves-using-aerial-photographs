@@ -46,6 +46,9 @@ export class LoginComponent {
       try {
         const user = await Auth.signIn(email.value, password.value);
         this.router.navigate(['dashboard']);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1);
         this.loggedIn.emit(user); //for unit testing purposes
       } catch (error) {
           console.log('error signing in', error);
@@ -73,21 +76,5 @@ export class LoginComponent {
       });
   }
 }
-
-  // this.spin.to($('.blade'), 0.6, {
-  //   rotation: 360,
-  //   repeat: -1,
-  //   transformOrigin: '50% 50%',
-  //   ease: Linear.easeNone
-  // });
-
-// loading.to($('.loadingText'), 1, {
-//         opacity: 0,
-//         ease: Linear.easeNone
-//     })
-//     .to($('.loadingText'), 1, {
-//         opacity: 1,
-//         ease: Linear.easeNone
-//     });
 
 }
