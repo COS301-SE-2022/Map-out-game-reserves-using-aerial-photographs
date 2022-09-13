@@ -7,13 +7,11 @@
 </mat-dialog-content>
 <mat-dialog-actions align="start">
   <button mat-button (click)="onNoClick()" color="warn">Close</button>
-  <ng-template *ngIf="selectCatalogue != null">
-    <button *ngIf="selectCatalogue.completed; else elseBlock" mat-button (click)="onSubmit(selectCatalogue.taskID)" color="primary" type="button" matTooltip="View the stitched map">View Map</button>
-    <ng-template #elseBlock>
-      <button *ngIf="selectCatalogue.error; else lastElseBlock" mat-button color="primary" type="button" matTooltip="The map cannot be processed" disabled>Error</button>
-      <ng-template #lastElseBlock>
-        <button mat-button (click)="onSubmit()" color="primary" type="button" matTooltip="The map is busy processing" disabled>Map Pending</button>
-      </ng-template>
+  <button *ngIf="selectCatalogue?.completed; else elseBlock" mat-button (click)="onSubmit(selectCatalogue.taskID)" color="primary" type="button" matTooltip="View the stitched map">View Map</button>
+  <ng-template #elseBlock>
+    <button *ngIf="selectCatalogue?.error; else lastElseBlock" mat-button color="primary" type="button" matTooltip="The map cannot be processed" disabled>Error</button>
+    <ng-template #lastElseBlock>
+      <button mat-button (click)="onSubmit()" color="primary" type="button" matTooltip="The map is busy processing" disabled>Map Pending</button>
     </ng-template>
   </ng-template>
 </mat-dialog-actions>

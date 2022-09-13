@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { SpinnerModule } from '../shared/spinner/spinner.module';
 
 @NgModule({
   declarations: [ FileUploadComponent, ParksDialogComponent ],
@@ -29,7 +30,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatDialogModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatButtonModule
+    MatButtonModule, 
+    SpinnerModule
   ]
 })
 export class FileUploadModule { }

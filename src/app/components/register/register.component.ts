@@ -17,10 +17,16 @@ export class RegisterComponent {
   @Output() dialogState = new EventEmitter<any>(); //integration testing purposes
   registerForm: UntypedFormGroup;
   isSubmitted: boolean;
+  inAnimation: boolean;
 
   title = 'register-component';
 
+
   constructor(private apiController: ControllerService, private router: Router, public snackBar: MatSnackBar, public dialog: MatDialog) {
+    //loader
+    this.inAnimation = false;
+    this.fadeOut();
+
     this.registerForm = new UntypedFormGroup({
       user_email: new UntypedFormControl('', [Validators.required, Validators.email]),
       user_password: new UntypedFormControl('', [Validators.required]),
@@ -69,6 +75,9 @@ export class RegisterComponent {
           this.apiController.finishRegistration(user).then(async (res: number) => {
             if (res == 1) {
               this.router.navigate(['dashboard']);
+              setTimeout(() => {
+                window.location.reload();
+              }, 1);
             }
 
             this.registered.emit(res); //integration testing purposes
@@ -117,4 +126,21 @@ export class RegisterComponent {
   public get password() { return this.registerForm.get('user_password'); }
   public get repeatedPassword() { return this.registerForm.get('repeatedPassword'); }
   public get name() { return this.registerForm.get('user_name'); }
+
+  fadeOut () {
+    if (!this.inAnimation){
+      this.inAnimation = true;
+      document.addEventListener('readystatechange', (event) => {
+        if(document.readyState === 'complete'){
+          const loader = document.getElementById("pre-loader");
+          loader!.setAttribute("class", "fade-out");
+          let count = 0;
+          setTimeout(() => {
+            this.inAnimation = false;
+            loader?.remove();
+          }, 3000);
+        }
+      });
+  }
+}
 }

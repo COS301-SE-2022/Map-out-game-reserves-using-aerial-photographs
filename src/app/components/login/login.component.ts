@@ -4,6 +4,8 @@ import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } 
 import { HttpClient } from '@angular/common/http';
 import { ControllerService } from 'src/app/api/controller/controller.service';
 import { Auth } from 'aws-amplify';
+import { ThisReceiver } from '@angular/compiler';
+import { faDownLeftAndUpRightToCenter } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'aerial-mapping-login',
@@ -17,13 +19,21 @@ export class LoginComponent {
 
   loginForm: UntypedFormGroup;
   isSubmitted: boolean;
-
+  inAnimation: boolean;
+  
   constructor(private formBuilder: UntypedFormBuilder, private router: Router, private http: HttpClient) {
+    //loader
+    
+    this.inAnimation = false;
+
+    this.fadeOut();
+       
     this.loginForm = this.formBuilder.group({
       email: new UntypedFormControl('', [Validators.required, Validators.email]),
       password: new UntypedFormControl('', [Validators.required])
     });
     this.isSubmitted = false;
+
   }
 
   async login() {
@@ -36,6 +46,9 @@ export class LoginComponent {
       try {
         const user = await Auth.signIn(email.value, password.value);
         this.router.navigate(['dashboard']);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1);
         this.loggedIn.emit(user); //for unit testing purposes
       } catch (error) {
           console.log('error signing in', error);
@@ -46,4 +59,22 @@ export class LoginComponent {
 
   get email() { return this.loginForm.get('email'); }
   get password() { return this.loginForm.get('password'); }
+
+  fadeOut () {
+    if (!this.inAnimation){
+      this.inAnimation = true;
+      document.addEventListener('readystatechange', (event) => {
+        if(document.readyState === 'complete'){
+          const loader = document.getElementById("pre-loader");
+          loader!.setAttribute("class", "fade-out");
+          let count = 0;
+          setTimeout(() => {
+            this.inAnimation = false;
+            loader?.remove();
+          }, 3000);
+        }
+      });
+  }
+}
+
 }

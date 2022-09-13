@@ -36,21 +36,16 @@ mat-hint {
 
 mat-form-field {
   display: block;
-  //flex-direction: column;
-  //align-items: flex-start;
   background-color: rgb(255, 255, 255, 0.25);
   font-family: 'Tahoma';
   color: gray;
-  //padding-bottom: 15px;
-  //border: 1px solid $primary;
   margin: 10px;
   width: 93%;
   height: 52px;
 }
 
 mat-form-field:hover {
-  //color:rgb(176, 176, 176);
-  //border: 1px solid darkgray;
+  
 }
 
 button {
