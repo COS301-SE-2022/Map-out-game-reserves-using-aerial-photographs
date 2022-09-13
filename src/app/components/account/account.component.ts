@@ -229,6 +229,9 @@ export class AccountComponent implements OnInit {
     try {
       await Auth.signOut();
       this.router.navigate(['login']);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1);
     } catch (error) {
         console.log('error signing out: ', error);
     }
