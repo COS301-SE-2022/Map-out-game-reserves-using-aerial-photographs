@@ -41,18 +41,13 @@ jobs:
       - name: Install packages
         run: npm install
 
-      - name: Store first variable
-        run: echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
-
-      - name: Store second variable
-        run: echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
-
         #generates env variables
-      - name: Generate environment.ts file
-        run: node ./scripts/setenv.js -- --environment=dev
-        env:
-          AWS_ACCESS_KEY_ID: '${{ env.AWS_ACCESS_KEY_ID }}'
-          AWS_SECRET_ACCESS_KEY: '${{ env.AWS_SECRET_ACCESS_KEY }}'
+      # - name: Generate environment.ts file
+      #   env:
+      #     CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #   run: node ./scripts/setenv.js -- --environment=dev
 
         #run tests on the entire repository
       - name: Unit Test all

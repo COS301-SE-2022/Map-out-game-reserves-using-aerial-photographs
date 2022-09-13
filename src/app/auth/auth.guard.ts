@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { Auth } from 'aws-amplify';
-import { Observable } from 'rxjs';
+import { AWSAmplifyWrapper } from './aws-amplify-wrapper';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private router: Router) {}
+  //Injecting in aws Auth library for testing purposes
+  constructor(private router: Router, public authWrapper: AWSAmplifyWrapper) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    return Auth.currentAuthenticatedUser().then(() => { return true; })
+    state: RouterStateSnapshot): Promise<boolean> {
+    return this.authWrapper.getAuth().currentAuthenticatedUser().then(() => { return true; })
       .catch(() => {
         this.router.navigate(['login']);
         return false;

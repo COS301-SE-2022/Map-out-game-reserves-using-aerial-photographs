@@ -104,27 +104,7 @@ async function main(): Promise<void> {
     await checkPendingJobs();
 
     // 3)
-    websocket = new WebSocket("wss://ha3u3iiggc.execute-api.sa-east-1.amazonaws.com/production/");
-
-    websocket.onopen = () => {
-      console.log("[SERVER] Websocket opened");
-
-      websocket.send(JSON.stringify({
-        message: "subscribe", //this selects the 'subscribe' WebSocket API Gateway route (which triggers the onSubscribe lambda function)
-        topic: "stitch_jobs" //this is the topic we want to subscribe to
-      }));
-    }
-
-    websocket.onmessage = function (str: any) {
-      console.log("[SERVER] SNS message received");
-
-      //brand new job received, check the pending jobs table for the new job
-      checkPendingJobs();
-    };
-
-    websocket.onclose = () => {
-      console.log("[SERVER] Websocket connection closed");
-    }
+    configWebSocket();
 
     // 4)
     // poll list of tasks from WebODM
@@ -159,14 +139,12 @@ async function authenticateWithWebOdm(): Promise<void> {
             projectId = projects[0].id;
           })
           .catch(err => {
-            //console.log("Error: ", err);
             throw new Error('\nError while authenticating with WebODM. Make sure WebODM is running.\n\n');
           });
       })
       .catch(err => {
-        //console.log("Error: ", err);
         throw new Error('\nError while authenticating with WebODM. Make sure WebODM is running.\n\n');
-        //inform user that WebODM is not running here
+        //TODO: inform user that WebODM is not running here
       });
   } catch (e) {
     throw new Error('\nError while authenticating with WebODM. Make sure WebODM is running.\n\n');
@@ -230,7 +208,6 @@ async function pollWebODM() {
   })
     .then(async (resp: any) => {
       const listOfTasks: WebODMListTasksResponse[] = await resp.json();
-      //console.log("[LIST OF TASKS]", listOfTasks);
 
       listOfTasks.forEach((task: WebODMListTasksResponse) => {
         //if not in the completedJobs array
@@ -343,7 +320,6 @@ async function pollWebODM() {
       });
     })
     .catch((err: any) => {
-      //console.log("Error: ", err);
       throw new Error('Error while fetching list of tasks from WebODM. Make sure WebODM is running.');
     });
 
@@ -372,116 +348,118 @@ async function createMap(jobID: string) {
       console.log("Query error: ", err);
       return -1;
     }
-    else {
-      for (let img of data.Items) {
-        fileKeyList.push('public/' + jobID + "/images/" + img.imageID);
-      }
-      //pull the image's content from S3
-      for (let key of fileKeyList) {
-        promises.push(S3download(key));
-      }
-      Promise.all(promises)
-        .then(async function (results) {
-          //add all images from S3 into fileContentList array
-          for (let index in results) {
-            let content = results[index];
-            fileContentList.push(content.Body);
-          }
 
-          // append all image's content to formData
-          let formData = new formdata();
-          let count = 0;
-          for (let img of fileContentList) {
-            formData.append('images', img, { filename: `${fileKeyList[count]}.png` });
-            count++;
-          }
-
-          // Set options for new task
-          const optionsArr = [
-            // Set feature extraction quality. Higher quality generates better features, but requires more memory and takes longer.
-            // {
-            // "name": "feature-quality",
-            // "value": "low"            // values are: ultra, high, medium, low, lowest
-            // },
-            // // Matcher algorithm, Fast Library for Approximate Nearest Neighbors or Bag of Words. FLANN is slower, but more stable. BOW is faster, but can sometimes miss valid matches. BRUTEFORCE is very slow but robust.
-            // {
-            //   "name": "matcher-type",
-            //   "value": "bruteforce"     // values are: bruteforce, flann, bow
-            // },
-            // // Controls the density of the point cloud by setting the resolution of the depthmap images. Higher values take longer to compute but produce denser point clouds.
-            // // {
-            // //   "name": "depthmap-resolution",
-            // //   "value": "1280"           // default: 640
-            // // },
-            // // Skip generation of PDF report. This can save time if you don't need a report.
-            // {
-            //   "name": "skip-report",
-            //   "value": "true"
-            // },
-            // // Ignore Ground Sampling Distance (GSD). GSD caps the maximum resolution of image outputs and resizes images when necessary, resulting in faster processing and lower memory usage. Since GSD is an estimate, sometimes ignoring it can result in slightly better image output quality.
-            // {
-            //   "name": "ignore-gsd",
-            //   "value": "true"
-            // },
-            // // Set point cloud quality. Higher quality generates better, denser point clouds, but requires more memory and takes longer. Each step up in quality increases processing time roughly by a factor of 4x.
-            // {
-            //   "name": "pc-quality",
-            //   "value": "ultra"      // values are: ultra, high, medium, low, lowest
-            // },
-            // // Improve the accuracy of the point cloud by computing geometrically consistent depthmaps. This increases processing time, but can improve results in urban scenes.
-            // {
-            //   "name": "pc-geometric",
-            //   "value": "true"       // default: false
-            // },
-            // IMPORTANT
-            {
-              "name": "orthophoto-resolution",
-              "value": 5
-            }
-          ];
-          formData.append('options', JSON.stringify(optionsArr));
-
-          // start new WebODM stitching job - call createTask API endpoint
-          let response = await fetch('http://localhost:8000/api/projects/1/tasks/', {
-            method: 'POST',
-            body: formData,
-            headers: {
-              "Authorization": `JWT ${tokenResp.token}`
-            }
-          });
-          let result: WebODMCreateTaskResponse = await response.json();
-          console.log("CREATE TASK RESULT: ", result);
-
-          if (result.id == undefined) {
-            console.log("Error: Cannot create task");
-            return -1;
-          }
-          const taskID = result.id;
-
-          //set the taskID and set 'pending' to true on this image collection in DynamoDB
-          const params = {
-            TableName: IMAGE_COLLECTION_TABLE,
-            Key: {
-              "collectionID": jobID
-            },
-            ExpressionAttributeNames: {
-              "#p": "pending"
-            },
-            UpdateExpression: "set #p = :x, taskID = :task",
-            ExpressionAttributeValues: {
-              ":x": true,
-              ":task": taskID
-            }
-          }
-          docClient.update(params, function (updateErr, updateRes) {
-            if (updateErr) console.log(updateErr);
-            else console.log("\n[CREATE MAP] updating image collection: ", updateRes);
-          });
-        })
-        .catch(function (err) {
-          console.log(err);
-        });
+    for (let img of data.Items) {
+      fileKeyList.push('public/' + jobID + "/images/" + img.imageID);
     }
+    //pull the image's content from S3
+    for (let key of fileKeyList) {
+      promises.push(S3download(key));
+    }
+    Promise.all(promises)
+      .then(async function (results) {
+        //add all images from S3 into fileContentList array
+        for (let index in results) {
+          let content = results[index];
+          fileContentList.push(content.Body);
+        }
+
+        // append all image's content to formData
+        let formData = new formdata();
+        let count = 0;
+        for (let img of fileContentList) {
+          formData.append('images', img, { filename: `${fileKeyList[count]}.png` });
+          count++;
+        }
+
+        // Set options for new task
+        const optionsArr = [
+          // Set feature extraction quality. Higher quality generates better features, but requires more memory and takes longer.
+          // {
+          // "name": "feature-quality",
+          // "value": "low"            // values are: ultra, high, medium, low, lowest
+          // },
+          // // Matcher algorithm, Fast Library for Approximate Nearest Neighbors or Bag of Words. FLANN is slower, but more stable. BOW is faster, but can sometimes miss valid matches. BRUTEFORCE is very slow but robust.
+          // {
+          //   "name": "matcher-type",
+          //   "value": "bruteforce"     // values are: bruteforce, flann, bow
+          // },
+          // // Controls the density of the point cloud by setting the resolution of the depthmap images. Higher values take longer to compute but produce denser point clouds.
+          // // {
+          // //   "name": "depthmap-resolution",
+          // //   "value": "1280"           // default: 640
+          // // },
+          // // Skip generation of PDF report. This can save time if you don't need a report.
+          // {
+          //   "name": "skip-report",
+          //   "value": "true"
+          // },
+          // // Ignore Ground Sampling Distance (GSD). GSD caps the maximum resolution of image outputs and resizes images when necessary, resulting in faster processing and lower memory usage. Since GSD is an estimate, sometimes ignoring it can result in slightly better image output quality.
+          // {
+          //   "name": "ignore-gsd",
+          //   "value": "true"
+          // },
+          // // Set point cloud quality. Higher quality generates better, denser point clouds, but requires more memory and takes longer. Each step up in quality increases processing time roughly by a factor of 4x.
+          // {
+          //   "name": "pc-quality",
+          //   "value": "ultra"      // values are: ultra, high, medium, low, lowest
+          // },
+          // // Improve the accuracy of the point cloud by computing geometrically consistent depthmaps. This increases processing time, but can improve results in urban scenes.
+          // {
+          //   "name": "pc-geometric",
+          //   "value": "true"       // default: false
+          // },
+          {
+            "name": "ignore-gsd",
+            "value": true
+          },
+          {
+            "name": "orthophoto-resolution",
+            "value": 0.1
+          }
+        ];
+        formData.append('options', JSON.stringify(optionsArr));
+
+        // start new WebODM stitching job - call createTask API endpoint
+        let response = await fetch('http://localhost:8000/api/projects/1/tasks/', {
+          method: 'POST',
+          body: formData,
+          headers: {
+            "Authorization": `JWT ${tokenResp.token}`
+          }
+        });
+        let result: WebODMCreateTaskResponse = await response.json();
+        console.log("CREATE TASK RESULT: ", result);
+
+        if (result.id == undefined) {
+          console.log("Error: Cannot create task");
+          return -1;
+        }
+        const taskID = result.id;
+
+        //set the taskID and set 'pending' to true on this image collection in DynamoDB
+        const params = {
+          TableName: IMAGE_COLLECTION_TABLE,
+          Key: {
+            "collectionID": jobID
+          },
+          ExpressionAttributeNames: {
+            "#p": "pending"
+          },
+          UpdateExpression: "set #p = :x, taskID = :task",
+          ExpressionAttributeValues: {
+            ":x": true,
+            ":task": taskID
+          }
+        }
+        docClient.update(params, function (updateErr, updateRes) {
+          if (updateErr) console.log(updateErr);
+          else console.log("\n[CREATE MAP] updating image collection: ", updateRes);
+        });
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
   });
 }
 
@@ -558,6 +536,35 @@ async function publishSNSNotification(collectionID: string, status: string) {
     console.log("Error in SNS publishing")
     console.error(err, err.stack);
   });
+}
+
+function configWebSocket() {
+  websocket = new WebSocket("wss://ha3u3iiggc.execute-api.sa-east-1.amazonaws.com/production/");
+
+  websocket.onopen = () => {
+    console.log("[SERVER] Websocket opened");
+
+    websocket.send(JSON.stringify({
+      message: "subscribe", //this selects the 'subscribe' WebSocket API Gateway route (which triggers the onSubscribe lambda function)
+      topic: "stitch_jobs" //this is the topic we want to subscribe to
+    }));
+  }
+
+  websocket.onmessage = function (_msg: any) {
+    console.log("[SERVER] SNS message received");
+
+    //brand new job received, check the pending jobs table for the new job
+    checkPendingJobs();
+  };
+
+  websocket.onerror = function (msg: any) {
+    console.log("[SERVER] WebSocket onerror: ", msg);
+  }
+
+  websocket.onclose = () => {
+    console.log("[SERVER] Websocket connection closed");
+    setTimeout(configWebSocket, 250); //reopen websocket in 250ms
+  }
 }
 
 // What if WebODM is turned off mid-job?
