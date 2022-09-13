@@ -25,12 +25,12 @@ let snsClient = new SNSClient({
   apiVersion: '2010-03-31',
   region: REGION,
   credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!
+    accessKeyId: process.env.ACCESS_KEY_ID!,
+    secretAccessKey: process.env.SECRET_ACCESS_KEY!
   }
   // credentials: {
-    //accessKeyId: environment.AWS_ACCESS_KEY_ID,
-    //secretAccessKey: environment.AWS_SECRET_ACCESS_KEY
+    //accessKeyId: environment.ACCESS_KEY_ID,
+    //secretAccessKey: environment.SECRET_ACCESS_KEY
   //}
 });
 

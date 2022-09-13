@@ -6,8 +6,8 @@ config();
 module.exports = {
   plugins: [
     new EnvironmentPlugin({
-      AWS_ACCESS_KEY_ID: 'defaultvalue',
-      AWS_SECRET_ACCESS_KEY: 'defaultvalue'
+      ACCESS_KEY_ID: 'defaultvalue',
+      SECRET_ACCESS_KEY: 'defaultvalue'
     })
   ]
 };
