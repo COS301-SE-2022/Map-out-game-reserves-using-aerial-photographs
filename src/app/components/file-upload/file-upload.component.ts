@@ -1,7 +1,7 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Auth } from 'aws-amplify';
+
 import {
   APIService,
   CreateImagesInput,
@@ -56,7 +56,7 @@ interface ImageSize {
   styleUrls: ['./file-upload.component.scss'],
 })
 
-export class FileUploadComponent implements OnInit{
+export class FileUploadComponent {
   @ViewChild("parks") parks!: ElementRef<HTMLInputElement>;
 
   title = 'file-upload-component';
@@ -99,6 +99,7 @@ export class FileUploadComponent implements OnInit{
   constructor(
     private apiController: ControllerService,
     private api: APIService,
+    private router: Router,
     private snackBar: MatSnackBar,
     public dialog: MatDialog
   ) {
@@ -124,10 +125,6 @@ export class FileUploadComponent implements OnInit{
         });
       }
     });
-  }
-
-  async ngOnInit() {
-
   }
 
   uploadFileLocal(ev: Event) {
@@ -235,9 +232,12 @@ export class FileUploadComponent implements OnInit{
           console.log("CreatePendingJob response:", resp);
 
           //wait for all promises to resolve
-          Promise.all(promises).then(() => {
+          Promise.all(promises).then(async () => {
             //publish SNS message to 'stitch_jobs' topic with the jobID - once all image uploads are complete
-            this.publishSNSNotification();
+            await this.publishSNSNotification();
+
+            //route to map catalogue page
+            this.router.navigate(['map-catalogue']);
           });
         });
       }).catch(e => { console.log(e) });
