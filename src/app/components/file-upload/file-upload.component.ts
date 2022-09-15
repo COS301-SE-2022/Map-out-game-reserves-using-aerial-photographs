@@ -280,6 +280,7 @@ export class FileUploadComponent {
   }
 
   async uploadImages(collectionID: string): Promise<any> {
+    document.getElementById('video')!.innerHTML='';
     return new Promise<any>(async (resolve) => {
       let promises = [];
       const frames = [];

@@ -103,7 +103,7 @@
             </div>
             <!-- <br/> -->
             <!-- <h4 class="variable">{{ fileName}}</h4> -->
-              <div class="videoSplitting" *ngIf="submitPressed">
+              <div class="videoSplitting" *ngIf="submitPressed" id = "video">
                 <mat-progress-bar mode="determinate" value={{splittingProgress}}></mat-progress-bar>
                 Splitting Video {{ splittingProgress }}%
               </div>
