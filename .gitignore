@@ -2,8 +2,9 @@
 
 # dotenv environment variables files
 .env
-src/environments/environment.ts
-src/environments/environment.prod.ts
+# below no longer necessary
+# src/environments/environment.ts
+# src/environments/environment.prod.ts
 
 # Compiled output
 /dist
