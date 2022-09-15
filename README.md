@@ -6,11 +6,11 @@
   </a> 
 
 [![codecov](https://codecov.io/gh/COS301-SE-2022/Map-out-game-reserves-using-aerial-photographs/branch/develop/graph/badge.svg?token=G5PT5BHCO4)](https://codecov.io/gh/COS301-SE-2022/Map-out-game-reserves-using-aerial-photographs)
-
-[![Default Test](https://github.com/COS301-SE-2022/Map-out-game-reserves-using-aerial-photographs/actions/workflows/nxtest.yml/badge.svg)](https://github.com/COS301-SE-2022/Map-out-game-reserves-using-aerial-photographs/actions/workflows/nxtest.yml)
+![GitHub issues](https://img.shields.io/github/issues/COS301-SE-2022/Map-out-game-reserves-using-aerial-photographs)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/COS301-SE-2022/Map-out-game-reserves-using-aerial-photographs)
+<img src="https://img.shields.io/github/languages/count/COS301-SE-2022/Map-out-game-reserves-using-aerial-photographs?style=plastic">
 
 [![Dependencies](https://img.shields.io/librariesio/github/COS301-SE-2022/Map-out-game-reserves-using-aerial-photographs)](https://libraries.io/github/COS301-SE-2022/Map-out-game-reserves-using-aerial-photographs)
-<!-- [![Issues](https://img.shields.io/github/issues/COS301-SE-2022/Map-out-game-reserves-using-aerial-photographs)](https://github.com/COS301-SE-2022/Map-out-game-reserves-using-aerial-photographs/issues) -->
 
 <h1>Map Out Game Reserves Using Aerial Photographs</h1>
 

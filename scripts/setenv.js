@@ -26,23 +26,23 @@ else {
   console.log('CODECOV_TOKEN found in env variable!');
 }
 
-if(!process.env.AWS_ACCESS_KEY_ID || !process.env.AWS_SECRET_ACCESS_KEY) {
-  if(!env.AWS_ACCESS_KEY_ID || !env.AWS_SECRET_ACCESS_KEY){
+if(!process.env.ACCESS_KEY_ID || !process.env.SECRET_ACCESS_KEY) {
+  if(!env.ACCESS_KEY_ID || !env.SECRET_ACCESS_KEY){
     console.error('All the required environment variables were not provided.');
     process.exit(-1);
   }
   environmentFileContent = `export const environment = {
     production: ${isProduction},
-    AWS_ACCESS_KEY_ID: '${env.AWS_ACCESS_KEY_ID}',
-    AWS_SECRET_ACCESS_KEY: '${env.AWS_SECRET_ACCESS_KEY}'
+    AWS_ACCESS_KEY_ID: '${env.ACCESS_KEY_ID}',
+    AWS_SECRET_ACCESS_KEY: '${env.SECRET_ACCESS_KEY}'
   };
   `;
 }
 
 environmentFileContent = `export const environment = {
   production: ${isProduction},
-  AWS_ACCESS_KEY_ID: '${process.env.AWS_ACCESS_KEY_ID}',
-  AWS_SECRET_ACCESS_KEY: '${process.env.AWS_SECRET_ACCESS_KEY}'
+  AWS_ACCESS_KEY_ID: '${process.env.ACCESS_KEY_ID}',
+  AWS_SECRET_ACCESS_KEY: '${process.env.SECRET_ACCESS_KEY}'
 };
 `;
 // write the content to the respective file
