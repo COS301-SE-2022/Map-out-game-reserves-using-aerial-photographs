@@ -1,12 +1,14 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { APIService } from 'src/app/API.service';
 
 export interface CatalogData {
   completed: boolean | undefined,
   error: boolean | undefined,
   images: any,
-  taskID: string | undefined
+  taskID: string | undefined,
+  collectionID: string
 }
 
 export interface DialogData {
@@ -23,7 +25,7 @@ export class ImageDialogComponent {
   selectCatalogue: CatalogData;
   spinners: HTMLElement[];
 
-  constructor( private router : Router,
+  constructor( private router : Router, private api: APIService,
     public dialogRef: MatDialogRef<ImageDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {
@@ -39,6 +41,15 @@ export class ImageDialogComponent {
   }
 
   onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  onDeleteClick(tryAgain:boolean): void {
+    //add delete code here
+    // this.api.DeleteImageCollection(this.selectCatalogue.collectionID);
+    if (tryAgain) {
+      this.router.navigateByUrl('/create-map');
+    }
     this.dialogRef.close();
   }
 
