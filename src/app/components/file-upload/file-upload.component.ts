@@ -238,23 +238,29 @@ export class FileUploadComponent {
         this.api.CreatePendingJobs(pendingJob).then((resp: any) => {
           console.log("CreatePendingJob response:", resp);
 
-          console.log("LENGTH"+promises.length);
+          // console.log("LENGTH"+promises.length);
           //wait for all promises to resolve
           Promise.all(promises).then(async () => {
-            console.log("PROMISES");
-            console.log(promises);
+            // console.log("PROMISES");
+            // console.log(promises);
             //publish SNS message to 'stitch_jobs' topic with the jobID - once all image uploads are complete
             await this.publishSNSNotification();
 
             //route to map catalogue page
             //this.router.navigate(['map-catalogue']);
               document.getElementById('buttons')!.style.display='block';
-              document.getElementById('successful-submit')!.innerHTML='<h4 class="variable" style="color: #5f5f5f;">You can now navigate to the map catalogue to see the result of your upload</h4>';
+              if(document.getElementById('successful-submit')){
+                document.getElementById('successful-submit')!.innerHTML='<h4 class="variable" style="color: #5f5f5f;">You can now navigate to the map catalogue to see the result of your upload</h4>';
+              }
               this.outputs = Array.from(document.getElementsByClassName('videoSplitting') as HTMLCollectionOf<HTMLElement>);
-              this.outputs.forEach(output => {
-                output.innerHTML="";
-              });
-            
+          
+              if(this.outputs!=null){
+                this.outputs.forEach(output => {
+                  if(output!=null){
+                    output.innerHTML="";
+                  }
+                });
+              }
           });
         });
       }).catch(e => { console.log(e) });
@@ -290,7 +296,10 @@ export class FileUploadComponent {
   }
 
   async uploadImages(collectionID: string): Promise<any> {
-    document.getElementById('video')!.innerHTML='';
+    if(document.getElementById('video')!=null){ //for testing purposes
+      document.getElementById('video')!.innerHTML='';
+    }
+    
     return new Promise<any>(async (resolve) => {
       let promises = [];
       const frames = [];
@@ -318,12 +327,6 @@ export class FileUploadComponent {
         promises.push(
           this.api
             .CreateImages(inp)
-            .then((resp: any) => {
-              console.log(resp);
-            })
-            .catch((e: any) => {
-              console.log(e);
-            })
         );
 
         promises.push(this.uploadToS3(collectionID, inp.imageID, frames[i]));
