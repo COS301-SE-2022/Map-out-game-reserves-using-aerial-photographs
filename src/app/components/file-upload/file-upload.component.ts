@@ -76,6 +76,8 @@ export class FileUploadComponent {
   name: string = "";
   location: string = "";
   address: string = "";
+  
+  outputs: HTMLElement[];
 
   parksList: Park[] = [
     // {value: 'Somkhanda-1', viewValue: 'Somkhanda'},
@@ -111,6 +113,7 @@ export class FileUploadComponent {
     //   this.uploadFileLocal();
     //   console.log(this.file?.name);
     // })
+    this.outputs = [];
     //loader
     this.inAnimation = false;
     this.fadeOut();
@@ -216,6 +219,10 @@ export class FileUploadComponent {
 
       this.api.CreateImageCollection(imageCollection).then((res: any) => {
         console.log("CreateImageCollection response:", res);
+
+        //disable navbar when system is uploading file(s)
+        document.getElementById('buttons')!.style.display='none';
+
         if (this.files.length > 1) {
           promises.push(this.uploadImages(newColID));
         } else {
@@ -231,13 +238,29 @@ export class FileUploadComponent {
         this.api.CreatePendingJobs(pendingJob).then((resp: any) => {
           console.log("CreatePendingJob response:", resp);
 
+          // console.log("LENGTH"+promises.length);
           //wait for all promises to resolve
           Promise.all(promises).then(async () => {
+            // console.log("PROMISES");
+            // console.log(promises);
             //publish SNS message to 'stitch_jobs' topic with the jobID - once all image uploads are complete
             await this.publishSNSNotification();
 
             //route to map catalogue page
-            this.router.navigate(['map-catalogue']);
+            //this.router.navigate(['map-catalogue']);
+              document.getElementById('buttons')!.style.display='block';
+              if(document.getElementById('successful-submit')){
+                document.getElementById('successful-submit')!.innerHTML='<h4 class="variable" style="color: #5f5f5f;">You can now navigate to the map catalogue to see the result of your upload</h4>';
+              }
+              this.outputs = Array.from(document.getElementsByClassName('videoSplitting') as HTMLCollectionOf<HTMLElement>);
+          
+              if(this.outputs!=null){
+                this.outputs.forEach(output => {
+                  if(output!=null){
+                    output.innerHTML="";
+                  }
+                });
+              }
           });
         });
       }).catch(e => { console.log(e) });
@@ -273,6 +296,10 @@ export class FileUploadComponent {
   }
 
   async uploadImages(collectionID: string): Promise<any> {
+    if(document.getElementById('video')!=null){ //for testing purposes
+      document.getElementById('video')!.innerHTML='';
+    }
+    
     return new Promise<any>(async (resolve) => {
       let promises = [];
       const frames = [];
@@ -300,12 +327,6 @@ export class FileUploadComponent {
         promises.push(
           this.api
             .CreateImages(inp)
-            .then((resp: any) => {
-              console.log(resp);
-            })
-            .catch((e: any) => {
-              console.log(e);
-            })
         );
 
         promises.push(this.uploadToS3(collectionID, inp.imageID, frames[i]));
@@ -319,7 +340,7 @@ export class FileUploadComponent {
   }
 
   uploadVideo(collectionID: string): Promise<any> {
-    return new Promise<any>((resolve) => {
+    return new Promise<any>(async (resolve) => {
       let promises: Promise<any>[] = [];
       //Load video
       const img = new Image();
@@ -330,16 +351,13 @@ export class FileUploadComponent {
       const interval = 1; //fps
       const quality = 1.0;
       // TODO: NEED TO GET THESE VALUES FROM THE DROP DOWN @STEVEN
-      const frames = this.extractFramesFromVideo(
+      await this.extractFramesFromVideo(
         img.src,
         interval,
         quality,
         this.finalWidth,
         this.finalHeight
-      );
-
-      //Do after frames are extracted
-      frames.then((frames) => {
+      ).then(async (frames) => {
         this.frameCount = frames.length;
 
         // const frame = frames[1];
@@ -356,18 +374,13 @@ export class FileUploadComponent {
           };
 
           console.log(i + '|' + inp.imageID);
-          this.api
-            .CreateImages(inp)
-            .then((resp: any) => {
-              console.log(resp);
-              promises.push(this.uploadToS3(collectionID, inp.imageID, frames[fCount++]));
-            })
-            .catch((e: any) => {
-              console.log(e);
-            });
 
+          promises.push (this.api
+            .CreateImages(inp));
+          
             promises.push(this.uploadToS3(collectionID, inp.imageID, frames[fCount++]));
           }
+      
 
         promises.push(this.makeThumbnails(collectionID, frames));
       });
@@ -387,10 +400,12 @@ export class FileUploadComponent {
         .S3upload(imageID, collectionID, 'images', newFile, 'image/png')
         .then((data: any) => {
           this.uploadCount++;
+          console.log(this.uploadCount);
           this.uploadingProgress = Math.round((this.uploadCount / this.frameCount) * 100);
           if (this.uploadingProgress > 100) {
             this.uploadingProgress = 100;
           }
+          
           resolve(data);
         }).catch(e => {
           console.log(e);
@@ -464,10 +479,11 @@ export class FileUploadComponent {
       let promises: Promise<any>[] = [];
       var thumbnails: any[] = [];
       thumbnails.push(frames[0]);
-      thumbnails.push(frames[frames.length / 2]);
+      thumbnails.push(frames[Math.round(frames.length / 2)]);
       thumbnails.push(frames[frames.length - 1]);
-
+      
       for (var i = 0; i < 3; i++) {
+        // console.log("THUMBNAIL"+thumbnails[i]);
         var newBlob = this.resizeImage(thumbnails[i], 240, 180);
         await newBlob.then((newBlob) => {
           // let newBlob = thumbnails[i];
@@ -514,7 +530,6 @@ export class FileUploadComponent {
     }
   }
 
-  //TODO: insert a new park
   openParksDialog(): void {
     const dialogRef = this.dialog.open(ParksDialogComponent, {
       width: '500px',

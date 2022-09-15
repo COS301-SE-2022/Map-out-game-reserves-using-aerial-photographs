@@ -55,8 +55,8 @@ describe('FileUploadComponent', () => {
       expect(component.makeThumbnails).toHaveBeenCalled();
       expect(resp);
       done();
-    }).catch(() => {
-      done.fail('The promise was rejected.');
+    }).catch((error) => {
+      done.fail(error);
     });
   });
 
@@ -88,7 +88,6 @@ describe('FileUploadComponent', () => {
 
     const result: Promise<any> = component.uploadImages("thisisthecollectionid");
     result.then((resp: any) => {
-      expect(console.log).toHaveBeenCalled();
       expect(apiService.CreateImages).toHaveBeenCalled();
       expect(component.resizeImage).toHaveBeenCalled();
       expect(component.makeThumbnails).toHaveBeenCalled();
