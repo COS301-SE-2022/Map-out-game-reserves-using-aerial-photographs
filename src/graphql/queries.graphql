@@ -344,81 +344,6 @@ query ListImageCollections(
     nextToken
   }
 }
-query GetMap($mapID: String!) {
-  getMap(mapID: $mapID) {
-    mapID
-    bucket_name
-    file_name
-    collectionID
-    Collection {
-      collectionID
-      taskID
-      parkID
-      GamePark {
-        parkID
-        park_name
-        park_location
-        park_address
-        createdAt
-        updatedAt
-      }
-      upload_date_time
-      completed
-      error
-      pending
-      flightID
-      FlightDetails {
-        flightID
-        flight_height
-        flight_type
-        pilotID
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-    createdAt
-    updatedAt
-  }
-}
-query ListMaps(
-  $mapID: String
-  $filter: ModelMapFilterInput
-  $limit: Int
-  $nextToken: String
-  $sortDirection: ModelSortDirection
-) {
-  listMaps(
-    mapID: $mapID
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    sortDirection: $sortDirection
-  ) {
-    items {
-      mapID
-      bucket_name
-      file_name
-      collectionID
-      Collection {
-        collectionID
-        taskID
-        parkID
-        upload_date_time
-        completed
-        error
-        pending
-        flightID
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-    nextToken
-  }
-}
 query GetMessage($messageID: String!) {
   getMessage(messageID: $messageID) {
     messageID
@@ -751,43 +676,6 @@ query GetImageCollectionByTaskId(
         flight_height
         flight_type
         pilotID
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-    nextToken
-  }
-}
-query GetMapByFileName(
-  $file_name: String!
-  $sortDirection: ModelSortDirection
-  $filter: ModelMapFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  getMapByFileName(
-    file_name: $file_name
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      mapID
-      bucket_name
-      file_name
-      collectionID
-      Collection {
-        collectionID
-        taskID
-        parkID
-        upload_date_time
-        completed
-        error
-        pending
-        flightID
         createdAt
         updatedAt
       }

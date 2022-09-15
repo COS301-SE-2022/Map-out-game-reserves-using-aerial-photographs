@@ -73,13 +73,13 @@ type ImageCollection @model {
   FlightDetails: FlightDetails @hasOne(fields: ["flightID"])
 }
 
-type Map @model {
-  mapID: String! @primaryKey
-  bucket_name: String
-  file_name: String  @index(name: "byFileName", queryField: "getMapByFileName")
-  collectionID: String
-  Collection: ImageCollection @hasOne(fields: ["collectionID"])
-}
+# type Map @model {
+#   mapID: String! @primaryKey
+#   bucket_name: String
+#   file_name: String  @index(name: "byFileName", queryField: "getMapByFileName")
+#   collectionID: String
+#   Collection: ImageCollection @hasOne(fields: ["collectionID"])
+# }
 
 type Message @model {
   messageID: String! @primaryKey
