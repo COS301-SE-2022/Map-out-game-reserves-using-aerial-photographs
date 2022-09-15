@@ -76,6 +76,8 @@ export class FileUploadComponent {
   name: string = "";
   location: string = "";
   address: string = "";
+  
+  outputs: HTMLElement[];
 
   parksList: Park[] = [
     // {value: 'Somkhanda-1', viewValue: 'Somkhanda'},
@@ -111,6 +113,7 @@ export class FileUploadComponent {
     //   this.uploadFileLocal();
     //   console.log(this.file?.name);
     // })
+    this.outputs = [];
     //loader
     this.inAnimation = false;
     this.fadeOut();
@@ -216,6 +219,10 @@ export class FileUploadComponent {
 
       this.api.CreateImageCollection(imageCollection).then((res: any) => {
         console.log("CreateImageCollection response:", res);
+
+        //disable navbar when system is uploading file(s)
+        document.getElementById('buttons')!.style.display='none';
+
         if (this.files.length > 1) {
           promises.push(this.uploadImages(newColID));
         } else {
@@ -237,7 +244,7 @@ export class FileUploadComponent {
             await this.publishSNSNotification();
 
             //route to map catalogue page
-            this.router.navigate(['map-catalogue']);
+            //this.router.navigate(['map-catalogue']);
           });
         });
       }).catch(e => { console.log(e) });
@@ -390,6 +397,15 @@ export class FileUploadComponent {
           this.uploadingProgress = Math.round((this.uploadCount / this.frameCount) * 100);
           if (this.uploadingProgress > 100) {
             this.uploadingProgress = 100;
+          }
+          if(this.uploadingProgress==100){
+            document.getElementById('buttons')!.style.display='block';
+            document.getElementById('successful-submit')!.innerHTML='<h4 class="variable" style="color: #5f5f5f;">You can now navigate to the map catalogue to see the result of your upload</h4>';
+            this.outputs = Array.from(document.getElementsByClassName('videoSplitting') as HTMLCollectionOf<HTMLElement>);
+            this.outputs.forEach(output => {
+              output.innerHTML="";
+            });
+          
           }
           resolve(data);
         }).catch(e => {

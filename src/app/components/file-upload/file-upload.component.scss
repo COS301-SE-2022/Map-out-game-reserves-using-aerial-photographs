@@ -266,3 +266,14 @@ max-width: 100%;
   margin-bottom: 10px;
   opacity: 0.8;
 }
+
+.center {
+  position: absolute;
+  top: 45%;
+  left: 75%;
+  width: 45%;
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  // text-align: center;
+}
