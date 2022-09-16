@@ -55,12 +55,22 @@ export class ImageCatalogueComponent implements OnInit {
     park: 'park',
   };
 
+  inAnimation: boolean;
+  spinners: HTMLElement[];
+  
+  flag=false;
+
   constructor(
     public dialog: MatDialog,
     private api: APIService,
     private controller: ControllerService,
     private snackbar: MatSnackBar
   ) {
+    // window.location.reload();
+    //loader
+    this.inAnimation = false;
+    this.fadeOut();
+
     this.selected = 'date';
     this.getAllCatalogues();
     this.controller.websocket.onmessage = (msg: any) => {
@@ -70,14 +80,23 @@ export class ImageCatalogueComponent implements OnInit {
       });
       //make 'View Map' button visible
       this.getAllCatalogues();
-    };
+    }
+    this.spinners=[];
+    setTimeout(() => {
+      this.spinners = Array.from(document.getElementsByClassName('spinner') as HTMLCollectionOf<HTMLElement>)
+        // console.log(this.spinners);
+    }, 5000);
+    
   }
 
   ngOnInit() {
     this.controller.websocket.onmessage = (msg: any) => {
       console.log('SNS message received ', msg);
       this.getAllCatalogues();
+      
     };
+    
+    
   }
 
   getAllCatalogues() {
@@ -135,6 +154,12 @@ export class ImageCatalogueComponent implements OnInit {
                 }
                 // this.sortByDate();
                 this.tempCatalogues = this.catalogues;
+                setTimeout(() => {
+                    // console.log(this.spinners);
+                    this.spinners.forEach(spin => {
+                      spin.style.display="none";
+                    });
+                }, 7000);
               })
               .catch((e) => console.log(e));
           }
@@ -258,9 +283,8 @@ export class ImageCatalogueComponent implements OnInit {
     }
   }
 
-  openImageDialog(catalogue: CatalogData): void {
-    this.selectedCatalogue = catalogue;
-
+  openImageDialog(catalogue:CatalogData): void {
+    this.selectedCatalogue = catalogue
     console.log(this.selectedCatalogue);
 
     const dialogRef = this.dialog.open(ImageDialogComponent, {
@@ -272,4 +296,24 @@ export class ImageCatalogueComponent implements OnInit {
   showmap(taskID: string) {
     console.log(taskID);
   }
+
+  fadeOut () {
+    if (!this.inAnimation){
+      this.inAnimation = true;
+      
+      document.addEventListener('readystatechange', () => {
+        // console.log("YES");
+        if(document.readyState === 'complete'||document.readyState==='interactive'){
+          // console.log("HELLO!!!!!!!!!!!");
+          const loader = document.getElementById("pre-loader");
+          loader!.setAttribute("class", "");
+          loader!.setAttribute("class", "fade-out");
+          setTimeout(() => {
+            this.inAnimation = false;
+            loader?.remove();
+          }, 3000);
+        }
+      });
+  }
+}
 }

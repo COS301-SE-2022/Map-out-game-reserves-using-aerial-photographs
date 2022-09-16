@@ -14,7 +14,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ImageDialogComponent } from './image-dialog/image-dialog.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
-
+import { SpinnerModule } from '../shared/spinner/spinner.module';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [ ImageCatalogueComponent, ImageDialogComponent ],
@@ -32,7 +33,9 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatSnackBarModule,
     MatDividerModule,
     MatDialogModule,
-    MatTooltipModule
+    MatTooltipModule,
+    SpinnerModule,
+    MatProgressSpinnerModule
   ]
 })
 export class ImageCatalogueModule { }

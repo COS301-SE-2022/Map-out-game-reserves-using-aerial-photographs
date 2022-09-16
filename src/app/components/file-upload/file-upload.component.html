@@ -2,7 +2,7 @@
   <!-- <div class="heading">
     <h1>File Upload</h1>
   </div> -->
-  <aerial-mapping-side-navbar></aerial-mapping-side-navbar>
+  <aerial-mapping-side-navbar id = "navbar"></aerial-mapping-side-navbar>
   <app-footer></app-footer>
   <div id="outer" class="content">
     <!-- <div class="content"> -->
@@ -74,7 +74,6 @@
 
               <input type="number" placeholder="Enter the height of the flight (metres)" id="height" min="1" />
 
-              <!-- TODO: Still need to make this look nice -->
               <select ng-model="selectedResolution" class="i-size tooltip" id="resolution">
                 <option value="" disabled selected>Select a resolution size</option>
                 <option *ngFor="let size of iSize" [value]="size.value">
@@ -98,18 +97,21 @@
             </div>
           </div>
           <div class="progress">
-            <div class="successful-submit" *ngIf="submitPressed">
-              <h4 class="variable">File Uploaded Successfully</h4>
+            <div class="center" id = "center">
+            <div class="successful-submit" *ngIf="submitPressed" id = "successful-submit" style = "text-align: center;">
+              <h4 class="variable">Wait for the below processes to complete before navigating to a new page</h4>
             </div>
+            <!-- <br/> -->
             <!-- <h4 class="variable">{{ fileName}}</h4> -->
-              <div class="videoSplitting" *ngIf="splittingProgress != 0">
+              <div class="videoSplitting" *ngIf="submitPressed" id = "video">
                 <mat-progress-bar mode="determinate" value={{splittingProgress}}></mat-progress-bar>
                 Splitting Video {{ splittingProgress }}%
               </div>
-              <div class="videoSplitting" *ngIf="splittingProgress>0">
+              <div class="videoSplitting" *ngIf="submitPressed">
                 <mat-progress-bar mode="determinate" value={{uploadingProgress}}></mat-progress-bar>
                 Uploading Frames {{ uploadingProgress }}%
               </div>
+          </div>
           </div>
         </td>
       </tr>
@@ -120,4 +122,5 @@
 
   <!-- </div> -->
   <!-- </div> -->
+  <app-spinner></app-spinner>
 </div>

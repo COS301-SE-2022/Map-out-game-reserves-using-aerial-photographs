@@ -55,5 +55,8 @@ export class NavbarComponent implements OnInit {
     // console.log('dung beetle');
     // let btn = document.getElementById(id)!;
     // btn.className += ' active';
+    setTimeout(() => {
+      window.location.reload();
+    }, 1);
   }
 }

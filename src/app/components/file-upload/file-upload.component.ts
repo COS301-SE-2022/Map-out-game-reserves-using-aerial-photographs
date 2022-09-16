@@ -1,7 +1,7 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Auth } from 'aws-amplify';
+
 import {
   APIService,
   CreateImagesInput,
@@ -18,17 +18,22 @@ import { MatDialog } from '@angular/material/dialog';
 import { ParksDialogComponent } from './parks-dialog/parks-dialog.component';
 import { PublishCommand } from '@aws-sdk/client-sns';
 import { SNSClient } from '@aws-sdk/client-sns';
-import { environment } from 'src/environments/environment';
-const REGION = "sa-east-1";
+//import { environment } from 'src/environments/environment';
 
-const snsClient = new SNSClient({
+const REGION = "sa-east-1";
+let snsClient = new SNSClient({
   apiVersion: '2010-03-31',
   region: REGION,
   credentials: {
-    accessKeyId: environment.AWS_ACCESS_KEY_ID,
-    secretAccessKey: environment.AWS_SECRET_ACCESS_KEY
+    accessKeyId: process.env.ACCESS_KEY_ID!,
+    secretAccessKey: process.env.SECRET_ACCESS_KEY!
   }
+  // credentials: {
+    //accessKeyId: environment.ACCESS_KEY_ID,
+    //secretAccessKey: environment.SECRET_ACCESS_KEY
+  //}
 });
+
 
 interface Park {
   value: string | undefined;
@@ -51,7 +56,7 @@ interface ImageSize {
   styleUrls: ['./file-upload.component.scss'],
 })
 
-export class FileUploadComponent implements OnInit{
+export class FileUploadComponent {
   @ViewChild("parks") parks!: ElementRef<HTMLInputElement>;
 
   title = 'file-upload-component';
@@ -71,6 +76,8 @@ export class FileUploadComponent implements OnInit{
   name: string = "";
   location: string = "";
   address: string = "";
+  
+  outputs: HTMLElement[];
 
   parksList: Park[] = [
     // {value: 'Somkhanda-1', viewValue: 'Somkhanda'},
@@ -89,9 +96,12 @@ export class FileUploadComponent implements OnInit{
     { value: '360', viewValue: '360p' },
   ];
 
+  inAnimation: boolean;
+
   constructor(
     private apiController: ControllerService,
     private api: APIService,
+    private router: Router,
     private snackBar: MatSnackBar,
     public dialog: MatDialog
   ) {
@@ -103,8 +113,10 @@ export class FileUploadComponent implements OnInit{
     //   this.uploadFileLocal();
     //   console.log(this.file?.name);
     // })
-
-    //TODO: add park ui
+    this.outputs = [];
+    //loader
+    this.inAnimation = false;
+    this.fadeOut();
 
     this.api.ListGameParks().then((event: any) => {
       //console.log(event.items[0]?.park_name);
@@ -116,10 +128,6 @@ export class FileUploadComponent implements OnInit{
         });
       }
     });
-  }
-
-  async ngOnInit() {
-
   }
 
   uploadFileLocal(ev: Event) {
@@ -211,6 +219,10 @@ export class FileUploadComponent implements OnInit{
 
       this.api.CreateImageCollection(imageCollection).then((res: any) => {
         console.log("CreateImageCollection response:", res);
+
+        //disable navbar when system is uploading file(s)
+        document.getElementById('buttons')!.style.display='none';
+
         if (this.files.length > 1) {
           promises.push(this.uploadImages(newColID));
         } else {
@@ -226,10 +238,29 @@ export class FileUploadComponent implements OnInit{
         this.api.CreatePendingJobs(pendingJob).then((resp: any) => {
           console.log("CreatePendingJob response:", resp);
 
+          // console.log("LENGTH"+promises.length);
           //wait for all promises to resolve
-          Promise.all(promises).then(() => {
+          Promise.all(promises).then(async () => {
+            // console.log("PROMISES");
+            // console.log(promises);
             //publish SNS message to 'stitch_jobs' topic with the jobID - once all image uploads are complete
-            this.publishSNSNotification();
+            await this.publishSNSNotification();
+
+            //route to map catalogue page
+            //this.router.navigate(['map-catalogue']);
+              document.getElementById('buttons')!.style.display='block';
+              if(document.getElementById('successful-submit')){
+                document.getElementById('successful-submit')!.innerHTML='<h4 class="variable" style="color: #5f5f5f;">You can now navigate to the map catalogue to see the result of your upload</h4>';
+              }
+              this.outputs = Array.from(document.getElementsByClassName('videoSplitting') as HTMLCollectionOf<HTMLElement>);
+          
+              if(this.outputs!=null){
+                this.outputs.forEach(output => {
+                  if(output!=null){
+                    output.innerHTML="";
+                  }
+                });
+              }
           });
         });
       }).catch(e => { console.log(e) });
@@ -265,6 +296,10 @@ export class FileUploadComponent implements OnInit{
   }
 
   async uploadImages(collectionID: string): Promise<any> {
+    if(document.getElementById('video')!=null){ //for testing purposes
+      document.getElementById('video')!.innerHTML='';
+    }
+    
     return new Promise<any>(async (resolve) => {
       let promises = [];
       const frames = [];
@@ -292,12 +327,6 @@ export class FileUploadComponent implements OnInit{
         promises.push(
           this.api
             .CreateImages(inp)
-            .then((resp: any) => {
-              console.log(resp);
-            })
-            .catch((e: any) => {
-              console.log(e);
-            })
         );
 
         promises.push(this.uploadToS3(collectionID, inp.imageID, frames[i]));
@@ -311,7 +340,7 @@ export class FileUploadComponent implements OnInit{
   }
 
   uploadVideo(collectionID: string): Promise<any> {
-    return new Promise<any>((resolve) => {
+    return new Promise<any>(async (resolve) => {
       let promises: Promise<any>[] = [];
       //Load video
       const img = new Image();
@@ -322,16 +351,13 @@ export class FileUploadComponent implements OnInit{
       const interval = 1; //fps
       const quality = 1.0;
       // TODO: NEED TO GET THESE VALUES FROM THE DROP DOWN @STEVEN
-      const frames = this.extractFramesFromVideo(
+      await this.extractFramesFromVideo(
         img.src,
         interval,
         quality,
         this.finalWidth,
         this.finalHeight
-      );
-
-      //Do after frames are extracted
-      frames.then((frames) => {
+      ).then(async (frames) => {
         this.frameCount = frames.length;
 
         // const frame = frames[1];
@@ -348,18 +374,13 @@ export class FileUploadComponent implements OnInit{
           };
 
           console.log(i + '|' + inp.imageID);
-          this.api
-            .CreateImages(inp)
-            .then((resp: any) => {
-              console.log(resp);
-              promises.push(this.uploadToS3(collectionID, inp.imageID, frames[fCount++]));
-            })
-            .catch((e: any) => {
-              console.log(e);
-            });
 
+          promises.push (this.api
+            .CreateImages(inp));
+          
             promises.push(this.uploadToS3(collectionID, inp.imageID, frames[fCount++]));
           }
+      
 
         promises.push(this.makeThumbnails(collectionID, frames));
       });
@@ -379,10 +400,12 @@ export class FileUploadComponent implements OnInit{
         .S3upload(imageID, collectionID, 'images', newFile, 'image/png')
         .then((data: any) => {
           this.uploadCount++;
+          console.log(this.uploadCount);
           this.uploadingProgress = Math.round((this.uploadCount / this.frameCount) * 100);
           if (this.uploadingProgress > 100) {
             this.uploadingProgress = 100;
           }
+          
           resolve(data);
         }).catch(e => {
           console.log(e);
@@ -456,10 +479,11 @@ export class FileUploadComponent implements OnInit{
       let promises: Promise<any>[] = [];
       var thumbnails: any[] = [];
       thumbnails.push(frames[0]);
-      thumbnails.push(frames[frames.length / 2]);
+      thumbnails.push(frames[Math.round(frames.length / 2)]);
       thumbnails.push(frames[frames.length - 1]);
-
+      
       for (var i = 0; i < 3; i++) {
+        // console.log("THUMBNAIL"+thumbnails[i]);
         var newBlob = this.resizeImage(thumbnails[i], 240, 180);
         await newBlob.then((newBlob) => {
           // let newBlob = thumbnails[i];
@@ -506,7 +530,6 @@ export class FileUploadComponent implements OnInit{
     }
   }
 
-  //TODO: insert a new park
   openParksDialog(): void {
     const dialogRef = this.dialog.open(ParksDialogComponent, {
       width: '500px',
@@ -561,6 +584,23 @@ export class FileUploadComponent implements OnInit{
         return -1;
       });
   }
+
+  fadeOut () {
+    if (!this.inAnimation){
+      this.inAnimation = true;
+      document.addEventListener('readystatechange', (event) => {
+        if(document.readyState === 'complete'){
+          const loader = document.getElementById("pre-loader");
+          loader!.setAttribute("class", "fade-out");
+          let count = 0;
+          setTimeout(() => {
+            this.inAnimation = false;
+            loader?.remove();
+          }, 3000);
+        }
+      });
+  }
+}
 }
 
 

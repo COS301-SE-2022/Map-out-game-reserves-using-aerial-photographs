@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FooterModule } from '../shared/footer/footer.module';
+import { SpinnerModule } from '../shared/spinner/spinner.module';
 
 @NgModule({
   declarations: [RegisterComponent],
@@ -22,7 +23,8 @@ import { FooterModule } from '../shared/footer/footer.module';
     MatInputModule,
     MatSnackBarModule,
     FooterModule,
-    RouterModule
+    RouterModule, 
+    SpinnerModule
   ]
 })
 export class RegisterModule { }

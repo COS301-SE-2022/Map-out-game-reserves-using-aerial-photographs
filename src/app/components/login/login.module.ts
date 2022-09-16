@@ -7,7 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FooterModule } from '../shared/footer/footer.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
+import { SpinnerModule } from '../shared/spinner/spinner.module';
 
 @NgModule({
   declarations: [LoginComponent],
@@ -19,7 +19,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     FormsModule,
     FooterModule,
     ReactiveFormsModule,
-    MatSnackBarModule
+    MatSnackBarModule, 
+    SpinnerModule
   ]
 })
 export class LoginModule { }
