@@ -204,6 +204,7 @@ export type CreateImageCollectionInput = {
   completed?: boolean | null;
   error?: boolean | null;
   pending?: boolean | null;
+  dismissed?: boolean | null;
   flightID?: string | null;
 };
 
@@ -214,6 +215,7 @@ export type ModelImageCollectionConditionInput = {
   completed?: ModelBooleanInput | null;
   error?: ModelBooleanInput | null;
   pending?: ModelBooleanInput | null;
+  dismissed?: ModelBooleanInput | null;
   flightID?: ModelStringInput | null;
   and?: Array<ModelImageCollectionConditionInput | null> | null;
   or?: Array<ModelImageCollectionConditionInput | null> | null;
@@ -230,6 +232,7 @@ export type ImageCollection = {
   completed?: boolean | null;
   error?: boolean | null;
   pending?: boolean | null;
+  dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: FlightDetails | null;
   createdAt: string;
@@ -244,6 +247,7 @@ export type UpdateImageCollectionInput = {
   completed?: boolean | null;
   error?: boolean | null;
   pending?: boolean | null;
+  dismissed?: boolean | null;
   flightID?: string | null;
 };
 
@@ -543,6 +547,7 @@ export type ModelImageCollectionFilterInput = {
   completed?: ModelBooleanInput | null;
   error?: ModelBooleanInput | null;
   pending?: ModelBooleanInput | null;
+  dismissed?: ModelBooleanInput | null;
   flightID?: ModelStringInput | null;
   and?: Array<ModelImageCollectionFilterInput | null> | null;
   or?: Array<ModelImageCollectionFilterInput | null> | null;
@@ -663,133 +668,6 @@ export type ModelPendingJobsConnection = {
   __typename: "ModelPendingJobsConnection";
   items: Array<PendingJobs | null>;
   nextToken?: string | null;
-};
-
-export type ModelSubscriptionUserFilterInput = {
-  userID?: ModelSubscriptionStringInput | null;
-  user_email?: ModelSubscriptionStringInput | null;
-  user_password?: ModelSubscriptionStringInput | null;
-  user_password_salt?: ModelSubscriptionStringInput | null;
-  user_name?: ModelSubscriptionStringInput | null;
-  user_role?: ModelSubscriptionStringInput | null;
-  user_approved?: ModelSubscriptionBooleanInput | null;
-  and?: Array<ModelSubscriptionUserFilterInput | null> | null;
-  or?: Array<ModelSubscriptionUserFilterInput | null> | null;
-};
-
-export type ModelSubscriptionStringInput = {
-  ne?: string | null;
-  eq?: string | null;
-  le?: string | null;
-  lt?: string | null;
-  ge?: string | null;
-  gt?: string | null;
-  contains?: string | null;
-  notContains?: string | null;
-  between?: Array<string | null> | null;
-  beginsWith?: string | null;
-  in?: Array<string | null> | null;
-  notIn?: Array<string | null> | null;
-};
-
-export type ModelSubscriptionBooleanInput = {
-  ne?: boolean | null;
-  eq?: boolean | null;
-};
-
-export type ModelSubscriptionGameParkFilterInput = {
-  parkID?: ModelSubscriptionStringInput | null;
-  park_name?: ModelSubscriptionStringInput | null;
-  park_location?: ModelSubscriptionStringInput | null;
-  park_address?: ModelSubscriptionStringInput | null;
-  and?: Array<ModelSubscriptionGameParkFilterInput | null> | null;
-  or?: Array<ModelSubscriptionGameParkFilterInput | null> | null;
-};
-
-export type ModelSubscriptionImageCollectionFilterInput = {
-  collectionID?: ModelSubscriptionStringInput | null;
-  taskID?: ModelSubscriptionStringInput | null;
-  parkID?: ModelSubscriptionStringInput | null;
-  upload_date_time?: ModelSubscriptionStringInput | null;
-  completed?: ModelSubscriptionBooleanInput | null;
-  error?: ModelSubscriptionBooleanInput | null;
-  pending?: ModelSubscriptionBooleanInput | null;
-  flightID?: ModelSubscriptionStringInput | null;
-  and?: Array<ModelSubscriptionImageCollectionFilterInput | null> | null;
-  or?: Array<ModelSubscriptionImageCollectionFilterInput | null> | null;
-};
-
-export type ModelSubscriptionMapFilterInput = {
-  mapID?: ModelSubscriptionStringInput | null;
-  bucket_name?: ModelSubscriptionStringInput | null;
-  file_name?: ModelSubscriptionStringInput | null;
-  collectionID?: ModelSubscriptionStringInput | null;
-  and?: Array<ModelSubscriptionMapFilterInput | null> | null;
-  or?: Array<ModelSubscriptionMapFilterInput | null> | null;
-};
-
-export type ModelSubscriptionMessageFilterInput = {
-  messageID?: ModelSubscriptionStringInput | null;
-  message_status?: ModelSubscriptionStringInput | null;
-  message_description?: ModelSubscriptionStringInput | null;
-  collectionID?: ModelSubscriptionStringInput | null;
-  and?: Array<ModelSubscriptionMessageFilterInput | null> | null;
-  or?: Array<ModelSubscriptionMessageFilterInput | null> | null;
-};
-
-export type ModelSubscriptionImagesFilterInput = {
-  imageID?: ModelSubscriptionStringInput | null;
-  collectionID?: ModelSubscriptionStringInput | null;
-  name?: ModelSubscriptionStringInput | null;
-  bucket_name?: ModelSubscriptionStringInput | null;
-  file_name?: ModelSubscriptionStringInput | null;
-  and?: Array<ModelSubscriptionImagesFilterInput | null> | null;
-  or?: Array<ModelSubscriptionImagesFilterInput | null> | null;
-};
-
-export type ModelSubscriptionFlightDetailsFilterInput = {
-  flightID?: ModelSubscriptionStringInput | null;
-  flight_height?: ModelSubscriptionFloatInput | null;
-  flight_type?: ModelSubscriptionStringInput | null;
-  pilotID?: ModelSubscriptionStringInput | null;
-  and?: Array<ModelSubscriptionFlightDetailsFilterInput | null> | null;
-  or?: Array<ModelSubscriptionFlightDetailsFilterInput | null> | null;
-};
-
-export type ModelSubscriptionFloatInput = {
-  ne?: number | null;
-  eq?: number | null;
-  le?: number | null;
-  lt?: number | null;
-  ge?: number | null;
-  gt?: number | null;
-  between?: Array<number | null> | null;
-  in?: Array<number | null> | null;
-  notIn?: Array<number | null> | null;
-};
-
-export type ModelSubscriptionPendingInvitesFilterInput = {
-  inviteID?: ModelSubscriptionStringInput | null;
-  email?: ModelSubscriptionStringInput | null;
-  role?: ModelSubscriptionStringInput | null;
-  and?: Array<ModelSubscriptionPendingInvitesFilterInput | null> | null;
-  or?: Array<ModelSubscriptionPendingInvitesFilterInput | null> | null;
-};
-
-export type ModelSubscriptionConnectionFilterInput = {
-  connectionID?: ModelSubscriptionStringInput | null;
-  topic?: ModelSubscriptionStringInput | null;
-  and?: Array<ModelSubscriptionConnectionFilterInput | null> | null;
-  or?: Array<ModelSubscriptionConnectionFilterInput | null> | null;
-};
-
-export type ModelSubscriptionPendingJobsFilterInput = {
-  jobID?: ModelSubscriptionStringInput | null;
-  busy?: ModelSubscriptionBooleanInput | null;
-  taskID?: ModelSubscriptionStringInput | null;
-  collectionID?: ModelSubscriptionStringInput | null;
-  and?: Array<ModelSubscriptionPendingJobsFilterInput | null> | null;
-  or?: Array<ModelSubscriptionPendingJobsFilterInput | null> | null;
 };
 
 export type RegisterUserMutation = {
@@ -925,6 +803,7 @@ export type CreateImageCollectionMutation = {
   completed?: boolean | null;
   error?: boolean | null;
   pending?: boolean | null;
+  dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: {
     __typename: "FlightDetails";
@@ -969,6 +848,7 @@ export type UpdateImageCollectionMutation = {
   completed?: boolean | null;
   error?: boolean | null;
   pending?: boolean | null;
+  dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: {
     __typename: "FlightDetails";
@@ -1013,6 +893,7 @@ export type DeleteImageCollectionMutation = {
   completed?: boolean | null;
   error?: boolean | null;
   pending?: boolean | null;
+  dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: {
     __typename: "FlightDetails";
@@ -1063,6 +944,7 @@ export type CreateMapMutation = {
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
       __typename: "FlightDetails";
@@ -1104,6 +986,7 @@ export type UpdateMapMutation = {
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
       __typename: "FlightDetails";
@@ -1145,6 +1028,7 @@ export type DeleteMapMutation = {
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
       __typename: "FlightDetails";
@@ -1186,6 +1070,7 @@ export type CreateMessageMutation = {
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
       __typename: "FlightDetails";
@@ -1227,6 +1112,7 @@ export type UpdateMessageMutation = {
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
       __typename: "FlightDetails";
@@ -1268,6 +1154,7 @@ export type DeleteMessageMutation = {
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
       __typename: "FlightDetails";
@@ -1512,6 +1399,7 @@ export type GetMessagesQuery = {
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
       __typename: "FlightDetails";
@@ -1558,6 +1446,7 @@ export type GetImageCollectionsQuery = {
   completed?: boolean | null;
   error?: boolean | null;
   pending?: boolean | null;
+  dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: {
     __typename: "FlightDetails";
@@ -1613,6 +1502,7 @@ export type GetCataloguesQuery = {
   completed?: boolean | null;
   error?: boolean | null;
   pending?: boolean | null;
+  dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: {
     __typename: "FlightDetails";
@@ -1711,6 +1601,7 @@ export type GetImageCollectionQuery = {
   completed?: boolean | null;
   error?: boolean | null;
   pending?: boolean | null;
+  dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: {
     __typename: "FlightDetails";
@@ -1757,6 +1648,7 @@ export type ListImageCollectionsQuery = {
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
       __typename: "FlightDetails";
@@ -1797,6 +1689,7 @@ export type GetMapQuery = {
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
       __typename: "FlightDetails";
@@ -1831,6 +1724,7 @@ export type ListMapsQuery = {
       completed?: boolean | null;
       error?: boolean | null;
       pending?: boolean | null;
+      dismissed?: boolean | null;
       flightID?: string | null;
       createdAt: string;
       updatedAt: string;
@@ -1865,6 +1759,7 @@ export type GetMessageQuery = {
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
       __typename: "FlightDetails";
@@ -1899,6 +1794,7 @@ export type ListMessagesQuery = {
       completed?: boolean | null;
       error?: boolean | null;
       pending?: boolean | null;
+      dismissed?: boolean | null;
       flightID?: string | null;
       createdAt: string;
       updatedAt: string;
@@ -2086,6 +1982,7 @@ export type GetImageCollectionByTaskIdQuery = {
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
       __typename: "FlightDetails";
@@ -2119,6 +2016,7 @@ export type GetMapByFileNameQuery = {
       completed?: boolean | null;
       error?: boolean | null;
       pending?: boolean | null;
+      dismissed?: boolean | null;
       flightID?: string | null;
       createdAt: string;
       updatedAt: string;
@@ -2146,6 +2044,7 @@ export type GetMessageByCollectionIdQuery = {
       completed?: boolean | null;
       error?: boolean | null;
       pending?: boolean | null;
+      dismissed?: boolean | null;
       flightID?: string | null;
       createdAt: string;
       updatedAt: string;
@@ -2283,6 +2182,7 @@ export type OnCreateImageCollectionSubscription = {
   completed?: boolean | null;
   error?: boolean | null;
   pending?: boolean | null;
+  dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: {
     __typename: "FlightDetails";
@@ -2327,6 +2227,7 @@ export type OnUpdateImageCollectionSubscription = {
   completed?: boolean | null;
   error?: boolean | null;
   pending?: boolean | null;
+  dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: {
     __typename: "FlightDetails";
@@ -2371,6 +2272,7 @@ export type OnDeleteImageCollectionSubscription = {
   completed?: boolean | null;
   error?: boolean | null;
   pending?: boolean | null;
+  dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: {
     __typename: "FlightDetails";
@@ -2421,6 +2323,7 @@ export type OnCreateMapSubscription = {
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
       __typename: "FlightDetails";
@@ -2462,6 +2365,7 @@ export type OnUpdateMapSubscription = {
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
       __typename: "FlightDetails";
@@ -2503,6 +2407,7 @@ export type OnDeleteMapSubscription = {
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
       __typename: "FlightDetails";
@@ -2544,6 +2449,7 @@ export type OnCreateMessageSubscription = {
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
       __typename: "FlightDetails";
@@ -2585,6 +2491,7 @@ export type OnUpdateMessageSubscription = {
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
       __typename: "FlightDetails";
@@ -2626,6 +2533,7 @@ export type OnDeleteMessageSubscription = {
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
       __typename: "FlightDetails";
@@ -3168,6 +3076,7 @@ export class APIService {
           completed
           error
           pending
+          dismissed
           flightID
           FlightDetails {
             __typename
@@ -3228,6 +3137,7 @@ export class APIService {
           completed
           error
           pending
+          dismissed
           flightID
           FlightDetails {
             __typename
@@ -3288,6 +3198,7 @@ export class APIService {
           completed
           error
           pending
+          dismissed
           flightID
           FlightDetails {
             __typename
@@ -3354,6 +3265,7 @@ export class APIService {
             completed
             error
             pending
+            dismissed
             flightID
             FlightDetails {
               __typename
@@ -3411,6 +3323,7 @@ export class APIService {
             completed
             error
             pending
+            dismissed
             flightID
             FlightDetails {
               __typename
@@ -3468,6 +3381,7 @@ export class APIService {
             completed
             error
             pending
+            dismissed
             flightID
             FlightDetails {
               __typename
@@ -3525,6 +3439,7 @@ export class APIService {
             completed
             error
             pending
+            dismissed
             flightID
             FlightDetails {
               __typename
@@ -3582,6 +3497,7 @@ export class APIService {
             completed
             error
             pending
+            dismissed
             flightID
             FlightDetails {
               __typename
@@ -3639,6 +3555,7 @@ export class APIService {
             completed
             error
             pending
+            dismissed
             flightID
             FlightDetails {
               __typename
@@ -4180,6 +4097,7 @@ export class APIService {
             completed
             error
             pending
+            dismissed
             flightID
             FlightDetails {
               __typename
@@ -4260,6 +4178,7 @@ export class APIService {
           completed
           error
           pending
+          dismissed
           flightID
           FlightDetails {
             __typename
@@ -4331,6 +4250,7 @@ export class APIService {
           completed
           error
           pending
+          dismissed
           flightID
           FlightDetails {
             __typename
@@ -4514,6 +4434,7 @@ export class APIService {
           completed
           error
           pending
+          dismissed
           flightID
           FlightDetails {
             __typename
@@ -4576,6 +4497,7 @@ export class APIService {
             completed
             error
             pending
+            dismissed
             flightID
             FlightDetails {
               __typename
@@ -4639,6 +4561,7 @@ export class APIService {
             completed
             error
             pending
+            dismissed
             flightID
             FlightDetails {
               __typename
@@ -4689,6 +4612,7 @@ export class APIService {
               completed
               error
               pending
+              dismissed
               flightID
               createdAt
               updatedAt
@@ -4746,6 +4670,7 @@ export class APIService {
             completed
             error
             pending
+            dismissed
             flightID
             FlightDetails {
               __typename
@@ -4796,6 +4721,7 @@ export class APIService {
               completed
               error
               pending
+              dismissed
               flightID
               createdAt
               updatedAt
@@ -5235,6 +5161,7 @@ export class APIService {
             completed
             error
             pending
+            dismissed
             flightID
             FlightDetails {
               __typename
@@ -5298,6 +5225,7 @@ export class APIService {
               completed
               error
               pending
+              dismissed
               flightID
               createdAt
               updatedAt
@@ -5353,6 +5281,7 @@ export class APIService {
               completed
               error
               pending
+              dismissed
               flightID
               createdAt
               updatedAt
@@ -5511,13 +5440,12 @@ export class APIService {
     )) as any;
     return <GetConnectionsByTopicQuery>response.data.getConnectionsByTopic;
   }
-  OnCreateUserListener(
-    filter?: ModelSubscriptionUserFilterInput
-  ): Observable<
+  OnCreateUserListener: Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateUser">>
-  > {
-    const statement = `subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
-        onCreateUser(filter: $filter) {
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnCreateUser {
+        onCreateUser {
           __typename
           userID
           user_email
@@ -5529,25 +5457,18 @@ export class APIService {
           createdAt
           updatedAt
         }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateUser">>
-    >;
-  }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateUser">>
+  >;
 
-  OnUpdateUserListener(
-    filter?: ModelSubscriptionUserFilterInput
-  ): Observable<
+  OnUpdateUserListener: Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateUser">>
-  > {
-    const statement = `subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
-        onUpdateUser(filter: $filter) {
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnUpdateUser {
+        onUpdateUser {
           __typename
           userID
           user_email
@@ -5559,25 +5480,18 @@ export class APIService {
           createdAt
           updatedAt
         }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateUser">>
-    >;
-  }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateUser">>
+  >;
 
-  OnDeleteUserListener(
-    filter?: ModelSubscriptionUserFilterInput
-  ): Observable<
+  OnDeleteUserListener: Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteUser">>
-  > {
-    const statement = `subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
-        onDeleteUser(filter: $filter) {
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnDeleteUser {
+        onDeleteUser {
           __typename
           userID
           user_email
@@ -5589,25 +5503,18 @@ export class APIService {
           createdAt
           updatedAt
         }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteUser">>
-    >;
-  }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteUser">>
+  >;
 
-  OnCreateGameParkListener(
-    filter?: ModelSubscriptionGameParkFilterInput
-  ): Observable<
+  OnCreateGameParkListener: Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateGamePark">>
-  > {
-    const statement = `subscription OnCreateGamePark($filter: ModelSubscriptionGameParkFilterInput) {
-        onCreateGamePark(filter: $filter) {
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnCreateGamePark {
+        onCreateGamePark {
           __typename
           parkID
           park_name
@@ -5616,25 +5523,18 @@ export class APIService {
           createdAt
           updatedAt
         }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateGamePark">>
-    >;
-  }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateGamePark">>
+  >;
 
-  OnUpdateGameParkListener(
-    filter?: ModelSubscriptionGameParkFilterInput
-  ): Observable<
+  OnUpdateGameParkListener: Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateGamePark">>
-  > {
-    const statement = `subscription OnUpdateGamePark($filter: ModelSubscriptionGameParkFilterInput) {
-        onUpdateGamePark(filter: $filter) {
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnUpdateGamePark {
+        onUpdateGamePark {
           __typename
           parkID
           park_name
@@ -5643,25 +5543,18 @@ export class APIService {
           createdAt
           updatedAt
         }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateGamePark">>
-    >;
-  }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateGamePark">>
+  >;
 
-  OnDeleteGameParkListener(
-    filter?: ModelSubscriptionGameParkFilterInput
-  ): Observable<
+  OnDeleteGameParkListener: Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteGamePark">>
-  > {
-    const statement = `subscription OnDeleteGamePark($filter: ModelSubscriptionGameParkFilterInput) {
-        onDeleteGamePark(filter: $filter) {
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnDeleteGamePark {
+        onDeleteGamePark {
           __typename
           parkID
           park_name
@@ -5670,27 +5563,20 @@ export class APIService {
           createdAt
           updatedAt
         }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteGamePark">>
-    >;
-  }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteGamePark">>
+  >;
 
-  OnCreateImageCollectionListener(
-    filter?: ModelSubscriptionImageCollectionFilterInput
-  ): Observable<
+  OnCreateImageCollectionListener: Observable<
     SubscriptionResponse<
       Pick<__SubscriptionContainer, "onCreateImageCollection">
     >
-  > {
-    const statement = `subscription OnCreateImageCollection($filter: ModelSubscriptionImageCollectionFilterInput) {
-        onCreateImageCollection(filter: $filter) {
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnCreateImageCollection {
+        onCreateImageCollection {
           __typename
           collectionID
           taskID
@@ -5708,6 +5594,7 @@ export class APIService {
           completed
           error
           pending
+          dismissed
           flightID
           FlightDetails {
             __typename
@@ -5733,29 +5620,22 @@ export class APIService {
           createdAt
           updatedAt
         }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<
-        Pick<__SubscriptionContainer, "onCreateImageCollection">
-      >
-    >;
-  }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<
+      Pick<__SubscriptionContainer, "onCreateImageCollection">
+    >
+  >;
 
-  OnUpdateImageCollectionListener(
-    filter?: ModelSubscriptionImageCollectionFilterInput
-  ): Observable<
+  OnUpdateImageCollectionListener: Observable<
     SubscriptionResponse<
       Pick<__SubscriptionContainer, "onUpdateImageCollection">
     >
-  > {
-    const statement = `subscription OnUpdateImageCollection($filter: ModelSubscriptionImageCollectionFilterInput) {
-        onUpdateImageCollection(filter: $filter) {
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnUpdateImageCollection {
+        onUpdateImageCollection {
           __typename
           collectionID
           taskID
@@ -5773,6 +5653,7 @@ export class APIService {
           completed
           error
           pending
+          dismissed
           flightID
           FlightDetails {
             __typename
@@ -5798,29 +5679,22 @@ export class APIService {
           createdAt
           updatedAt
         }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<
-        Pick<__SubscriptionContainer, "onUpdateImageCollection">
-      >
-    >;
-  }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<
+      Pick<__SubscriptionContainer, "onUpdateImageCollection">
+    >
+  >;
 
-  OnDeleteImageCollectionListener(
-    filter?: ModelSubscriptionImageCollectionFilterInput
-  ): Observable<
+  OnDeleteImageCollectionListener: Observable<
     SubscriptionResponse<
       Pick<__SubscriptionContainer, "onDeleteImageCollection">
     >
-  > {
-    const statement = `subscription OnDeleteImageCollection($filter: ModelSubscriptionImageCollectionFilterInput) {
-        onDeleteImageCollection(filter: $filter) {
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnDeleteImageCollection {
+        onDeleteImageCollection {
           __typename
           collectionID
           taskID
@@ -5838,6 +5712,7 @@ export class APIService {
           completed
           error
           pending
+          dismissed
           flightID
           FlightDetails {
             __typename
@@ -5863,27 +5738,20 @@ export class APIService {
           createdAt
           updatedAt
         }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<
-        Pick<__SubscriptionContainer, "onDeleteImageCollection">
-      >
-    >;
-  }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<
+      Pick<__SubscriptionContainer, "onDeleteImageCollection">
+    >
+  >;
 
-  OnCreateMapListener(
-    filter?: ModelSubscriptionMapFilterInput
-  ): Observable<
+  OnCreateMapListener: Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateMap">>
-  > {
-    const statement = `subscription OnCreateMap($filter: ModelSubscriptionMapFilterInput) {
-        onCreateMap(filter: $filter) {
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnCreateMap {
+        onCreateMap {
           __typename
           mapID
           bucket_name
@@ -5907,6 +5775,7 @@ export class APIService {
             completed
             error
             pending
+            dismissed
             flightID
             FlightDetails {
               __typename
@@ -5923,25 +5792,18 @@ export class APIService {
           createdAt
           updatedAt
         }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateMap">>
-    >;
-  }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateMap">>
+  >;
 
-  OnUpdateMapListener(
-    filter?: ModelSubscriptionMapFilterInput
-  ): Observable<
+  OnUpdateMapListener: Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateMap">>
-  > {
-    const statement = `subscription OnUpdateMap($filter: ModelSubscriptionMapFilterInput) {
-        onUpdateMap(filter: $filter) {
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnUpdateMap {
+        onUpdateMap {
           __typename
           mapID
           bucket_name
@@ -5965,6 +5827,7 @@ export class APIService {
             completed
             error
             pending
+            dismissed
             flightID
             FlightDetails {
               __typename
@@ -5981,25 +5844,18 @@ export class APIService {
           createdAt
           updatedAt
         }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateMap">>
-    >;
-  }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateMap">>
+  >;
 
-  OnDeleteMapListener(
-    filter?: ModelSubscriptionMapFilterInput
-  ): Observable<
+  OnDeleteMapListener: Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteMap">>
-  > {
-    const statement = `subscription OnDeleteMap($filter: ModelSubscriptionMapFilterInput) {
-        onDeleteMap(filter: $filter) {
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnDeleteMap {
+        onDeleteMap {
           __typename
           mapID
           bucket_name
@@ -6023,6 +5879,7 @@ export class APIService {
             completed
             error
             pending
+            dismissed
             flightID
             FlightDetails {
               __typename
@@ -6039,25 +5896,18 @@ export class APIService {
           createdAt
           updatedAt
         }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteMap">>
-    >;
-  }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteMap">>
+  >;
 
-  OnCreateMessageListener(
-    filter?: ModelSubscriptionMessageFilterInput
-  ): Observable<
+  OnCreateMessageListener: Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateMessage">>
-  > {
-    const statement = `subscription OnCreateMessage($filter: ModelSubscriptionMessageFilterInput) {
-        onCreateMessage(filter: $filter) {
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnCreateMessage {
+        onCreateMessage {
           __typename
           messageID
           message_status
@@ -6081,6 +5931,7 @@ export class APIService {
             completed
             error
             pending
+            dismissed
             flightID
             FlightDetails {
               __typename
@@ -6097,25 +5948,18 @@ export class APIService {
           createdAt
           updatedAt
         }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateMessage">>
-    >;
-  }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateMessage">>
+  >;
 
-  OnUpdateMessageListener(
-    filter?: ModelSubscriptionMessageFilterInput
-  ): Observable<
+  OnUpdateMessageListener: Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateMessage">>
-  > {
-    const statement = `subscription OnUpdateMessage($filter: ModelSubscriptionMessageFilterInput) {
-        onUpdateMessage(filter: $filter) {
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnUpdateMessage {
+        onUpdateMessage {
           __typename
           messageID
           message_status
@@ -6139,6 +5983,7 @@ export class APIService {
             completed
             error
             pending
+            dismissed
             flightID
             FlightDetails {
               __typename
@@ -6155,25 +6000,18 @@ export class APIService {
           createdAt
           updatedAt
         }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateMessage">>
-    >;
-  }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateMessage">>
+  >;
 
-  OnDeleteMessageListener(
-    filter?: ModelSubscriptionMessageFilterInput
-  ): Observable<
+  OnDeleteMessageListener: Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteMessage">>
-  > {
-    const statement = `subscription OnDeleteMessage($filter: ModelSubscriptionMessageFilterInput) {
-        onDeleteMessage(filter: $filter) {
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnDeleteMessage {
+        onDeleteMessage {
           __typename
           messageID
           message_status
@@ -6197,6 +6035,7 @@ export class APIService {
             completed
             error
             pending
+            dismissed
             flightID
             FlightDetails {
               __typename
@@ -6213,25 +6052,18 @@ export class APIService {
           createdAt
           updatedAt
         }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteMessage">>
-    >;
-  }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteMessage">>
+  >;
 
-  OnCreateImagesListener(
-    filter?: ModelSubscriptionImagesFilterInput
-  ): Observable<
+  OnCreateImagesListener: Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateImages">>
-  > {
-    const statement = `subscription OnCreateImages($filter: ModelSubscriptionImagesFilterInput) {
-        onCreateImages(filter: $filter) {
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnCreateImages {
+        onCreateImages {
           __typename
           imageID
           collectionID
@@ -6241,25 +6073,18 @@ export class APIService {
           createdAt
           updatedAt
         }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateImages">>
-    >;
-  }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateImages">>
+  >;
 
-  OnUpdateImagesListener(
-    filter?: ModelSubscriptionImagesFilterInput
-  ): Observable<
+  OnUpdateImagesListener: Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateImages">>
-  > {
-    const statement = `subscription OnUpdateImages($filter: ModelSubscriptionImagesFilterInput) {
-        onUpdateImages(filter: $filter) {
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnUpdateImages {
+        onUpdateImages {
           __typename
           imageID
           collectionID
@@ -6269,25 +6094,18 @@ export class APIService {
           createdAt
           updatedAt
         }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateImages">>
-    >;
-  }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateImages">>
+  >;
 
-  OnDeleteImagesListener(
-    filter?: ModelSubscriptionImagesFilterInput
-  ): Observable<
+  OnDeleteImagesListener: Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteImages">>
-  > {
-    const statement = `subscription OnDeleteImages($filter: ModelSubscriptionImagesFilterInput) {
-        onDeleteImages(filter: $filter) {
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnDeleteImages {
+        onDeleteImages {
           __typename
           imageID
           collectionID
@@ -6297,25 +6115,18 @@ export class APIService {
           createdAt
           updatedAt
         }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteImages">>
-    >;
-  }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteImages">>
+  >;
 
-  OnCreateFlightDetailsListener(
-    filter?: ModelSubscriptionFlightDetailsFilterInput
-  ): Observable<
+  OnCreateFlightDetailsListener: Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateFlightDetails">>
-  > {
-    const statement = `subscription OnCreateFlightDetails($filter: ModelSubscriptionFlightDetailsFilterInput) {
-        onCreateFlightDetails(filter: $filter) {
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnCreateFlightDetails {
+        onCreateFlightDetails {
           __typename
           flightID
           flight_height
@@ -6336,27 +6147,18 @@ export class APIService {
           createdAt
           updatedAt
         }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<
-        Pick<__SubscriptionContainer, "onCreateFlightDetails">
-      >
-    >;
-  }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateFlightDetails">>
+  >;
 
-  OnUpdateFlightDetailsListener(
-    filter?: ModelSubscriptionFlightDetailsFilterInput
-  ): Observable<
+  OnUpdateFlightDetailsListener: Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateFlightDetails">>
-  > {
-    const statement = `subscription OnUpdateFlightDetails($filter: ModelSubscriptionFlightDetailsFilterInput) {
-        onUpdateFlightDetails(filter: $filter) {
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnUpdateFlightDetails {
+        onUpdateFlightDetails {
           __typename
           flightID
           flight_height
@@ -6377,27 +6179,18 @@ export class APIService {
           createdAt
           updatedAt
         }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<
-        Pick<__SubscriptionContainer, "onUpdateFlightDetails">
-      >
-    >;
-  }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateFlightDetails">>
+  >;
 
-  OnDeleteFlightDetailsListener(
-    filter?: ModelSubscriptionFlightDetailsFilterInput
-  ): Observable<
+  OnDeleteFlightDetailsListener: Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteFlightDetails">>
-  > {
-    const statement = `subscription OnDeleteFlightDetails($filter: ModelSubscriptionFlightDetailsFilterInput) {
-        onDeleteFlightDetails(filter: $filter) {
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnDeleteFlightDetails {
+        onDeleteFlightDetails {
           __typename
           flightID
           flight_height
@@ -6418,29 +6211,20 @@ export class APIService {
           createdAt
           updatedAt
         }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<
-        Pick<__SubscriptionContainer, "onDeleteFlightDetails">
-      >
-    >;
-  }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteFlightDetails">>
+  >;
 
-  OnCreatePendingInvitesListener(
-    filter?: ModelSubscriptionPendingInvitesFilterInput
-  ): Observable<
+  OnCreatePendingInvitesListener: Observable<
     SubscriptionResponse<
       Pick<__SubscriptionContainer, "onCreatePendingInvites">
     >
-  > {
-    const statement = `subscription OnCreatePendingInvites($filter: ModelSubscriptionPendingInvitesFilterInput) {
-        onCreatePendingInvites(filter: $filter) {
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnCreatePendingInvites {
+        onCreatePendingInvites {
           __typename
           inviteID
           email
@@ -6448,29 +6232,22 @@ export class APIService {
           createdAt
           updatedAt
         }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<
-        Pick<__SubscriptionContainer, "onCreatePendingInvites">
-      >
-    >;
-  }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<
+      Pick<__SubscriptionContainer, "onCreatePendingInvites">
+    >
+  >;
 
-  OnUpdatePendingInvitesListener(
-    filter?: ModelSubscriptionPendingInvitesFilterInput
-  ): Observable<
+  OnUpdatePendingInvitesListener: Observable<
     SubscriptionResponse<
       Pick<__SubscriptionContainer, "onUpdatePendingInvites">
     >
-  > {
-    const statement = `subscription OnUpdatePendingInvites($filter: ModelSubscriptionPendingInvitesFilterInput) {
-        onUpdatePendingInvites(filter: $filter) {
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnUpdatePendingInvites {
+        onUpdatePendingInvites {
           __typename
           inviteID
           email
@@ -6478,29 +6255,22 @@ export class APIService {
           createdAt
           updatedAt
         }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<
-        Pick<__SubscriptionContainer, "onUpdatePendingInvites">
-      >
-    >;
-  }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<
+      Pick<__SubscriptionContainer, "onUpdatePendingInvites">
+    >
+  >;
 
-  OnDeletePendingInvitesListener(
-    filter?: ModelSubscriptionPendingInvitesFilterInput
-  ): Observable<
+  OnDeletePendingInvitesListener: Observable<
     SubscriptionResponse<
       Pick<__SubscriptionContainer, "onDeletePendingInvites">
     >
-  > {
-    const statement = `subscription OnDeletePendingInvites($filter: ModelSubscriptionPendingInvitesFilterInput) {
-        onDeletePendingInvites(filter: $filter) {
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnDeletePendingInvites {
+        onDeletePendingInvites {
           __typename
           inviteID
           email
@@ -6508,102 +6278,74 @@ export class APIService {
           createdAt
           updatedAt
         }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<
-        Pick<__SubscriptionContainer, "onDeletePendingInvites">
-      >
-    >;
-  }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<
+      Pick<__SubscriptionContainer, "onDeletePendingInvites">
+    >
+  >;
 
-  OnCreateConnectionListener(
-    filter?: ModelSubscriptionConnectionFilterInput
-  ): Observable<
+  OnCreateConnectionListener: Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateConnection">>
-  > {
-    const statement = `subscription OnCreateConnection($filter: ModelSubscriptionConnectionFilterInput) {
-        onCreateConnection(filter: $filter) {
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnCreateConnection {
+        onCreateConnection {
           __typename
           connectionID
           topic
           createdAt
           updatedAt
         }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateConnection">>
-    >;
-  }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateConnection">>
+  >;
 
-  OnUpdateConnectionListener(
-    filter?: ModelSubscriptionConnectionFilterInput
-  ): Observable<
+  OnUpdateConnectionListener: Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateConnection">>
-  > {
-    const statement = `subscription OnUpdateConnection($filter: ModelSubscriptionConnectionFilterInput) {
-        onUpdateConnection(filter: $filter) {
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnUpdateConnection {
+        onUpdateConnection {
           __typename
           connectionID
           topic
           createdAt
           updatedAt
         }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateConnection">>
-    >;
-  }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateConnection">>
+  >;
 
-  OnDeleteConnectionListener(
-    filter?: ModelSubscriptionConnectionFilterInput
-  ): Observable<
+  OnDeleteConnectionListener: Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteConnection">>
-  > {
-    const statement = `subscription OnDeleteConnection($filter: ModelSubscriptionConnectionFilterInput) {
-        onDeleteConnection(filter: $filter) {
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnDeleteConnection {
+        onDeleteConnection {
           __typename
           connectionID
           topic
           createdAt
           updatedAt
         }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteConnection">>
-    >;
-  }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteConnection">>
+  >;
 
-  OnCreatePendingJobsListener(
-    filter?: ModelSubscriptionPendingJobsFilterInput
-  ): Observable<
+  OnCreatePendingJobsListener: Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onCreatePendingJobs">>
-  > {
-    const statement = `subscription OnCreatePendingJobs($filter: ModelSubscriptionPendingJobsFilterInput) {
-        onCreatePendingJobs(filter: $filter) {
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnCreatePendingJobs {
+        onCreatePendingJobs {
           __typename
           jobID
           busy
@@ -6612,25 +6354,18 @@ export class APIService {
           createdAt
           updatedAt
         }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<Pick<__SubscriptionContainer, "onCreatePendingJobs">>
-    >;
-  }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreatePendingJobs">>
+  >;
 
-  OnUpdatePendingJobsListener(
-    filter?: ModelSubscriptionPendingJobsFilterInput
-  ): Observable<
+  OnUpdatePendingJobsListener: Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdatePendingJobs">>
-  > {
-    const statement = `subscription OnUpdatePendingJobs($filter: ModelSubscriptionPendingJobsFilterInput) {
-        onUpdatePendingJobs(filter: $filter) {
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnUpdatePendingJobs {
+        onUpdatePendingJobs {
           __typename
           jobID
           busy
@@ -6639,25 +6374,18 @@ export class APIService {
           createdAt
           updatedAt
         }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdatePendingJobs">>
-    >;
-  }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdatePendingJobs">>
+  >;
 
-  OnDeletePendingJobsListener(
-    filter?: ModelSubscriptionPendingJobsFilterInput
-  ): Observable<
+  OnDeletePendingJobsListener: Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onDeletePendingJobs">>
-  > {
-    const statement = `subscription OnDeletePendingJobs($filter: ModelSubscriptionPendingJobsFilterInput) {
-        onDeletePendingJobs(filter: $filter) {
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnDeletePendingJobs {
+        onDeletePendingJobs {
           __typename
           jobID
           busy
@@ -6666,15 +6394,9 @@ export class APIService {
           createdAt
           updatedAt
         }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    return API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    ) as Observable<
-      SubscriptionResponse<Pick<__SubscriptionContainer, "onDeletePendingJobs">>
-    >;
-  }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeletePendingJobs">>
+  >;
 }

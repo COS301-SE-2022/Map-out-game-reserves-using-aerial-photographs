@@ -14,7 +14,14 @@ import {
   ImageCollection,
   ListMessagesQuery,
   CreateMessageInput,
+  UpdateImageCollectionInput,
+  GetImageCollectionQuery,
+  DeleteMapInput,
+  DeleteMessageInput,
+  GetMessagesQuery,
+  GetMessageByCollectionIdQuery
 } from 'src/app/API.service';
+
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ControllerService } from 'src/app/api/controller/controller.service';
 
@@ -175,8 +182,10 @@ export class DashboardComponent implements OnInit {
         this.completed = [];
         this.processing = [];
         for (const collection of resp.items) {
+          // console.log("COLLECTION");
+          // console.log(collection);
           if (collection) {
-            if (collection.completed) {
+            if (collection.completed && !collection.dismissed) {
               this.completed.push(collection);
             } else if (collection.pending) {
               this.processing.push(collection);
@@ -256,7 +265,6 @@ export class DashboardComponent implements OnInit {
         if (document.readyState === 'complete') {
           const loader = document.getElementById('pre-loader');
           loader!.setAttribute('class', 'fade-out');
-          let count = 0;
           setTimeout(() => {
             this.inAnimation = false;
             loader?.remove();
@@ -265,8 +273,61 @@ export class DashboardComponent implements OnInit {
       });
     }
   }
-  dismiss():void {
+  dismiss(ID:string|undefined|null, statusType:string):void {
     //TODO: dismiss message = true
+    // var resp = this.api.GetImageCollection(ID);
+    // this.api.UpdateImageCollection(ID, )
+
+    //error messages
+    if (statusType == 'error') {
+      //delete
+      if(ID==null){
+        ID="";
+      }
+      this.api.GetMessageByCollectionId(ID).then((value: GetMessageByCollectionIdQuery) => {
+        // const temp:Array<> = value.items;
+        // console.log(value.items[0]?.messageID);
+        let t: string|undefined = value.items[0]?.messageID;
+        if (t ==undefined){
+          t="";
+        }
+        let deleteId : DeleteMessageInput = {messageID : t};
+        this.api.DeleteMessage(deleteId);
+      });
+      this.snackbar.open("Error message dismissed", '❌', {
+        verticalPosition: 'bottom',
+      });
+      if(document.getElementById(ID) != null) {
+        document.getElementById(ID)!.style.display='none';
+      }
+    }
+
+    //completed messages
+    if (statusType =='complete') {
+      if(ID==null){
+        ID="";
+      }
+      const IDn:string|undefined = ID;
+      
+      this.api
+      .GetImageCollection(IDn)
+      .then((value: GetImageCollectionQuery) => {
+        value.dismissed=true;
+        const newMessage:UpdateImageCollectionInput={
+          collectionID: IDn,
+          dismissed: true
+        }
+        this.api.UpdateImageCollection(newMessage);
+      });
+
+      this.snackbar.open("Map completed message dismissed", '❌', {
+        verticalPosition: 'bottom',
+      });
+      if(document.getElementById(ID) != null) {
+        document.getElementById(ID)!.style.display='none';
+      }
+      
+    }
   }
 }
 
