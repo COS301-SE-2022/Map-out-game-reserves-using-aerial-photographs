@@ -4,7 +4,11 @@
       <div class="center">
         <mat-progress-spinner mode="indeterminate" class = "spinner" diameter = "50" style = "z-index: 1;"></mat-progress-spinner>
       </div>
-      <mat-card-content><img [src]="img.url" alt="{{ img.image.file_name }}" /></mat-card-content>
+      <mat-card-content>
+        <a [href]="img.url" target="_blank">
+          <img [src]="img.url" alt="{{ img.image.file_name }}" />
+        </a>
+      </mat-card-content>
     </mat-card>
   </div>
 </mat-dialog-content>

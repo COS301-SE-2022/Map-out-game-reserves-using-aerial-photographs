@@ -29,7 +29,7 @@ export class ImageDialogComponent {
     public dialogRef: MatDialogRef<ImageDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {
-    this.selectCatalogue = data.selectedCatalogue
+    this.selectCatalogue = data.selectedCatalogue;
     this.spinners=[];
     setTimeout(() => {
       this.spinners = Array.from(document.getElementsByClassName('spinner') as HTMLCollectionOf<HTMLElement>)
@@ -39,7 +39,7 @@ export class ImageDialogComponent {
         });
     }, 4000);
   }
-
+  
   onNoClick(): void {
     this.dialogRef.close();
   }
