@@ -49,6 +49,7 @@ export class ImageDialogComponent {
   onDeleteClick(tryAgain:boolean): void {
     // Delete from S3
       // ----- Not yet working completely -----
+      // TODO:
     // this.apiController.S3delete(this.selectCatalogue.collectionID);
     // this.apiController.S3delete("00265eba-6e41-45db-ab10-ee3a5cc98c84/");
 

@@ -280,7 +280,7 @@ export class DashboardComponent implements OnInit {
 
     //error messages
     if (statusType == 'error') {
-      //delete
+      //make sure id cant be null
       if(ID==null){
         ID="";
       }
@@ -304,6 +304,7 @@ export class DashboardComponent implements OnInit {
 
     //completed messages
     if (statusType =='complete') {
+      //make sure id cant be null
       if(ID==null){
         ID="";
       }
