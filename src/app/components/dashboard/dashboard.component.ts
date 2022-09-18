@@ -79,19 +79,12 @@ export class DashboardComponent implements OnInit {
     this.refreshDashboard();
 
     // refresh map collections and messages when a notification is received from the websocket
-<<<<<<< HEAD
     if(this.controller.websocket != null){
       this.controller.websocket.onmessage = (msg: any) => {
         console.log('SNS message received ', msg);
         this.refreshDashboard();
       };
     }
-=======
-    this.controller.websocket.onmessage = (msg: any) => {
-      console.log('SNS message received ', msg);
-      this.refreshDashboard();
-    };
->>>>>>> 8eb2eeaf5388e2540ea25e3be04f5ae71f3e05d8
 
     //poll DynamoDB (OLD)
     // this.statusPollingInterval = interval(5000)
@@ -194,6 +187,7 @@ export class DashboardComponent implements OnInit {
         }
       })
       .catch((err: any) => {
+        console.log(err);
         if (err.errors[0].message == 'Network Error') {
           if (!this.errorState) {
             this.errorState = true;
@@ -247,6 +241,7 @@ export class DashboardComponent implements OnInit {
         }
       })
       .catch((err: any) => {
+        console.log(err);
         if (err.errors[0].message == 'Network Error') {
           if (!this.errorState) {
             this.errorState = true;
