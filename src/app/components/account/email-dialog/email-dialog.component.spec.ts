@@ -63,7 +63,7 @@ describe('EmailDialogComponent', () => {
   //   expect(component.name!.value).toBe('');
   // });
 
-  it('test onSubmit() with mock emptry email', () => {
+  it('test onSubmit() with mock empty email', () => {
     component.data.newEmail = '';
     expect(component.onSubmit()).toBeUndefined();
   });
