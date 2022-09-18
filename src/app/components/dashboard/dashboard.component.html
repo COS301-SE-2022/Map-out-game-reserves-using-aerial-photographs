@@ -89,7 +89,7 @@
                   ></fa-icon>
                   <span class="message">Upload</span>
                   <span class="completeName"
-                    > {{ collection.collectionID }}</span
+                    >{{ collection.collectionName }}</span
                   >
                   <!-- <span class="completeDate">{{m.date}}</span> -->
                   <button class="close" (click)="dismiss()"><mat-icon>close</mat-icon></button>
@@ -129,7 +129,7 @@
                     [icon]="progress"
                   ></fa-icon>
                   <span class="progressName"
-                    >Upload {{ collection.collectionID }}, to be
+                    >Upload {{ collection.collectionName }}, to be
                     completed...</span
                   >
                 </mat-list-item>

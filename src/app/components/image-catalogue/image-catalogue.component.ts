@@ -267,34 +267,34 @@ export class ImageCatalogueComponent implements OnInit {
     });
   }
 
-  onChangeSort(selectedOption: any) {
-    this.selected = selectedOption.target.value;
-    if (this.selected == 'date') {
-      this.sortByDate();
-    } else if (this.selected == 'park') {
-      this.sortByPark();
-    }
-    else if (this.selected == 'name') {
-      this.sortByName();
-    }
-  }
+  // onChangeSort(selectedOption: any) {
+  //   this.selected = selectedOption.target.value;
+  //   if (this.selected == 'date') {
+  //     this.sortByDate();
+  //   } else if (this.selected == 'park') {
+  //     this.sortByPark();
+  //   }
+  //   else if (this.selected == 'name') {
+  //     this.sortByName();
+  //   }
+  // }
 
-  sortByDate() {
-    this.catalogues.sort((a, b) => {
-      return (
-        new Date(a.catalogue.upload_date_time!).getTime() -
-        new Date(b.catalogue.upload_date_time!).getTime()
-      );
-    });
-  }
+  // sortByDate() {
+  //   this.catalogues.sort((a, b) => {
+  //     return (
+  //       new Date(a.catalogue.upload_date_time!).getTime() -
+  //       new Date(b.catalogue.upload_date_time!).getTime()
+  //     );
+  //   });
+  // }
 
-  sortByPark() {
-    this.catalogues.sort((a: any, b: any) => a.catalogue.GamePark.park_name - b.catalogue.GamePark.park_name!);
-  }
+  // sortByPark() {
+  //   this.catalogues.sort((a: any, b: any) => a.catalogue.GamePark.park_name - b.catalogue.GamePark.park_name!);
+  // }
 
-  sortByName() {
-    this.catalogues.sort((a: any, b: any) => a.catalogue.collectionName - b.catalogue.collectionName!);
-  }
+  // sortByName() {
+  //   this.catalogues.sort((a: any, b: any) => a.catalogue.collectionName - b.catalogue.collectionName!);
+  // }
 
   enlarge(catalogue: CatalogData) {
     const doc = document.getElementById('popup');
