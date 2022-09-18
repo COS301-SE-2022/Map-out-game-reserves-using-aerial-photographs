@@ -65,6 +65,7 @@ query GetMessages {
         createdAt
         updatedAt
       }
+      collectionName
       createdAt
       updatedAt
     }
@@ -126,6 +127,7 @@ query GetImageCollections {
       createdAt
       updatedAt
     }
+    collectionName
     createdAt
     updatedAt
   }
@@ -178,6 +180,7 @@ query GetCatalogues {
       createdAt
       updatedAt
     }
+    collectionName
     createdAt
     updatedAt
   }
@@ -323,6 +326,7 @@ query GetImageCollection($collectionID: String!) {
       createdAt
       updatedAt
     }
+    collectionName
     createdAt
     updatedAt
   }
@@ -366,6 +370,7 @@ query ListImageCollections(
         createdAt
         updatedAt
       }
+      collectionName
       createdAt
       updatedAt
     }
@@ -411,6 +416,7 @@ query GetImageCollectionByTaskId(
         createdAt
         updatedAt
       }
+      collectionName
       createdAt
       updatedAt
     }
@@ -448,6 +454,7 @@ query GetMap($mapID: String!) {
         createdAt
         updatedAt
       }
+      collectionName
       createdAt
       updatedAt
     }
@@ -483,6 +490,7 @@ query ListMaps(
         error
         pending
         flightID
+        collectionName
         createdAt
         updatedAt
       }
@@ -520,6 +528,7 @@ query GetMapByFileName(
         error
         pending
         flightID
+        collectionName
         createdAt
         updatedAt
       }
@@ -560,6 +569,7 @@ query GetMessage($messageID: String!) {
         createdAt
         updatedAt
       }
+      collectionName
       createdAt
       updatedAt
     }
@@ -595,6 +605,7 @@ query ListMessages(
         error
         pending
         flightID
+        collectionName
         createdAt
         updatedAt
       }
@@ -632,6 +643,7 @@ query GetMessageByCollectionId(
         error
         pending
         flightID
+        collectionName
         createdAt
         updatedAt
       }

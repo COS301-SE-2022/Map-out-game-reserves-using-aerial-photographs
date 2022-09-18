@@ -34,6 +34,7 @@ interface CatalogData {
   completed: boolean | undefined | null;
   error: boolean | undefined | null;
   taskID: string | undefined | null;
+  collectionName: string | undefined | null;
 }
 
 @Component({
@@ -53,6 +54,7 @@ export class ImageCatalogueComponent implements OnInit {
   sort = {
     date: 'date',
     park: 'park',
+    name: 'name',
   };
 
   inAnimation: boolean;
@@ -112,7 +114,8 @@ export class ImageCatalogueComponent implements OnInit {
             collectionID: catalog?.collectionID,
             completed: catalog?.completed,
             error: catalog?.error,
-            taskID: catalog?.taskID
+            taskID: catalog?.taskID,
+            collectionName: catalog?.collectionName
           });
         }
 
@@ -235,6 +238,8 @@ export class ImageCatalogueComponent implements OnInit {
     });
   }
 
+
+
   searchCatalogues() {
     // search for either a matching date string or a collection name
     // or a park name?
@@ -244,11 +249,11 @@ export class ImageCatalogueComponent implements OnInit {
 
     this.catalogues = this.tempCatalogues;
     this.catalogues = this.catalogues.filter((c) => {
-      let id = '';
+      let name = '';
       if (c.collectionID) {
-        id = c.collectionID.toLowerCase();
+        name = c.collectionID.toLowerCase();
       }
-      return id.includes(searchTerm);
+      return name.includes(searchTerm);
     });
   }
 
@@ -258,6 +263,9 @@ export class ImageCatalogueComponent implements OnInit {
       this.sortByDate();
     } else if (this.selected == 'park') {
       this.sortByPark();
+    }
+    else if (this.selected == 'name') {
+      this.sortByName();
     }
   }
 
@@ -271,7 +279,11 @@ export class ImageCatalogueComponent implements OnInit {
   }
 
   sortByPark() {
-    this.catalogues.sort((a: any, b: any) => a.parkID - b.parkID!);
+    this.catalogues.sort((a: any, b: any) => a.catalogue.GamePark.park_name - b.catalogue.GamePark.park_name!);
+  }
+
+  sortByName() {
+    this.catalogues.sort((a: any, b: any) => a.catalogue.collectionName - b.catalogue.collectionName!);
   }
 
   enlarge(catalogue: CatalogData) {
