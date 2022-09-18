@@ -238,7 +238,17 @@ export class ImageCatalogueComponent implements OnInit {
     });
   }
 
-
+  orderByName() {
+    this.catalogues.sort(function (a, b) {
+      if (a.catalogue.collectionName < b.catalogue.collectionName) {
+        return -1;
+      }
+      if (a.catalogue.collectionName > b.catalogue.collectionName) {
+        return 1;
+      }
+      return 0;
+    });
+  }
 
   searchCatalogues() {
     // search for either a matching date string or a collection name
