@@ -250,8 +250,8 @@ export class ImageCatalogueComponent implements OnInit {
     this.catalogues = this.tempCatalogues;
     this.catalogues = this.catalogues.filter((c) => {
       let name = '';
-      if (c.collectionID) {
-        name = c.collectionID.toLowerCase();
+      if (c.collectionName) {
+        name = c.collectionName.toLowerCase();
       }
       return name.includes(searchTerm);
     });
