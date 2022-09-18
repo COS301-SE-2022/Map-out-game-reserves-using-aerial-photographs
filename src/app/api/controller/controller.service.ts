@@ -113,6 +113,15 @@ export class ControllerService {
     return result;
   }
 
+  async S3delete(fileKey:string, collection:string, folder:string){
+    // Storage.list('public/') // for listing ALL files without prefix, pass '' instead
+    // .then(result => console.log(result))
+    //console.log("sent: "+collection+"/"+folder+"/"+fileKey);
+    const result = await Storage.remove(collection+"/"+folder+"/"+fileKey);
+    //console.log(result);
+    return result;
+  }
+
   async getImageData(bucket_name: string, file_name: string): Promise<any> {
     // const options = {
     //   headers: new HttpHeaders({
