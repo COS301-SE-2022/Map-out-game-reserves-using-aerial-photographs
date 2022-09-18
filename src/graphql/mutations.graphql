@@ -292,6 +292,129 @@ mutation DeleteImageCollection(
     updatedAt
   }
 }
+mutation CreateMap(
+  $input: CreateMapInput!
+  $condition: ModelMapConditionInput
+) {
+  createMap(input: $input, condition: $condition) {
+    mapID
+    bucket_name
+    file_name
+    collectionID
+    Collection {
+      collectionID
+      taskID
+      parkID
+      GamePark {
+        parkID
+        park_name
+        park_location
+        park_address
+        createdAt
+        updatedAt
+      }
+      upload_date_time
+      completed
+      error
+      pending
+      flightID
+      FlightDetails {
+        flightID
+        flight_height
+        flight_type
+        pilotID
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateMap(
+  $input: UpdateMapInput!
+  $condition: ModelMapConditionInput
+) {
+  updateMap(input: $input, condition: $condition) {
+    mapID
+    bucket_name
+    file_name
+    collectionID
+    Collection {
+      collectionID
+      taskID
+      parkID
+      GamePark {
+        parkID
+        park_name
+        park_location
+        park_address
+        createdAt
+        updatedAt
+      }
+      upload_date_time
+      completed
+      error
+      pending
+      flightID
+      FlightDetails {
+        flightID
+        flight_height
+        flight_type
+        pilotID
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteMap(
+  $input: DeleteMapInput!
+  $condition: ModelMapConditionInput
+) {
+  deleteMap(input: $input, condition: $condition) {
+    mapID
+    bucket_name
+    file_name
+    collectionID
+    Collection {
+      collectionID
+      taskID
+      parkID
+      GamePark {
+        parkID
+        park_name
+        park_location
+        park_address
+        createdAt
+        updatedAt
+      }
+      upload_date_time
+      completed
+      error
+      pending
+      flightID
+      FlightDetails {
+        flightID
+        flight_height
+        flight_type
+        pilotID
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
 mutation CreateMessage(
   $input: CreateMessageInput!
   $condition: ModelMessageConditionInput

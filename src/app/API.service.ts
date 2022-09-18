@@ -19,6 +19,9 @@ export type __SubscriptionContainer = {
   onCreateImageCollection: OnCreateImageCollectionSubscription;
   onUpdateImageCollection: OnUpdateImageCollectionSubscription;
   onDeleteImageCollection: OnDeleteImageCollectionSubscription;
+  onCreateMap: OnCreateMapSubscription;
+  onUpdateMap: OnUpdateMapSubscription;
+  onDeleteMap: OnDeleteMapSubscription;
   onCreateMessage: OnCreateMessageSubscription;
   onUpdateMessage: OnUpdateMessageSubscription;
   onDeleteMessage: OnDeleteMessageSubscription;
@@ -246,6 +249,44 @@ export type UpdateImageCollectionInput = {
 
 export type DeleteImageCollectionInput = {
   collectionID: string;
+};
+
+export type CreateMapInput = {
+  mapID: string;
+  bucket_name?: string | null;
+  file_name?: string | null;
+  collectionID?: string | null;
+};
+
+export type ModelMapConditionInput = {
+  bucket_name?: ModelStringInput | null;
+  file_name?: ModelStringInput | null;
+  collectionID?: ModelStringInput | null;
+  and?: Array<ModelMapConditionInput | null> | null;
+  or?: Array<ModelMapConditionInput | null> | null;
+  not?: ModelMapConditionInput | null;
+};
+
+export type Map = {
+  __typename: "Map";
+  mapID: string;
+  bucket_name?: string | null;
+  file_name?: string | null;
+  collectionID?: string | null;
+  Collection?: ImageCollection | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type UpdateMapInput = {
+  mapID: string;
+  bucket_name?: string | null;
+  file_name?: string | null;
+  collectionID?: string | null;
+};
+
+export type DeleteMapInput = {
+  mapID: string;
 };
 
 export type CreateMessageInput = {
@@ -511,6 +552,22 @@ export type ModelImageCollectionFilterInput = {
 export type ModelImageCollectionConnection = {
   __typename: "ModelImageCollectionConnection";
   items: Array<ImageCollection | null>;
+  nextToken?: string | null;
+};
+
+export type ModelMapFilterInput = {
+  mapID?: ModelStringInput | null;
+  bucket_name?: ModelStringInput | null;
+  file_name?: ModelStringInput | null;
+  collectionID?: ModelStringInput | null;
+  and?: Array<ModelMapFilterInput | null> | null;
+  or?: Array<ModelMapFilterInput | null> | null;
+  not?: ModelMapFilterInput | null;
+};
+
+export type ModelMapConnection = {
+  __typename: "ModelMapConnection";
+  items: Array<Map | null>;
   nextToken?: string | null;
 };
 
@@ -845,6 +902,129 @@ export type DeleteImageCollectionMutation = {
       user_name?: string | null;
       user_role?: string | null;
       user_approved?: boolean | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type CreateMapMutation = {
+  __typename: "Map";
+  mapID: string;
+  bucket_name?: string | null;
+  file_name?: string | null;
+  collectionID?: string | null;
+  Collection?: {
+    __typename: "ImageCollection";
+    collectionID: string;
+    taskID?: string | null;
+    parkID?: string | null;
+    GamePark?: {
+      __typename: "GamePark";
+      parkID: string;
+      park_name?: string | null;
+      park_location?: string | null;
+      park_address?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    upload_date_time?: string | null;
+    completed?: boolean | null;
+    error?: boolean | null;
+    pending?: boolean | null;
+    flightID?: string | null;
+    FlightDetails?: {
+      __typename: "FlightDetails";
+      flightID: string;
+      flight_height?: number | null;
+      flight_type?: string | null;
+      pilotID?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type UpdateMapMutation = {
+  __typename: "Map";
+  mapID: string;
+  bucket_name?: string | null;
+  file_name?: string | null;
+  collectionID?: string | null;
+  Collection?: {
+    __typename: "ImageCollection";
+    collectionID: string;
+    taskID?: string | null;
+    parkID?: string | null;
+    GamePark?: {
+      __typename: "GamePark";
+      parkID: string;
+      park_name?: string | null;
+      park_location?: string | null;
+      park_address?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    upload_date_time?: string | null;
+    completed?: boolean | null;
+    error?: boolean | null;
+    pending?: boolean | null;
+    flightID?: string | null;
+    FlightDetails?: {
+      __typename: "FlightDetails";
+      flightID: string;
+      flight_height?: number | null;
+      flight_type?: string | null;
+      pilotID?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type DeleteMapMutation = {
+  __typename: "Map";
+  mapID: string;
+  bucket_name?: string | null;
+  file_name?: string | null;
+  collectionID?: string | null;
+  Collection?: {
+    __typename: "ImageCollection";
+    collectionID: string;
+    taskID?: string | null;
+    parkID?: string | null;
+    GamePark?: {
+      __typename: "GamePark";
+      parkID: string;
+      park_name?: string | null;
+      park_location?: string | null;
+      park_address?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    upload_date_time?: string | null;
+    completed?: boolean | null;
+    error?: boolean | null;
+    pending?: boolean | null;
+    flightID?: string | null;
+    FlightDetails?: {
+      __typename: "FlightDetails";
+      flightID: string;
+      flight_height?: number | null;
+      flight_type?: string | null;
+      pilotID?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null;
@@ -1362,6 +1542,23 @@ export type ListUsersQuery = {
   nextToken?: string | null;
 };
 
+export type UserByEmailQuery = {
+  __typename: "ModelUserConnection";
+  items: Array<{
+    __typename: "User";
+    userID: string;
+    user_email?: string | null;
+    user_password?: string | null;
+    user_password_salt?: string | null;
+    user_name?: string | null;
+    user_role?: string | null;
+    user_approved?: boolean | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null>;
+  nextToken?: string | null;
+};
+
 export type GetGameParkQuery = {
   __typename: "GamePark";
   parkID: string;
@@ -1466,6 +1663,137 @@ export type ListImageCollectionsQuery = {
   nextToken?: string | null;
 };
 
+export type GetImageCollectionByTaskIdQuery = {
+  __typename: "ModelImageCollectionConnection";
+  items: Array<{
+    __typename: "ImageCollection";
+    collectionID: string;
+    taskID?: string | null;
+    parkID?: string | null;
+    GamePark?: {
+      __typename: "GamePark";
+      parkID: string;
+      park_name?: string | null;
+      park_location?: string | null;
+      park_address?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    upload_date_time?: string | null;
+    completed?: boolean | null;
+    error?: boolean | null;
+    pending?: boolean | null;
+    flightID?: string | null;
+    FlightDetails?: {
+      __typename: "FlightDetails";
+      flightID: string;
+      flight_height?: number | null;
+      flight_type?: string | null;
+      pilotID?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null>;
+  nextToken?: string | null;
+};
+
+export type GetMapQuery = {
+  __typename: "Map";
+  mapID: string;
+  bucket_name?: string | null;
+  file_name?: string | null;
+  collectionID?: string | null;
+  Collection?: {
+    __typename: "ImageCollection";
+    collectionID: string;
+    taskID?: string | null;
+    parkID?: string | null;
+    GamePark?: {
+      __typename: "GamePark";
+      parkID: string;
+      park_name?: string | null;
+      park_location?: string | null;
+      park_address?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    upload_date_time?: string | null;
+    completed?: boolean | null;
+    error?: boolean | null;
+    pending?: boolean | null;
+    flightID?: string | null;
+    FlightDetails?: {
+      __typename: "FlightDetails";
+      flightID: string;
+      flight_height?: number | null;
+      flight_type?: string | null;
+      pilotID?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type ListMapsQuery = {
+  __typename: "ModelMapConnection";
+  items: Array<{
+    __typename: "Map";
+    mapID: string;
+    bucket_name?: string | null;
+    file_name?: string | null;
+    collectionID?: string | null;
+    Collection?: {
+      __typename: "ImageCollection";
+      collectionID: string;
+      taskID?: string | null;
+      parkID?: string | null;
+      upload_date_time?: string | null;
+      completed?: boolean | null;
+      error?: boolean | null;
+      pending?: boolean | null;
+      flightID?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null>;
+  nextToken?: string | null;
+};
+
+export type GetMapByFileNameQuery = {
+  __typename: "ModelMapConnection";
+  items: Array<{
+    __typename: "Map";
+    mapID: string;
+    bucket_name?: string | null;
+    file_name?: string | null;
+    collectionID?: string | null;
+    Collection?: {
+      __typename: "ImageCollection";
+      collectionID: string;
+      taskID?: string | null;
+      parkID?: string | null;
+      upload_date_time?: string | null;
+      completed?: boolean | null;
+      error?: boolean | null;
+      pending?: boolean | null;
+      flightID?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null>;
+  nextToken?: string | null;
+};
+
 export type GetMessageQuery = {
   __typename: "Message";
   messageID: string;
@@ -1534,6 +1862,33 @@ export type ListMessagesQuery = {
   nextToken?: string | null;
 };
 
+export type GetMessageByCollectionIdQuery = {
+  __typename: "ModelMessageConnection";
+  items: Array<{
+    __typename: "Message";
+    messageID: string;
+    message_status?: string | null;
+    message_description?: string | null;
+    collectionID?: string | null;
+    ImageCollection?: {
+      __typename: "ImageCollection";
+      collectionID: string;
+      taskID?: string | null;
+      parkID?: string | null;
+      upload_date_time?: string | null;
+      completed?: boolean | null;
+      error?: boolean | null;
+      pending?: boolean | null;
+      flightID?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null>;
+  nextToken?: string | null;
+};
+
 export type GetImagesQuery = {
   __typename: "Images";
   imageID: string;
@@ -1546,6 +1901,21 @@ export type GetImagesQuery = {
 };
 
 export type ListImagesQuery = {
+  __typename: "ModelImagesConnection";
+  items: Array<{
+    __typename: "Images";
+    imageID: string;
+    collectionID?: string | null;
+    name?: string | null;
+    bucket_name?: string | null;
+    file_name?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null>;
+  nextToken?: string | null;
+};
+
+export type ImagesByCollectionIdQuery = {
   __typename: "ModelImagesConnection";
   items: Array<{
     __typename: "Images";
@@ -1630,6 +2000,19 @@ export type ListPendingInvitesQuery = {
   nextToken?: string | null;
 };
 
+export type GetPendingInvitesByEmailQuery = {
+  __typename: "ModelPendingInvitesConnection";
+  items: Array<{
+    __typename: "PendingInvites";
+    inviteID: string;
+    email: string;
+    role: string;
+    createdAt: string;
+    updatedAt: string;
+  } | null>;
+  nextToken?: string | null;
+};
+
 export type GetConnectionQuery = {
   __typename: "Connection";
   connectionID: string;
@@ -1639,6 +2022,18 @@ export type GetConnectionQuery = {
 };
 
 export type ListConnectionsQuery = {
+  __typename: "ModelConnectionConnection";
+  items: Array<{
+    __typename: "Connection";
+    connectionID: string;
+    topic: string;
+    createdAt: string;
+    updatedAt: string;
+  } | null>;
+  nextToken?: string | null;
+};
+
+export type GetConnectionsByTopicQuery = {
   __typename: "ModelConnectionConnection";
   items: Array<{
     __typename: "Connection";
@@ -1668,126 +2063,6 @@ export type ListPendingJobsQuery = {
     busy?: boolean | null;
     taskID?: string | null;
     collectionID?: string | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null>;
-  nextToken?: string | null;
-};
-
-export type UserByEmailQuery = {
-  __typename: "ModelUserConnection";
-  items: Array<{
-    __typename: "User";
-    userID: string;
-    user_email?: string | null;
-    user_password?: string | null;
-    user_password_salt?: string | null;
-    user_name?: string | null;
-    user_role?: string | null;
-    user_approved?: boolean | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null>;
-  nextToken?: string | null;
-};
-
-export type GetImageCollectionByTaskIdQuery = {
-  __typename: "ModelImageCollectionConnection";
-  items: Array<{
-    __typename: "ImageCollection";
-    collectionID: string;
-    taskID?: string | null;
-    parkID?: string | null;
-    GamePark?: {
-      __typename: "GamePark";
-      parkID: string;
-      park_name?: string | null;
-      park_location?: string | null;
-      park_address?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    } | null;
-    upload_date_time?: string | null;
-    completed?: boolean | null;
-    error?: boolean | null;
-    pending?: boolean | null;
-    flightID?: string | null;
-    FlightDetails?: {
-      __typename: "FlightDetails";
-      flightID: string;
-      flight_height?: number | null;
-      flight_type?: string | null;
-      pilotID?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null>;
-  nextToken?: string | null;
-};
-
-export type GetMessageByCollectionIdQuery = {
-  __typename: "ModelMessageConnection";
-  items: Array<{
-    __typename: "Message";
-    messageID: string;
-    message_status?: string | null;
-    message_description?: string | null;
-    collectionID?: string | null;
-    ImageCollection?: {
-      __typename: "ImageCollection";
-      collectionID: string;
-      taskID?: string | null;
-      parkID?: string | null;
-      upload_date_time?: string | null;
-      completed?: boolean | null;
-      error?: boolean | null;
-      pending?: boolean | null;
-      flightID?: string | null;
-      createdAt: string;
-      updatedAt: string;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null>;
-  nextToken?: string | null;
-};
-
-export type ImagesByCollectionIdQuery = {
-  __typename: "ModelImagesConnection";
-  items: Array<{
-    __typename: "Images";
-    imageID: string;
-    collectionID?: string | null;
-    name?: string | null;
-    bucket_name?: string | null;
-    file_name?: string | null;
-    createdAt: string;
-    updatedAt: string;
-  } | null>;
-  nextToken?: string | null;
-};
-
-export type GetPendingInvitesByEmailQuery = {
-  __typename: "ModelPendingInvitesConnection";
-  items: Array<{
-    __typename: "PendingInvites";
-    inviteID: string;
-    email: string;
-    role: string;
-    createdAt: string;
-    updatedAt: string;
-  } | null>;
-  nextToken?: string | null;
-};
-
-export type GetConnectionsByTopicQuery = {
-  __typename: "ModelConnectionConnection";
-  items: Array<{
-    __typename: "Connection";
-    connectionID: string;
-    topic: string;
     createdAt: string;
     updatedAt: string;
   } | null>;
@@ -1985,6 +2260,129 @@ export type OnDeleteImageCollectionSubscription = {
       user_name?: string | null;
       user_role?: string | null;
       user_approved?: boolean | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type OnCreateMapSubscription = {
+  __typename: "Map";
+  mapID: string;
+  bucket_name?: string | null;
+  file_name?: string | null;
+  collectionID?: string | null;
+  Collection?: {
+    __typename: "ImageCollection";
+    collectionID: string;
+    taskID?: string | null;
+    parkID?: string | null;
+    GamePark?: {
+      __typename: "GamePark";
+      parkID: string;
+      park_name?: string | null;
+      park_location?: string | null;
+      park_address?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    upload_date_time?: string | null;
+    completed?: boolean | null;
+    error?: boolean | null;
+    pending?: boolean | null;
+    flightID?: string | null;
+    FlightDetails?: {
+      __typename: "FlightDetails";
+      flightID: string;
+      flight_height?: number | null;
+      flight_type?: string | null;
+      pilotID?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type OnUpdateMapSubscription = {
+  __typename: "Map";
+  mapID: string;
+  bucket_name?: string | null;
+  file_name?: string | null;
+  collectionID?: string | null;
+  Collection?: {
+    __typename: "ImageCollection";
+    collectionID: string;
+    taskID?: string | null;
+    parkID?: string | null;
+    GamePark?: {
+      __typename: "GamePark";
+      parkID: string;
+      park_name?: string | null;
+      park_location?: string | null;
+      park_address?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    upload_date_time?: string | null;
+    completed?: boolean | null;
+    error?: boolean | null;
+    pending?: boolean | null;
+    flightID?: string | null;
+    FlightDetails?: {
+      __typename: "FlightDetails";
+      flightID: string;
+      flight_height?: number | null;
+      flight_type?: string | null;
+      pilotID?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type OnDeleteMapSubscription = {
+  __typename: "Map";
+  mapID: string;
+  bucket_name?: string | null;
+  file_name?: string | null;
+  collectionID?: string | null;
+  Collection?: {
+    __typename: "ImageCollection";
+    collectionID: string;
+    taskID?: string | null;
+    parkID?: string | null;
+    GamePark?: {
+      __typename: "GamePark";
+      parkID: string;
+      park_name?: string | null;
+      park_location?: string | null;
+      park_address?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    upload_date_time?: string | null;
+    completed?: boolean | null;
+    error?: boolean | null;
+    pending?: boolean | null;
+    flightID?: string | null;
+    FlightDetails?: {
+      __typename: "FlightDetails";
+      flightID: string;
+      flight_height?: number | null;
+      flight_type?: string | null;
+      pilotID?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null;
@@ -2799,6 +3197,177 @@ export class APIService {
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <DeleteImageCollectionMutation>response.data.deleteImageCollection;
+  }
+  async CreateMap(
+    input: CreateMapInput,
+    condition?: ModelMapConditionInput
+  ): Promise<CreateMapMutation> {
+    const statement = `mutation CreateMap($input: CreateMapInput!, $condition: ModelMapConditionInput) {
+        createMap(input: $input, condition: $condition) {
+          __typename
+          mapID
+          bucket_name
+          file_name
+          collectionID
+          Collection {
+            __typename
+            collectionID
+            taskID
+            parkID
+            GamePark {
+              __typename
+              parkID
+              park_name
+              park_location
+              park_address
+              createdAt
+              updatedAt
+            }
+            upload_date_time
+            completed
+            error
+            pending
+            flightID
+            FlightDetails {
+              __typename
+              flightID
+              flight_height
+              flight_type
+              pilotID
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <CreateMapMutation>response.data.createMap;
+  }
+  async UpdateMap(
+    input: UpdateMapInput,
+    condition?: ModelMapConditionInput
+  ): Promise<UpdateMapMutation> {
+    const statement = `mutation UpdateMap($input: UpdateMapInput!, $condition: ModelMapConditionInput) {
+        updateMap(input: $input, condition: $condition) {
+          __typename
+          mapID
+          bucket_name
+          file_name
+          collectionID
+          Collection {
+            __typename
+            collectionID
+            taskID
+            parkID
+            GamePark {
+              __typename
+              parkID
+              park_name
+              park_location
+              park_address
+              createdAt
+              updatedAt
+            }
+            upload_date_time
+            completed
+            error
+            pending
+            flightID
+            FlightDetails {
+              __typename
+              flightID
+              flight_height
+              flight_type
+              pilotID
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <UpdateMapMutation>response.data.updateMap;
+  }
+  async DeleteMap(
+    input: DeleteMapInput,
+    condition?: ModelMapConditionInput
+  ): Promise<DeleteMapMutation> {
+    const statement = `mutation DeleteMap($input: DeleteMapInput!, $condition: ModelMapConditionInput) {
+        deleteMap(input: $input, condition: $condition) {
+          __typename
+          mapID
+          bucket_name
+          file_name
+          collectionID
+          Collection {
+            __typename
+            collectionID
+            taskID
+            parkID
+            GamePark {
+              __typename
+              parkID
+              park_name
+              park_location
+              park_address
+              createdAt
+              updatedAt
+            }
+            upload_date_time
+            completed
+            error
+            pending
+            flightID
+            FlightDetails {
+              __typename
+              flightID
+              flight_height
+              flight_type
+              pilotID
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <DeleteMapMutation>response.data.deleteMap;
   }
   async CreateMessage(
     input: CreateMessageInput,
@@ -3733,6 +4302,51 @@ export class APIService {
     )) as any;
     return <ListUsersQuery>response.data.listUsers;
   }
+  async UserByEmail(
+    user_email: string,
+    sortDirection?: ModelSortDirection,
+    filter?: ModelUserFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<UserByEmailQuery> {
+    const statement = `query UserByEmail($user_email: String!, $sortDirection: ModelSortDirection, $filter: ModelUserFilterInput, $limit: Int, $nextToken: String) {
+        userByEmail(user_email: $user_email, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
+          __typename
+          items {
+            __typename
+            userID
+            user_email
+            user_password
+            user_password_salt
+            user_name
+            user_role
+            user_approved
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      user_email
+    };
+    if (sortDirection) {
+      gqlAPIServiceArguments.sortDirection = sortDirection;
+    }
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <UserByEmailQuery>response.data.userByEmail;
+  }
   async GetGamePark(parkID: string): Promise<GetGameParkQuery> {
     const statement = `query GetGamePark($parkID: String!) {
         getGamePark(parkID: $parkID) {
@@ -3917,6 +4531,234 @@ export class APIService {
     )) as any;
     return <ListImageCollectionsQuery>response.data.listImageCollections;
   }
+  async GetImageCollectionByTaskId(
+    taskID: string,
+    sortDirection?: ModelSortDirection,
+    filter?: ModelImageCollectionFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<GetImageCollectionByTaskIdQuery> {
+    const statement = `query GetImageCollectionByTaskId($taskID: String!, $sortDirection: ModelSortDirection, $filter: ModelImageCollectionFilterInput, $limit: Int, $nextToken: String) {
+        getImageCollectionByTaskId(taskID: $taskID, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
+          __typename
+          items {
+            __typename
+            collectionID
+            taskID
+            parkID
+            GamePark {
+              __typename
+              parkID
+              park_name
+              park_location
+              park_address
+              createdAt
+              updatedAt
+            }
+            upload_date_time
+            completed
+            error
+            pending
+            flightID
+            FlightDetails {
+              __typename
+              flightID
+              flight_height
+              flight_type
+              pilotID
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      taskID
+    };
+    if (sortDirection) {
+      gqlAPIServiceArguments.sortDirection = sortDirection;
+    }
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <GetImageCollectionByTaskIdQuery>(
+      response.data.getImageCollectionByTaskId
+    );
+  }
+  async GetMap(mapID: string): Promise<GetMapQuery> {
+    const statement = `query GetMap($mapID: String!) {
+        getMap(mapID: $mapID) {
+          __typename
+          mapID
+          bucket_name
+          file_name
+          collectionID
+          Collection {
+            __typename
+            collectionID
+            taskID
+            parkID
+            GamePark {
+              __typename
+              parkID
+              park_name
+              park_location
+              park_address
+              createdAt
+              updatedAt
+            }
+            upload_date_time
+            completed
+            error
+            pending
+            flightID
+            FlightDetails {
+              __typename
+              flightID
+              flight_height
+              flight_type
+              pilotID
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      mapID
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <GetMapQuery>response.data.getMap;
+  }
+  async ListMaps(
+    mapID?: string,
+    filter?: ModelMapFilterInput,
+    limit?: number,
+    nextToken?: string,
+    sortDirection?: ModelSortDirection
+  ): Promise<ListMapsQuery> {
+    const statement = `query ListMaps($mapID: String, $filter: ModelMapFilterInput, $limit: Int, $nextToken: String, $sortDirection: ModelSortDirection) {
+        listMaps(mapID: $mapID, filter: $filter, limit: $limit, nextToken: $nextToken, sortDirection: $sortDirection) {
+          __typename
+          items {
+            __typename
+            mapID
+            bucket_name
+            file_name
+            collectionID
+            Collection {
+              __typename
+              collectionID
+              taskID
+              parkID
+              upload_date_time
+              completed
+              error
+              pending
+              flightID
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (mapID) {
+      gqlAPIServiceArguments.mapID = mapID;
+    }
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    if (sortDirection) {
+      gqlAPIServiceArguments.sortDirection = sortDirection;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <ListMapsQuery>response.data.listMaps;
+  }
+  async GetMapByFileName(
+    file_name: string,
+    sortDirection?: ModelSortDirection,
+    filter?: ModelMapFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<GetMapByFileNameQuery> {
+    const statement = `query GetMapByFileName($file_name: String!, $sortDirection: ModelSortDirection, $filter: ModelMapFilterInput, $limit: Int, $nextToken: String) {
+        getMapByFileName(file_name: $file_name, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
+          __typename
+          items {
+            __typename
+            mapID
+            bucket_name
+            file_name
+            collectionID
+            Collection {
+              __typename
+              collectionID
+              taskID
+              parkID
+              upload_date_time
+              completed
+              error
+              pending
+              flightID
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      file_name
+    };
+    if (sortDirection) {
+      gqlAPIServiceArguments.sortDirection = sortDirection;
+    }
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <GetMapByFileNameQuery>response.data.getMapByFileName;
+  }
   async GetMessage(messageID: string): Promise<GetMessageQuery> {
     const statement = `query GetMessage($messageID: String!) {
         getMessage(messageID: $messageID) {
@@ -4024,6 +4866,63 @@ export class APIService {
     )) as any;
     return <ListMessagesQuery>response.data.listMessages;
   }
+  async GetMessageByCollectionId(
+    collectionID: string,
+    sortDirection?: ModelSortDirection,
+    filter?: ModelMessageFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<GetMessageByCollectionIdQuery> {
+    const statement = `query GetMessageByCollectionId($collectionID: String!, $sortDirection: ModelSortDirection, $filter: ModelMessageFilterInput, $limit: Int, $nextToken: String) {
+        getMessageByCollectionId(collectionID: $collectionID, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
+          __typename
+          items {
+            __typename
+            messageID
+            message_status
+            message_description
+            collectionID
+            ImageCollection {
+              __typename
+              collectionID
+              taskID
+              parkID
+              upload_date_time
+              completed
+              error
+              pending
+              flightID
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      collectionID
+    };
+    if (sortDirection) {
+      gqlAPIServiceArguments.sortDirection = sortDirection;
+    }
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <GetMessageByCollectionIdQuery>(
+      response.data.getMessageByCollectionId
+    );
+  }
   async GetImages(imageID: string): Promise<GetImagesQuery> {
     const statement = `query GetImages($imageID: String!) {
         getImages(imageID: $imageID) {
@@ -4088,6 +4987,49 @@ export class APIService {
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <ListImagesQuery>response.data.listImages;
+  }
+  async ImagesByCollectionId(
+    collectionID: string,
+    sortDirection?: ModelSortDirection,
+    filter?: ModelImagesFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<ImagesByCollectionIdQuery> {
+    const statement = `query ImagesByCollectionId($collectionID: String!, $sortDirection: ModelSortDirection, $filter: ModelImagesFilterInput, $limit: Int, $nextToken: String) {
+        imagesByCollectionId(collectionID: $collectionID, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
+          __typename
+          items {
+            __typename
+            imageID
+            collectionID
+            name
+            bucket_name
+            file_name
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      collectionID
+    };
+    if (sortDirection) {
+      gqlAPIServiceArguments.sortDirection = sortDirection;
+    }
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <ImagesByCollectionIdQuery>response.data.imagesByCollectionId;
   }
   async GetFlightDetails(flightID: string): Promise<GetFlightDetailsQuery> {
     const statement = `query GetFlightDetails($flightID: String!) {
@@ -4237,6 +5179,49 @@ export class APIService {
     )) as any;
     return <ListPendingInvitesQuery>response.data.listPendingInvites;
   }
+  async GetPendingInvitesByEmail(
+    email: string,
+    sortDirection?: ModelSortDirection,
+    filter?: ModelPendingInvitesFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<GetPendingInvitesByEmailQuery> {
+    const statement = `query GetPendingInvitesByEmail($email: AWSEmail!, $sortDirection: ModelSortDirection, $filter: ModelPendingInvitesFilterInput, $limit: Int, $nextToken: String) {
+        getPendingInvitesByEmail(email: $email, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
+          __typename
+          items {
+            __typename
+            inviteID
+            email
+            role
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      email
+    };
+    if (sortDirection) {
+      gqlAPIServiceArguments.sortDirection = sortDirection;
+    }
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <GetPendingInvitesByEmailQuery>(
+      response.data.getPendingInvitesByEmail
+    );
+  }
   async GetConnection(connectionID: string): Promise<GetConnectionQuery> {
     const statement = `query GetConnection($connectionID: String!) {
         getConnection(connectionID: $connectionID) {
@@ -4295,6 +5280,46 @@ export class APIService {
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <ListConnectionsQuery>response.data.listConnections;
+  }
+  async GetConnectionsByTopic(
+    topic: string,
+    sortDirection?: ModelSortDirection,
+    filter?: ModelConnectionFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<GetConnectionsByTopicQuery> {
+    const statement = `query GetConnectionsByTopic($topic: String!, $sortDirection: ModelSortDirection, $filter: ModelConnectionFilterInput, $limit: Int, $nextToken: String) {
+        getConnectionsByTopic(topic: $topic, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
+          __typename
+          items {
+            __typename
+            connectionID
+            topic
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      topic
+    };
+    if (sortDirection) {
+      gqlAPIServiceArguments.sortDirection = sortDirection;
+    }
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <GetConnectionsByTopicQuery>response.data.getConnectionsByTopic;
   }
   async GetPendingJobs(jobID: string): Promise<GetPendingJobsQuery> {
     const statement = `query GetPendingJobs($jobID: String!) {
@@ -4358,300 +5383,6 @@ export class APIService {
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <ListPendingJobsQuery>response.data.listPendingJobs;
-  }
-  async UserByEmail(
-    user_email: string,
-    sortDirection?: ModelSortDirection,
-    filter?: ModelUserFilterInput,
-    limit?: number,
-    nextToken?: string
-  ): Promise<UserByEmailQuery> {
-    const statement = `query UserByEmail($user_email: String!, $sortDirection: ModelSortDirection, $filter: ModelUserFilterInput, $limit: Int, $nextToken: String) {
-        userByEmail(user_email: $user_email, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
-          __typename
-          items {
-            __typename
-            userID
-            user_email
-            user_password
-            user_password_salt
-            user_name
-            user_role
-            user_approved
-            createdAt
-            updatedAt
-          }
-          nextToken
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {
-      user_email
-    };
-    if (sortDirection) {
-      gqlAPIServiceArguments.sortDirection = sortDirection;
-    }
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    if (limit) {
-      gqlAPIServiceArguments.limit = limit;
-    }
-    if (nextToken) {
-      gqlAPIServiceArguments.nextToken = nextToken;
-    }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
-    return <UserByEmailQuery>response.data.userByEmail;
-  }
-  async GetImageCollectionByTaskId(
-    taskID: string,
-    sortDirection?: ModelSortDirection,
-    filter?: ModelImageCollectionFilterInput,
-    limit?: number,
-    nextToken?: string
-  ): Promise<GetImageCollectionByTaskIdQuery> {
-    const statement = `query GetImageCollectionByTaskId($taskID: String!, $sortDirection: ModelSortDirection, $filter: ModelImageCollectionFilterInput, $limit: Int, $nextToken: String) {
-        getImageCollectionByTaskId(taskID: $taskID, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
-          __typename
-          items {
-            __typename
-            collectionID
-            taskID
-            parkID
-            GamePark {
-              __typename
-              parkID
-              park_name
-              park_location
-              park_address
-              createdAt
-              updatedAt
-            }
-            upload_date_time
-            completed
-            error
-            pending
-            flightID
-            FlightDetails {
-              __typename
-              flightID
-              flight_height
-              flight_type
-              pilotID
-              createdAt
-              updatedAt
-            }
-            createdAt
-            updatedAt
-          }
-          nextToken
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {
-      taskID
-    };
-    if (sortDirection) {
-      gqlAPIServiceArguments.sortDirection = sortDirection;
-    }
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    if (limit) {
-      gqlAPIServiceArguments.limit = limit;
-    }
-    if (nextToken) {
-      gqlAPIServiceArguments.nextToken = nextToken;
-    }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
-    return <GetImageCollectionByTaskIdQuery>(
-      response.data.getImageCollectionByTaskId
-    );
-  }
-  async GetMessageByCollectionId(
-    collectionID: string,
-    sortDirection?: ModelSortDirection,
-    filter?: ModelMessageFilterInput,
-    limit?: number,
-    nextToken?: string
-  ): Promise<GetMessageByCollectionIdQuery> {
-    const statement = `query GetMessageByCollectionId($collectionID: String!, $sortDirection: ModelSortDirection, $filter: ModelMessageFilterInput, $limit: Int, $nextToken: String) {
-        getMessageByCollectionId(collectionID: $collectionID, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
-          __typename
-          items {
-            __typename
-            messageID
-            message_status
-            message_description
-            collectionID
-            ImageCollection {
-              __typename
-              collectionID
-              taskID
-              parkID
-              upload_date_time
-              completed
-              error
-              pending
-              flightID
-              createdAt
-              updatedAt
-            }
-            createdAt
-            updatedAt
-          }
-          nextToken
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {
-      collectionID
-    };
-    if (sortDirection) {
-      gqlAPIServiceArguments.sortDirection = sortDirection;
-    }
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    if (limit) {
-      gqlAPIServiceArguments.limit = limit;
-    }
-    if (nextToken) {
-      gqlAPIServiceArguments.nextToken = nextToken;
-    }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
-    return <GetMessageByCollectionIdQuery>(
-      response.data.getMessageByCollectionId
-    );
-  }
-  async ImagesByCollectionId(
-    collectionID: string,
-    sortDirection?: ModelSortDirection,
-    filter?: ModelImagesFilterInput,
-    limit?: number,
-    nextToken?: string
-  ): Promise<ImagesByCollectionIdQuery> {
-    const statement = `query ImagesByCollectionId($collectionID: String!, $sortDirection: ModelSortDirection, $filter: ModelImagesFilterInput, $limit: Int, $nextToken: String) {
-        imagesByCollectionId(collectionID: $collectionID, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
-          __typename
-          items {
-            __typename
-            imageID
-            collectionID
-            name
-            bucket_name
-            file_name
-            createdAt
-            updatedAt
-          }
-          nextToken
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {
-      collectionID
-    };
-    if (sortDirection) {
-      gqlAPIServiceArguments.sortDirection = sortDirection;
-    }
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    if (limit) {
-      gqlAPIServiceArguments.limit = limit;
-    }
-    if (nextToken) {
-      gqlAPIServiceArguments.nextToken = nextToken;
-    }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
-    return <ImagesByCollectionIdQuery>response.data.imagesByCollectionId;
-  }
-  async GetPendingInvitesByEmail(
-    email: string,
-    sortDirection?: ModelSortDirection,
-    filter?: ModelPendingInvitesFilterInput,
-    limit?: number,
-    nextToken?: string
-  ): Promise<GetPendingInvitesByEmailQuery> {
-    const statement = `query GetPendingInvitesByEmail($email: AWSEmail!, $sortDirection: ModelSortDirection, $filter: ModelPendingInvitesFilterInput, $limit: Int, $nextToken: String) {
-        getPendingInvitesByEmail(email: $email, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
-          __typename
-          items {
-            __typename
-            inviteID
-            email
-            role
-            createdAt
-            updatedAt
-          }
-          nextToken
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {
-      email
-    };
-    if (sortDirection) {
-      gqlAPIServiceArguments.sortDirection = sortDirection;
-    }
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    if (limit) {
-      gqlAPIServiceArguments.limit = limit;
-    }
-    if (nextToken) {
-      gqlAPIServiceArguments.nextToken = nextToken;
-    }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
-    return <GetPendingInvitesByEmailQuery>(
-      response.data.getPendingInvitesByEmail
-    );
-  }
-  async GetConnectionsByTopic(
-    topic: string,
-    sortDirection?: ModelSortDirection,
-    filter?: ModelConnectionFilterInput,
-    limit?: number,
-    nextToken?: string
-  ): Promise<GetConnectionsByTopicQuery> {
-    const statement = `query GetConnectionsByTopic($topic: String!, $sortDirection: ModelSortDirection, $filter: ModelConnectionFilterInput, $limit: Int, $nextToken: String) {
-        getConnectionsByTopic(topic: $topic, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
-          __typename
-          items {
-            __typename
-            connectionID
-            topic
-            createdAt
-            updatedAt
-          }
-          nextToken
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {
-      topic
-    };
-    if (sortDirection) {
-      gqlAPIServiceArguments.sortDirection = sortDirection;
-    }
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    if (limit) {
-      gqlAPIServiceArguments.limit = limit;
-    }
-    if (nextToken) {
-      gqlAPIServiceArguments.nextToken = nextToken;
-    }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
-    return <GetConnectionsByTopicQuery>response.data.getConnectionsByTopic;
   }
   OnCreateUserListener: Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateUser">>
@@ -4954,6 +5685,159 @@ export class APIService {
     SubscriptionResponse<
       Pick<__SubscriptionContainer, "onDeleteImageCollection">
     >
+  >;
+
+  OnCreateMapListener: Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateMap">>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnCreateMap {
+        onCreateMap {
+          __typename
+          mapID
+          bucket_name
+          file_name
+          collectionID
+          Collection {
+            __typename
+            collectionID
+            taskID
+            parkID
+            GamePark {
+              __typename
+              parkID
+              park_name
+              park_location
+              park_address
+              createdAt
+              updatedAt
+            }
+            upload_date_time
+            completed
+            error
+            pending
+            flightID
+            FlightDetails {
+              __typename
+              flightID
+              flight_height
+              flight_type
+              pilotID
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateMap">>
+  >;
+
+  OnUpdateMapListener: Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateMap">>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnUpdateMap {
+        onUpdateMap {
+          __typename
+          mapID
+          bucket_name
+          file_name
+          collectionID
+          Collection {
+            __typename
+            collectionID
+            taskID
+            parkID
+            GamePark {
+              __typename
+              parkID
+              park_name
+              park_location
+              park_address
+              createdAt
+              updatedAt
+            }
+            upload_date_time
+            completed
+            error
+            pending
+            flightID
+            FlightDetails {
+              __typename
+              flightID
+              flight_height
+              flight_type
+              pilotID
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateMap">>
+  >;
+
+  OnDeleteMapListener: Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteMap">>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnDeleteMap {
+        onDeleteMap {
+          __typename
+          mapID
+          bucket_name
+          file_name
+          collectionID
+          Collection {
+            __typename
+            collectionID
+            taskID
+            parkID
+            GamePark {
+              __typename
+              parkID
+              park_name
+              park_location
+              park_address
+              createdAt
+              updatedAt
+            }
+            upload_date_time
+            completed
+            error
+            pending
+            flightID
+            FlightDetails {
+              __typename
+              flightID
+              flight_height
+              flight_type
+              pilotID
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteMap">>
   >;
 
   OnCreateMessageListener: Observable<

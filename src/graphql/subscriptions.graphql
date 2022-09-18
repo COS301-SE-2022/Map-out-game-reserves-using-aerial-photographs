@@ -191,6 +191,120 @@ subscription OnDeleteImageCollection {
     updatedAt
   }
 }
+subscription OnCreateMap {
+  onCreateMap {
+    mapID
+    bucket_name
+    file_name
+    collectionID
+    Collection {
+      collectionID
+      taskID
+      parkID
+      GamePark {
+        parkID
+        park_name
+        park_location
+        park_address
+        createdAt
+        updatedAt
+      }
+      upload_date_time
+      completed
+      error
+      pending
+      flightID
+      FlightDetails {
+        flightID
+        flight_height
+        flight_type
+        pilotID
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateMap {
+  onUpdateMap {
+    mapID
+    bucket_name
+    file_name
+    collectionID
+    Collection {
+      collectionID
+      taskID
+      parkID
+      GamePark {
+        parkID
+        park_name
+        park_location
+        park_address
+        createdAt
+        updatedAt
+      }
+      upload_date_time
+      completed
+      error
+      pending
+      flightID
+      FlightDetails {
+        flightID
+        flight_height
+        flight_type
+        pilotID
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteMap {
+  onDeleteMap {
+    mapID
+    bucket_name
+    file_name
+    collectionID
+    Collection {
+      collectionID
+      taskID
+      parkID
+      GamePark {
+        parkID
+        park_name
+        park_location
+        park_address
+        createdAt
+        updatedAt
+      }
+      upload_date_time
+      completed
+      error
+      pending
+      flightID
+      FlightDetails {
+        flightID
+        flight_height
+        flight_type
+        pilotID
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
 subscription OnCreateMessage {
   onCreateMessage {
     messageID
