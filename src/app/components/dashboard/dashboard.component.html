@@ -53,6 +53,7 @@
                   <span class="messageDate"
                     >Map ID: {{ message.collectionID }}</span
                   >
+                  <button class="close" (click)="dismiss()"><mat-icon>close</mat-icon></button>
                 </mat-list-item>
               </mat-list>
             </div>
@@ -86,10 +87,12 @@
                     class="icon brown-icon"
                     [icon]="complete"
                   ></fa-icon>
+                  <span class="message">Upload</span>
                   <span class="completeName"
-                    >Upload {{ collection.collectionID }}</span
+                    > {{ collection.collectionID }}</span
                   >
                   <!-- <span class="completeDate">{{m.date}}</span> -->
+                  <button class="close" (click)="dismiss()"><mat-icon>close</mat-icon></button>
                 </mat-list-item>
               </mat-list>
             </div>
