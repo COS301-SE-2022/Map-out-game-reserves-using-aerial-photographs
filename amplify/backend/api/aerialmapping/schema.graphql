@@ -1,7 +1,7 @@
 # This "input" configures a global authorization rule to enable public access to
 # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
 
-input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+# input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
 
 type Query {
   test: String
@@ -30,7 +30,7 @@ type Mutation {
   createImage(collectionID: String ,bucket_name: String, file_name: String): Images
 }
 
-type User @model {
+type User @model @auth(rules: [{ allow: private, provider: userPools }]) {
   userID: String! @primaryKey
   user_email: String @index(name: "byEmail", queryField: "userByEmail")
   user_password: String
@@ -40,7 +40,7 @@ type User @model {
   user_approved: Boolean
 }
 
-type GamePark @model {
+type GamePark @model @auth(rules: [{ allow: private, provider: userPools }]) {
   parkID: String! @primaryKey
   park_name: String
   park_location: String
@@ -60,7 +60,7 @@ type GamePark @model {
 # }
 
 
-type ImageCollection @model {
+type ImageCollection @model @auth(rules: [{ allow: private, provider: userPools }]) {
   collectionID: String! @primaryKey
   taskID: String @index(name: "byTaskId", queryField: "getImageCollectionByTaskId")
   parkID: String
@@ -73,15 +73,15 @@ type ImageCollection @model {
   FlightDetails: FlightDetails @hasOne(fields: ["flightID"])
 }
 
-# type Map @model {
-#   mapID: String! @primaryKey
-#   bucket_name: String
-#   file_name: String  @index(name: "byFileName", queryField: "getMapByFileName")
-#   collectionID: String
-#   Collection: ImageCollection @hasOne(fields: ["collectionID"])
-# }
+type Map @model @auth(rules: [{ allow: private, provider: userPools }]) {
+  mapID: String! @primaryKey
+  bucket_name: String
+  file_name: String  @index(name: "byFileName", queryField: "getMapByFileName")
+  collectionID: String
+  Collection: ImageCollection @hasOne(fields: ["collectionID"])
+}
 
-type Message @model {
+type Message @model @auth(rules: [{ allow: private, provider: userPools }]) {
   messageID: String! @primaryKey
   message_status: String
   message_description: String
@@ -95,7 +95,7 @@ type Message @model {
 #   video_order: Int!
 # }
 
-type Images @model {
+type Images @model @auth(rules: [{ allow: private, provider: userPools }]) {
   imageID: String! @primaryKey
   collectionID: String @index(name: "byCollectionId", queryField: "imagesByCollectionId")
   name: String
@@ -103,7 +103,7 @@ type Images @model {
   file_name: String
 }
 
-type FlightDetails @model {
+type FlightDetails @model @auth(rules: [{ allow: private, provider: userPools }]) {
   flightID: String! @primaryKey
   flight_height: Float
   flight_type: String
@@ -111,18 +111,18 @@ type FlightDetails @model {
   Pilot: User @hasOne(fields: ["pilotID"])
 }
 
-type PendingInvites @model {
+type PendingInvites @model @auth(rules: [{ allow: private, provider: userPools }]) {
   inviteID: String! @primaryKey
   email: AWSEmail! @index(name: "byEmail", queryField: "getPendingInvitesByEmail"),
   role: String!
 }
 
-type Connection @model {
+type Connection @model @auth(rules: [{ allow: private, provider: userPools }]) {
   connectionID: String! @primaryKey
   topic: String! @index(name: "byTopic", queryField: "getConnectionsByTopic")
 }
 
-type PendingJobs @model {
+type PendingJobs @model @auth(rules: [{ allow: private, provider: userPools }]) {
   jobID: String! @primaryKey
   busy: Boolean
   taskID: String
