@@ -41,7 +41,7 @@ export class DashboardComponent implements OnInit {
     //loader
     this.inAnimation = false;
     this.fadeOut();
-    
+
     //TODO integrate this bar chart with real data
     this.maps = [
       { Value: this.values[0] },
@@ -63,10 +63,12 @@ export class DashboardComponent implements OnInit {
     this.refreshDashboard();
 
     // refresh map collections and messages when a notification is received from the websocket
-    this.controller.websocket.onmessage = (msg: any) => {
-      console.log("SNS message received ", msg);
-      this.refreshDashboard();
-    };
+    if(this.controller.websocket != null){
+      this.controller.websocket.onmessage = (msg: any) => {
+        console.log("SNS message received ", msg);
+        this.refreshDashboard();
+      };
+    }
 
     //poll DynamoDB (OLD)
     // this.statusPollingInterval = interval(5000)
@@ -154,6 +156,7 @@ export class DashboardComponent implements OnInit {
   refreshDashboard() {
     // get all map collections from DynamoDB - and check statuses of each one.
     this.api.ListImageCollections().then((resp: ListImageCollectionsQuery) => {
+      console.log("RESP: ", resp);
       this.completed = [];
       this.processing = [];
       for (const collection of resp.items) {
@@ -173,6 +176,7 @@ export class DashboardComponent implements OnInit {
           this.snackbar.open("Network error...", "❌", { verticalPosition: 'top' });
         }
       }
+      console.log(err);
     });
 
     // get all the messages from DynamoDB - check each message's status

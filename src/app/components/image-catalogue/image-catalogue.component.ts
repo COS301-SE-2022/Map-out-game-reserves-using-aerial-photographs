@@ -56,7 +56,7 @@ export class ImageCatalogueComponent implements OnInit {
 
   inAnimation: boolean;
   spinners: HTMLElement[];
-  
+
   flag=false;
 
   constructor(
@@ -72,27 +72,29 @@ export class ImageCatalogueComponent implements OnInit {
 
     this.selected = 'date';
     this.getAllCatalogues();
-    this.controller.websocket.onmessage = (msg: any) => {
-      this.snackbar.open(`New map stitching job (${msg}) completed.`, "✔️", { verticalPosition: 'top', duration: 3000 });
-      //make 'View Map' button visible
-      this.getAllCatalogues();
+    if(this.controller.websocket != null){
+      this.controller.websocket.onmessage = (msg: any) => {
+        this.snackbar.open(`New map stitching job (${msg}) completed.`, "✔️", { verticalPosition: 'top', duration: 3000 });
+        //make 'View Map' button visible
+        this.getAllCatalogues();
+      }
     }
     this.spinners=[];
     setTimeout(() => {
       this.spinners = Array.from(document.getElementsByClassName('spinner') as HTMLCollectionOf<HTMLElement>)
         // console.log(this.spinners);
     }, 5000);
-    
+
   }
 
   ngOnInit() {
-    this.controller.websocket.onmessage = (msg: any) => {
-      console.log("SNS message received ", msg);
-      this.getAllCatalogues();
-      
-    };
-    
-    
+    if(this.controller.websocket != null){
+      this.controller.websocket.onmessage = (msg: any) => {
+        console.log("SNS message received ", msg);
+        this.getAllCatalogues();
+
+      };
+    }
   }
 
   getAllCatalogues() {
@@ -159,7 +161,7 @@ export class ImageCatalogueComponent implements OnInit {
               })
               .catch((e) => console.log(e));
           }
-            
+
         return data.items;
 
       })
@@ -234,7 +236,7 @@ export class ImageCatalogueComponent implements OnInit {
   fadeOut () {
     if (!this.inAnimation){
       this.inAnimation = true;
-      
+
       document.addEventListener('readystatechange', () => {
         // console.log("YES");
         if(document.readyState === 'complete'||document.readyState==='interactive'){
