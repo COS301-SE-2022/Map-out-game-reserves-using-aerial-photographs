@@ -113,11 +113,11 @@ export class ControllerService {
     return result;
   }
 
-  async S3delete(fileKey:string, collection:string, folder:string){
+  async S3delete(collection:string){
     // Storage.list('public/') // for listing ALL files without prefix, pass '' instead
     // .then(result => console.log(result))
     //console.log("sent: "+collection+"/"+folder+"/"+fileKey);
-    const result = await Storage.remove(collection+"/"+folder+"/"+fileKey);
+    const result = await Storage.remove(collection);
     //console.log(result);
     return result;
   }
