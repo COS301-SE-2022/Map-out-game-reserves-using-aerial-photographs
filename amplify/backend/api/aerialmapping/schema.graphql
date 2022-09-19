@@ -69,8 +69,10 @@ type ImageCollection @model @auth(rules: [{ allow: private, provider: userPools 
   completed: Boolean
   error: Boolean
   pending: Boolean
+  dismissed: Boolean
   flightID: String
   FlightDetails: FlightDetails @hasOne(fields: ["flightID"])
+  collectionName: String
 }
 
 type Map @model @auth(rules: [{ allow: private, provider: userPools }]) {
