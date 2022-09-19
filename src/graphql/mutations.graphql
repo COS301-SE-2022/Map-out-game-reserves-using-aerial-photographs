@@ -180,6 +180,7 @@ mutation CreateImageCollection(
     completed
     error
     pending
+    dismissed
     flightID
     FlightDetails {
       flightID
@@ -200,6 +201,7 @@ mutation CreateImageCollection(
       createdAt
       updatedAt
     }
+    collectionName
     createdAt
     updatedAt
   }
@@ -224,6 +226,7 @@ mutation UpdateImageCollection(
     completed
     error
     pending
+    dismissed
     flightID
     FlightDetails {
       flightID
@@ -244,6 +247,7 @@ mutation UpdateImageCollection(
       createdAt
       updatedAt
     }
+    collectionName
     createdAt
     updatedAt
   }
@@ -268,6 +272,7 @@ mutation DeleteImageCollection(
     completed
     error
     pending
+    dismissed
     flightID
     FlightDetails {
       flightID
@@ -288,6 +293,7 @@ mutation DeleteImageCollection(
       createdAt
       updatedAt
     }
+    collectionName
     createdAt
     updatedAt
   }
@@ -317,6 +323,7 @@ mutation CreateMap(
       completed
       error
       pending
+      dismissed
       flightID
       FlightDetails {
         flightID
@@ -326,6 +333,7 @@ mutation CreateMap(
         createdAt
         updatedAt
       }
+      collectionName
       createdAt
       updatedAt
     }
@@ -358,6 +366,7 @@ mutation UpdateMap(
       completed
       error
       pending
+      dismissed
       flightID
       FlightDetails {
         flightID
@@ -367,6 +376,7 @@ mutation UpdateMap(
         createdAt
         updatedAt
       }
+      collectionName
       createdAt
       updatedAt
     }
@@ -399,6 +409,7 @@ mutation DeleteMap(
       completed
       error
       pending
+      dismissed
       flightID
       FlightDetails {
         flightID
@@ -408,6 +419,7 @@ mutation DeleteMap(
         createdAt
         updatedAt
       }
+      collectionName
       createdAt
       updatedAt
     }
@@ -440,6 +452,7 @@ mutation CreateMessage(
       completed
       error
       pending
+      dismissed
       flightID
       FlightDetails {
         flightID
@@ -449,6 +462,7 @@ mutation CreateMessage(
         createdAt
         updatedAt
       }
+      collectionName
       createdAt
       updatedAt
     }
@@ -481,6 +495,7 @@ mutation UpdateMessage(
       completed
       error
       pending
+      dismissed
       flightID
       FlightDetails {
         flightID
@@ -490,6 +505,7 @@ mutation UpdateMessage(
         createdAt
         updatedAt
       }
+      collectionName
       createdAt
       updatedAt
     }
@@ -522,6 +538,7 @@ mutation DeleteMessage(
       completed
       error
       pending
+      dismissed
       flightID
       FlightDetails {
         flightID
@@ -531,6 +548,7 @@ mutation DeleteMessage(
         createdAt
         updatedAt
       }
+      collectionName
       createdAt
       updatedAt
     }

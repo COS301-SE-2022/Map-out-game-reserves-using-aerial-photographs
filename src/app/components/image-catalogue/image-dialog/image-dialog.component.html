@@ -27,9 +27,9 @@
   <button *ngIf="selectCatalogue?.completed; else elseBlock" mat-button (click)="onSubmit(selectCatalogue.taskID)" color="primary" type="button" matTooltip="View the stitched map">View Map</button>
   <button *ngIf="selectCatalogue?.completed" mat-button (click)="onDeleteClick(false)" color="warn" style="margin-left: 73%">Delete Map</button>
   <ng-template #elseBlock>
-    <!-- <button *ngIf="selectCatalogue?.error; else lastElseBlock" mat-button color="primary" type="button" matTooltip="The map cannot be processed" disabled>Error</button>
-    <ng-template #lastElseBlock> -->
+    <button *ngIf="selectCatalogue?.error; else lastElseBlock" mat-button color="primary" type="button" matTooltip="The map cannot be processed" disabled>Error</button>
+    <ng-template #lastElseBlock>
       <button mat-button (click)="onSubmit()" color="primary" type="button" matTooltip="The map is busy processing" disabled>Map Pending</button>
-    <!-- </ng-template> -->
+    </ng-template>
   </ng-template>
 </mat-dialog-actions>

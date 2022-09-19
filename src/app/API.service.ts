@@ -204,7 +204,9 @@ export type CreateImageCollectionInput = {
   completed?: boolean | null;
   error?: boolean | null;
   pending?: boolean | null;
+  dismissed?: boolean | null;
   flightID?: string | null;
+  collectionName?: string | null;
 };
 
 export type ModelImageCollectionConditionInput = {
@@ -214,7 +216,9 @@ export type ModelImageCollectionConditionInput = {
   completed?: ModelBooleanInput | null;
   error?: ModelBooleanInput | null;
   pending?: ModelBooleanInput | null;
+  dismissed?: ModelBooleanInput | null;
   flightID?: ModelStringInput | null;
+  collectionName?: ModelStringInput | null;
   and?: Array<ModelImageCollectionConditionInput | null> | null;
   or?: Array<ModelImageCollectionConditionInput | null> | null;
   not?: ModelImageCollectionConditionInput | null;
@@ -230,8 +234,10 @@ export type ImageCollection = {
   completed?: boolean | null;
   error?: boolean | null;
   pending?: boolean | null;
+  dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: FlightDetails | null;
+  collectionName?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -244,7 +250,9 @@ export type UpdateImageCollectionInput = {
   completed?: boolean | null;
   error?: boolean | null;
   pending?: boolean | null;
+  dismissed?: boolean | null;
   flightID?: string | null;
+  collectionName?: string | null;
 };
 
 export type DeleteImageCollectionInput = {
@@ -543,7 +551,9 @@ export type ModelImageCollectionFilterInput = {
   completed?: ModelBooleanInput | null;
   error?: ModelBooleanInput | null;
   pending?: ModelBooleanInput | null;
+  dismissed?: ModelBooleanInput | null;
   flightID?: ModelStringInput | null;
+  collectionName?: ModelStringInput | null;
   and?: Array<ModelImageCollectionFilterInput | null> | null;
   or?: Array<ModelImageCollectionFilterInput | null> | null;
   not?: ModelImageCollectionFilterInput | null;
@@ -798,6 +808,7 @@ export type CreateImageCollectionMutation = {
   completed?: boolean | null;
   error?: boolean | null;
   pending?: boolean | null;
+  dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: {
     __typename: "FlightDetails";
@@ -820,6 +831,7 @@ export type CreateImageCollectionMutation = {
     createdAt: string;
     updatedAt: string;
   } | null;
+  collectionName?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -842,6 +854,7 @@ export type UpdateImageCollectionMutation = {
   completed?: boolean | null;
   error?: boolean | null;
   pending?: boolean | null;
+  dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: {
     __typename: "FlightDetails";
@@ -864,6 +877,7 @@ export type UpdateImageCollectionMutation = {
     createdAt: string;
     updatedAt: string;
   } | null;
+  collectionName?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -886,6 +900,7 @@ export type DeleteImageCollectionMutation = {
   completed?: boolean | null;
   error?: boolean | null;
   pending?: boolean | null;
+  dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: {
     __typename: "FlightDetails";
@@ -908,6 +923,7 @@ export type DeleteImageCollectionMutation = {
     createdAt: string;
     updatedAt: string;
   } | null;
+  collectionName?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -936,6 +952,7 @@ export type CreateMapMutation = {
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
       __typename: "FlightDetails";
@@ -946,6 +963,7 @@ export type CreateMapMutation = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -977,6 +995,7 @@ export type UpdateMapMutation = {
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
       __typename: "FlightDetails";
@@ -987,6 +1006,7 @@ export type UpdateMapMutation = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -1018,6 +1038,7 @@ export type DeleteMapMutation = {
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
       __typename: "FlightDetails";
@@ -1028,6 +1049,7 @@ export type DeleteMapMutation = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -1059,6 +1081,7 @@ export type CreateMessageMutation = {
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
       __typename: "FlightDetails";
@@ -1069,6 +1092,7 @@ export type CreateMessageMutation = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -1100,6 +1124,7 @@ export type UpdateMessageMutation = {
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
       __typename: "FlightDetails";
@@ -1110,6 +1135,7 @@ export type UpdateMessageMutation = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -1141,6 +1167,7 @@ export type DeleteMessageMutation = {
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
       __typename: "FlightDetails";
@@ -1151,6 +1178,7 @@ export type DeleteMessageMutation = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -1385,6 +1413,7 @@ export type GetMessagesQuery = {
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
       __typename: "FlightDetails";
@@ -1395,6 +1424,7 @@ export type GetMessagesQuery = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -1431,6 +1461,7 @@ export type GetImageCollectionsQuery = {
   completed?: boolean | null;
   error?: boolean | null;
   pending?: boolean | null;
+  dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: {
     __typename: "FlightDetails";
@@ -1453,6 +1484,7 @@ export type GetImageCollectionsQuery = {
     createdAt: string;
     updatedAt: string;
   } | null;
+  collectionName?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -1486,6 +1518,7 @@ export type GetCataloguesQuery = {
   completed?: boolean | null;
   error?: boolean | null;
   pending?: boolean | null;
+  dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: {
     __typename: "FlightDetails";
@@ -1508,6 +1541,7 @@ export type GetCataloguesQuery = {
     createdAt: string;
     updatedAt: string;
   } | null;
+  collectionName?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -1601,6 +1635,7 @@ export type GetImageCollectionQuery = {
   completed?: boolean | null;
   error?: boolean | null;
   pending?: boolean | null;
+  dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: {
     __typename: "FlightDetails";
@@ -1623,6 +1658,7 @@ export type GetImageCollectionQuery = {
     createdAt: string;
     updatedAt: string;
   } | null;
+  collectionName?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -1647,6 +1683,7 @@ export type ListImageCollectionsQuery = {
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
       __typename: "FlightDetails";
@@ -1657,6 +1694,7 @@ export type ListImageCollectionsQuery = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null>;
@@ -1683,6 +1721,7 @@ export type GetImageCollectionByTaskIdQuery = {
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
       __typename: "FlightDetails";
@@ -1693,6 +1732,7 @@ export type GetImageCollectionByTaskIdQuery = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null>;
@@ -1723,6 +1763,7 @@ export type GetMapQuery = {
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
       __typename: "FlightDetails";
@@ -1733,6 +1774,7 @@ export type GetMapQuery = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -1757,7 +1799,9 @@ export type ListMapsQuery = {
       completed?: boolean | null;
       error?: boolean | null;
       pending?: boolean | null;
+      dismissed?: boolean | null;
       flightID?: string | null;
+      collectionName?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null;
@@ -1784,7 +1828,9 @@ export type GetMapByFileNameQuery = {
       completed?: boolean | null;
       error?: boolean | null;
       pending?: boolean | null;
+      dismissed?: boolean | null;
       flightID?: string | null;
+      collectionName?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null;
@@ -1818,6 +1864,7 @@ export type GetMessageQuery = {
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
       __typename: "FlightDetails";
@@ -1828,6 +1875,7 @@ export type GetMessageQuery = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -1852,7 +1900,9 @@ export type ListMessagesQuery = {
       completed?: boolean | null;
       error?: boolean | null;
       pending?: boolean | null;
+      dismissed?: boolean | null;
       flightID?: string | null;
+      collectionName?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null;
@@ -1879,7 +1929,9 @@ export type GetMessageByCollectionIdQuery = {
       completed?: boolean | null;
       error?: boolean | null;
       pending?: boolean | null;
+      dismissed?: boolean | null;
       flightID?: string | null;
+      collectionName?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null;
@@ -2156,6 +2208,7 @@ export type OnCreateImageCollectionSubscription = {
   completed?: boolean | null;
   error?: boolean | null;
   pending?: boolean | null;
+  dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: {
     __typename: "FlightDetails";
@@ -2178,6 +2231,7 @@ export type OnCreateImageCollectionSubscription = {
     createdAt: string;
     updatedAt: string;
   } | null;
+  collectionName?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -2200,6 +2254,7 @@ export type OnUpdateImageCollectionSubscription = {
   completed?: boolean | null;
   error?: boolean | null;
   pending?: boolean | null;
+  dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: {
     __typename: "FlightDetails";
@@ -2222,6 +2277,7 @@ export type OnUpdateImageCollectionSubscription = {
     createdAt: string;
     updatedAt: string;
   } | null;
+  collectionName?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -2244,6 +2300,7 @@ export type OnDeleteImageCollectionSubscription = {
   completed?: boolean | null;
   error?: boolean | null;
   pending?: boolean | null;
+  dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: {
     __typename: "FlightDetails";
@@ -2266,6 +2323,7 @@ export type OnDeleteImageCollectionSubscription = {
     createdAt: string;
     updatedAt: string;
   } | null;
+  collectionName?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -2294,6 +2352,7 @@ export type OnCreateMapSubscription = {
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
       __typename: "FlightDetails";
@@ -2304,6 +2363,7 @@ export type OnCreateMapSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -2335,6 +2395,7 @@ export type OnUpdateMapSubscription = {
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
       __typename: "FlightDetails";
@@ -2345,6 +2406,7 @@ export type OnUpdateMapSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -2376,6 +2438,7 @@ export type OnDeleteMapSubscription = {
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
       __typename: "FlightDetails";
@@ -2386,6 +2449,7 @@ export type OnDeleteMapSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -2417,6 +2481,7 @@ export type OnCreateMessageSubscription = {
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
       __typename: "FlightDetails";
@@ -2427,6 +2492,7 @@ export type OnCreateMessageSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -2458,6 +2524,7 @@ export type OnUpdateMessageSubscription = {
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
       __typename: "FlightDetails";
@@ -2468,6 +2535,7 @@ export type OnUpdateMessageSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -2499,6 +2567,7 @@ export type OnDeleteMessageSubscription = {
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
       __typename: "FlightDetails";
@@ -2509,6 +2578,7 @@ export type OnDeleteMessageSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -3041,6 +3111,7 @@ export class APIService {
           completed
           error
           pending
+          dismissed
           flightID
           FlightDetails {
             __typename
@@ -3063,6 +3134,7 @@ export class APIService {
             createdAt
             updatedAt
           }
+          collectionName
           createdAt
           updatedAt
         }
@@ -3101,6 +3173,7 @@ export class APIService {
           completed
           error
           pending
+          dismissed
           flightID
           FlightDetails {
             __typename
@@ -3123,6 +3196,7 @@ export class APIService {
             createdAt
             updatedAt
           }
+          collectionName
           createdAt
           updatedAt
         }
@@ -3161,6 +3235,7 @@ export class APIService {
           completed
           error
           pending
+          dismissed
           flightID
           FlightDetails {
             __typename
@@ -3183,6 +3258,7 @@ export class APIService {
             createdAt
             updatedAt
           }
+          collectionName
           createdAt
           updatedAt
         }
@@ -3227,6 +3303,7 @@ export class APIService {
             completed
             error
             pending
+            dismissed
             flightID
             FlightDetails {
               __typename
@@ -3237,6 +3314,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            collectionName
             createdAt
             updatedAt
           }
@@ -3284,6 +3362,7 @@ export class APIService {
             completed
             error
             pending
+            dismissed
             flightID
             FlightDetails {
               __typename
@@ -3294,6 +3373,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            collectionName
             createdAt
             updatedAt
           }
@@ -3341,6 +3421,7 @@ export class APIService {
             completed
             error
             pending
+            dismissed
             flightID
             FlightDetails {
               __typename
@@ -3351,6 +3432,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            collectionName
             createdAt
             updatedAt
           }
@@ -3398,6 +3480,7 @@ export class APIService {
             completed
             error
             pending
+            dismissed
             flightID
             FlightDetails {
               __typename
@@ -3408,6 +3491,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            collectionName
             createdAt
             updatedAt
           }
@@ -3455,6 +3539,7 @@ export class APIService {
             completed
             error
             pending
+            dismissed
             flightID
             FlightDetails {
               __typename
@@ -3465,6 +3550,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            collectionName
             createdAt
             updatedAt
           }
@@ -3512,6 +3598,7 @@ export class APIService {
             completed
             error
             pending
+            dismissed
             flightID
             FlightDetails {
               __typename
@@ -3522,6 +3609,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            collectionName
             createdAt
             updatedAt
           }
@@ -4053,6 +4141,7 @@ export class APIService {
             completed
             error
             pending
+            dismissed
             flightID
             FlightDetails {
               __typename
@@ -4063,6 +4152,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            collectionName
             createdAt
             updatedAt
           }
@@ -4133,6 +4223,7 @@ export class APIService {
           completed
           error
           pending
+          dismissed
           flightID
           FlightDetails {
             __typename
@@ -4155,6 +4246,7 @@ export class APIService {
             createdAt
             updatedAt
           }
+          collectionName
           createdAt
           updatedAt
         }
@@ -4204,6 +4296,7 @@ export class APIService {
           completed
           error
           pending
+          dismissed
           flightID
           FlightDetails {
             __typename
@@ -4226,6 +4319,7 @@ export class APIService {
             createdAt
             updatedAt
           }
+          collectionName
           createdAt
           updatedAt
         }
@@ -4432,6 +4526,7 @@ export class APIService {
           completed
           error
           pending
+          dismissed
           flightID
           FlightDetails {
             __typename
@@ -4454,6 +4549,7 @@ export class APIService {
             createdAt
             updatedAt
           }
+          collectionName
           createdAt
           updatedAt
         }
@@ -4494,6 +4590,7 @@ export class APIService {
             completed
             error
             pending
+            dismissed
             flightID
             FlightDetails {
               __typename
@@ -4504,6 +4601,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            collectionName
             createdAt
             updatedAt
           }
@@ -4559,6 +4657,7 @@ export class APIService {
             completed
             error
             pending
+            dismissed
             flightID
             FlightDetails {
               __typename
@@ -4569,6 +4668,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            collectionName
             createdAt
             updatedAt
           }
@@ -4623,6 +4723,7 @@ export class APIService {
             completed
             error
             pending
+            dismissed
             flightID
             FlightDetails {
               __typename
@@ -4633,6 +4734,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            collectionName
             createdAt
             updatedAt
           }
@@ -4673,7 +4775,9 @@ export class APIService {
               completed
               error
               pending
+              dismissed
               flightID
+              collectionName
               createdAt
               updatedAt
             }
@@ -4729,7 +4833,9 @@ export class APIService {
               completed
               error
               pending
+              dismissed
               flightID
+              collectionName
               createdAt
               updatedAt
             }
@@ -4785,6 +4891,7 @@ export class APIService {
             completed
             error
             pending
+            dismissed
             flightID
             FlightDetails {
               __typename
@@ -4795,6 +4902,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            collectionName
             createdAt
             updatedAt
           }
@@ -4835,7 +4943,9 @@ export class APIService {
               completed
               error
               pending
+              dismissed
               flightID
+              collectionName
               createdAt
               updatedAt
             }
@@ -4891,7 +5001,9 @@ export class APIService {
               completed
               error
               pending
+              dismissed
               flightID
+              collectionName
               createdAt
               updatedAt
             }
@@ -5538,6 +5650,7 @@ export class APIService {
           completed
           error
           pending
+          dismissed
           flightID
           FlightDetails {
             __typename
@@ -5560,6 +5673,7 @@ export class APIService {
             createdAt
             updatedAt
           }
+          collectionName
           createdAt
           updatedAt
         }
@@ -5596,6 +5710,7 @@ export class APIService {
           completed
           error
           pending
+          dismissed
           flightID
           FlightDetails {
             __typename
@@ -5618,6 +5733,7 @@ export class APIService {
             createdAt
             updatedAt
           }
+          collectionName
           createdAt
           updatedAt
         }
@@ -5654,6 +5770,7 @@ export class APIService {
           completed
           error
           pending
+          dismissed
           flightID
           FlightDetails {
             __typename
@@ -5676,6 +5793,7 @@ export class APIService {
             createdAt
             updatedAt
           }
+          collectionName
           createdAt
           updatedAt
         }
@@ -5716,6 +5834,7 @@ export class APIService {
             completed
             error
             pending
+            dismissed
             flightID
             FlightDetails {
               __typename
@@ -5726,6 +5845,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            collectionName
             createdAt
             updatedAt
           }
@@ -5767,6 +5887,7 @@ export class APIService {
             completed
             error
             pending
+            dismissed
             flightID
             FlightDetails {
               __typename
@@ -5777,6 +5898,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            collectionName
             createdAt
             updatedAt
           }
@@ -5818,6 +5940,7 @@ export class APIService {
             completed
             error
             pending
+            dismissed
             flightID
             FlightDetails {
               __typename
@@ -5828,6 +5951,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            collectionName
             createdAt
             updatedAt
           }
@@ -5869,6 +5993,7 @@ export class APIService {
             completed
             error
             pending
+            dismissed
             flightID
             FlightDetails {
               __typename
@@ -5879,6 +6004,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            collectionName
             createdAt
             updatedAt
           }
@@ -5920,6 +6046,7 @@ export class APIService {
             completed
             error
             pending
+            dismissed
             flightID
             FlightDetails {
               __typename
@@ -5930,6 +6057,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            collectionName
             createdAt
             updatedAt
           }
@@ -5971,6 +6099,7 @@ export class APIService {
             completed
             error
             pending
+            dismissed
             flightID
             FlightDetails {
               __typename
@@ -5981,6 +6110,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            collectionName
             createdAt
             updatedAt
           }

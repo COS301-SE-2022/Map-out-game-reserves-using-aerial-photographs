@@ -13,6 +13,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { ImageDialogComponent } from './image-dialog.component';
 
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+
 describe('ImageDialogComponent', () => {
   let component: ImageDialogComponent;
   let fixture: ComponentFixture<ImageDialogComponent>;
@@ -40,6 +42,7 @@ describe('ImageDialogComponent', () => {
         MatInputModule,
         MatButtonModule,
         MatSnackBarModule,
+        HttpClientModule
       ],
       providers: [
         {
@@ -54,6 +57,7 @@ describe('ImageDialogComponent', () => {
           provide: Router,
           useValue: routerSpy,
         },
+        HttpClient
       ],
     }).compileComponents();
 
