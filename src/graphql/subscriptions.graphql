@@ -106,6 +106,7 @@ subscription OnCreateImageCollection {
       createdAt
       updatedAt
     }
+    collectionName
     createdAt
     updatedAt
   }
@@ -148,6 +149,7 @@ subscription OnUpdateImageCollection {
       createdAt
       updatedAt
     }
+    collectionName
     createdAt
     updatedAt
   }
@@ -190,6 +192,7 @@ subscription OnDeleteImageCollection {
       createdAt
       updatedAt
     }
+    collectionName
     createdAt
     updatedAt
   }
@@ -226,6 +229,7 @@ subscription OnCreateMap {
         createdAt
         updatedAt
       }
+      collectionName
       createdAt
       updatedAt
     }
@@ -265,6 +269,7 @@ subscription OnUpdateMap {
         createdAt
         updatedAt
       }
+      collectionName
       createdAt
       updatedAt
     }
@@ -304,6 +309,7 @@ subscription OnDeleteMap {
         createdAt
         updatedAt
       }
+      collectionName
       createdAt
       updatedAt
     }
@@ -343,6 +349,7 @@ subscription OnCreateMessage {
         createdAt
         updatedAt
       }
+      collectionName
       createdAt
       updatedAt
     }
@@ -382,6 +389,7 @@ subscription OnUpdateMessage {
         createdAt
         updatedAt
       }
+      collectionName
       createdAt
       updatedAt
     }
@@ -421,6 +429,7 @@ subscription OnDeleteMessage {
         createdAt
         updatedAt
       }
+      collectionName
       createdAt
       updatedAt
     }
