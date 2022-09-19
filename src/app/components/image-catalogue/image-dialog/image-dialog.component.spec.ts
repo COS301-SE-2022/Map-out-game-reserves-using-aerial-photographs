@@ -89,12 +89,18 @@ describe('ImageDialogComponent', () => {
   //   jasmine.clock().uninstall();
   // });
 
-  it('test onDeleteClick() with mock try again', () => {
-    let router = fixture.debugElement.injector.get(Router);
-    let spy = router.navigateByUrl as jasmine.Spy;
-    component.onDeleteClick(true);
-    expect(spy).toHaveBeenCalled();
-  });
+  // it('test onDeleteClick() with mock try again', () => {
+  //   let router = fixture.debugElement.injector.get(Router);
+  //   let spy = router.navigateByUrl as jasmine.Spy;
+  //   component.onDeleteClick(true);
+  //   expect(spy).toHaveBeenCalled();
+  // });
+
+  // it('dialog should be closed after onDeleteClick()', () => {
+  //   let spy = spyOn(component.dialogRef, 'close').and.callThrough();
+  //   component.onDeleteClick(false);
+  //   expect(spy).toHaveBeenCalled();
+  // });
 
   it('test onSubmit() with mock taskID', () => {
     let router = fixture.debugElement.injector.get(Router);
@@ -109,12 +115,6 @@ describe('ImageDialogComponent', () => {
   it('dialog should be closed after onNoClick()', () => {
     let spy = spyOn(component.dialogRef, 'close').and.callThrough();
     component.onNoClick();
-    expect(spy).toHaveBeenCalled();
-  });
-
-  it('dialog should be closed after onDeleteClick()', () => {
-    let spy = spyOn(component.dialogRef, 'close').and.callThrough();
-    component.onDeleteClick(false);
     expect(spy).toHaveBeenCalled();
   });
 
