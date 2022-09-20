@@ -104,6 +104,15 @@ export class ControllerService {
     }
   };
 
+  async S3delete(collection:string){
+    try {
+      const result = await Storage.remove(collection);
+      console.log(21, result);
+    } catch(e) {
+      console.log("S3delete error: ", e);
+    }
+  };
+
   async S3download(fileKey:string, collection:string, folder:string, fetch_data:boolean){
     // Storage.list('public/') // for listing ALL files without prefix, pass '' instead
     // .then(result => console.log(result))

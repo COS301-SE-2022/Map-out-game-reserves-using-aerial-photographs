@@ -1,0 +1,20 @@
+@import 'src/styles.scss';
+
+.link {
+  background-color: $primary-dark;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 10px;
+  cursor: pointer;
+  width: 15vw;
+  height: 40px;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+.link:hover{
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}

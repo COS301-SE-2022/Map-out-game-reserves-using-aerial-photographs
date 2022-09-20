@@ -11,6 +11,10 @@ describe('OtpDialogComponent', () => {
   let component: OtpDialogComponent;
   let fixture: ComponentFixture<OtpDialogComponent>;
 
+  const dialogMock = {
+    close: () => {},
+  };
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ OtpDialogComponent ],
@@ -23,7 +27,7 @@ describe('OtpDialogComponent', () => {
       ],
       providers: [
         {
-          provide: MatDialogRef, useValue: {}
+          provide: MatDialogRef, useValue: dialogMock
         },
         {
           provide: MAT_DIALOG_DATA, useValue: {}
@@ -39,5 +43,22 @@ describe('OtpDialogComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('test onSubmit() with mock empty values', () => {
+    component.data.otp = 0;
+    expect(component.onSubmit()).toBeUndefined();
+  });
+
+  it('dialog should be closed after onNoClick()', () => {
+    let spy = spyOn(component.dialogRef, 'close').and.callThrough();
+    component.onNoClick();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('dialog should be closed after onSubmit()', () => {
+    let spy = spyOn(component.dialogRef, 'close').and.callThrough();
+    component.onSubmit();
+    expect(spy).toHaveBeenCalled();
   });
 });

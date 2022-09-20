@@ -56,6 +56,7 @@ query GetMessages {
       completed
       error
       pending
+      dismissed
       flightID
       FlightDetails {
         flightID
@@ -107,6 +108,7 @@ query GetImageCollections {
     completed
     error
     pending
+    dismissed
     flightID
     FlightDetails {
       flightID
@@ -160,6 +162,7 @@ query GetCatalogues {
     completed
     error
     pending
+    dismissed
     flightID
     FlightDetails {
       flightID
@@ -306,6 +309,7 @@ query GetImageCollection($collectionID: String!) {
     completed
     error
     pending
+    dismissed
     flightID
     FlightDetails {
       flightID
@@ -361,6 +365,7 @@ query ListImageCollections(
       completed
       error
       pending
+      dismissed
       flightID
       FlightDetails {
         flightID
@@ -407,6 +412,7 @@ query GetImageCollectionByTaskId(
       completed
       error
       pending
+      dismissed
       flightID
       FlightDetails {
         flightID
@@ -445,6 +451,7 @@ query GetMap($mapID: String!) {
       completed
       error
       pending
+      dismissed
       flightID
       FlightDetails {
         flightID
@@ -489,6 +496,7 @@ query ListMaps(
         completed
         error
         pending
+        dismissed
         flightID
         collectionName
         createdAt
@@ -527,6 +535,7 @@ query GetMapByFileName(
         completed
         error
         pending
+        dismissed
         flightID
         collectionName
         createdAt
@@ -560,6 +569,7 @@ query GetMessage($messageID: String!) {
       completed
       error
       pending
+      dismissed
       flightID
       FlightDetails {
         flightID
@@ -604,6 +614,7 @@ query ListMessages(
         completed
         error
         pending
+        dismissed
         flightID
         collectionName
         createdAt
@@ -642,6 +653,7 @@ query GetMessageByCollectionId(
         completed
         error
         pending
+        dismissed
         flightID
         collectionName
         createdAt

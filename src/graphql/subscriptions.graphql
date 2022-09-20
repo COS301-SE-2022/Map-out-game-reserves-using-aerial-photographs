@@ -85,6 +85,7 @@ subscription OnCreateImageCollection {
     completed
     error
     pending
+    dismissed
     flightID
     FlightDetails {
       flightID
@@ -127,6 +128,7 @@ subscription OnUpdateImageCollection {
     completed
     error
     pending
+    dismissed
     flightID
     FlightDetails {
       flightID
@@ -169,6 +171,7 @@ subscription OnDeleteImageCollection {
     completed
     error
     pending
+    dismissed
     flightID
     FlightDetails {
       flightID
@@ -216,6 +219,7 @@ subscription OnCreateMap {
       completed
       error
       pending
+      dismissed
       flightID
       FlightDetails {
         flightID
@@ -255,6 +259,7 @@ subscription OnUpdateMap {
       completed
       error
       pending
+      dismissed
       flightID
       FlightDetails {
         flightID
@@ -294,6 +299,7 @@ subscription OnDeleteMap {
       completed
       error
       pending
+      dismissed
       flightID
       FlightDetails {
         flightID
@@ -333,6 +339,7 @@ subscription OnCreateMessage {
       completed
       error
       pending
+      dismissed
       flightID
       FlightDetails {
         flightID
@@ -372,6 +379,7 @@ subscription OnUpdateMessage {
       completed
       error
       pending
+      dismissed
       flightID
       FlightDetails {
         flightID
@@ -411,6 +419,7 @@ subscription OnDeleteMessage {
       completed
       error
       pending
+      dismissed
       flightID
       FlightDetails {
         flightID
