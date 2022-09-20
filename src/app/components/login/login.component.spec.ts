@@ -8,8 +8,12 @@ import { LoginComponent } from './login.component';
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
+  let originalTimeout: number;
 
   beforeEach(async () => {
+    originalTimeout =  jasmine.DEFAULT_TIMEOUT_INTERVAL;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 25000;
+
     await TestBed.configureTestingModule({
       declarations: [ LoginComponent ],
       imports: [ FormsModule, ReactiveFormsModule, HttpClientModule, RouterTestingModule ],
@@ -26,8 +30,7 @@ describe('LoginComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it("should have as title 'login-component'", () => {  
-    // const app = fixture.debugElement.componentInstance;
+  it("should have as title 'login-component'", () => {
     expect(component.title).toEqual('login-component');
   });
 
@@ -71,17 +74,24 @@ describe('LoginComponent', () => {
     expect(password.valid).toBeTruthy();
   });
 
-  it('submits form and logs in', async () => {
+  it('submits form and logs in', async function () {
     component.loginForm.controls['email'].setValue("correct@email.com");
     component.loginForm.controls['password'].setValue("12345678");
-    expect(component.loginForm.valid).toBeTruthy();
+    const authServiceMock: any = jasmine.createSpyObj('Auth', ['signIn']);
+    const routerMock: any = jasmine.createSpyObj('Router', ['navigate']);
+    authServiceMock.signIn.and.returnValue(Promise.resolve({ "some": "value" }));
+    routerMock.navigate.and.returnValue(true);
 
     //response from event emitter
     component.loggedIn.subscribe(user => {
-      expect(user!.attributes.email).toBe("correct@email.com");
+      expect(user.attributes.email).toBe("correct@email.com");
     });
 
     await component.login();
+  });
+
+  afterEach(() => {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
   });
 
 });

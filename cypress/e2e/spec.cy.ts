@@ -10,6 +10,36 @@ describe('Initial App Test', () => {
   })
 })
 
+// Testing Quality Requirements
+describe('Testing Performance Quality Requirements', () => {
+  beforeEach(() => {
+    Cypress.config('defaultCommandTimeout', 15000);
+    cy.visit('/login');
+    getLoginEmailInput().type(username);
+    getLoginPasswordInput().type(password);
+  });
+
+  //tests time from login button click till dashboard page is loaded
+  it.only('Must login within 10 seconds', () => {
+    let start = new Date().getTime();//performance.now();
+
+    getLoginButton().click();
+    cy.url().should('include', 'dashboard').then(() => {
+      cy.wrap(new Date().getTime()).then(end => {   // this is now a queued command which will
+        // only run after the previous command
+        const duration = end - start;
+        cy.log(`Login took ${duration} milliseconds`).then(() => {
+          expect(duration < 10000).to.be.true;
+        });
+      })
+    });
+  });
+
+  afterEach(() => {
+    Cypress.config('defaultCommandTimeout', 4000);
+  });
+});
+
 // Testing Login
 
 describe('Logging the user in', () => {
@@ -17,6 +47,10 @@ describe('Logging the user in', () => {
     Cypress.config('defaultCommandTimeout', 10000);
     cy.visit('/login');
   });
+
+  it('Visits the initial project landing page', () => {
+    cy.url().should('include', '/login');
+  })
 
   it.only('displays "Please enter password" and "Please enter email" when no password and email are entered', () => {
     getLoginButton().click();
@@ -63,24 +97,30 @@ describe('Navigation', () => {
   });
 
   it.only('navigates to the account page', () => {
-    cy.wait(500);
+    cy.wait(3000); //for spinner
     getNavAccount().click();
     cy.url().should('include', '/account');
   });
 
   it.only('navigates to the dashboard page', () => {
-    getDashboard().click();
-    cy.url().should('include', '/dashboard');
+    cy.wait(3000).then(() => {
+      getDashboard().click();
+      cy.url().should('include', '/dashboard');
+    });
   });
 
   it.only('navigates to the map catalogue page', () => {
-    getMapCatalogue().click();
-    cy.url().should('include', '/map-catalogue');
+    cy.wait(4000).then(() => {
+      getMapCatalogue().click();
+      cy.url().should('include', '/map-catalogue');
+    });
   });
 
   it.only('navigates to the create map page', () => {
-    getCreateMap().click();
-    cy.url().should('include', '/create-map');
+    cy.wait(3000).then(() => {
+      getCreateMap().click();
+      cy.url().should('include', '/create-map');
+    });
   });
 
   afterEach(() => {

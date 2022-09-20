@@ -20,14 +20,14 @@ export class LoginComponent {
   loginForm: UntypedFormGroup;
   isSubmitted: boolean;
   inAnimation: boolean;
-  
+
   constructor(private formBuilder: UntypedFormBuilder, private router: Router, private http: HttpClient) {
     //loader
-    
+
     this.inAnimation = false;
 
     this.fadeOut();
-       
+
     this.loginForm = this.formBuilder.group({
       email: new UntypedFormControl('', [Validators.required, Validators.email]),
       password: new UntypedFormControl('', [Validators.required])
@@ -46,10 +46,10 @@ export class LoginComponent {
       try {
         const user = await Auth.signIn(email.value, password.value);
         this.router.navigate(['dashboard']);
+        this.loggedIn.emit(user); //for unit testing purposes
         setTimeout(() => {
           window.location.reload();
         }, 1);
-        this.loggedIn.emit(user); //for unit testing purposes
       } catch (error) {
           console.log('error signing in', error);
       }
