@@ -20,7 +20,7 @@
         <mat-form-field appearance="outline" [hideRequiredMarker]="true">
           <!-- <mat-label>Name</mat-label> -->
           <label>
-            <input readonly #name matInput style="user-select: none;">
+            <input id="displayNameField" readonly #name matInput style="user-select: none;">
           </label>
           <div matSuffix style="height: 100% !important; margin: 0;">
             <button id="nameEdit" mat-button class="tooltip" (click)="openNameDialog()">

@@ -1,4 +1,7 @@
-import { getConfirmNewPasswordField, getCreateMap, getCurrNameField, getDashboard, getLoginButton, getLoginEmailInput, getLoginEmailPrompt, getLoginPasswordInput, getLoginPasswordPrompt, getLogoutButton, getMapCatalogue, getNameEdit, getNavAccount, getNewNameField, getNewPasswordField, getPasswordEdit, getSaveNewNameButton, getSaveNewPasswordButton } from './app.po';
+import { getConfirmNewPasswordField, getCreateMap, getCurrNameField, getDashboard, getDisplayedNameField, getLoginButton, getLoginEmailInput, getLoginEmailPrompt, getLoginPasswordInput, getLoginPasswordPrompt, getLogoutButton, getMapCatalogue, getNameEdit, getNavAccount, getNewNameField, getNewPasswordField, getPasswordEdit, getSaveNewNameButton, getSaveNewPasswordButton } from './app.po';
+
+const username = Cypress.env('VALID_USERNAME');
+const password = Cypress.env('VALID_PASSWORD');
 
 describe('Initial App Test', () => {
   it('Visits the initial project page', () => {
@@ -35,8 +38,8 @@ describe('Logging the user in', () => {
   });
 
   it.only('logs in and navigates to the Dashboard page', () => {
-    getLoginEmailInput().type('correct@email.com');
-    getLoginPasswordInput().type('12345678');
+    getLoginEmailInput().type(username);
+    getLoginPasswordInput().type(password);
     getLoginButton().click();
 
     cy.url().should('include', '/dashboard')
@@ -52,14 +55,15 @@ describe('Logging the user in', () => {
 
 describe('Navigation', () => {
   beforeEach(() => {
-    Cypress.config('defaultCommandTimeout', 10000);
+    Cypress.config('defaultCommandTimeout', 15000);
     cy.visit('/login');
-    getLoginEmailInput().type('correct@email.com');
-    getLoginPasswordInput().type('12345678');
+    getLoginEmailInput().type(username);
+    getLoginPasswordInput().type(password);
     getLoginButton().click();
   });
 
   it.only('navigates to the account page', () => {
+    cy.wait(500);
     getNavAccount().click();
     cy.url().should('include', '/account');
   });
@@ -90,8 +94,8 @@ describe('File Upload', () => {
   beforeEach(() => {
     Cypress.config('defaultCommandTimeout', 10000);
     cy.visit('/login');
-    getLoginEmailInput().type('correct@email.com');
-    getLoginPasswordInput().type('12345678');
+    getLoginEmailInput().type(username);
+    getLoginPasswordInput().type(password);
     getLoginButton().click();
   });
   //it.only('displays the ')
@@ -107,8 +111,8 @@ describe('File Upload', () => {
 describe('Testing Account Page functions', () => {
   beforeEach(() => {
     cy.visit('/login');
-    getLoginEmailInput().type('correct@email.com');
-    getLoginPasswordInput().type('12345678');
+    getLoginEmailInput().type(username);
+    getLoginPasswordInput().type(password);
     getLoginButton().click();
     getNavAccount().click();
   });
@@ -118,11 +122,12 @@ describe('Testing Account Page functions', () => {
 
 describe('Account Page', () => {
   beforeEach(() => {
-    Cypress.config('defaultCommandTimeout', 10000);
+    Cypress.config('defaultCommandTimeout', 20000);
     cy.visit('/login');
-    getLoginEmailInput().type('correct@email.com');
-    getLoginPasswordInput().type('12345678');
+    getLoginEmailInput().type(username);
+    getLoginPasswordInput().type(password);
     getLoginButton().click();
+    cy.wait(500);
     getNavAccount().click();
   });
 
@@ -130,21 +135,22 @@ describe('Account Page', () => {
     getNameEdit().click();
     getNewNameField().type('New Name');
     getSaveNewNameButton().click();
-    getNameEdit().click();
-    getCurrNameField().should('have.value', 'New Name');
+    cy.wait(500);
+    getDisplayedNameField().should('have.value', 'New Name');
   });
 
-  it.only("successfully changes the user's password", () => {
+  it.only("successfully changes the user's password", (done) => {
     getPasswordEdit().click();
-    getNewPasswordField().type('12345678');
-    getConfirmNewPasswordField().type('12345678');
+    getNewPasswordField().type(password);
+    getConfirmNewPasswordField().type(password);
     getSaveNewPasswordButton().click();
+    done();
   });
 
-  it.only("successfully changes the user's email", () => {
-    getLogoutButton().click();
-    cy.url().should('include', '/login');
-  });
+  // it.only("successfully changes the user's email", () => {
+  //   getLogoutButton().click();
+  //   cy.url().should('include', '/login');
+  // });
 
   afterEach(() => {
     Cypress.config('defaultCommandTimeout', 4000);
@@ -155,8 +161,8 @@ describe('Logging the user out', () => {
   beforeEach(() => {
     Cypress.config('defaultCommandTimeout', 10000);
     cy.visit('/login');
-    getLoginEmailInput().type('correct@email.com');
-    getLoginPasswordInput().type('12345678');
+    getLoginEmailInput().type(username);
+    getLoginPasswordInput().type(password);
     getLoginButton().click();
   });
 

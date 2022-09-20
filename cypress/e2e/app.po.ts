@@ -14,6 +14,7 @@ export const getPasswordEdit = () => cy.get('#passwordEdit');
 export const getEmailEdit = () => cy.get('#emailEdit');
 export const getNewNameField = () => cy.get('#newNameField');
 export const getCurrNameField = () => cy.get('#currNameField');
+export const getDisplayedNameField = () => cy.get('#displayNameField');
 export const getSaveNewNameButton = () => cy.get('#saveNewName');
 export const getNewPasswordField = () => cy.get('#newPassField');
 export const getConfirmNewPasswordField = () => cy.get('#confirmNewPassField');
