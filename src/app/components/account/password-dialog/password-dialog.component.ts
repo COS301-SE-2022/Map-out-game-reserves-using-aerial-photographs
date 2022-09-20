@@ -33,7 +33,7 @@ export class PasswordDialogComponent {
       this.snackBar.open("Passwords do not match.", "❌", { verticalPosition: 'top' })
       return;
     }
-    if(this.data.newPassword.length < 8) {
+    if(this.data.newPassword?.length < 8) {
       this.snackBar.open("Password must be at least 8 characters long.", "❌", { verticalPosition: 'top' })
       return;
     }

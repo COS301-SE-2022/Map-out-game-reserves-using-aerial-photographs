@@ -14,6 +14,10 @@ describe('RegisterLinkDialogComponent', () => {
   let component: RegisterLinkDialogComponent;
   let fixture: ComponentFixture<RegisterLinkDialogComponent>;
 
+  const dialogMock = {
+    close: () => {},
+  };
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ RegisterLinkDialogComponent ],
@@ -30,7 +34,7 @@ describe('RegisterLinkDialogComponent', () => {
       ],
       providers: [
         {
-          provide: MatDialogRef, useValue: {}
+          provide: MatDialogRef, useValue: dialogMock
         },
         {
           provide: MAT_DIALOG_DATA, useValue: {}
@@ -46,5 +50,22 @@ describe('RegisterLinkDialogComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('test onSubmit() with mock empty recipient', () => {
+    component.data.recipient  = '';
+    expect(component.onSubmit(true)).toBeUndefined();
+  });
+
+  it('dialog should be closed after onNoClick()', () => {
+    let spy = spyOn(component.dialogRef, 'close').and.callThrough();
+    component.onNoClick();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('dialog should be closed after onSubmit()', () => {
+    let spy = spyOn(component.dialogRef, 'close').and.callThrough();
+    component.onSubmit(true);
+    expect(spy).toHaveBeenCalled();
   });
 });

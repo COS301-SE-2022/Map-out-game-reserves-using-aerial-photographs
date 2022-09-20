@@ -15,6 +15,10 @@ describe('ParksDialogComponent', () => {
   let component: ParksDialogComponent;
   let fixture: ComponentFixture<ParksDialogComponent>;
 
+  const dialogMock = {
+    close: () => {},
+  };
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ ParksDialogComponent ],
@@ -31,7 +35,7 @@ describe('ParksDialogComponent', () => {
       ],
       providers: [
         {
-          provide: MatDialogRef, useValue: {}
+          provide: MatDialogRef, useValue: dialogMock
         },
         {
           provide: MAT_DIALOG_DATA, useValue: {}
@@ -47,5 +51,24 @@ describe('ParksDialogComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('test onSubmit() with mock empty values', () => {
+    component.data.name = '';
+    component.data.address = '';
+    component.data.location = '';
+    expect(component.onSubmit()).toBeUndefined();
+  });
+
+  it('dialog should be closed after onNoClick()', () => {
+    let spy = spyOn(component.dialogRef, 'close').and.callThrough();
+    component.onNoClick();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('dialog should be closed after onSubmit()', () => {
+    let spy = spyOn(component.dialogRef, 'close').and.callThrough();
+    component.onSubmit();
+    expect(spy).toHaveBeenCalled();
   });
 });

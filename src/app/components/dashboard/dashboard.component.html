@@ -42,6 +42,7 @@
                   matLine
                   class="messageItem"
                   *ngFor="let message of messages"
+                  [id]="message.collectionID"
                 >
                   <fa-icon
                     class="icon"
@@ -53,7 +54,9 @@
                   <span class="messageDate"
                     >Map ID: {{ message.collectionID }}</span
                   >
-                  <button class="close" (click)="dismiss()"><mat-icon>close</mat-icon></button>
+                  <!-- (click)="dismiss(message.collectionID)" -->
+                  <!-- <button class="close" ><mat-icon>close</mat-icon></button> -->
+                  <button class="close" (click)="dismiss(message.collectionID, 'error')"><mat-icon>close</mat-icon></button>
                 </mat-list-item>
               </mat-list>
             </div>
@@ -81,6 +84,7 @@
                   matLine
                   class="completeItem"
                   *ngFor="let collection of completed"
+                  [id]="collection.collectionID"
                 >
                   <fa-icon
                     matListAvatar
@@ -92,7 +96,7 @@
                     >{{ collection.collectionName }}</span
                   >
                   <!-- <span class="completeDate">{{m.date}}</span> -->
-                  <button class="close" (click)="dismiss()"><mat-icon>close</mat-icon></button>
+                  <button class="close" (click)="dismiss(collection.collectionID, 'complete')"><mat-icon>close</mat-icon></button>
                 </mat-list-item>
               </mat-list>
             </div>
@@ -129,8 +133,7 @@
                     [icon]="progress"
                   ></fa-icon>
                   <span class="progressName"
-                    >Upload {{ collection.collectionName }}, to be
-                    completed...</span
+                    >Stitching {{ collection.collectionID }}, in progress...</span
                   >
                 </mat-list-item>
               </mat-list>
