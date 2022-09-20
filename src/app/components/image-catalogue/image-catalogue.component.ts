@@ -135,7 +135,7 @@ export class ImageCatalogueComponent implements OnInit {
                     )
                     .then((signedURL) => {
                       i.url = signedURL;
-                    });
+                    }).catch(err => console.log(err));
                 }
 
                 for(let i = 0;i<3;i++){
@@ -148,7 +148,7 @@ export class ImageCatalogueComponent implements OnInit {
                     )
                     .then((signedURL) => {
                       catalogData.thumbnails.push(signedURL);
-                    });
+                    }).catch(err => console.log(err));
                 }
                 // this.sortByDate();
                 this.tempCatalogues = this.catalogues;

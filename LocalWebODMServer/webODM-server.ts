@@ -186,7 +186,7 @@ function S3download(keyFile): Promise<any> {
             console.log("S3download error: ", error);
             reject(error);
           } else {
-            console.log("S3download resolve!: ", data);
+            console.log("S3download resolved: ", data);
             resolve(data);
           }
         }
@@ -200,7 +200,7 @@ function S3download(keyFile): Promise<any> {
 //continuously poll WebODM for a list of tasks, compare the task statuses
 //this function issues SNS notifications to update the frontend
 async function pollWebODM() {
-  console.log(`\n[SERVER] Polling WebODM...`);
+  //console.log(`\n[SERVER] Polling WebODM...`);
 
   fetch(webODM_URL + `api/projects/${projectId}/tasks/`, {
     method: "GET",
@@ -421,7 +421,7 @@ async function createMap(jobID: string) {
         formData.append('options', JSON.stringify(optionsArr));
 
         // start new WebODM stitching job - call createTask API endpoint
-        let response = await fetch('http://localhost:8000/api/projects/1/tasks/', {
+        let response = await fetch(`http://localhost:8000/api/projects/${projectId}/tasks/`, {
           method: 'POST',
           body: formData,
           headers: {

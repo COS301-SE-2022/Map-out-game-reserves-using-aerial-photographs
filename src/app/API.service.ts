@@ -205,6 +205,7 @@ export type CreateImageCollectionInput = {
   error?: boolean | null;
   pending?: boolean | null;
   flightID?: string | null;
+  collectionName?: string | null;
 };
 
 export type ModelImageCollectionConditionInput = {
@@ -215,6 +216,7 @@ export type ModelImageCollectionConditionInput = {
   error?: ModelBooleanInput | null;
   pending?: ModelBooleanInput | null;
   flightID?: ModelStringInput | null;
+  collectionName?: ModelStringInput | null;
   and?: Array<ModelImageCollectionConditionInput | null> | null;
   or?: Array<ModelImageCollectionConditionInput | null> | null;
   not?: ModelImageCollectionConditionInput | null;
@@ -232,6 +234,7 @@ export type ImageCollection = {
   pending?: boolean | null;
   flightID?: string | null;
   FlightDetails?: FlightDetails | null;
+  collectionName?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -245,6 +248,7 @@ export type UpdateImageCollectionInput = {
   error?: boolean | null;
   pending?: boolean | null;
   flightID?: string | null;
+  collectionName?: string | null;
 };
 
 export type DeleteImageCollectionInput = {
@@ -544,6 +548,7 @@ export type ModelImageCollectionFilterInput = {
   error?: ModelBooleanInput | null;
   pending?: ModelBooleanInput | null;
   flightID?: ModelStringInput | null;
+  collectionName?: ModelStringInput | null;
   and?: Array<ModelImageCollectionFilterInput | null> | null;
   or?: Array<ModelImageCollectionFilterInput | null> | null;
   not?: ModelImageCollectionFilterInput | null;
@@ -820,6 +825,7 @@ export type CreateImageCollectionMutation = {
     createdAt: string;
     updatedAt: string;
   } | null;
+  collectionName?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -864,6 +870,7 @@ export type UpdateImageCollectionMutation = {
     createdAt: string;
     updatedAt: string;
   } | null;
+  collectionName?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -908,6 +915,7 @@ export type DeleteImageCollectionMutation = {
     createdAt: string;
     updatedAt: string;
   } | null;
+  collectionName?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -946,6 +954,7 @@ export type CreateMapMutation = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -987,6 +996,7 @@ export type UpdateMapMutation = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -1028,6 +1038,7 @@ export type DeleteMapMutation = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -1069,6 +1080,7 @@ export type CreateMessageMutation = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -1110,6 +1122,7 @@ export type UpdateMessageMutation = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -1151,6 +1164,7 @@ export type DeleteMessageMutation = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -1395,6 +1409,7 @@ export type GetMessagesQuery = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -1453,6 +1468,7 @@ export type GetImageCollectionsQuery = {
     createdAt: string;
     updatedAt: string;
   } | null;
+  collectionName?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -1508,6 +1524,7 @@ export type GetCataloguesQuery = {
     createdAt: string;
     updatedAt: string;
   } | null;
+  collectionName?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -1623,6 +1640,7 @@ export type GetImageCollectionQuery = {
     createdAt: string;
     updatedAt: string;
   } | null;
+  collectionName?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -1657,6 +1675,7 @@ export type ListImageCollectionsQuery = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null>;
@@ -1693,6 +1712,7 @@ export type GetImageCollectionByTaskIdQuery = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null>;
@@ -1733,6 +1753,7 @@ export type GetMapQuery = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -1758,6 +1779,7 @@ export type ListMapsQuery = {
       error?: boolean | null;
       pending?: boolean | null;
       flightID?: string | null;
+      collectionName?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null;
@@ -1785,6 +1807,7 @@ export type GetMapByFileNameQuery = {
       error?: boolean | null;
       pending?: boolean | null;
       flightID?: string | null;
+      collectionName?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null;
@@ -1828,6 +1851,7 @@ export type GetMessageQuery = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -1853,6 +1877,7 @@ export type ListMessagesQuery = {
       error?: boolean | null;
       pending?: boolean | null;
       flightID?: string | null;
+      collectionName?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null;
@@ -1880,6 +1905,7 @@ export type GetMessageByCollectionIdQuery = {
       error?: boolean | null;
       pending?: boolean | null;
       flightID?: string | null;
+      collectionName?: string | null;
       createdAt: string;
       updatedAt: string;
     } | null;
@@ -2178,6 +2204,7 @@ export type OnCreateImageCollectionSubscription = {
     createdAt: string;
     updatedAt: string;
   } | null;
+  collectionName?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -2222,6 +2249,7 @@ export type OnUpdateImageCollectionSubscription = {
     createdAt: string;
     updatedAt: string;
   } | null;
+  collectionName?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -2266,6 +2294,7 @@ export type OnDeleteImageCollectionSubscription = {
     createdAt: string;
     updatedAt: string;
   } | null;
+  collectionName?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -2304,6 +2333,7 @@ export type OnCreateMapSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -2345,6 +2375,7 @@ export type OnUpdateMapSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -2386,6 +2417,7 @@ export type OnDeleteMapSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -2427,6 +2459,7 @@ export type OnCreateMessageSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -2468,6 +2501,7 @@ export type OnUpdateMessageSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -2509,6 +2543,7 @@ export type OnDeleteMessageSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null;
@@ -3063,6 +3098,7 @@ export class APIService {
             createdAt
             updatedAt
           }
+          collectionName
           createdAt
           updatedAt
         }
@@ -3123,6 +3159,7 @@ export class APIService {
             createdAt
             updatedAt
           }
+          collectionName
           createdAt
           updatedAt
         }
@@ -3183,6 +3220,7 @@ export class APIService {
             createdAt
             updatedAt
           }
+          collectionName
           createdAt
           updatedAt
         }
@@ -3237,6 +3275,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            collectionName
             createdAt
             updatedAt
           }
@@ -3294,6 +3333,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            collectionName
             createdAt
             updatedAt
           }
@@ -3351,6 +3391,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            collectionName
             createdAt
             updatedAt
           }
@@ -3408,6 +3449,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            collectionName
             createdAt
             updatedAt
           }
@@ -3465,6 +3507,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            collectionName
             createdAt
             updatedAt
           }
@@ -3522,6 +3565,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            collectionName
             createdAt
             updatedAt
           }
@@ -4063,6 +4107,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            collectionName
             createdAt
             updatedAt
           }
@@ -4155,6 +4200,7 @@ export class APIService {
             createdAt
             updatedAt
           }
+          collectionName
           createdAt
           updatedAt
         }
@@ -4226,6 +4272,7 @@ export class APIService {
             createdAt
             updatedAt
           }
+          collectionName
           createdAt
           updatedAt
         }
@@ -4454,6 +4501,7 @@ export class APIService {
             createdAt
             updatedAt
           }
+          collectionName
           createdAt
           updatedAt
         }
@@ -4504,6 +4552,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            collectionName
             createdAt
             updatedAt
           }
@@ -4569,6 +4618,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            collectionName
             createdAt
             updatedAt
           }
@@ -4633,6 +4683,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            collectionName
             createdAt
             updatedAt
           }
@@ -4674,6 +4725,7 @@ export class APIService {
               error
               pending
               flightID
+              collectionName
               createdAt
               updatedAt
             }
@@ -4730,6 +4782,7 @@ export class APIService {
               error
               pending
               flightID
+              collectionName
               createdAt
               updatedAt
             }
@@ -4795,6 +4848,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            collectionName
             createdAt
             updatedAt
           }
@@ -4836,6 +4890,7 @@ export class APIService {
               error
               pending
               flightID
+              collectionName
               createdAt
               updatedAt
             }
@@ -4892,6 +4947,7 @@ export class APIService {
               error
               pending
               flightID
+              collectionName
               createdAt
               updatedAt
             }
@@ -5560,6 +5616,7 @@ export class APIService {
             createdAt
             updatedAt
           }
+          collectionName
           createdAt
           updatedAt
         }
@@ -5618,6 +5675,7 @@ export class APIService {
             createdAt
             updatedAt
           }
+          collectionName
           createdAt
           updatedAt
         }
@@ -5676,6 +5734,7 @@ export class APIService {
             createdAt
             updatedAt
           }
+          collectionName
           createdAt
           updatedAt
         }
@@ -5726,6 +5785,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            collectionName
             createdAt
             updatedAt
           }
@@ -5777,6 +5837,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            collectionName
             createdAt
             updatedAt
           }
@@ -5828,6 +5889,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            collectionName
             createdAt
             updatedAt
           }
@@ -5879,6 +5941,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            collectionName
             createdAt
             updatedAt
           }
@@ -5930,6 +5993,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            collectionName
             createdAt
             updatedAt
           }
@@ -5981,6 +6045,7 @@ export class APIService {
               createdAt
               updatedAt
             }
+            collectionName
             createdAt
             updatedAt
           }
