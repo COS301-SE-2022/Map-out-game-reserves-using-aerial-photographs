@@ -42,6 +42,7 @@
                   matLine
                   class="messageItem"
                   *ngFor="let message of messages"
+                  [id]="message.collectionID"
                 >
                   <fa-icon
                     class="icon"
@@ -53,6 +54,9 @@
                   <span class="messageDate"
                     >Map ID: {{ message.collectionID }}</span
                   >
+                  <!-- (click)="dismiss(message.collectionID)" -->
+                  <!-- <button class="close" ><mat-icon>close</mat-icon></button> -->
+                  <button class="close" (click)="dismiss(message.collectionID, 'error')"><mat-icon>close</mat-icon></button>
                 </mat-list-item>
               </mat-list>
             </div>
@@ -80,16 +84,19 @@
                   matLine
                   class="completeItem"
                   *ngFor="let collection of completed"
+                  [id]="collection.collectionID"
                 >
                   <fa-icon
                     matListAvatar
                     class="icon brown-icon"
                     [icon]="complete"
                   ></fa-icon>
+                  <span class="message">Upload</span>
                   <span class="completeName"
-                    >Upload {{ collection.collectionID }}</span
+                    > {{ collection.collectionID }}</span
                   >
                   <!-- <span class="completeDate">{{m.date}}</span> -->
+                  <button class="close" (click)="dismiss(collection.collectionID, 'complete')"><mat-icon>close</mat-icon></button>
                 </mat-list-item>
               </mat-list>
             </div>

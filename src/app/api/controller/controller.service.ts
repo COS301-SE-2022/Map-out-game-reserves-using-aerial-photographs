@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Auth, Storage } from 'aws-amplify';
-import { APIService, CreateMapInput, CreateMapMutation, CreateUserInput, GetImageCollectionByTaskIdQuery, ImageCollection, UpdateImageCollectionInput, User } from 'src/app/API.service';
+import { APIService, CreateUserInput, GetImageCollectionByTaskIdQuery, ImageCollection, UpdateImageCollectionInput, User } from 'src/app/API.service';
 import { v4 as uuidv4 } from 'uuid';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -14,7 +14,7 @@ export class ControllerService {
   //@ViewChild('formElem') formElem!: ElementRef<HTMLFormElement>;
   collectionData: ImageCollection[] = [];
   errorState: boolean = false;
-  websocket: WebSocket;
+  websocket: WebSocket | null;
 
   constructor(private http: HttpClient, private router: Router, private snackBar: MatSnackBar) {
     // open client WebSocket
@@ -35,7 +35,7 @@ export class ControllerService {
     }
     this.websocket.onopen = () => {
       console.log("Websocket connection opened");
-      this.websocket.send(JSON.stringify({
+      this.websocket!.send(JSON.stringify({
         message: "subscribe", //this selects the 'subscribe' API Gateway route (which triggers the onSubscribe lambda function)
         topic: "maps" //this is the topic we want to subscribe to
       }));
@@ -43,14 +43,8 @@ export class ControllerService {
   }
 
   configWebSocket() {
+    this.websocket = null;
     this.websocket = new WebSocket("wss://ha3u3iiggc.execute-api.sa-east-1.amazonaws.com/production/");
-    this.websocket.onopen = () => {
-      console.log("Websocket connection opened");
-      this.websocket.send(JSON.stringify({
-        message: "subscribe", //this selects the 'subscribe' API Gateway route (which triggers the onSubscribe lambda function)
-        topic: "maps" //this is the topic we want to subscribe to
-      }));
-    }
     this.websocket.onmessage = (msg: any) => {
       console.log("SNS Message Received");
       msg = JSON.parse(msg);
@@ -62,8 +56,15 @@ export class ControllerService {
       }
     }
     this.websocket.onclose = () => {
-      console.log("Websocket connection closed");
+      console.log("Websocket connection closed - in configWebSocket()");
       setTimeout(this.configWebSocket, 250); //reopen websocket in 250ms
+    }
+    this.websocket.onopen = () => {
+      console.log("Websocket connection opened");
+      this.websocket!.send(JSON.stringify({
+        message: "subscribe", //this selects the 'subscribe' API Gateway route (which triggers the onSubscribe lambda function)
+        topic: "maps" //this is the topic we want to subscribe to
+      }));
     }
   }
 
@@ -100,6 +101,15 @@ export class ControllerService {
       console.log(21, result);
     } catch(e) {
       console.log("S3upload error: ", e);
+    }
+  };
+
+  async S3delete(collection:string){
+    try {
+      const result = await Storage.remove(collection);
+      console.log(21, result);
+    } catch(e) {
+      console.log("S3delete error: ", e);
     }
   };
 

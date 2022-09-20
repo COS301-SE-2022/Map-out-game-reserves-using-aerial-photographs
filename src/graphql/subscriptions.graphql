@@ -1,6 +1,6 @@
 # this is an auto generated file. This will be overwritten
-subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
-  onCreateUser(filter: $filter) {
+subscription OnCreateUser {
+  onCreateUser {
     userID
     user_email
     user_password
@@ -12,8 +12,8 @@ subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
     updatedAt
   }
 }
-subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
-  onUpdateUser(filter: $filter) {
+subscription OnUpdateUser {
+  onUpdateUser {
     userID
     user_email
     user_password
@@ -25,8 +25,8 @@ subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
     updatedAt
   }
 }
-subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
-  onDeleteUser(filter: $filter) {
+subscription OnDeleteUser {
+  onDeleteUser {
     userID
     user_email
     user_password
@@ -38,8 +38,8 @@ subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
     updatedAt
   }
 }
-subscription OnCreateGamePark($filter: ModelSubscriptionGameParkFilterInput) {
-  onCreateGamePark(filter: $filter) {
+subscription OnCreateGamePark {
+  onCreateGamePark {
     parkID
     park_name
     park_location
@@ -48,8 +48,8 @@ subscription OnCreateGamePark($filter: ModelSubscriptionGameParkFilterInput) {
     updatedAt
   }
 }
-subscription OnUpdateGamePark($filter: ModelSubscriptionGameParkFilterInput) {
-  onUpdateGamePark(filter: $filter) {
+subscription OnUpdateGamePark {
+  onUpdateGamePark {
     parkID
     park_name
     park_location
@@ -58,8 +58,8 @@ subscription OnUpdateGamePark($filter: ModelSubscriptionGameParkFilterInput) {
     updatedAt
   }
 }
-subscription OnDeleteGamePark($filter: ModelSubscriptionGameParkFilterInput) {
-  onDeleteGamePark(filter: $filter) {
+subscription OnDeleteGamePark {
+  onDeleteGamePark {
     parkID
     park_name
     park_location
@@ -68,10 +68,8 @@ subscription OnDeleteGamePark($filter: ModelSubscriptionGameParkFilterInput) {
     updatedAt
   }
 }
-subscription OnCreateImageCollection(
-  $filter: ModelSubscriptionImageCollectionFilterInput
-) {
-  onCreateImageCollection(filter: $filter) {
+subscription OnCreateImageCollection {
+  onCreateImageCollection {
     collectionID
     taskID
     parkID
@@ -87,6 +85,7 @@ subscription OnCreateImageCollection(
     completed
     error
     pending
+    dismissed
     flightID
     FlightDetails {
       flightID
@@ -107,14 +106,13 @@ subscription OnCreateImageCollection(
       createdAt
       updatedAt
     }
+    collectionName
     createdAt
     updatedAt
   }
 }
-subscription OnUpdateImageCollection(
-  $filter: ModelSubscriptionImageCollectionFilterInput
-) {
-  onUpdateImageCollection(filter: $filter) {
+subscription OnUpdateImageCollection {
+  onUpdateImageCollection {
     collectionID
     taskID
     parkID
@@ -130,6 +128,7 @@ subscription OnUpdateImageCollection(
     completed
     error
     pending
+    dismissed
     flightID
     FlightDetails {
       flightID
@@ -150,14 +149,13 @@ subscription OnUpdateImageCollection(
       createdAt
       updatedAt
     }
+    collectionName
     createdAt
     updatedAt
   }
 }
-subscription OnDeleteImageCollection(
-  $filter: ModelSubscriptionImageCollectionFilterInput
-) {
-  onDeleteImageCollection(filter: $filter) {
+subscription OnDeleteImageCollection {
+  onDeleteImageCollection {
     collectionID
     taskID
     parkID
@@ -173,6 +171,7 @@ subscription OnDeleteImageCollection(
     completed
     error
     pending
+    dismissed
     flightID
     FlightDetails {
       flightID
@@ -193,12 +192,13 @@ subscription OnDeleteImageCollection(
       createdAt
       updatedAt
     }
+    collectionName
     createdAt
     updatedAt
   }
 }
-subscription OnCreateMap($filter: ModelSubscriptionMapFilterInput) {
-  onCreateMap(filter: $filter) {
+subscription OnCreateMap {
+  onCreateMap {
     mapID
     bucket_name
     file_name
@@ -219,6 +219,7 @@ subscription OnCreateMap($filter: ModelSubscriptionMapFilterInput) {
       completed
       error
       pending
+      dismissed
       flightID
       FlightDetails {
         flightID
@@ -228,6 +229,7 @@ subscription OnCreateMap($filter: ModelSubscriptionMapFilterInput) {
         createdAt
         updatedAt
       }
+      collectionName
       createdAt
       updatedAt
     }
@@ -235,8 +237,8 @@ subscription OnCreateMap($filter: ModelSubscriptionMapFilterInput) {
     updatedAt
   }
 }
-subscription OnUpdateMap($filter: ModelSubscriptionMapFilterInput) {
-  onUpdateMap(filter: $filter) {
+subscription OnUpdateMap {
+  onUpdateMap {
     mapID
     bucket_name
     file_name
@@ -257,6 +259,7 @@ subscription OnUpdateMap($filter: ModelSubscriptionMapFilterInput) {
       completed
       error
       pending
+      dismissed
       flightID
       FlightDetails {
         flightID
@@ -266,6 +269,7 @@ subscription OnUpdateMap($filter: ModelSubscriptionMapFilterInput) {
         createdAt
         updatedAt
       }
+      collectionName
       createdAt
       updatedAt
     }
@@ -273,8 +277,8 @@ subscription OnUpdateMap($filter: ModelSubscriptionMapFilterInput) {
     updatedAt
   }
 }
-subscription OnDeleteMap($filter: ModelSubscriptionMapFilterInput) {
-  onDeleteMap(filter: $filter) {
+subscription OnDeleteMap {
+  onDeleteMap {
     mapID
     bucket_name
     file_name
@@ -295,6 +299,7 @@ subscription OnDeleteMap($filter: ModelSubscriptionMapFilterInput) {
       completed
       error
       pending
+      dismissed
       flightID
       FlightDetails {
         flightID
@@ -304,6 +309,7 @@ subscription OnDeleteMap($filter: ModelSubscriptionMapFilterInput) {
         createdAt
         updatedAt
       }
+      collectionName
       createdAt
       updatedAt
     }
@@ -311,8 +317,8 @@ subscription OnDeleteMap($filter: ModelSubscriptionMapFilterInput) {
     updatedAt
   }
 }
-subscription OnCreateMessage($filter: ModelSubscriptionMessageFilterInput) {
-  onCreateMessage(filter: $filter) {
+subscription OnCreateMessage {
+  onCreateMessage {
     messageID
     message_status
     message_description
@@ -333,6 +339,7 @@ subscription OnCreateMessage($filter: ModelSubscriptionMessageFilterInput) {
       completed
       error
       pending
+      dismissed
       flightID
       FlightDetails {
         flightID
@@ -342,6 +349,7 @@ subscription OnCreateMessage($filter: ModelSubscriptionMessageFilterInput) {
         createdAt
         updatedAt
       }
+      collectionName
       createdAt
       updatedAt
     }
@@ -349,8 +357,8 @@ subscription OnCreateMessage($filter: ModelSubscriptionMessageFilterInput) {
     updatedAt
   }
 }
-subscription OnUpdateMessage($filter: ModelSubscriptionMessageFilterInput) {
-  onUpdateMessage(filter: $filter) {
+subscription OnUpdateMessage {
+  onUpdateMessage {
     messageID
     message_status
     message_description
@@ -371,6 +379,7 @@ subscription OnUpdateMessage($filter: ModelSubscriptionMessageFilterInput) {
       completed
       error
       pending
+      dismissed
       flightID
       FlightDetails {
         flightID
@@ -380,6 +389,7 @@ subscription OnUpdateMessage($filter: ModelSubscriptionMessageFilterInput) {
         createdAt
         updatedAt
       }
+      collectionName
       createdAt
       updatedAt
     }
@@ -387,8 +397,8 @@ subscription OnUpdateMessage($filter: ModelSubscriptionMessageFilterInput) {
     updatedAt
   }
 }
-subscription OnDeleteMessage($filter: ModelSubscriptionMessageFilterInput) {
-  onDeleteMessage(filter: $filter) {
+subscription OnDeleteMessage {
+  onDeleteMessage {
     messageID
     message_status
     message_description
@@ -409,6 +419,7 @@ subscription OnDeleteMessage($filter: ModelSubscriptionMessageFilterInput) {
       completed
       error
       pending
+      dismissed
       flightID
       FlightDetails {
         flightID
@@ -418,6 +429,7 @@ subscription OnDeleteMessage($filter: ModelSubscriptionMessageFilterInput) {
         createdAt
         updatedAt
       }
+      collectionName
       createdAt
       updatedAt
     }
@@ -425,8 +437,8 @@ subscription OnDeleteMessage($filter: ModelSubscriptionMessageFilterInput) {
     updatedAt
   }
 }
-subscription OnCreateImages($filter: ModelSubscriptionImagesFilterInput) {
-  onCreateImages(filter: $filter) {
+subscription OnCreateImages {
+  onCreateImages {
     imageID
     collectionID
     name
@@ -436,8 +448,8 @@ subscription OnCreateImages($filter: ModelSubscriptionImagesFilterInput) {
     updatedAt
   }
 }
-subscription OnUpdateImages($filter: ModelSubscriptionImagesFilterInput) {
-  onUpdateImages(filter: $filter) {
+subscription OnUpdateImages {
+  onUpdateImages {
     imageID
     collectionID
     name
@@ -447,8 +459,8 @@ subscription OnUpdateImages($filter: ModelSubscriptionImagesFilterInput) {
     updatedAt
   }
 }
-subscription OnDeleteImages($filter: ModelSubscriptionImagesFilterInput) {
-  onDeleteImages(filter: $filter) {
+subscription OnDeleteImages {
+  onDeleteImages {
     imageID
     collectionID
     name
@@ -458,10 +470,8 @@ subscription OnDeleteImages($filter: ModelSubscriptionImagesFilterInput) {
     updatedAt
   }
 }
-subscription OnCreateFlightDetails(
-  $filter: ModelSubscriptionFlightDetailsFilterInput
-) {
-  onCreateFlightDetails(filter: $filter) {
+subscription OnCreateFlightDetails {
+  onCreateFlightDetails {
     flightID
     flight_height
     flight_type
@@ -481,10 +491,8 @@ subscription OnCreateFlightDetails(
     updatedAt
   }
 }
-subscription OnUpdateFlightDetails(
-  $filter: ModelSubscriptionFlightDetailsFilterInput
-) {
-  onUpdateFlightDetails(filter: $filter) {
+subscription OnUpdateFlightDetails {
+  onUpdateFlightDetails {
     flightID
     flight_height
     flight_type
@@ -504,10 +512,8 @@ subscription OnUpdateFlightDetails(
     updatedAt
   }
 }
-subscription OnDeleteFlightDetails(
-  $filter: ModelSubscriptionFlightDetailsFilterInput
-) {
-  onDeleteFlightDetails(filter: $filter) {
+subscription OnDeleteFlightDetails {
+  onDeleteFlightDetails {
     flightID
     flight_height
     flight_type
@@ -527,10 +533,8 @@ subscription OnDeleteFlightDetails(
     updatedAt
   }
 }
-subscription OnCreatePendingInvites(
-  $filter: ModelSubscriptionPendingInvitesFilterInput
-) {
-  onCreatePendingInvites(filter: $filter) {
+subscription OnCreatePendingInvites {
+  onCreatePendingInvites {
     inviteID
     email
     role
@@ -538,10 +542,8 @@ subscription OnCreatePendingInvites(
     updatedAt
   }
 }
-subscription OnUpdatePendingInvites(
-  $filter: ModelSubscriptionPendingInvitesFilterInput
-) {
-  onUpdatePendingInvites(filter: $filter) {
+subscription OnUpdatePendingInvites {
+  onUpdatePendingInvites {
     inviteID
     email
     role
@@ -549,10 +551,8 @@ subscription OnUpdatePendingInvites(
     updatedAt
   }
 }
-subscription OnDeletePendingInvites(
-  $filter: ModelSubscriptionPendingInvitesFilterInput
-) {
-  onDeletePendingInvites(filter: $filter) {
+subscription OnDeletePendingInvites {
+  onDeletePendingInvites {
     inviteID
     email
     role
@@ -560,40 +560,32 @@ subscription OnDeletePendingInvites(
     updatedAt
   }
 }
-subscription OnCreateConnection(
-  $filter: ModelSubscriptionConnectionFilterInput
-) {
-  onCreateConnection(filter: $filter) {
+subscription OnCreateConnection {
+  onCreateConnection {
     connectionID
     topic
     createdAt
     updatedAt
   }
 }
-subscription OnUpdateConnection(
-  $filter: ModelSubscriptionConnectionFilterInput
-) {
-  onUpdateConnection(filter: $filter) {
+subscription OnUpdateConnection {
+  onUpdateConnection {
     connectionID
     topic
     createdAt
     updatedAt
   }
 }
-subscription OnDeleteConnection(
-  $filter: ModelSubscriptionConnectionFilterInput
-) {
-  onDeleteConnection(filter: $filter) {
+subscription OnDeleteConnection {
+  onDeleteConnection {
     connectionID
     topic
     createdAt
     updatedAt
   }
 }
-subscription OnCreatePendingJobs(
-  $filter: ModelSubscriptionPendingJobsFilterInput
-) {
-  onCreatePendingJobs(filter: $filter) {
+subscription OnCreatePendingJobs {
+  onCreatePendingJobs {
     jobID
     busy
     taskID
@@ -602,10 +594,8 @@ subscription OnCreatePendingJobs(
     updatedAt
   }
 }
-subscription OnUpdatePendingJobs(
-  $filter: ModelSubscriptionPendingJobsFilterInput
-) {
-  onUpdatePendingJobs(filter: $filter) {
+subscription OnUpdatePendingJobs {
+  onUpdatePendingJobs {
     jobID
     busy
     taskID
@@ -614,10 +604,8 @@ subscription OnUpdatePendingJobs(
     updatedAt
   }
 }
-subscription OnDeletePendingJobs(
-  $filter: ModelSubscriptionPendingJobsFilterInput
-) {
-  onDeletePendingJobs(filter: $filter) {
+subscription OnDeletePendingJobs {
+  onDeletePendingJobs {
     jobID
     busy
     taskID

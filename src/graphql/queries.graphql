@@ -56,6 +56,7 @@ query GetMessages {
       completed
       error
       pending
+      dismissed
       flightID
       FlightDetails {
         flightID
@@ -65,6 +66,7 @@ query GetMessages {
         createdAt
         updatedAt
       }
+      collectionName
       createdAt
       updatedAt
     }
@@ -106,6 +108,7 @@ query GetImageCollections {
     completed
     error
     pending
+    dismissed
     flightID
     FlightDetails {
       flightID
@@ -126,6 +129,7 @@ query GetImageCollections {
       createdAt
       updatedAt
     }
+    collectionName
     createdAt
     updatedAt
   }
@@ -158,6 +162,7 @@ query GetCatalogues {
     completed
     error
     pending
+    dismissed
     flightID
     FlightDetails {
       flightID
@@ -178,6 +183,7 @@ query GetCatalogues {
       createdAt
       updatedAt
     }
+    collectionName
     createdAt
     updatedAt
   }
@@ -208,6 +214,34 @@ query ListUsers(
     limit: $limit
     nextToken: $nextToken
     sortDirection: $sortDirection
+  ) {
+    items {
+      userID
+      user_email
+      user_password
+      user_password_salt
+      user_name
+      user_role
+      user_approved
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query UserByEmail(
+  $user_email: String!
+  $sortDirection: ModelSortDirection
+  $filter: ModelUserFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  userByEmail(
+    user_email: $user_email
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
   ) {
     items {
       userID
@@ -275,6 +309,7 @@ query GetImageCollection($collectionID: String!) {
     completed
     error
     pending
+    dismissed
     flightID
     FlightDetails {
       flightID
@@ -295,6 +330,7 @@ query GetImageCollection($collectionID: String!) {
       createdAt
       updatedAt
     }
+    collectionName
     createdAt
     updatedAt
   }
@@ -329,6 +365,7 @@ query ListImageCollections(
       completed
       error
       pending
+      dismissed
       flightID
       FlightDetails {
         flightID
@@ -338,6 +375,54 @@ query ListImageCollections(
         createdAt
         updatedAt
       }
+      collectionName
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetImageCollectionByTaskId(
+  $taskID: String!
+  $sortDirection: ModelSortDirection
+  $filter: ModelImageCollectionFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  getImageCollectionByTaskId(
+    taskID: $taskID
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      collectionID
+      taskID
+      parkID
+      GamePark {
+        parkID
+        park_name
+        park_location
+        park_address
+        createdAt
+        updatedAt
+      }
+      upload_date_time
+      completed
+      error
+      pending
+      dismissed
+      flightID
+      FlightDetails {
+        flightID
+        flight_height
+        flight_type
+        pilotID
+        createdAt
+        updatedAt
+      }
+      collectionName
       createdAt
       updatedAt
     }
@@ -366,6 +451,7 @@ query GetMap($mapID: String!) {
       completed
       error
       pending
+      dismissed
       flightID
       FlightDetails {
         flightID
@@ -375,6 +461,7 @@ query GetMap($mapID: String!) {
         createdAt
         updatedAt
       }
+      collectionName
       createdAt
       updatedAt
     }
@@ -409,7 +496,48 @@ query ListMaps(
         completed
         error
         pending
+        dismissed
         flightID
+        collectionName
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetMapByFileName(
+  $file_name: String!
+  $sortDirection: ModelSortDirection
+  $filter: ModelMapFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  getMapByFileName(
+    file_name: $file_name
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      mapID
+      bucket_name
+      file_name
+      collectionID
+      Collection {
+        collectionID
+        taskID
+        parkID
+        upload_date_time
+        completed
+        error
+        pending
+        dismissed
+        flightID
+        collectionName
         createdAt
         updatedAt
       }
@@ -441,6 +569,7 @@ query GetMessage($messageID: String!) {
       completed
       error
       pending
+      dismissed
       flightID
       FlightDetails {
         flightID
@@ -450,6 +579,7 @@ query GetMessage($messageID: String!) {
         createdAt
         updatedAt
       }
+      collectionName
       createdAt
       updatedAt
     }
@@ -484,7 +614,48 @@ query ListMessages(
         completed
         error
         pending
+        dismissed
         flightID
+        collectionName
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetMessageByCollectionId(
+  $collectionID: String!
+  $sortDirection: ModelSortDirection
+  $filter: ModelMessageFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  getMessageByCollectionId(
+    collectionID: $collectionID
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      messageID
+      message_status
+      message_description
+      collectionID
+      ImageCollection {
+        collectionID
+        taskID
+        parkID
+        upload_date_time
+        completed
+        error
+        pending
+        dismissed
+        flightID
+        collectionName
         createdAt
         updatedAt
       }
@@ -518,6 +689,32 @@ query ListImages(
     limit: $limit
     nextToken: $nextToken
     sortDirection: $sortDirection
+  ) {
+    items {
+      imageID
+      collectionID
+      name
+      bucket_name
+      file_name
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query ImagesByCollectionId(
+  $collectionID: String!
+  $sortDirection: ModelSortDirection
+  $filter: ModelImagesFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  imagesByCollectionId(
+    collectionID: $collectionID
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
   ) {
     items {
       imageID
@@ -621,6 +818,30 @@ query ListPendingInvites(
     nextToken
   }
 }
+query GetPendingInvitesByEmail(
+  $email: AWSEmail!
+  $sortDirection: ModelSortDirection
+  $filter: ModelPendingInvitesFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  getPendingInvitesByEmail(
+    email: $email
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      inviteID
+      email
+      role
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
 query GetConnection($connectionID: String!) {
   getConnection(connectionID: $connectionID) {
     connectionID
@@ -642,6 +863,29 @@ query ListConnections(
     limit: $limit
     nextToken: $nextToken
     sortDirection: $sortDirection
+  ) {
+    items {
+      connectionID
+      topic
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetConnectionsByTopic(
+  $topic: String!
+  $sortDirection: ModelSortDirection
+  $filter: ModelConnectionFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  getConnectionsByTopic(
+    topic: $topic
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
   ) {
     items {
       connectionID
@@ -681,226 +925,6 @@ query ListPendingJobs(
       busy
       taskID
       collectionID
-      createdAt
-      updatedAt
-    }
-    nextToken
-  }
-}
-query UserByEmail(
-  $user_email: String!
-  $sortDirection: ModelSortDirection
-  $filter: ModelUserFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  userByEmail(
-    user_email: $user_email
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      userID
-      user_email
-      user_password
-      user_password_salt
-      user_name
-      user_role
-      user_approved
-      createdAt
-      updatedAt
-    }
-    nextToken
-  }
-}
-query GetImageCollectionByTaskId(
-  $taskID: String!
-  $sortDirection: ModelSortDirection
-  $filter: ModelImageCollectionFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  getImageCollectionByTaskId(
-    taskID: $taskID
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      collectionID
-      taskID
-      parkID
-      GamePark {
-        parkID
-        park_name
-        park_location
-        park_address
-        createdAt
-        updatedAt
-      }
-      upload_date_time
-      completed
-      error
-      pending
-      flightID
-      FlightDetails {
-        flightID
-        flight_height
-        flight_type
-        pilotID
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-    nextToken
-  }
-}
-query GetMapByFileName(
-  $file_name: String!
-  $sortDirection: ModelSortDirection
-  $filter: ModelMapFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  getMapByFileName(
-    file_name: $file_name
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      mapID
-      bucket_name
-      file_name
-      collectionID
-      Collection {
-        collectionID
-        taskID
-        parkID
-        upload_date_time
-        completed
-        error
-        pending
-        flightID
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-    nextToken
-  }
-}
-query GetMessageByCollectionId(
-  $collectionID: String!
-  $sortDirection: ModelSortDirection
-  $filter: ModelMessageFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  getMessageByCollectionId(
-    collectionID: $collectionID
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      messageID
-      message_status
-      message_description
-      collectionID
-      ImageCollection {
-        collectionID
-        taskID
-        parkID
-        upload_date_time
-        completed
-        error
-        pending
-        flightID
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-    nextToken
-  }
-}
-query ImagesByCollectionId(
-  $collectionID: String!
-  $sortDirection: ModelSortDirection
-  $filter: ModelImagesFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  imagesByCollectionId(
-    collectionID: $collectionID
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      imageID
-      collectionID
-      name
-      bucket_name
-      file_name
-      createdAt
-      updatedAt
-    }
-    nextToken
-  }
-}
-query GetPendingInvitesByEmail(
-  $email: AWSEmail!
-  $sortDirection: ModelSortDirection
-  $filter: ModelPendingInvitesFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  getPendingInvitesByEmail(
-    email: $email
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      inviteID
-      email
-      role
-      createdAt
-      updatedAt
-    }
-    nextToken
-  }
-}
-query GetConnectionsByTopic(
-  $topic: String!
-  $sortDirection: ModelSortDirection
-  $filter: ModelConnectionFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  getConnectionsByTopic(
-    topic: $topic
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      connectionID
-      topic
       createdAt
       updatedAt
     }

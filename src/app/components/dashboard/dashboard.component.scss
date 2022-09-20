@@ -161,11 +161,13 @@ aerial-mapping-bar-chart {
   margin-bottom: 1%;
 }
 
-.messageDate {
-  position: absolute;
+.messageDate, .completeName {
+  // position: absolute;
   right: 3%;
   color: gray;
   font-size: smaller;
+  text-overflow:clip;
+  width: 55%;
 }
 
 .icon {
@@ -195,8 +197,8 @@ aerial-mapping-bar-chart {
 }
 
 .completeDate {
-  position: absolute;
-  right: 3%;
+  // position: absolute;
+  // right: 3%;
   color: gray;
   font-size: smaller;
 }
@@ -242,10 +244,45 @@ aerial-mapping-bar-chart {
   }
 }
 
+.message {
+  width: 25%;
+}
+
 .center {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 60px;
+}
+
+.close {
+  // display: none;
+  position: absolute;
+  left: 90%;
+  border: none;
+  cursor: pointer;
+  background-color: rgba(92, 116, 132, 0);
+  -webkit-transition: .5s all;   
+  -webkit-transition-delay: 5s;
+  transition: .5s all;   
+  transition-delay: 5s; 
+}
+
+.messageItem:hover + .close{
+  display: block;
+  // cursor: pointer;
+}
+
+.completeItem:hover, .completeName:hover + .close {
+  display: block;
+  // cursor: pointer;
+}
+
+span {
+  display: inline-block;
+}
+
+span:hover {
+  cursor:default;
 }
