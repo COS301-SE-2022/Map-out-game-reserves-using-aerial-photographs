@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Auth } from 'aws-amplify';
-import { APIService, CreatePendingInvitesInput, DeletePendingInvitesInput, ModelPendingInvitesFilterInput, UpdateUserInput, User } from 'src/app/API.service';
+import { APIService, CreatePendingInvitesInput, DeletePendingInvitesInput, DeleteUserInput, ModelPendingInvitesFilterInput, UpdateUserInput, User } from 'src/app/API.service';
 import { faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { MatDialog } from '@angular/material/dialog';
@@ -252,4 +252,17 @@ export class AccountComponent implements OnInit {
       });
   }
 }
+
+onDeleteClick(tryAgain:boolean): void {
+  console.log(this.user);
+  if (confirm("Are you sure you want to delete your account?") == true) {
+    let deleteID: DeleteUserInput = {userID: this.user.userID};
+    this.api.DeleteUser(deleteID);
+    this.logout();
+  } else {
+    
+  }
 }
+}
+
+

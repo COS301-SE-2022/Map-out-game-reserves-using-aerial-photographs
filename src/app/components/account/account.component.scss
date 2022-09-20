@@ -89,7 +89,7 @@ mat-icon {
 }
 
 .contains {
-  height: 30%;
+  height: 20%;
   position: relative;
 }
 
@@ -254,4 +254,10 @@ label {
 #logoutBtn {
   // margin-top: 2%;
   background-color: $accent-colour;
+}
+
+.deleteAccount{
+  float:right;
+  text-transform: uppercase;
+  font-size:medium;
 }
