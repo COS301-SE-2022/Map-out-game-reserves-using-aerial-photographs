@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { promises } from 'dns';
-import { APIService, DeleteImageCollectionInput, GetImagesByCollectionIdQuery, DeleteImagesInput } from 'src/app/API.service';
+import { APIService, DeleteImageCollectionInput, GetImagesByCollectionIdQuery, DeleteImagesInput, GetMessageByCollectionIdQuery, DeleteMessageInput } from 'src/app/API.service';
 import { ControllerService } from 'src/app/api/controller/controller.service';
 export interface CatalogData {
   completed: boolean | undefined,
@@ -69,6 +69,30 @@ export class ImageDialogComponent {
     this.api.DeleteImageCollection(deleteInput);
 
     if (tryAgain) {
+      //-------------Delete Error Message
+      //make sure id cant be null
+      var ID = this.selectCatalogue.collectionID;
+      if(ID==null){
+        ID="";
+      }
+      this.api.GetMessageByCollectionId(ID).then((value: GetMessageByCollectionIdQuery) => {
+        // const temp:Array<> = value.items;
+        // console.log(value.items[0]?.messageID);
+        let t: string|undefined = value.items[0]?.messageID;
+        if (t ==undefined){
+          t="";
+        }
+        let deleteId : DeleteMessageInput = {messageID : t};
+        this.api.DeleteMessage(deleteId);
+      });
+      // this.snackbar.open("Error message dismissed", '❌', {
+      //   verticalPosition: 'bottom',
+      // });
+      if(document.getElementById(ID) != null) {
+        document.getElementById(ID)!.style.display='none';
+      }
+
+      //---------redirect to create map
       this.router.navigateByUrl('/create-map');
       setTimeout(() => {
         window.location.reload();
