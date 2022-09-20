@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { promises } from 'dns';
 import { APIService, DeleteImageCollectionInput, GetImagesByCollectionIdQuery, DeleteImagesInput, GetMessageByCollectionIdQuery, DeleteMessageInput } from 'src/app/API.service';
 import { ControllerService } from 'src/app/api/controller/controller.service';
+import { ConfirmDialogComponent, ConfirmDialogModel } from './confirm-dialog/confirm-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+
 export interface CatalogData {
   completed: boolean | undefined,
   error: boolean | undefined,
@@ -25,10 +28,12 @@ export interface DialogData {
 export class ImageDialogComponent {
   selectCatalogue: CatalogData;
   spinners: HTMLElement[];
+  result: boolean = false;
 
   constructor( private router : Router, private api: APIService,
     public dialogRef: MatDialogRef<ImageDialogComponent>,
     private apiController: ControllerService,
+    public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {
     this.selectCatalogue = data.selectedCatalogue;
@@ -47,58 +52,63 @@ export class ImageDialogComponent {
   }
 
   onDeleteClick(tryAgain:boolean): void {
-    // Delete from S3
-      // ----- Not yet working completely -----
-      // TODO:
-    // this.apiController.S3delete(this.selectCatalogue.collectionID);
-    // this.apiController.S3delete("00265eba-6e41-45db-ab10-ee3a5cc98c84/");
+    // if(this.result==true) {
+      // Delete from S3
+        // ----- Not yet working completely -----
+        // TODO:
+      // this.apiController.S3delete(this.selectCatalogue.collectionID);
+      // this.apiController.S3delete("00265eba-6e41-45db-ab10-ee3a5cc98c84/");
 
-    // Delete images from database
-    this.api
-      .GetImagesByCollectionId(this.selectCatalogue.collectionID)
-      .then((value: GetImagesByCollectionIdQuery[]) => {
-        for (const v of value) {
-          let deleteID: DeleteImagesInput = {imageID: v.imageID};
-          this.api.DeleteImages(deleteID);
+      // Delete images from database
+      this.api
+        .GetImagesByCollectionId(this.selectCatalogue.collectionID)
+        .then((value: GetImagesByCollectionIdQuery[]) => {
+          for (const v of value) {
+            let deleteID: DeleteImagesInput = {imageID: v.imageID};
+            this.api.DeleteImages(deleteID);
+          }
+        });
+
+      //Delete imageCollection from database
+      var deleteInput: DeleteImageCollectionInput = {collectionID: ''};
+      deleteInput.collectionID = this.selectCatalogue.collectionID;
+      this.api.DeleteImageCollection(deleteInput);
+
+      if (tryAgain) {
+        //-------------Delete Error Message
+        //make sure id cant be null
+        var ID = this.selectCatalogue.collectionID;
+        if(ID==null){
+          ID="";
         }
-      });
-
-    //Delete imageCollection from database
-    var deleteInput: DeleteImageCollectionInput = {collectionID: ''};
-    deleteInput.collectionID = this.selectCatalogue.collectionID;
-    this.api.DeleteImageCollection(deleteInput);
-
-    if (tryAgain) {
-      //-------------Delete Error Message
-      //make sure id cant be null
-      var ID = this.selectCatalogue.collectionID;
-      if(ID==null){
-        ID="";
-      }
-      this.api.GetMessageByCollectionId(ID).then((value: GetMessageByCollectionIdQuery) => {
-        // const temp:Array<> = value.items;
-        // console.log(value.items[0]?.messageID);
-        let t: string|undefined = value.items[0]?.messageID;
-        if (t ==undefined){
-          t="";
+        this.api.GetMessageByCollectionId(ID).then((value: GetMessageByCollectionIdQuery) => {
+          // const temp:Array<> = value.items;
+          // console.log(value.items[0]?.messageID);
+          let t: string|undefined = value.items[0]?.messageID;
+          if (t ==undefined){
+            t="";
+          }
+          let deleteId : DeleteMessageInput = {messageID : t};
+          this.api.DeleteMessage(deleteId);
+        });
+        // this.snackbar.open("Error message dismissed", '❌', {
+        //   verticalPosition: 'bottom',
+        // });
+        if(document.getElementById(ID) != null) {
+          document.getElementById(ID)!.style.display='none';
         }
-        let deleteId : DeleteMessageInput = {messageID : t};
-        this.api.DeleteMessage(deleteId);
-      });
-      // this.snackbar.open("Error message dismissed", '❌', {
-      //   verticalPosition: 'bottom',
-      // });
-      if(document.getElementById(ID) != null) {
-        document.getElementById(ID)!.style.display='none';
-      }
 
-      //---------redirect to create map
-      this.router.navigateByUrl('/create-map');
-      setTimeout(() => {
-        window.location.reload();
-      }, 1);
-    }
-    this.dialogRef.close();
+        //---------redirect to create map
+        this.router.navigateByUrl('/create-map');
+        setTimeout(() => {
+          window.location.reload();
+        }, 1);
+      }
+      this.dialogRef.close();
+    // }
+    // else {
+
+    // }
   }
 
   onSubmit(taskID?: string) {
@@ -109,5 +119,25 @@ export class ImageDialogComponent {
     }
     this.router.navigate(['map']);
     this.dialogRef.close();
+  }
+
+  confirmDialog(tryAgain:boolean): void {
+    // this.dialogRef.close();
+    const message = `Are you sure you want to do delete this map?`;
+
+    const dialogData = new ConfirmDialogModel("Confirm Action", message);
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      maxWidth: "400px",
+      data: dialogData
+    });
+
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      this.result = dialogResult;
+      // console.log(dialogResult);
+      if (dialogResult === true) {
+        this.onDeleteClick(tryAgain);
+      }
+    });
   }
 }
