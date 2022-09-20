@@ -225,12 +225,17 @@ export class AccountComponent implements OnInit {
     });
   }
 
+  //this has to be a function so that unit tests can spyOn it and mock it properly
+  windowReload() {
+    window.location.reload();
+  }
+
   async logout() {
     try {
       await Auth.signOut();
       this.router.navigate(['login']);
       setTimeout(() => {
-        window.location.reload();
+        this.windowReload();
       }, 1);
     } catch (error) {
         console.log('error signing out: ', error);
@@ -260,7 +265,7 @@ onDeleteClick(tryAgain:boolean): void {
     this.api.DeleteUser(deleteID);
     this.logout();
   } else {
-    
+
   }
 }
 }

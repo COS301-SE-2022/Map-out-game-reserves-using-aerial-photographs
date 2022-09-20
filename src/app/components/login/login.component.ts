@@ -36,7 +36,12 @@ export class LoginComponent {
 
   }
 
-  async login() {
+  //this has to be a function so that unit tests can spyOn it and mock it properly
+  windowReload() {
+    window.location.reload();
+  }
+
+  async login(): Promise<string> {
     const email = this.loginForm.controls['email'];
     const password = this.loginForm.controls['password'];
     this.isSubmitted = true;
@@ -45,16 +50,19 @@ export class LoginComponent {
       //Amplify Auth
       try {
         const user = await Auth.signIn(email.value, password.value);
+        this.loggedIn.emit(user); //for integration testing purposes
         this.router.navigate(['dashboard']);
-        this.loggedIn.emit(user); //for unit testing purposes
         setTimeout(() => {
-          window.location.reload();
+          this.windowReload();
+          //window.location.reload();
         }, 1);
-      } catch (error) {
-          console.log('error signing in', error);
+        return "success"; //for unit testing
+      } catch (error: any) {
+        console.log('error signing in', error);
+        return error.stack.toString();  //for unit testing
       }
     }
-
+    return "failure"; //for unit testing
   }
 
   get email() { return this.loginForm.get('email'); }

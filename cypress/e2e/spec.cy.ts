@@ -3,13 +3,6 @@ import { getConfirmNewPasswordField, getCreateMap, getCurrNameField, getDashboar
 const username = Cypress.env('VALID_USERNAME');
 const password = Cypress.env('VALID_PASSWORD');
 
-describe('Initial App Test', () => {
-  it('Visits the initial project page', () => {
-    cy.visit('/')
-    cy.url().should('include', '/login');
-  })
-})
-
 // Testing Quality Requirements
 describe('Testing Performance Quality Requirements', () => {
   beforeEach(() => {

@@ -2,8 +2,15 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-
+import { Auth } from 'aws-amplify';
 import { LoginComponent } from './login.component';
+
+Auth.configure({
+  region: process.env.REGION,
+  userPoolId: process.env.USER_POOL_ID,
+  userPoolWebClientId: process.env.USER_POOL_WEB_CLIENT_ID
+})
+
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -74,20 +81,22 @@ describe('LoginComponent', () => {
     expect(password.valid).toBeTruthy();
   });
 
-  it('submits form and logs in', async function () {
+  //integration test
+  it('submits form and logs in', async() => {
     component.loginForm.controls['email'].setValue("correct@email.com");
     component.loginForm.controls['password'].setValue("12345678");
-    const authServiceMock: any = jasmine.createSpyObj('Auth', ['signIn']);
+
     const routerMock: any = jasmine.createSpyObj('Router', ['navigate']);
-    authServiceMock.signIn.and.returnValue(Promise.resolve({ "some": "value" }));
     routerMock.navigate.and.returnValue(true);
-
+    component.windowReload = jasmine.createSpy();
     //response from event emitter
-    component.loggedIn.subscribe(user => {
-      expect(user.attributes.email).toBe("correct@email.com");
-    });
+    // component.loggedIn.subscribe(user => {
+    //   expect(user.attributes.email).toBe("correct@email.com");
+    // });
 
-    await component.login();
+    component.login().then((resp: string) => {
+      expect(resp).toBe("success");
+    });
   });
 
   afterEach(() => {
