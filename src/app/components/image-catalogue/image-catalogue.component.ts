@@ -55,6 +55,7 @@ export class ImageCatalogueComponent implements OnInit {
   };
 
   inAnimation: boolean;
+  spinners: HTMLElement[];
   
   flag=false;
 
@@ -76,13 +77,22 @@ export class ImageCatalogueComponent implements OnInit {
       //make 'View Map' button visible
       this.getAllCatalogues();
     }
+    this.spinners=[];
+    setTimeout(() => {
+      this.spinners = Array.from(document.getElementsByClassName('spinner') as HTMLCollectionOf<HTMLElement>)
+        // console.log(this.spinners);
+    }, 5000);
+    
   }
 
   ngOnInit() {
     this.controller.websocket.onmessage = (msg: any) => {
       console.log("SNS message received ", msg);
       this.getAllCatalogues();
+      
     };
+    
+    
   }
 
   getAllCatalogues() {
@@ -140,12 +150,18 @@ export class ImageCatalogueComponent implements OnInit {
                 }
                 // this.sortByDate();
                 this.tempCatalogues = this.catalogues;
+                setTimeout(() => {
+                    // console.log(this.spinners);
+                    this.spinners.forEach(spin => {
+                      spin.style.display="none";
+                    });
+                }, 7000);
               })
               .catch((e) => console.log(e));
           }
-
-
+            
         return data.items;
+
       })
       .catch((e) => {
         console.log(e);
@@ -203,7 +219,6 @@ export class ImageCatalogueComponent implements OnInit {
 
   openImageDialog(catalogue:CatalogData): void {
     this.selectedCatalogue = catalogue
-
     console.log(this.selectedCatalogue);
 
     const dialogRef = this.dialog.open(ImageDialogComponent, {

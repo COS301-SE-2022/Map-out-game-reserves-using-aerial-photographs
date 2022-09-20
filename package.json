@@ -4,11 +4,11 @@
   "scripts": {
     "ng": "ng",
     "config": "node ./scripts/setenv.js",
-    "start": "npm run config -- --environment=dev && ng serve",
-    "build": "npm run config -- --environment=prod && ng build",
+    "start": "ng serve",
+    "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "npm run config -- --environment=dev && ng test",
-    "e2e": "npm run config -- --environment=dev && ng e2e",
+    "test": "ng test",
+    "e2e": "ng e2e",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run"
   },
@@ -39,11 +39,11 @@
     "bcryptjs": "^2.4.3",
     "chart.js": "^3.8.0",
     "image-resize-compress": "^1.0.8",
-    "image-to-blob": "^0.2.0",
     "mapbox-gl": "^2.10.0",
     "material-design-icons-iconfont": "^6.7.0",
     "material-icons": "^1.11.5",
     "ng2-charts": "^3.1.2",
+    "path": "^0.12.7",
     "rxjs": "~7.5.0",
     "ts-node": "^10.9.1",
     "tslib": "^2.3.0",
@@ -51,6 +51,8 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
+    "@angular-builders/custom-webpack": "^14.0.1",
+    "@angular-builders/dev-server": "^7.3.1",
     "@angular-devkit/build-angular": "^14.1.1",
     "@angular/cli": "^14.1.1",
     "@angular/compiler-cli": "^14.1.1",
