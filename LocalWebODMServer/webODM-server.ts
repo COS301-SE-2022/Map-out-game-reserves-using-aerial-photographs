@@ -10,7 +10,7 @@ const docClient = new DynamoDB.DocumentClient({ region: REGION });
 import fetch from 'node-fetch';
 const formdata = require('form-data');
 
-const webODM_URL = "http://102.141.178.213:8000/";
+const webODM_URL = "http://localhost:8000/";
 const webODM_username = "thedylpickles1@gmail.com";
 const webODM_password = "webodmpassword";
 const PENDING_JOBS_TABLE = "PendingJobs-i2e32qtaxjauzoami7sycjlvqy-dev";
@@ -184,16 +184,16 @@ function S3download(keyFile): Promise<any> {
         { Bucket: S3_BUCKET, Key: keyFile },
         function (error, data) {
           if (error) {
-            //console.log("S3download error: ", error);
+            console.log("S3download error: ", error);
             reject(error);
           } else {
-           // console.log("S3download resolve!: ", data);
+            console.log("S3download resolved: ", data);
             resolve(data);
           }
         }
       );
     } catch (e) {
-      //console.log("S3.getobject error: ", e);
+      console.log("S3.getobject error: ", e);
     }
   });
 }
@@ -421,22 +421,31 @@ async function createMap(jobID: string) {
         ];
         formData.append('options', JSON.stringify(optionsArr));
 
-        // start new WebODM stitching job - call createTask API endpoint
-        let response = await fetch(`http://localhost:8000/api/projects/${projectId}/tasks/`, {
-          method: 'POST',
-          body: formData,
-          headers: {
-            "Authorization": `JWT ${tokenResp.token}`
-          }
-        });
-        let result: WebODMCreateTaskResponse = await response.json();
-        console.log("CREATE TASK RESULT: ", result);
+        let taskID = undefined;
+        try {
+          // start new WebODM stitching job - call createTask API endpoint
+          console.log("In try, projectID", projectId)
+          console.log("In try, token", tokenResp.token)
+          console.log("In try, formdata", formdata)
+          let response = await fetch(`http://localhost:8000/api/projects/${projectId}/tasks/`, {
+            method: 'POST',
+            body: formData,
+            headers: {
+              "Authorization": `JWT ${tokenResp.token}`
+            }
+          }).catch(error => console.log(error))
 
-        if (result.id == undefined) {
-          console.log("Error: Cannot create task");
-          return -1;
+          console.log("After await fetch");
+          let result: WebODMCreateTaskResponse = await response.json();
+          console.log("CREATE TASK RESULT: ", result);
+          if (result.id == undefined) {
+            console.log("Error: Cannot create task");
+            return -1;
+          }
+          taskID = result.id;
+        } catch (err){
+          console.log(err)
         }
-        const taskID = result.id;
 
         //set the taskID and set 'pending' to true on this image collection in DynamoDB
         const params = {
