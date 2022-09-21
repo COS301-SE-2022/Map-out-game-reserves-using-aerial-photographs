@@ -166,26 +166,6 @@ export class ImageCatalogueComponent implements OnInit {
               .catch((e) => console.log(e));
           }
 
-        // return data.items;
-
-  //             for (var i = 0; i < 3; i++) {
-  //               this.controller
-  //                 .S3download(
-  //                   'thumbnail_' + i,
-  //                   catalogData.catalogue.collectionID,
-  //                   'thumbnails',
-  //                   false
-  //                 )
-  //                 .then((signedURL) => {
-  //                   catalogData.thumbnails.push(signedURL);
-  //                 });
-  //             }
-  //             // this.sortByDate();
-  //             this.tempCatalogues = this.catalogues;
-  //           })
-  //           .catch((e) => console.log(e));
-  //       }
-
         return data.items;
       })
       .catch((e) => {
@@ -199,22 +179,6 @@ export class ImageCatalogueComponent implements OnInit {
   }
 
   orderByDate() {
-    // for (let i = 0; i < this.catalogues.length - 1; i++) {
-    //   let swapped = false;
-    //   for (let j = 0; j < this.catalogues.length - i - 1; j++) {
-    //     if (
-    //       this.catalogues[j].catalogue.createdAt >
-    //       this.catalogues[j + 1].catalogue.createdAt
-    //     ) {
-    //       let temp = this.catalogues[j];
-    //       this.catalogues[j] = this.catalogues[j + 1];
-    //       this.catalogues[j + 1] = temp;
-    //       swapped = true;
-    //     }
-    //   }
-    //   if (swapped == false) break;
-    // }
-
     this.catalogues.sort(function (a, b) {
       if (a.catalogue.createdAt < b.catalogue.createdAt) {
         return -1;
