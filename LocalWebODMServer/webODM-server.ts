@@ -416,7 +416,8 @@ async function createMap(jobID: string) {
           },
           {
             "name": "orthophoto-resolution",
-            "value": 0.1
+            //Remember to change this back to something unshite after testing
+            "value": 2
           }
         ];
         formData.append('options', JSON.stringify(optionsArr));
