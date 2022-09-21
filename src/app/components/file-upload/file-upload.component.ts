@@ -76,7 +76,7 @@ export class FileUploadComponent {
   name: string = "";
   location: string = "";
   address: string = "";
-  
+
   outputs: HTMLElement[];
 
   parksList: Park[] = [
@@ -256,7 +256,7 @@ export class FileUploadComponent {
                 document.getElementById('successful-submit')!.innerHTML='<h4 class="variable" style="color: #5f5f5f;">You can now navigate to the map catalogue to see the result of your upload</h4>';
               }
               this.outputs = Array.from(document.getElementsByClassName('videoSplitting') as HTMLCollectionOf<HTMLElement>);
-          
+
               if(this.outputs!=null){
                 this.outputs.forEach(output => {
                   if(output!=null){
@@ -302,7 +302,7 @@ export class FileUploadComponent {
     if(document.getElementById('video')!=null){ //for testing purposes
       document.getElementById('video')!.innerHTML='';
     }
-    
+
     return new Promise<any>(async (resolve) => {
       let promises = [];
       const frames = [];
@@ -318,14 +318,14 @@ export class FileUploadComponent {
         };
 
         frames[i] = new File([this.files[i]], inp.imageID + '.png');
-        var newBlob = this.resizeImage(
+/*         var newBlob = this.resizeImage(
           frames[i],
           this.finalWidth,
           this.finalHeight
         );
         await newBlob.then((newBlob) => {
           frames[i] = newBlob;
-        });
+        }); */
 
         promises.push(
           this.api
@@ -380,10 +380,10 @@ export class FileUploadComponent {
 
           promises.push (this.api
             .CreateImages(inp));
-          
+
             promises.push(this.uploadToS3(collectionID, inp.imageID, frames[fCount++]));
           }
-      
+
 
         promises.push(this.makeThumbnails(collectionID, frames));
       });
@@ -408,7 +408,7 @@ export class FileUploadComponent {
           if (this.uploadingProgress > 100) {
             this.uploadingProgress = 100;
           }
-          
+
           resolve(data);
         }).catch(e => {
           console.log(e);
@@ -484,7 +484,7 @@ export class FileUploadComponent {
       thumbnails.push(frames[0]);
       thumbnails.push(frames[Math.round(frames.length / 2)]);
       thumbnails.push(frames[frames.length - 1]);
-      
+
       for (var i = 0; i < 3; i++) {
         // console.log("THUMBNAIL"+thumbnails[i]);
         var newBlob = this.resizeImage(thumbnails[i], 240, 180);
