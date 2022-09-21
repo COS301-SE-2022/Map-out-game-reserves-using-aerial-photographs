@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { promises } from 'dns';
-import { APIService, DeleteImageCollectionInput, GetImagesByCollectionIdQuery, DeleteImagesInput, GetMessageByCollectionIdQuery, DeleteMessageInput } from 'src/app/API.service';
+import { APIService, DeleteImageCollectionInput, GetImagesByCollectionIdQuery, DeleteImagesInput, GetMessageByCollectionIdQuery, DeleteMessageInput, ImagesByCollectionIdQuery } from 'src/app/API.service';
 import { ControllerService } from 'src/app/api/controller/controller.service';
 import { ConfirmDialogComponent, ConfirmDialogModel } from './confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -60,16 +60,22 @@ export class ImageDialogComponent {
       // this.apiController.S3delete("00265eba-6e41-45db-ab10-ee3a5cc98c84/");
 
       // Delete images from database
+      var deleteArray: string[] = [];
       this.api
-        .GetImagesByCollectionId(this.selectCatalogue.collectionID)
-        .then((value: GetImagesByCollectionIdQuery[]) => {
-          for (const v of value) {
-            let deleteID: DeleteImagesInput = {imageID: v.imageID};
-            this.api.DeleteImages(deleteID);
+        .ImagesByCollectionId(this.selectCatalogue.collectionID)
+        .then((resp: any) => {
+          for (const v of resp.items) {
+            console.log(v.imageID);
+            deleteArray.push(v.imageID);
           }
         });
 
-      //Delete imageCollection from database
+        for (const v of deleteArray) {
+          let deleteID: DeleteImagesInput = {imageID: v};
+          this.api.DeleteImages(deleteID);
+        }
+
+      // Delete imageCollection from database
       var deleteInput: DeleteImageCollectionInput = {collectionID: ''};
       deleteInput.collectionID = this.selectCatalogue.collectionID;
       this.api.DeleteImageCollection(deleteInput);
@@ -98,11 +104,11 @@ export class ImageDialogComponent {
           document.getElementById(ID)!.style.display='none';
         }
 
-        //---------redirect to create map
-        this.router.navigateByUrl('/create-map');
-        setTimeout(() => {
-          window.location.reload();
-        }, 1);
+        // ---------redirect to create map
+        // this.router.navigateByUrl('/create-map');
+        // setTimeout(() => {
+        //   window.location.reload();
+        // }, 1);
       }
       this.dialogRef.close();
     // }
