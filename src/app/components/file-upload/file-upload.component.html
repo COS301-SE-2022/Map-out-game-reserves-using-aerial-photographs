@@ -45,6 +45,8 @@
             <h4 class="variable">{{ fileName || "No file uploaded yet." }}</h4>
             <div class="metadata">
               <div class = "parkdd" style="display: inline-block;">
+                <input type="text" placeholder="Enter the name of this map" id="collectionName" />
+
                 <select ng-model="selectedPark" class="parks tooltip" id="parks">
                   <option value="" disabled selected>Select a park</option>
                   <option *ngFor="let park of parksList" [value]="park.value">
@@ -80,6 +82,32 @@
                   {{ size.viewValue }}
                 </option>
               </select>
+
+              <!-- <mat-form-field class="example-margin example-width" appearance="fill">
+                <mat-label>Value</mat-label>
+                <input matInput type="number" [(ngModel)]="value">
+              </mat-form-field> -->
+              <!-- <label id="example-name-label" class="example-name-label">Resolution Value</label> -->
+              <div class="slider">
+                <span width="80%">Choose Map Resolution</span> 
+                <span class="example-value-label">{{sliderValue}}</span>
+                <br/>
+                <span class="minMax" style="float: left; padding-right: 5px;">Max</span>
+                <mat-slider
+                    class="example-margin"
+                    [disabled]="disabled"
+                    [invert]="invert"
+                    [max]="max"
+                    [min]="min"
+                    [step]="step"
+                    [thumbLabel]="thumbLabel"
+                    [value]="sliderValue"
+                    [vertical]="vertical"
+                    aria-labelledby="example-name-label"
+                    (change)="getSliderValue($event)" (oninput)="getSliderValue($event)">
+                </mat-slider>
+                <span class="minMax" style="float: right; padding-right: 5px;">Min</span>
+              </div>
             </div>
 
             <!-- <br />

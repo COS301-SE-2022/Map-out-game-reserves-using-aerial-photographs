@@ -79,6 +79,18 @@ export class FileUploadComponent {
 
   outputs: HTMLElement[];
 
+  autoTicks = false;
+  disabled = false;
+  invert = false;
+  max = 5;
+  min = 0.1;
+  showTicks = false;
+  step = 0.1;
+  thumbLabel = true;
+  sliderValue = 1;
+  vertical = false;
+  tickInterval = 1;
+
   parksList: Park[] = [
     // {value: 'Somkhanda-1', viewValue: 'Somkhanda'},
     // {value: 'RietVlei-2', viewValue: 'Riet Vlei'},
@@ -129,6 +141,11 @@ export class FileUploadComponent {
       }
     });
   }
+
+  getSliderValue(event:any) {
+    // console.log(event.value);
+    this.sliderValue = event.value;
+ }
 
   uploadFileLocal(ev: Event) {
     ev.preventDefault();
@@ -205,6 +222,8 @@ export class FileUploadComponent {
 
       const newColID = uuidv4();
 
+      const collectionName = (document.getElementById('collectionName') as HTMLInputElement).value;
+
       const imageCollection: CreateImageCollectionInput = {
         collectionID: newColID,
         parkID: parkSel,
@@ -212,9 +231,10 @@ export class FileUploadComponent {
         flightID: flight.flightID,
         completed: false,
         pending: true,
-        error: false
+        error: false,
         //taskID: taskId
         // _version?: number | null;
+        collectionName:collectionName
       };
 
       this.api.CreateImageCollection(imageCollection).then((res: any) => {

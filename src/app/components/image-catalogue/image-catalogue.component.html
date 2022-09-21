@@ -23,10 +23,12 @@
         <div id="sort">
           <mat-form-field [ngStyle]="{ width: '99%', height: '60px', backgroundColor: 'none' }">
             <mat-label id="right" class="sortLabel">Sort By</mat-label>
-            <mat-select matInput (change)="onChangeSort($event)"
+            <mat-select matInput 
               id="left" class="sort" style="display: inline">
-              <mat-option [value]="sort.date" selected>Upload Date</mat-option>
-              <mat-option [value]="sort.park">Park</mat-option>
+              <mat-option [value]="sort.date" selected (click)="orderByDate()">Upload Date</mat-option>
+              <mat-option [value]="sort.park" (click)="orderByPark()">Map Name</mat-option>
+              <mat-option [value]="sort.name" (click)="orderByName()">Park</mat-option>
+
             </mat-select>
           </mat-form-field>
         </div>
@@ -38,7 +40,8 @@
           <!-- Just commented out for now -->
           <!-- <span style="float: left">{{ catData.catalogue.parkID }}</span>
           <span style="float: right">{{ catData.catalogue.createdAt }}</span> -->
-          <span style="float: left">{{ catData.catalogue.collectionID }}</span>
+          <span style="float: left">{{ catData.catalogue.collectionName }}</span>
+          <span style="float: left">{{ catData.catalogue.createdAt }}</span>
         </mat-card-header>
         <br />
         <div class="center">
