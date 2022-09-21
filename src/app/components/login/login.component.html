@@ -6,18 +6,21 @@
   <!--If you dont want scrolling remove overflow-->
   <app-footer></app-footer>
   <div id="full"
-    style="background-image: url('assets/erpngo-header-full.jpg'); background-size: 100%; background-repeat:no-repeat; height:100%">
+    style="background-image: url('assets/erpngo-header-full - Copy.jpg'); background-size: 100%; background-repeat:no-repeat; height:100%;">
     <!--added margin to show boarder-->
 
-    <div id="container" style="background-color: #5f5f5f8a; width: 40%; margin-left: 30px; margin-top:0px;">
+    <div id="container" style="background-color: #5f5f5f8a; width: 40%; margin-left: 20px; margin-top:0px;">
       <h2>LOGIN</h2>
       <hr>
 
       <form [formGroup]="loginForm" (ngSubmit)="login()">
-        <label for="email">Email</label>
-        <mat-form-field appearance="fill" required>
-          <input id="loginEmailInput" formControlName="email" placeholder="Enter your email" matInput>
-          <mat-hint id="loginEmailPrompt" align="start" *ngIf="this.isSubmitted && email!.errors?.['required']">
+        <div id="error" style="text-align: center; color:rgb(178, 178, 178)">
+
+        </div>
+        <label for="email" style="margin-bottom:2%">Email</label>
+        <mat-form-field appearance="fill" required style="width:auto;">
+          <input id="loginEmailInput" formControlName="email" placeholder="Enter your email" matInput style="padding-top:0">
+          <mat-hint id="loginEmailPrompt" *ngIf="this.isSubmitted && email!.errors?.['required']" style="padding-top:0">
             Please enter your email
           </mat-hint>
         </mat-form-field>
@@ -25,9 +28,12 @@
         <br>
 
         <label>Password</label>
-        <mat-form-field appearance="fill">
-          <input id="loginPasswordInput" type="password" formControlName="password" placeholder="Enter your password"
+        <mat-form-field appearance="fill" required style="width:auto;">
+          <input id="loginPasswordInput" [type]="hide ? 'password' : 'text'" formControlName="password" placeholder="Enter your password"
             matInput>
+            <button mat-icon-button id = "icon" matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" >
+              <mat-icon [ngStyle]="{'color':'white'}">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
           <mat-hint id="loginPasswordPrompt" align="start" *ngIf="this.isSubmitted && password!.errors?.['required']"
             class="text-danger">
             Please enter your password
@@ -37,12 +43,22 @@
         <br>
 
         <div class="center">
-          <a class="center"><button id="loginBtn" type="submit" mat-flat-button>LOGIN</button></a>
+          <a class="center"><button id="loginBtn" type="submit" (click)="isSubmitted = true" mat-flat-button>LOGIN</button></a>
         </div>
       </form>
 
       <br>
 
+    </div>
+    <!-- Describes our app -->
+    <div id = "description">
+      <h1>THE AERIAL MAPPER</h1>
+      <div id = "text">
+        <p>The Aerial Mapper is a web application running in the browser which allows users to upload and automatically stitch together drone footage to form a large composite map.
+          <br/><br/>The Aerial Mapper web application allows users to upload bird’s-eye view video footage taken from drones of nature reserves. Uploaded footage is then split into multiple images and stitched together to form a large, high-quality map image. 
+          <br/><br/>The Aerial Mapper overlays a grid onto the map as well as points of interest.
+          </p>
+      </div>
     </div>
   </div>
 
