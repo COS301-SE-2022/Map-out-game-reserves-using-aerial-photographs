@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { SpinnerModule } from '../shared/spinner/spinner.module';
+import {MatSliderModule} from '@angular/material/slider';
 
 @NgModule({
   declarations: [ FileUploadComponent, ParksDialogComponent ],
@@ -31,7 +32,8 @@ import { SpinnerModule } from '../shared/spinner/spinner.module';
     MatInputModule,
     ReactiveFormsModule,
     MatButtonModule, 
-    SpinnerModule
+    SpinnerModule,
+    MatSliderModule
   ]
 })
 export class FileUploadModule { }

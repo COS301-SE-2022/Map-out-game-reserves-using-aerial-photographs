@@ -79,6 +79,18 @@ export class FileUploadComponent {
 
   outputs: HTMLElement[];
 
+  autoTicks = false;
+  disabled = false;
+  invert = false;
+  max = 5;
+  min = 0.1;
+  showTicks = false;
+  step = 0.1;
+  thumbLabel = true;
+  sliderValue = 1;
+  vertical = false;
+  tickInterval = 1;
+
   parksList: Park[] = [
     // {value: 'Somkhanda-1', viewValue: 'Somkhanda'},
     // {value: 'RietVlei-2', viewValue: 'Riet Vlei'},
@@ -129,6 +141,11 @@ export class FileUploadComponent {
       }
     });
   }
+
+  getSliderValue(event:any) {
+    // console.log(event.value);
+    this.sliderValue = event.value;
+ }
 
   uploadFileLocal(ev: Event) {
     ev.preventDefault();
