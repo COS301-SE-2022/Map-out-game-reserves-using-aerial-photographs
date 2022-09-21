@@ -13,6 +13,7 @@ import {
   MAT_TOOLTIP_DEFAULT_OPTIONS,
   MatTooltipDefaultOptions,
 } from '@angular/material/tooltip';
+import { number, string } from 'yargs';
 
 /** Custom options the configure the tooltip's default show/hide delays. */
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
@@ -33,6 +34,7 @@ interface CatalogData {
   completed: boolean | undefined | null;
   error: boolean | undefined | null;
   taskID: string | undefined | null;
+  collectionName: string | undefined | null;
 }
 
 @Component({
@@ -47,11 +49,12 @@ export class ImageCatalogueComponent implements OnInit {
   selected: string;
   tempCatalogues: Array<any> = [];
   catalogues: CatalogData[] = [];
-  selectedCatalogue:any = null;
+  selectedCatalogue: any = null;
 
   sort = {
     date: 'date',
     park: 'park',
+    name: 'name',
   };
 
   inAnimation: boolean;
@@ -111,19 +114,20 @@ export class ImageCatalogueComponent implements OnInit {
             collectionID: catalog?.collectionID,
             completed: catalog?.completed,
             error: catalog?.error,
-            taskID: catalog?.taskID
+            taskID: catalog?.taskID,
+            collectionName: catalog?.collectionName
           });
         }
 
-        for (const catalogData of this.catalogues){
-            //console.log(22,catalogData.catalogue.collectionID);
-            this.api
-              .ImagesByCollectionId(catalogData.catalogue.collectionID)
-              .then((resp: any) => {
-                //console.log(resp.items);
-                for (const image of resp.items) {
-                  catalogData.images.push({ image: image, url: '' });
-                }
+        for (const catalogData of this.catalogues) {
+          //console.log(22,catalogData.catalogue.collectionID);
+          this.api
+            .ImagesByCollectionId(catalogData.catalogue.collectionID)
+            .then((resp: any) => {
+              //console.log(resp.items);
+              for (const image of resp.items) {
+                catalogData.images.push({ image: image, url: '' });
+              }
 
                 for (const i of catalogData.images) {
                   this.controller
@@ -163,7 +167,6 @@ export class ImageCatalogueComponent implements OnInit {
           }
 
         return data.items;
-
       })
       .catch((e) => {
         console.log(e);
@@ -175,6 +178,42 @@ export class ImageCatalogueComponent implements OnInit {
       });
   }
 
+  orderByDate() {
+    this.catalogues.sort(function (a, b) {
+      if (a.catalogue.createdAt < b.catalogue.createdAt) {
+        return -1;
+      }
+      if (a.catalogue.createdAt > b.catalogue.createdAt) {
+        return 1;
+      }
+      return 0;
+    });
+  }
+
+  orderByPark() {
+    this.catalogues.sort(function (a, b) {
+      if (a.catalogue.GamePark.park_name < b.catalogue.GamePark.park_name) {
+        return -1;
+      }
+      if (a.catalogue.GamePark.park_name > b.catalogue.GamePark.park_name) {
+        return 1;
+      }
+      return 0;
+    });
+  }
+
+  orderByName() {
+    this.catalogues.sort(function (a, b) {
+      if (a.catalogue.collectionName < b.catalogue.collectionName) {
+        return -1;
+      }
+      if (a.catalogue.collectionName > b.catalogue.collectionName) {
+        return 1;
+      }
+      return 0;
+    });
+  }
+
   searchCatalogues() {
     // search for either a matching date string or a collection name
     // or a park name?
@@ -184,34 +223,44 @@ export class ImageCatalogueComponent implements OnInit {
 
     this.catalogues = this.tempCatalogues;
     this.catalogues = this.catalogues.filter((c) => {
-      const date = new Date(c.catalogue.upload_date_time!).toDateString().toLowerCase();
-      return date.includes(searchTerm);
+      let name = '';
+      if (c.collectionName) {
+        name = c.collectionName.toLowerCase();
+      }
+      return name.includes(searchTerm);
     });
   }
 
-  onChangeSort(selectedOption: any) {
-    this.selected = selectedOption.target.value;
-    if (this.selected == 'date') {
-      this.sortByDate();
-    } else if (this.selected == 'park') {
-      this.sortByPark();
-    }
-  }
+  // onChangeSort(selectedOption: any) {
+  //   this.selected = selectedOption.target.value;
+  //   if (this.selected == 'date') {
+  //     this.sortByDate();
+  //   } else if (this.selected == 'park') {
+  //     this.sortByPark();
+  //   }
+  //   else if (this.selected == 'name') {
+  //     this.sortByName();
+  //   }
+  // }
 
-  sortByDate() {
-    this.catalogues.sort((a, b) => {
-      return (
-        new Date(a.catalogue.upload_date_time!).getTime() -
-        new Date(b.catalogue.upload_date_time!).getTime()
-      );
-    });
-  }
+  // sortByDate() {
+  //   this.catalogues.sort((a, b) => {
+  //     return (
+  //       new Date(a.catalogue.upload_date_time!).getTime() -
+  //       new Date(b.catalogue.upload_date_time!).getTime()
+  //     );
+  //   });
+  // }
 
-  sortByPark() {
-    this.catalogues.sort((a: any, b: any) => a.parkID - b.parkID!);
-  }
+  // sortByPark() {
+  //   this.catalogues.sort((a: any, b: any) => a.catalogue.GamePark.park_name - b.catalogue.GamePark.park_name!);
+  // }
 
-  enlarge(catalogue:CatalogData) {
+  // sortByName() {
+  //   this.catalogues.sort((a: any, b: any) => a.catalogue.collectionName - b.catalogue.collectionName!);
+  // }
+
+  enlarge(catalogue: CatalogData) {
     const doc = document.getElementById('popup');
     if (doc !== null) {
       this.selectedCatalogue = catalogue;
@@ -225,12 +274,12 @@ export class ImageCatalogueComponent implements OnInit {
 
     const dialogRef = this.dialog.open(ImageDialogComponent, {
       width: '100vw',
-      data: { selectedCatalogue: this.selectedCatalogue},
+      data: { selectedCatalogue: this.selectedCatalogue },
     });
   }
 
-  showmap(taskID : string){
-    console.log(taskID)
+  showmap(taskID: string) {
+    console.log(taskID);
   }
 
   fadeOut () {

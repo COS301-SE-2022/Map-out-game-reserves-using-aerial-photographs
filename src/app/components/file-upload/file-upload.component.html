@@ -45,6 +45,8 @@
             <h4 class="variable">{{ fileName || "No file uploaded yet." }}</h4>
             <div class="metadata">
               <div class = "parkdd" style="display: inline-block;">
+                <input type="text" placeholder="Enter the name of this map" id="collectionName" />
+
                 <select ng-model="selectedPark" class="parks tooltip" id="parks">
                   <option value="" disabled selected>Select a park</option>
                   <option *ngFor="let park of parksList" [value]="park.value">

@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { promises } from 'dns';
-import { APIService, DeleteImageCollectionInput, GetImagesByCollectionIdQuery, DeleteImagesInput, GetMessageByCollectionIdQuery, DeleteMessageInput, ImagesByCollectionIdQuery } from 'src/app/API.service';
+import { APIService, DeleteImageCollectionInput, GetImagesByCollectionIdQuery, DeleteImagesInput, GetMessageByCollectionIdQuery, DeleteMessageInput } from 'src/app/API.service';
 import { ControllerService } from 'src/app/api/controller/controller.service';
 import { ConfirmDialogComponent, ConfirmDialogModel } from './confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -30,7 +30,7 @@ export class ImageDialogComponent {
   spinners: HTMLElement[];
   result: boolean = false;
 
-  constructor( private router : Router, private api: APIService,
+  constructor( private router : Router, private api: APIService,  private controller: ControllerService,
     public dialogRef: MatDialogRef<ImageDialogComponent>,
     private apiController: ControllerService,
     public dialog: MatDialog,
@@ -52,6 +52,9 @@ export class ImageDialogComponent {
   }
 
   onDeleteClick(tryAgain:boolean): void {
+    this.apiController.S3delete(this.selectCatalogue.collectionID+"/thumbnails/thumbnail_0");
+    this.apiController.S3delete(this.selectCatalogue.collectionID+"/thumbnails/thumbnail_1");
+    this.apiController.S3delete(this.selectCatalogue.collectionID+"/thumbnails/thumbnail_2");
     // if(this.result==true) {
       // Delete from S3
         // ----- Not yet working completely -----
@@ -60,22 +63,13 @@ export class ImageDialogComponent {
       // this.apiController.S3delete("00265eba-6e41-45db-ab10-ee3a5cc98c84/");
 
       // Delete images from database
-      var deleteArray: string[] = [];
-      this.api
-        .ImagesByCollectionId(this.selectCatalogue.collectionID)
-        .then((resp: any) => {
-          for (const v of resp.items) {
-            console.log(v.imageID);
-            deleteArray.push(v.imageID);
-          }
-        });
+      this.selectCatalogue.images.forEach((imageData: any) => {
+        this.apiController.S3delete(this.selectCatalogue.collectionID+"/images/"+imageData.image.imageID);
+        let deleteID: DeleteImagesInput = {imageID: imageData.image.imageID};
+        this.api.DeleteImages(deleteID);
+      });
 
-        for (const v of deleteArray) {
-          let deleteID: DeleteImagesInput = {imageID: v};
-          this.api.DeleteImages(deleteID);
-        }
-
-      // Delete imageCollection from database
+      //Delete imageCollection from database
       var deleteInput: DeleteImageCollectionInput = {collectionID: ''};
       deleteInput.collectionID = this.selectCatalogue.collectionID;
       this.api.DeleteImageCollection(deleteInput);
@@ -104,11 +98,11 @@ export class ImageDialogComponent {
           document.getElementById(ID)!.style.display='none';
         }
 
-        // ---------redirect to create map
-        // this.router.navigateByUrl('/create-map');
-        // setTimeout(() => {
-        //   window.location.reload();
-        // }, 1);
+        //---------redirect to create map
+        this.router.navigateByUrl('/create-map');
+        setTimeout(() => {
+          window.location.reload();
+        }, 1);
       }
       this.dialogRef.close();
     // }

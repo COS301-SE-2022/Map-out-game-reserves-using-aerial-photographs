@@ -205,6 +205,8 @@ export class FileUploadComponent {
 
       const newColID = uuidv4();
 
+      const collectionName = (document.getElementById('collectionName') as HTMLInputElement).value;
+
       const imageCollection: CreateImageCollectionInput = {
         collectionID: newColID,
         parkID: parkSel,
@@ -212,9 +214,10 @@ export class FileUploadComponent {
         flightID: flight.flightID,
         completed: false,
         pending: true,
-        error: false
+        error: false,
         //taskID: taskId
         // _version?: number | null;
+        collectionName:collectionName
       };
 
       this.api.CreateImageCollection(imageCollection).then((res: any) => {
