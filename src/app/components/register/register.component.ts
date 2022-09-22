@@ -18,6 +18,8 @@ export class RegisterComponent {
   registerForm: UntypedFormGroup;
   isSubmitted: boolean;
   inAnimation: boolean;
+  hide:boolean;
+  hide2:boolean;
 
   title = 'register-component';
 
@@ -34,6 +36,8 @@ export class RegisterComponent {
       user_name: new UntypedFormControl('', [Validators.required])
     });
     this.isSubmitted = false;
+    this.hide=true;
+    this.hide2=true;
   }
 
   getErrorMessage() {
@@ -45,9 +49,8 @@ export class RegisterComponent {
   }
 
   onRegisterFormSubmit(user: User) {
-    this.isSubmitted = true;
-
-    const email = this.registerForm.controls['user_email'].value;
+    if (this.isSubmitted){
+      const email = this.registerForm.controls['user_email'].value;
     const password = this.registerForm.controls['user_password'].value;
     const repeatedPassword = this.registerForm.controls['repeatedPassword'].value;
     const name = this.registerForm.controls['user_name'].value;
@@ -82,13 +85,20 @@ export class RegisterComponent {
 
             this.registered.emit(res); //integration testing purposes
           });
+        } else {
+          this.snackBar.open("Your email has not been invited.", "❌", { verticalPosition: 'bottom' });
+          this.isSubmitted=false;
         }
       },
       error: (err: any) => {
         console.log(err);
-        this.snackBar.open("Your email has not been invited.", "❌", { verticalPosition: 'top' });
+        this.snackBar.open("Your email has not been invited.", "❌", { verticalPosition: 'bottom' });
+        this.isSubmitted=false;
       }
     });
+    }
+
+    
   }
 
   // openOtpDialog(u: User): void {

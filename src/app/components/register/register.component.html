@@ -4,7 +4,7 @@
   <form [formGroup]="registerForm" (ngSubmit)="onRegisterFormSubmit(registerForm.value)" class="modal-content" id = "form">
     <div class="image" style="display: inline-block">
       <img
-        src="../../assets/erpngo-header-full.jpg"
+        src="../../assets/erpngo-header-full - Copy.jpg"
         alt="Image"
         width="100%"
         height="auto"
@@ -18,8 +18,11 @@
         <h2>REGISTER</h2>
         <hr />
         <!-- <mat-divider></mat-divider> -->
+        <div id="error" style="text-align: center; color:rgb(178, 178, 178)">
+
+        </div>
         <div style="display: inline-block; width: 100%;">
-          <label for="user_name">Name</label>
+          <label for="user_name">Name</label><br/>
           <input
             formControlName="user_name"
             type="text"
@@ -28,11 +31,11 @@
             required
           />
           <div *ngIf="this.isSubmitted && name!.errors?.['required']" class="text-danger">
-            <small>Please enter your name</small>
+            <small style="padding-left: 8px; color: rgb(180, 180, 180);">Please enter your name</small>
           </div>
         </div>
         <br />
-        <label for="user_email">Email</label>
+        <label for="user_email">Email</label><br/>
         <input
           formControlName="user_email"
           type="text"
@@ -41,38 +44,46 @@
           required
         />
         <div *ngIf="this.isSubmitted && email!.errors?.['required']" class="text-danger">
-          <small>Please enter your email</small>
+          <small style="padding-left: 8px; color: rgb(180, 180, 180);">Please enter your email</small>
         </div>
         <div *ngIf="this.isSubmitted && email!.errors?.['email']" class="text-danger">
-          <small>Please enter a valid email address</small>
+          <small style="padding-left: 8px; color: rgb(180, 180, 180);">Please enter a valid email address</small>
         </div>
 
-        <label for="user_password">Password</label>
+        <label for="user_password">Password</label><br/>
         <input
           formControlName="user_password"
-          type="password"
+          [type]="hide ? 'password' : 'text'"
           placeholder="Enter Password"
           name="user_password"
           required
+          style="width:90%"
         />
+        <button mat-icon-button id = "icon" matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" >
+          <mat-icon [ngStyle]="{'color':'white'}">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
         <div *ngIf="this.isSubmitted && password!.errors?.['required']" class="text-danger">
-          <small>Please enter your password</small>
+          <small style="padding-left: 8px; color: rgb(180, 180, 180);">Please enter your password</small>
         </div>
 
-        <label for="psw-repeat">Repeat Password</label>
+        <label for="psw-repeat">Repeat Password</label><br/>
         <input
           formControlName="repeatedPassword"
-          type="password"
+          [type]="hide2 ? 'password' : 'text'"
           placeholder="Repeat Password"
           name="psw-repeat"
           required
+          style="width:90%"
         />
+        <button mat-icon-button id = "icon" matSuffix (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide2" >
+          <mat-icon [ngStyle]="{'color':'white'}">{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
         <div *ngIf="this.isSubmitted && repeatedPassword!.errors?.['required']" class="text-danger">
-          <small>Please confirm your password</small>
+          <small style="padding-left: 8px; color: rgb(180, 180, 180);">Please confirm your password</small>
         </div>
 
         <div class="clearfix center">
-          <button type="submit" class="button signupbtn">Sign Up</button>
+          <button type="submit" class="button signupbtn" (click)="isSubmitted = true">Sign Up</button>
         </div>
         <div class="clearfix center" style="height: 40px">
           <button mat-button [routerLink]="['/login']" class="button2">
@@ -88,7 +99,15 @@
     
   </form>
   <!-- <app-spinner></app-spinner> -->
-  
+  <div id = "description">
+    <h1>THE AERIAL MAPPER</h1>
+    <div id = "text">
+      <p>The Aerial Mapper is a web application running in the browser which allows users to upload and automatically stitch together drone footage to form a large composite map.
+        <br/><br/>The Aerial Mapper web application allows users to upload bird’s-eye view video footage taken from drones of nature reserves. Uploaded footage is then split into multiple images and stitched together to form a large, high-quality map image. 
+        <br/><br/>The Aerial Mapper overlays a grid onto the map as well as points of interest.
+        </p>
+    </div>
+  </div>
 </div>
 
 
