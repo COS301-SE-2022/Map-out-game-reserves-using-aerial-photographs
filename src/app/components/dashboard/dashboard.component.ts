@@ -277,6 +277,7 @@ export class DashboardComponent implements OnInit {
       });
     }
   }
+  
   dismiss(ID:string|undefined|null, statusType:string):void {
     //TODO: dismiss message = true
     // var resp = this.api.GetImageCollection(ID);

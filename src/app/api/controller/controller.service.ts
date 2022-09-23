@@ -104,15 +104,6 @@ export class ControllerService {
     }
   };
 
-  async S3delete(collection:string){
-    try {
-      const result = await Storage.remove(collection);
-      console.log(21, result);
-    } catch(e) {
-      console.log("S3delete error: ", e);
-    }
-  };
-
   async S3download(fileKey:string, collection:string, folder:string, fetch_data:boolean){
     // Storage.list('public/') // for listing ALL files without prefix, pass '' instead
     // .then(result => console.log(result))
@@ -122,24 +113,33 @@ export class ControllerService {
     return result;
   }
 
-  async getImageData(bucket_name: string, file_name: string): Promise<any> {
-    // const options = {
-    //   headers: new HttpHeaders({
-    //     "Content-Type": "image/png",
-    //   }),
-    // };
+  async S3delete(collection:string){
+    try {
+      const result = await Storage.remove(collection);
+      console.log(21, result);
+    } catch(e) {
+      console.log("S3delete error: ", e);
+    }
+  };
 
-    return this.http.get(
-      'https://3dxg59qzw5.execute-api.us-east-1.amazonaws.com/test_stage/' +
-        bucket_name +
-        '/' +
-        file_name,
-      {
-        headers: { 'Content-Type': 'image/png' },
-        responseType: 'json',
-      }
-    );
-  }
+  // async getImageData(bucket_name: string, file_name: string): Promise<any> {
+  //   // const options = {
+  //   //   headers: new HttpHeaders({
+  //   //     "Content-Type": "image/png",
+  //   //   }),
+  //   // };
+
+  //   return this.http.get(
+  //     'https://3dxg59qzw5.execute-api.us-east-1.amazonaws.com/test_stage/' +
+  //       bucket_name +
+  //       '/' +
+  //       file_name,
+  //     {
+  //       headers: { 'Content-Type': 'image/png' },
+  //       responseType: 'json',
+  //     }
+  //   );
+  // }
 
   //------------------------------------------------------------------------
   //This is temporary code used to populate the database with temporary data
