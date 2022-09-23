@@ -19,7 +19,13 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
   ],
 })
 export class NavbarComponent implements OnInit {
-  constructor() {}
+  constructor() {
+    window.addEventListener('popstate', function(event) {
+      setTimeout(() => {
+        window.location.reload();
+      }, 1);
+    });
+  }
 
   ngOnInit(): void {
     // document.getElementById('dashboard')!.className += ' active';

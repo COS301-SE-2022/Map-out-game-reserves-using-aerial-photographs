@@ -65,6 +65,7 @@ export class DashboardComponent implements OnInit {
     this.inAnimation = false;
     this.fadeOut();
 
+
     //TODO integrate this bar chart with real data
     this.maps = [
       { Value: this.values[0] },
@@ -80,6 +81,7 @@ export class DashboardComponent implements OnInit {
     this.maps.forEach((element) => {
       this.total += element.Value;
     });
+
   }
 
   ngOnInit(): void {
@@ -343,3 +345,5 @@ class Dashboard_Message {
   message_description: string | null | undefined = '';
   collectionID: string | null | undefined = '';
 }
+
+
