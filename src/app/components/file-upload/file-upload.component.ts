@@ -125,10 +125,9 @@ export class FileUploadComponent {
     this.sliderValue = event.value;
   }
 
-
+  //creats a map collection on the database
   uploadFileLocal(ev: Event) {
     ev.preventDefault();
-    console.log('Submit button pressed');
     this.frameCount = 0;
     this.uploadCount = 0;
     this.splittingProgress = 0;
@@ -139,19 +138,16 @@ export class FileUploadComponent {
     let sel = e.selectedIndex;
     let opt = e.options[sel];
     let parkSel = opt.value;
-    console.log(parkSel);
 
     //get the flying option
     e = document.getElementById('fType') as HTMLSelectElement;
     sel = e.selectedIndex;
     opt = e.options[sel];
     let typeSel = opt.value;
-    console.log(typeSel);
 
     //get the height
     const flight_height = document.getElementById('height') as HTMLInputElement;
     const height = flight_height?.value;
-    console.log(height);
 
     if (this.files[0] && parkSel != '' && typeSel != '' && height != '') {
       const h: number = +height;
@@ -167,9 +163,6 @@ export class FileUploadComponent {
       //create flight in the database
       this.api
         .CreateFlightDetails(flight)
-        .then((resp: any) => {
-          console.log(resp);
-        })
         .catch((e) => {
           console.log(e);
         });
@@ -192,9 +185,7 @@ export class FileUploadComponent {
 
       this.api
         .CreateImageCollection(imageCollection)
-        .then((res: any) => {
-          console.log('CreateImageCollection response:', res);
-
+        .then(() => {
           //disable navbar when system is uploading file(s)
           document.getElementById('buttons')!.style.display = 'none';
 
@@ -210,9 +201,7 @@ export class FileUploadComponent {
             busy: false,
             collectionID: imageCollection.collectionID,
           };
-          this.api.CreatePendingJobs(pendingJob).then((resp: any) => {
-            console.log('CreatePendingJob response:', resp);
-
+          this.api.CreatePendingJobs(pendingJob).then(() => {
             //wait for all promises to resolve
             Promise.all(promises).then(async () => {
               //publish SNS message to 'stitch_jobs' topic with the jobID - once all image uploads are complete
@@ -249,9 +238,9 @@ export class FileUploadComponent {
     }
   }
 
+  //changes the view to select data for the map
   onFileSelected(event: any) {
     this.submitPressed = false;
-    console.log('File staged!');
     this.fileName = '';
 
     for (let index = 0; index < event.target.files.length; index++) {
@@ -269,10 +258,12 @@ export class FileUploadComponent {
     }
   }
 
+  //removes all selected images and videos
   clearSelection() {
     window.location.reload();
   }
 
+  //uploads images to S3
   async uploadImages(collectionID: string): Promise<any> {
     if (document.getElementById('video') != null) {
       //for testing purposes
@@ -284,7 +275,6 @@ export class FileUploadComponent {
       const frames = [];
       this.frameCount = this.files.length;
       for (var i = 0; i < this.files.length; i++) {
-
         const inp: CreateImagesInput = {
           imageID: uuidv4(),
           collectionID: collectionID,
@@ -304,6 +294,7 @@ export class FileUploadComponent {
     });
   }
 
+  //splits video into images and uploads them to S3
   uploadVideo(collectionID: string): Promise<any> {
     return new Promise<any>(async (resolve) => {
       let promises: Promise<any>[] = [];
@@ -345,6 +336,7 @@ export class FileUploadComponent {
     });
   }
 
+  //uploads a file to S3
   uploadToS3(collectionID: string, imageID: string, file: any): Promise<any> {
     return new Promise((resolve, reject) => {
       //converting blob to png
@@ -354,7 +346,6 @@ export class FileUploadComponent {
         .S3upload(imageID, collectionID, 'images', newFile, 'image/png')
         .then((data: any) => {
           this.uploadCount++;
-          console.log(this.uploadCount);
           this.uploadingProgress = Math.round(
             (this.uploadCount / this.frameCount) * 100
           );
@@ -370,6 +361,7 @@ export class FileUploadComponent {
     });
   }
 
+  //splits video into frames
   extractFramesFromVideo = async (
     videoUrl: string,
     interval: number,
@@ -418,6 +410,7 @@ export class FileUploadComponent {
     return frames;
   };
 
+  //resizes an images resolution
   async resizeImage(blobFile: File, width: number, height: number) {
     // quality value for webp and jpeg formats.
     const quality = 80;
@@ -427,6 +420,7 @@ export class FileUploadComponent {
     return await fromBlob(blobFile, quality, width, height, format);
   }
 
+  //takes 3 images, resizes them and uploads them to S3 as thumbnails
   async makeThumbnails(collectionID: string, frames: any[]) {
     return new Promise(async (resolve) => {
       let promises: Promise<any>[] = [];
@@ -471,6 +465,7 @@ export class FileUploadComponent {
     });
   }
 
+  //publishesthat the job is available for stitching
   async publishSNSNotification() {
     const publishParams = {
       Message: 'New pending stitch job published!',
@@ -478,7 +473,6 @@ export class FileUploadComponent {
     };
     try {
       const data = await snsClient.send(new PublishCommand(publishParams));
-      console.log('Successfully published SNS notification', data);
       return data; //For unit tests
     } catch (e) {
       console.log(e);
@@ -486,6 +480,7 @@ export class FileUploadComponent {
     }
   }
 
+  //opens dialog to add a new park
   openParksDialog(): void {
     const dialogRef = this.dialog.open(ParksDialogComponent, {
       width: '500px',
@@ -512,8 +507,7 @@ export class FileUploadComponent {
     };
     this.api
       .CreateGamePark(newPark)
-      .then((resp: any) => {
-        console.log(resp);
+      .then(() => {
         alert('Successfully created!');
         return 1;
       })
@@ -523,6 +517,7 @@ export class FileUploadComponent {
       });
   }
 
+  //closes the loading screen
   fadeOut() {
     if (!this.inAnimation) {
       this.inAnimation = true;
