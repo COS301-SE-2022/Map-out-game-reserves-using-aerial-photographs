@@ -2,28 +2,29 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export interface DialogData {
-  currentEmail: string,
+  currentEmail: string;
   newEmail: string;
 }
 
 @Component({
   selector: 'app-email-dialog',
   templateUrl: './email-dialog.component.html',
-  styleUrls: ['./email-dialog.component.scss']
+  styleUrls: ['./email-dialog.component.scss'],
 })
 export class EmailDialogComponent {
-
   constructor(
     public dialogRef: MatDialogRef<EmailDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {}
 
+  //closes the interface to change email
   onNoClick(): void {
     this.dialogRef.close();
   }
 
+  //saves the new email
   onSubmit() {
-    if(this.data.newEmail == '') {
+    if (this.data.newEmail == '') {
       return;
     }
     this.dialogRef.close(this.data.newEmail);
