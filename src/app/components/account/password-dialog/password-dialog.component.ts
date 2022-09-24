@@ -30,7 +30,7 @@ export class PasswordDialogComponent {
     this.dialogRef.close();
   }
 
-  //saves the new password
+  //gets the data for new password
   onSubmit() {
     if (this.data.newPassword == '' || this.data.confirmedPassword == '') {
       return;

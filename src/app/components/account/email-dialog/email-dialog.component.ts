@@ -22,7 +22,7 @@ export class EmailDialogComponent {
     this.dialogRef.close();
   }
 
-  //saves the new email
+  //gets the data for new email
   onSubmit() {
     if (this.data.newEmail == '') {
       return;
