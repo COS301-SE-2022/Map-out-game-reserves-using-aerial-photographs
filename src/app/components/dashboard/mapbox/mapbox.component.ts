@@ -1,8 +1,4 @@
-import {
-  Component,
-  OnInit,
-  AfterViewInit,
-} from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 
 @Component({
