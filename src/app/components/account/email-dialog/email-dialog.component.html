@@ -2,14 +2,22 @@
 <div mat-dialog-content>
   <mat-form-field appearance="fill">
     <mat-label for="curr">Current Email</mat-label>
-    <input matInput [(ngModel)]="data.currentEmail" name="curr" readonly>
+    <input matInput [(ngModel)]="data.currentEmail" name="curr" readonly />
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label for="new">New Email</mat-label>
-    <input matInput [(ngModel)]="data.newEmail" name="new" cdkFocusInitial>
+    <input matInput [(ngModel)]="data.newEmail" name="new" cdkFocusInitial />
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()" color="warn">Cancel</button>
-  <button mat-button [disabled]="!data.newEmail" (click)="onSubmit()" color="primary" type="button">Save Changes</button>
+  <button
+    mat-button
+    [disabled]="!data.newEmail"
+    (click)="onSubmit()"
+    color="primary"
+    type="button"
+  >
+    Save Changes
+  </button>
 </div>
