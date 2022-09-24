@@ -3,18 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-
 import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
-
 import { RegisterModule } from './components/register/register.module';
 import { DashboardModule } from './components/dashboard/dashboard.module';
-
 import { NgChartsModule } from 'ng2-charts';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginModule } from './components/login/login.module';
-
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatListModule } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
