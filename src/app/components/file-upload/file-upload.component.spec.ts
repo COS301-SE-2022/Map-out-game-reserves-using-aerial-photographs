@@ -89,7 +89,7 @@ describe('FileUploadComponent', () => {
     const result: Promise<any> = component.uploadImages("thisisthecollectionid");
     result.then((resp: any) => {
       expect(apiService.CreateImages).toHaveBeenCalled();
-      //expect(component.resizeImage).toHaveBeenCalled();
+      // expect(component.resizeImage).toHaveBeenCalled();
       expect(component.makeThumbnails).toHaveBeenCalled();
       expect(component.uploadToS3).toHaveBeenCalled();
       expect(resp);

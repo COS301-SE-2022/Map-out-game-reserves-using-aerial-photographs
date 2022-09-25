@@ -11,8 +11,8 @@ import fetch from 'node-fetch';
 const formdata = require('form-data');
 
 const webODM_URL = "http://localhost:8000/";
-const webODM_username = "admin";
-const webODM_password = "12345678";
+const webODM_username = "thedylpickles1@gmail.com";
+const webODM_password = "webodmpassword";
 const PENDING_JOBS_TABLE = "PendingJobs-i2e32qtaxjauzoami7sycjlvqy-dev";
 const IMAGE_TABLE = "Images-i2e32qtaxjauzoami7sycjlvqy-dev";
 const IMAGE_COLLECTION_TABLE = "ImageCollection-i2e32qtaxjauzoami7sycjlvqy-dev";
@@ -118,8 +118,8 @@ async function authenticateWithWebOdm(): Promise<void> {
   console.log("[SERVER] Authenticating with WebODM...");
 
   const body = {
-    username: webODM_username,   //thedylpickles1@gmail.com
-    password: webODM_password //somethingeasy#1
+    username: webODM_username,
+    password: webODM_password
   }
   //get auth token
   try {
@@ -136,6 +136,7 @@ async function authenticateWithWebOdm(): Promise<void> {
         })
           .then(async (data: any) => {
             const projects: any = await data.json();
+            console.log(projects);
             projectId = projects[0].id;
           })
           .catch(err => {
@@ -374,68 +375,78 @@ async function createMap(jobID: string) {
 
         // Set options for new task
         const optionsArr = [
-          // Set feature extraction quality. Higher quality generates better features, but requires more memory and takes longer.
-          // {
-          // "name": "feature-quality",
-          // "value": "low"            // values are: ultra, high, medium, low, lowest
-          // },
-          // // Matcher algorithm, Fast Library for Approximate Nearest Neighbors or Bag of Words. FLANN is slower, but more stable. BOW is faster, but can sometimes miss valid matches. BRUTEFORCE is very slow but robust.
-          // {
-          //   "name": "matcher-type",
-          //   "value": "bruteforce"     // values are: bruteforce, flann, bow
-          // },
-          // // Controls the density of the point cloud by setting the resolution of the depthmap images. Higher values take longer to compute but produce denser point clouds.
-          // // {
-          // //   "name": "depthmap-resolution",
-          // //   "value": "1280"           // default: 640
-          // // },
-          // // Skip generation of PDF report. This can save time if you don't need a report.
-          // {
-          //   "name": "skip-report",
-          //   "value": "true"
-          // },
-          // // Ignore Ground Sampling Distance (GSD). GSD caps the maximum resolution of image outputs and resizes images when necessary, resulting in faster processing and lower memory usage. Since GSD is an estimate, sometimes ignoring it can result in slightly better image output quality.
-          // {
-          //   "name": "ignore-gsd",
-          //   "value": "true"
-          // },
-          // // Set point cloud quality. Higher quality generates better, denser point clouds, but requires more memory and takes longer. Each step up in quality increases processing time roughly by a factor of 4x.
-          // {
-          //   "name": "pc-quality",
-          //   "value": "ultra"      // values are: ultra, high, medium, low, lowest
-          // },
-          // // Improve the accuracy of the point cloud by computing geometrically consistent depthmaps. This increases processing time, but can improve results in urban scenes.
-          // {
-          //   "name": "pc-geometric",
-          //   "value": "true"       // default: false
-          // },
+           //Set feature extraction quality. Higher quality generates better features, but requires more memory and takes longer.
+           {
+           "name": "feature-quality",
+           "value": "low"            // values are: ultra, high, medium, low, lowest
+           },
+           // Matcher algorithm, Fast Library for Approximate Nearest Neighbors or Bag of Words. FLANN is slower, but more stable. BOW is faster, but can sometimes miss valid matches. BRUTEFORCE is very slow but robust.
+           {
+             "name": "matcher-type",
+             "value": "bruteforce"     // values are: bruteforce, flann, bow
+           },
+           // Controls the density of the point cloud by setting the resolution of the depthmap images. Higher values take longer to compute but produce denser point clouds.
+           // {
+           //   "name": "depthmap-resolution",
+           //   "value": "1280"           // default: 640
+           // },
+           // Skip generation of PDF report. This can save time if you don't need a report.
+           {
+             "name": "skip-report",
+             "value": "true"
+           },
+           // Ignore Ground Sampling Distance (GSD). GSD caps the maximum resolution of image outputs and resizes images when necessary, resulting in faster processing and lower memory usage. Since GSD is an estimate, sometimes ignoring it can result in slightly better image output quality.
+           {
+             "name": "ignore-gsd",
+             "value": "true"
+           },
+           // Set point cloud quality. Higher quality generates better, denser point clouds, but requires more memory and takes longer. Each step up in quality increases processing time roughly by a factor of 4x.
+           {
+             "name": "pc-quality",
+             "value": "ultra"      // values are: ultra, high, medium, low, lowest
+           },
+           // Improve the accuracy of the point cloud by computing geometrically consistent depthmaps. This increases processing time, but can improve results in urban scenes.
+           {
+             "name": "pc-geometric",
+             "value": "true"       // default: false
+           },
           {
             "name": "ignore-gsd",
             "value": true
           },
           {
             "name": "orthophoto-resolution",
-            "value": 0.1
+            //Remember to change this back to something unshite after testing
+            "value": 2
           }
         ];
         formData.append('options', JSON.stringify(optionsArr));
 
-        // start new WebODM stitching job - call createTask API endpoint
-        let response = await fetch(`http://localhost:8000/api/projects/${projectId}/tasks/`, {
-          method: 'POST',
-          body: formData,
-          headers: {
-            "Authorization": `JWT ${tokenResp.token}`
-          }
-        });
-        let result: WebODMCreateTaskResponse = await response.json();
-        console.log("CREATE TASK RESULT: ", result);
+        let taskID = undefined;
+        try {
+          // start new WebODM stitching job - call createTask API endpoint
+          console.log("In try, projectID", projectId)
+          console.log("In try, token", tokenResp.token)
+          console.log("In try, formdata", formdata)
+          let response = await fetch(`http://localhost:8000/api/projects/${projectId}/tasks/`, {
+            method: 'POST',
+            body: formData,
+            headers: {
+              "Authorization": `JWT ${tokenResp.token}`
+            }
+          }).catch(error => console.log(error))
 
-        if (result.id == undefined) {
-          console.log("Error: Cannot create task");
-          return -1;
+          console.log("After await fetch");
+          let result: WebODMCreateTaskResponse = await response.json();
+          console.log("CREATE TASK RESULT: ", result);
+          if (result.id == undefined) {
+            console.log("Error: Cannot create task");
+            return -1;
+          }
+          taskID = result.id;
+        } catch (err){
+          console.log(err)
         }
-        const taskID = result.id;
 
         //set the taskID and set 'pending' to true on this image collection in DynamoDB
         const params = {

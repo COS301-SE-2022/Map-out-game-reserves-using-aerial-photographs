@@ -20,6 +20,7 @@ export class LoginComponent {
   loginForm: UntypedFormGroup;
   isSubmitted: boolean;
   inAnimation: boolean;
+  hide:boolean;
 
   constructor(private formBuilder: UntypedFormBuilder, private router: Router, private http: HttpClient) {
     //loader
@@ -34,36 +35,49 @@ export class LoginComponent {
     });
     this.isSubmitted = false;
 
+    this.hide = true;
   }
 
-  //this has to be a function so that unit tests can spyOn it and mock it properly
   windowReload() {
     window.location.reload();
   }
 
-  async login(): Promise<string> {
-    const email = this.loginForm.controls['email'];
-    const password = this.loginForm.controls['password'];
-    this.isSubmitted = true;
+  async login() {
+    if(this.isSubmitted){
+      const email = this.loginForm.controls['email'];
+      const password = this.loginForm.controls['password'];
 
-    if(email.value != '' && password.value != '') {
-      //Amplify Auth
-      try {
-        const user = await Auth.signIn(email.value, password.value);
-        this.loggedIn.emit(user); //for integration testing purposes
-        this.router.navigate(['dashboard']);
-        setTimeout(() => {
-          this.windowReload();
-          //window.location.reload();
-        }, 1);
-        return "success"; //for unit testing
-      } catch (error: any) {
-        console.log('error signing in', error);
-        return error.stack.toString();  //for unit testing
+      if(email.value != '' && password.value != '') {
+        var err:string = "";
+        //Amplify Auth
+        try {
+          const user = await Auth.signIn(email.value, password.value);
+          this.router.navigate(['dashboard']);
+          setTimeout(() => {
+            this.windowReload();
+          }, 1);
+          this.loggedIn.emit(user); //for unit testing purposes
+        } catch (error) {
+            console.log('error signing in', error);
+            this.errorOccurred(""+error);
+            this.isSubmitted=false;
+        }
+
       }
     }
-    return "failure"; //for unit testing
+
+
   }
+  errorOccurred(err:string){
+    if (err!= "") {
+      if(err.includes("User does not exist")) {
+        if(document.getElementById("error")){ //for testing purposes
+          document.getElementById("error")!.innerHTML="Either the email or password entered is incorrect"
+        }
+      }
+    }
+  }
+
 
   get email() { return this.loginForm.get('email'); }
   get password() { return this.loginForm.get('password'); }

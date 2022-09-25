@@ -30,7 +30,7 @@ export class ImageDialogComponent {
   spinners: HTMLElement[];
   result: boolean = false;
 
-  constructor( private router : Router, private api: APIService,
+  constructor( private router : Router, private api: APIService,  private controller: ControllerService,
     public dialogRef: MatDialogRef<ImageDialogComponent>,
     private apiController: ControllerService,
     public dialog: MatDialog,
@@ -52,6 +52,9 @@ export class ImageDialogComponent {
   }
 
   onDeleteClick(tryAgain:boolean): void {
+    this.apiController.S3delete(this.selectCatalogue.collectionID+"/thumbnails/thumbnail_0");
+    this.apiController.S3delete(this.selectCatalogue.collectionID+"/thumbnails/thumbnail_1");
+    this.apiController.S3delete(this.selectCatalogue.collectionID+"/thumbnails/thumbnail_2");
     // if(this.result==true) {
       // Delete from S3
         // ----- Not yet working completely -----
@@ -60,14 +63,11 @@ export class ImageDialogComponent {
       // this.apiController.S3delete("00265eba-6e41-45db-ab10-ee3a5cc98c84/");
 
       // Delete images from database
-      this.api
-        .GetImagesByCollectionId(this.selectCatalogue.collectionID)
-        .then((value: GetImagesByCollectionIdQuery[]) => {
-          for (const v of value) {
-            let deleteID: DeleteImagesInput = {imageID: v.imageID};
-            this.api.DeleteImages(deleteID);
-          }
-        });
+      this.selectCatalogue.images.forEach((imageData: any) => {
+        this.apiController.S3delete(this.selectCatalogue.collectionID+"/images/"+imageData.image.imageID);
+        let deleteID: DeleteImagesInput = {imageID: imageData.image.imageID};
+        this.api.DeleteImages(deleteID);
+      });
 
       //Delete imageCollection from database
       var deleteInput: DeleteImageCollectionInput = {collectionID: ''};

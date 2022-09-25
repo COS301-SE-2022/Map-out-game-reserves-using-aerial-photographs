@@ -119,6 +119,7 @@
 .parks,
 .types,
 #height,
+#collectionName,
 .i-size {
     width: 90%;
 background: $primary-background-opaque;
@@ -276,4 +277,42 @@ max-width: 100%;
   -webkit-transform: translateX(-50%) translateY(-50%);
   transform: translateX(-50%) translateY(-50%);
   // text-align: center;
+}
+
+mat-slider {
+  width: 90%;
+  padding-top: 0px;
+  // color: $primary;
+}
+
+::ng-deep .mat-slider.mat-accent .mat-slider-thumb-label {
+  background-color: $accent-colour !important;
+}
+
+::ng-deep .mat-accent .mat-slider-track-fill {
+  background-color: $accent-colour !important;
+}
+
+::ng-deep .mat-slider-thumb-label {
+  background-color: $accent-colour !important;
+
+}
+
+::ng-deep .mat-slider-thumb{
+  background-color: $accent-colour !important;
+}
+
+.example-value-label {
+  float: right;
+  width: 4%;
+}
+
+.slider {
+  width: 90%;
+  margin-left: 10px;
+}
+
+.minMax {
+  font-size: smaller;
+  margin-top: 10px;
 }

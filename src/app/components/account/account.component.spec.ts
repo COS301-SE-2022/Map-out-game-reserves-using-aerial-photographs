@@ -49,7 +49,7 @@ describe('AccountComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it("should have as title 'account-component'", () => {  
+  it("should have as title 'account-component'", () => {
     // const app = fixture.debugElement.componentInstance;
     expect(component.title).toEqual('account-component');
   });
@@ -62,11 +62,12 @@ describe('AccountComponent', () => {
 
     let button = fixture.nativeElement.querySelector('#nameEdit');
     expect(button).toBeTruthy();
-    
+
     // CAUSES AUTH ERROR!!
     // button.click();
     // expect(openPassword).toHaveBeenCalled();
   });
- 
+
+
 
 });

@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FooterModule } from '../shared/footer/footer.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SpinnerModule } from '../shared/spinner/spinner.module';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [LoginComponent],
@@ -20,7 +21,8 @@ import { SpinnerModule } from '../shared/spinner/spinner.module';
     FooterModule,
     ReactiveFormsModule,
     MatSnackBarModule, 
-    SpinnerModule
+    SpinnerModule,
+    MatIconModule
   ]
 })
 export class LoginModule { }
