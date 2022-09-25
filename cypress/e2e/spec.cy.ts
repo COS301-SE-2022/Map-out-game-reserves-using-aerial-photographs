@@ -1,25 +1,95 @@
-import { getConfirmNewPasswordField, getCreateMap, getCurrNameField, getDashboard, getDisplayedNameField, getLoginButton, getLoginEmailInput, getLoginEmailPrompt, getLoginPasswordInput, getLoginPasswordPrompt, getLogoutButton, getMapCatalogue, getNameEdit, getNavAccount, getNewNameField, getNewPasswordField, getPasswordEdit, getSaveNewNameButton, getSaveNewPasswordButton } from './app.po';
+import { getConfirmNewPasswordField, getFlightHeightInput, getResolutionSelect, getFlightTypeSelect, getParkSelect, getCreateMap, getCurrNameField, getDashboard, getDisplayedNameField, getLoginButton, getLoginEmailInput, getLoginEmailPrompt, getLoginPasswordInput, getLoginPasswordPrompt, getLogoutButton, getMapCatalogue, getNameEdit, getNavAccount, getNewNameField, getNewPasswordField, getPasswordEdit, getSaveNewNameButton, getSaveNewPasswordButton, getFileUploadSubmitBtn, getFileUploadSuccessMsg } from './app.po';
+import { S3Client, GetObjectCommand, GetObjectCommandInput, GetObjectCommandOutput } from '@aws-sdk/client-s3';
 
+const REGION = 'sa-east-1';
+const s3Client = new S3Client({
+  region: REGION,
+  credentials: {
+    accessKeyId: Cypress.env('ACCESS_KEY_ID'),
+    secretAccessKey: Cypress.env('SECRET_ACCESS_KEY')
+  }
+});
 const username = Cypress.env('VALID_USERNAME');
 const password = Cypress.env('VALID_PASSWORD');
+
+const S3_BUCKET = "aerial-mapping-bucket80642-dev";
 
 // Testing Quality Requirements
 describe('Testing Performance Quality Requirements', () => {
   beforeEach(() => {
-    Cypress.config('defaultCommandTimeout', 15000);
+    Cypress.config('defaultCommandTimeout', 300000);
+  });
+
+  // [Performance Quality Requirement]
+  // tests the time taken for an image download to complete
+  it.only('Must download a 300KB image from the S3 bucket within 5 seconds', async () => {
+    const getParams: GetObjectCommandInput = {
+      Bucket: S3_BUCKET,
+      Key: 'testing/dylpickles.png'
+    }
+    const start = new Date().getTime();
+    try {
+      //const data: GetObjectCommandOutput = await s3Client.send(new GetObjectCommand(getParams));
+      //stop timer
+      cy.wrap(await s3Client.send(new GetObjectCommand(getParams))).then(() => {
+        cy.wrap(new Date().getTime()).then(end => {
+          const duration = end - start;
+
+          cy.log(`Image download took ${duration} milliseconds`).then(() => {
+            expect(duration < 5000).to.be.true;
+          });
+        });
+      });
+    } catch (err) {
+      cy.log('' + err);
+    }
+  });
+
+  // [Performance Quality Requirement]
+  // tests the time taken to upload a photo, create an associated image collection and publish an SNS notification.
+  it.only('Must upload a 5mb frame, create an image collection, and publish an SNS notification within 15 seconds', () => {
     cy.visit('/login');
     getLoginEmailInput().type(username);
     getLoginPasswordInput().type(password);
+    getLoginButton().click();
+
+    cy.url().should('include', '/dashboard').then(() => {
+      getCreateMap().click();
+      const directory = 'C:/Users/28scd/OneDrive/Pictures/Drone';       //this path must change depending on the machine
+      cy.get('input[type=file]').selectFile([`${directory}/1.jpg`], {
+        action: 'drag-drop'
+      }).then(() => {
+        cy.get('input[type=file]').trigger('change');
+        getParkSelect().select('Rietvlei Nature Reserve');
+        getFlightTypeSelect().select('Drone');
+        getResolutionSelect().select('1080p');
+        getFlightHeightInput().type('100');
+
+        const start = new Date().getTime();
+        getFileUploadSubmitBtn().click();
+        getFileUploadSuccessMsg().should('have.text', 'You can now navigate to the map catalogue to see the result of your upload').then(() => {
+          cy.wrap(new Date().getTime()).then((end) => {
+            const duration = end - start;
+            cy.log(`File upload took ${duration} milliseconds`).then(() => {
+              expect(duration < 15000).to.be.true;
+            });
+          });
+        });
+      });
+    });
   });
 
   //tests time from login button click till dashboard page is loaded
   it.only('Must login within 10 seconds', () => {
-    let start = new Date().getTime();//performance.now();
+    cy.visit('/login');
+    getLoginEmailInput().type(username);
+    getLoginPasswordInput().type(password);
 
+    let start = new Date().getTime();
     getLoginButton().click();
+
     cy.url().should('include', 'dashboard').then(() => {
-      cy.wrap(new Date().getTime()).then(end => {   // this is now a queued command which will
-        // only run after the previous command
+      cy.wrap(new Date().getTime()).then(end => {
         const duration = end - start;
         cy.log(`Login took ${duration} milliseconds`).then(() => {
           expect(duration < 10000).to.be.true;
@@ -83,37 +153,33 @@ describe('Logging the user in', () => {
 describe('Navigation', () => {
   beforeEach(() => {
     Cypress.config('defaultCommandTimeout', 15000);
-    cy.visit('/login');
-    getLoginEmailInput().type(username);
-    getLoginPasswordInput().type(password);
-    getLoginButton().click();
+    cy.visit('/login').then(() => {
+      getLoginEmailInput().type(username);
+      getLoginPasswordInput().type(password);
+      getLoginButton().click();
+    });
   });
 
   it.only('navigates to the account page', () => {
-    cy.wait(3000); //for spinner
-    getNavAccount().click();
-    cy.url().should('include', '/account');
+
+      getNavAccount().click();
+      cy.url().should('include', '/account');
+
   });
 
   it.only('navigates to the dashboard page', () => {
-    cy.wait(3000).then(() => {
-      getDashboard().click();
-      cy.url().should('include', '/dashboard');
-    });
+    getDashboard().click();
+    cy.url().should('include', '/dashboard');
   });
 
   it.only('navigates to the map catalogue page', () => {
-    cy.wait(4000).then(() => {
-      getMapCatalogue().click();
-      cy.url().should('include', '/map-catalogue');
-    });
+    getMapCatalogue().click();
+    cy.url().should('include', '/map-catalogue');
   });
 
   it.only('navigates to the create map page', () => {
-    cy.wait(3000).then(() => {
-      getCreateMap().click();
-      cy.url().should('include', '/create-map');
-    });
+    getCreateMap().click();
+    cy.url().should('include', '/create-map');
   });
 
   afterEach(() => {

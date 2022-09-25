@@ -386,17 +386,15 @@ export class FileUploadComponent {
           const inp: CreateImagesInput = {
             imageID: uuidv4(),
             collectionID: collectionID,
-            bucket_name: 'dylpickles-image-bucket',
+            bucket_name: 'aerial-mapping-bucket80642-dev',
             file_name: collectionID + '-frame-' + i + '.png',
           };
 
           console.log(i + '|' + inp.imageID);
 
-          promises.push (this.api
-            .CreateImages(inp));
-
-            promises.push(this.uploadToS3(collectionID, inp.imageID, frames[fCount++]));
-          }
+          promises.push(this.api.CreateImages(inp));
+          promises.push(this.uploadToS3(collectionID, inp.imageID, frames[fCount++]));
+        }
 
 
         promises.push(this.makeThumbnails(collectionID, frames));

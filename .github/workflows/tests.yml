@@ -55,14 +55,14 @@ jobs:
         run: npx ng test --watch=false --browsers=ChromeHeadless --code-coverage
 
         #run end-to-end tests
-      - name: Cypress E2E Tests
-        uses: cypress-io/github-action@v2
-        timeout-minutes: 10
-        with:
-          browser: firefox
-        env:
-          VALID_USERNAME: ${{ secrets.VALID_USERNAME }}
-          VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+      # - name: Cypress E2E Tests
+      #   uses: cypress-io/github-action@v2
+      #   timeout-minutes: 10
+      #   with:
+      #     browser: firefox
+      #   env:
+      #     VALID_USERNAME: ${{ secrets.VALID_USERNAME }}
+      #     VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
 
         #Upload codecov report
       - name: Upload Codecov Report
