@@ -10,7 +10,7 @@ const docClient = new DynamoDB.DocumentClient({ region: REGION });
 import fetch from 'node-fetch';
 const formdata = require('form-data');
 
-const webODM_URL = "http://localhost:8000/";
+const webODM_URL = "https://localhost:8000/";
 const webODM_username = "thedylpickles1@gmail.com";
 const webODM_password = "webodmpassword";
 const PENDING_JOBS_TABLE = "PendingJobs-i2e32qtaxjauzoami7sycjlvqy-dev";
@@ -129,26 +129,28 @@ async function authenticateWithWebOdm(): Promise<void> {
       headers: { "Content-Type": "application/json" }
     })
       .then(async (response: any) => {
+        console.log('Received Token Auth')
         tokenResp = await response.json();
         await fetch(webODM_URL + "api/projects/", {
           method: "GET",
           headers: { "Authorization": `JWT ${tokenResp.token}` }
         })
           .then(async (data: any) => {
+            console.log('Used token auth in GET request')
             const projects: any = await data.json();
             console.log(projects);
             projectId = projects[0].id;
           })
           .catch(err => {
-            throw new Error('\nError while authenticating with WebODM. Make sure WebODM is running.\n\n');
+            throw new Error('\nError while authenticating with WebODM. Make sure WebODM is running. Catch 1\n\n');
           });
       })
       .catch(err => {
-        throw new Error('\nError while authenticating with WebODM. Make sure WebODM is running.\n\n');
+        throw new Error('\nError while authenticating with WebODM. Make sure WebODM is running. Catch 2\n\n');
         //TODO: inform user that WebODM is not running here
       });
   } catch (e) {
-    throw new Error('\nError while authenticating with WebODM. Make sure WebODM is running.\n\n');
+    throw new Error('\nError while authenticating with WebODM. Make sure WebODM is running. Catch 3\n\n');
   }
 }
 
@@ -428,7 +430,7 @@ async function createMap(jobID: string) {
           console.log("In try, projectID", projectId)
           console.log("In try, token", tokenResp.token)
           console.log("In try, formdata", formdata)
-          let response = await fetch(`http://localhost:8000/api/projects/${projectId}/tasks/`, {
+          let response = await fetch(`https://localhost:8000/api/projects/${projectId}/tasks/`, {
             method: 'POST',
             body: formData,
             headers: {
