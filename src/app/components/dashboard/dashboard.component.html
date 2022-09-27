@@ -76,15 +76,17 @@
                     [icon]="complete"
                   ></fa-icon>
                   <span class="message">Upload</span>
-                  <span class="completeName">{{
-                    collection.collectionName
-                  }}</span>
-                  <button
-                    class="close"
-                    (click)="dismiss(collection.collectionID, 'complete')"
-                  >
-                    <mat-icon>close</mat-icon>
-                  </button>
+                  
+                  <span class="completeName" *ngIf="collection?.collectionName=='' || collection.collectionName==undefined; else elseBlock"
+                      >{{ collection.collectionID }}</span
+                    >
+                  <ng-template #elseBlock>
+                    <span class="completeName"
+                      >{{ collection.collectionName }}</span
+                    >
+                  </ng-template>
+                  <!-- <span class="completeDate">{{m.date}}</span> -->
+                  <button class="close" (click)="dismiss(collection.collectionID, 'complete')"><mat-icon>close</mat-icon></button>
                 </mat-list-item>
               </mat-list>
             </div>
@@ -120,10 +122,15 @@
                     class="icon brown-icon"
                     [icon]="progress"
                   ></fa-icon>
-                  <span class="progressName"
-                    >Stitching {{ collection.collectionID }}, in
-                    progress...</span
+                  <span class="progressName" *ngIf="collection?.collectionName=='' || collection.collectionName==undefined; else elseBlock"
+                   
+                    >{{ collection.collectionID }}, stitching in progress...</span
                   >
+                  <ng-template #elseBlock>
+                    <span class="progressName" 
+                    >{{ collection.collectionName }}, stitching in progress...</span
+                  >
+                  </ng-template>
                 </mat-list-item>
               </mat-list>
             </div>
