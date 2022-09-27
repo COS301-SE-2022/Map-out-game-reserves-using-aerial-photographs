@@ -11,6 +11,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FooterModule } from '../shared/footer/footer.module';
 import { SpinnerModule } from '../shared/spinner/spinner.module';
 import { MatIconModule } from '@angular/material/icon';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [RegisterComponent],
@@ -26,7 +27,8 @@ import { MatIconModule } from '@angular/material/icon';
     FooterModule,
     RouterModule, 
     SpinnerModule,
-    MatIconModule
+    MatIconModule,
+    MatProgressSpinnerModule
   ]
 })
 export class RegisterModule { }

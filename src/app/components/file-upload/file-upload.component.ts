@@ -178,6 +178,10 @@ export class FileUploadComponent {
         this.finalHeight = 360;
         this.finalWidth = 640;
         break;
+      
+      default:
+        this.finalHeight = 360;
+        this.finalWidth = 640;
     }
     console.log('size:', this.finalHeight, this.finalWidth, selected);
 
@@ -200,7 +204,9 @@ export class FileUploadComponent {
     const height = flight_height?.value;
     console.log(height);
 
-    if (this.files[0] && parkSel != '' && typeSel != '' && height != '') {
+    const collectionName = (document.getElementById('collectionName') as HTMLInputElement).value;
+
+    if (this.files[0] && parkSel != '' && typeSel != '' && height != '' && collectionName!='') {
       const h: number = +height;
       let promises: Promise<any>[] = [];
 
@@ -226,8 +232,6 @@ export class FileUploadComponent {
       //
 
       const newColID = uuidv4();
-
-      const collectionName = (document.getElementById('collectionName') as HTMLInputElement).value;
 
       const imageCollection: CreateImageCollectionInput = {
         collectionID: newColID,

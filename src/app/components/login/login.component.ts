@@ -19,6 +19,7 @@ export class LoginComponent {
 
   loginForm: UntypedFormGroup;
   isSubmitted: boolean;
+  errState:boolean;
   inAnimation: boolean;
   hide:boolean;
 
@@ -36,6 +37,7 @@ export class LoginComponent {
     this.isSubmitted = false;
 
     this.hide = true;
+    this.errState = false;
   }
 
   windowReload() {
@@ -44,6 +46,11 @@ export class LoginComponent {
 
   async login() {
     if(this.isSubmitted){
+      this.errState=false;
+      if(document.getElementById('loginBtn')!=null) {//for testing purposes
+        document.getElementById('loginBtn')!.style.display="none";
+      }
+      
       const email = this.loginForm.controls['email'];
       const password = this.loginForm.controls['password'];
       if(email.value != '' && password.value != '') {
@@ -60,11 +67,18 @@ export class LoginComponent {
         } catch (error) {
             console.log('error signing in', error);
             this.errorOccurred(""+error);
-            this.isSubmitted=false;
+            if(document.getElementById('loginBtn')!=null) {//for testing purposes
+              document.getElementById('loginBtn')!.style.display="flex";
+            }
+
             return error;
         }
       }
       else {
+        this.errState=true;
+        if(document.getElementById('loginBtn')!=null) {//for testing purposes
+          document.getElementById('loginBtn')!.style.display="flex";
+        }
         return 'email or password empty';
       }
     }
@@ -72,8 +86,9 @@ export class LoginComponent {
   }
 
   errorOccurred(err:string){
+    this.isSubmitted=false;
     if (err!= "") {
-      if(err.includes("User does not exist")) {
+      if(err.includes("User does not exist")|| err.includes("Incorrect username or password")) {
         if(document.getElementById("error")){ //for testing purposes
           document.getElementById("error")!.innerHTML="Either the email or password entered is incorrect"
         }
