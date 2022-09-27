@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard.component';
-import { BarChartComponent } from './bar-chart/bar-chart.component';
 import { MapboxComponent } from './mapbox/mapbox.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatListModule } from '@angular/material/list';
@@ -14,7 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
-  declarations: [DashboardComponent, BarChartComponent, MapboxComponent],
+  declarations: [DashboardComponent, MapboxComponent],
   imports: [
     CommonModule,
     FontAwesomeModule,

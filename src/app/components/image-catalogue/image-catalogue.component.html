@@ -1,7 +1,4 @@
 <div class="background">
-  <!-- <div class="heading">
-    <h1>Image Catalogue</h1>
-  </div> -->
   <aerial-mapping-side-navbar></aerial-mapping-side-navbar>
   <app-footer></app-footer>
   <div class="content">
@@ -9,52 +6,82 @@
       <h3>MAP CATALOGUE</h3>
       <mat-divider></mat-divider>
     </div>
-    <br/>
+    <br />
     <div id="searchAndSortContainer">
       <mat-form-field [ngStyle]="{ width: '75%', height: '63px' }" class="form">
         <button id="searchBtn" matPrefix mat-icon-button aria-label="Search">
           <mat-icon inline="true">search</mat-icon>
         </button>
 
-        <input (keyup)="searchCatalogues()" (change)="searchCatalogues()"
-          id="searchInput" class="search" type="text" placeholder="Search" value="" matInput/>
+        <input
+          (keyup)="searchCatalogues()"
+          (change)="searchCatalogues()"
+          id="searchInput"
+          class="search"
+          type="text"
+          placeholder="Search"
+          value=""
+          matInput
+        />
       </mat-form-field>
 
-        <div id="sort">
-          <mat-form-field [ngStyle]="{ width: '99%', height: '60px', backgroundColor: 'none' }">
-            <mat-label id="right" class="sortLabel">Sort By</mat-label>
-            <mat-select matInput 
-              id="left" class="sort" style="display: inline">
-              <mat-option [value]="sort.date" selected (click)="orderByDate()">Upload Date</mat-option>
-              <mat-option [value]="sort.park" (click)="orderByPark()">Map Name</mat-option>
-              <mat-option [value]="sort.name" (click)="orderByName()">Park</mat-option>
-
-            </mat-select>
-          </mat-form-field>
-        </div>
+      <div id="sort">
+        <mat-form-field
+          [ngStyle]="{ width: '99%', height: '60px', backgroundColor: 'none' }"
+        >
+          <mat-label id="right" class="sortLabel">Sort By</mat-label>
+          <mat-select matInput id="left" class="sort" style="display: inline">
+            <mat-option [value]="sort.date" selected (click)="orderByDate()"
+              >Upload Date</mat-option
+            >
+            <mat-option [value]="sort.park" (click)="orderByPark()"
+              >Map Name</mat-option
+            >
+            <mat-option [value]="sort.name" (click)="orderByName()"
+              >Park</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </div>
     </div>
 
     <div style="height: 69%; overflow-y: auto; margin-top: 2%; width: 100%">
-      <mat-card class="container" *ngFor="let catData of catalogues" id="{{ catData.catalogue.collectionID }}">
+      <mat-card
+        class="container"
+        *ngFor="let catData of catalogues"
+        id="{{ catData.catalogue.collectionID }}"
+      >
         <mat-card-header class="head">
-          <!-- Just commented out for now -->
-          <!-- <span style="float: left">{{ catData.catalogue.parkID }}</span>
-          <span style="float: right">{{ catData.catalogue.createdAt }}</span> -->
-          <span style="float: left">{{ catData.catalogue.collectionName }}</span>
+          <span style="float: left">{{
+            catData.catalogue.collectionName
+          }}</span>
           <span style="float: left">{{ catData.catalogue.createdAt }}</span>
         </mat-card-header>
         <br />
         <div class="center">
-          <mat-progress-spinner mode="indeterminate" class = "spinner" diameter = "50" style = "z-index: 1;"></mat-progress-spinner>
-
+          <mat-progress-spinner
+            mode="indeterminate"
+            class="spinner"
+            diameter="50"
+            style="z-index: 1"
+          ></mat-progress-spinner>
         </div>
         <mat-card-content class="cont">
-          <ng-container *ngFor="let img of catData.thumbnails" >
-            <img style="width: 32%; display: inline-block; padding: 1%;" [src]="img"/>
+          <ng-container *ngFor="let img of catData.thumbnails">
+            <img
+              style="width: 32%; display: inline-block; padding: 1%"
+              [src]="img"
+            />
           </ng-container>
         </mat-card-content>
         <mat-card-footer class="foot">
-          <button class="link" (click)="openImageDialog(catData)" matTooltip="View images & create maps">View</button>
+          <button
+            class="link"
+            (click)="openImageDialog(catData)"
+            matTooltip="View images & create maps"
+          >
+            View
+          </button>
         </mat-card-footer>
       </mat-card>
     </div>

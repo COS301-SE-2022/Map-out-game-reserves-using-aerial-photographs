@@ -13,7 +13,6 @@ import {
   MAT_TOOLTIP_DEFAULT_OPTIONS,
   MatTooltipDefaultOptions,
 } from '@angular/material/tooltip';
-import { number, string } from 'yargs';
 
 /** Custom options the configure the tooltip's default show/hide delays. */
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
@@ -60,7 +59,7 @@ export class ImageCatalogueComponent implements OnInit {
   inAnimation: boolean;
   spinners: HTMLElement[];
 
-  flag=false;
+  flag = false;
 
   constructor(
     public dialog: MatDialog,
@@ -68,44 +67,45 @@ export class ImageCatalogueComponent implements OnInit {
     private controller: ControllerService,
     private snackbar: MatSnackBar
   ) {
-    // window.location.reload();
     //loader
     this.inAnimation = false;
     this.fadeOut();
 
     this.selected = 'date';
     this.getAllCatalogues();
-    if(this.controller.websocket != null){
+    if (this.controller.websocket != null) {
       this.controller.websocket.onmessage = (msg: any) => {
-        this.snackbar.open(`New map stitching job (${msg}) completed.`, "✔️", { verticalPosition: 'top', duration: 3000 });
+        this.snackbar.open(`New map stitching job (${msg}) completed.`, '✔️', {
+          verticalPosition: 'top',
+          duration: 3000,
+        });
         //make 'View Map' button visible
         this.getAllCatalogues();
-      }
+      };
     }
-    this.spinners=[];
+    this.spinners = [];
     setTimeout(() => {
-      this.spinners = Array.from(document.getElementsByClassName('spinner') as HTMLCollectionOf<HTMLElement>)
-        // console.log(this.spinners);
+      this.spinners = Array.from(
+        document.getElementsByClassName(
+          'spinner'
+        ) as HTMLCollectionOf<HTMLElement>
+      );
     }, 5000);
-
   }
 
   ngOnInit() {
-    if(this.controller.websocket != null){
+    if (this.controller.websocket != null) {
       this.controller.websocket.onmessage = (msg: any) => {
-        console.log("SNS message received ", msg);
         this.getAllCatalogues();
-
       };
     }
   }
 
+  //fetches all the map collection data from dynamoDB
   getAllCatalogues() {
     this.api
       .ListImageCollections()
       .then((data: ListImageCollectionsQuery) => {
-        console.log(data);
-
         for (const catalog of data.items) {
           this.catalogues.push({
             catalogue: catalog,
@@ -115,16 +115,14 @@ export class ImageCatalogueComponent implements OnInit {
             completed: catalog?.completed,
             error: catalog?.error,
             taskID: catalog?.taskID,
-            collectionName: catalog?.collectionName
+            collectionName: catalog?.collectionName,
           });
         }
 
         for (const catalogData of this.catalogues) {
-          //console.log(22,catalogData.catalogue.collectionID);
           this.api
             .ImagesByCollectionId(catalogData.catalogue.collectionID)
             .then((resp: any) => {
-              //console.log(resp.items);
               for (const image of resp.items) {
                 catalogData.images.push({ image: image, url: '' });
               }
@@ -145,7 +143,7 @@ export class ImageCatalogueComponent implements OnInit {
                 for(let i = 0;i<3;i++){
                   this.controller
                     .S3download(
-                      "thumbnail_"+i,
+                      'thumbnail_'+i,
                       catalogData.catalogue.collectionID,
                       'thumbnails',
                       false
@@ -158,7 +156,7 @@ export class ImageCatalogueComponent implements OnInit {
                 this.tempCatalogues = this.catalogues;
                 setTimeout(() => {
                     // console.log(this.spinners);
-                    this.spinners.forEach(spin => {
+                    this.spinners.forEach((spin) => {
                       spin.style.display="none";
                     });
                 }, 7000);
@@ -178,6 +176,7 @@ export class ImageCatalogueComponent implements OnInit {
       });
   }
 
+  //reorders the map collections by date
   orderByDate() {
     this.catalogues.sort(function (a, b) {
       if (a.catalogue.createdAt < b.catalogue.createdAt) {
@@ -190,6 +189,7 @@ export class ImageCatalogueComponent implements OnInit {
     });
   }
 
+  //reorders the map collections by park name
   orderByPark() {
     this.catalogues.sort(function (a, b) {
       if (a.catalogue.GamePark.park_name < b.catalogue.GamePark.park_name) {
@@ -202,6 +202,7 @@ export class ImageCatalogueComponent implements OnInit {
     });
   }
 
+  //reorders the map collections by collection name
   orderByName() {
     this.catalogues.sort(function (a, b) {
       if (a.catalogue.collectionName < b.catalogue.collectionName) {
@@ -214,6 +215,7 @@ export class ImageCatalogueComponent implements OnInit {
     });
   }
 
+  //filters the available map collections by park name
   searchCatalogues() {
     // search for either a matching date string or a collection name
     // or a park name?
@@ -231,35 +233,7 @@ export class ImageCatalogueComponent implements OnInit {
     });
   }
 
-  // onChangeSort(selectedOption: any) {
-  //   this.selected = selectedOption.target.value;
-  //   if (this.selected == 'date') {
-  //     this.sortByDate();
-  //   } else if (this.selected == 'park') {
-  //     this.sortByPark();
-  //   }
-  //   else if (this.selected == 'name') {
-  //     this.sortByName();
-  //   }
-  // }
-
-  // sortByDate() {
-  //   this.catalogues.sort((a, b) => {
-  //     return (
-  //       new Date(a.catalogue.upload_date_time!).getTime() -
-  //       new Date(b.catalogue.upload_date_time!).getTime()
-  //     );
-  //   });
-  // }
-
-  // sortByPark() {
-  //   this.catalogues.sort((a: any, b: any) => a.catalogue.GamePark.park_name - b.catalogue.GamePark.park_name!);
-  // }
-
-  // sortByName() {
-  //   this.catalogues.sort((a: any, b: any) => a.catalogue.collectionName - b.catalogue.collectionName!);
-  // }
-
+  //opens the interface to view the map images and the stitched map
   enlarge(catalogue: CatalogData) {
     const doc = document.getElementById('popup');
     if (doc !== null) {
@@ -268,9 +242,9 @@ export class ImageCatalogueComponent implements OnInit {
     }
   }
 
-  openImageDialog(catalogue:CatalogData): void {
-    this.selectedCatalogue = catalogue
-    console.log(this.selectedCatalogue);
+  //opens the selected image of a map collection
+  openImageDialog(catalogue: CatalogData): void {
+    this.selectedCatalogue = catalogue;
 
     const dialogRef = this.dialog.open(ImageDialogComponent, {
       width: '100vw',
@@ -278,27 +252,25 @@ export class ImageCatalogueComponent implements OnInit {
     });
   }
 
-  showmap(taskID: string) {
-    console.log(taskID);
-  }
-
-  fadeOut () {
-    if (!this.inAnimation){
+  //closes the loader
+  fadeOut() {
+    if (!this.inAnimation) {
       this.inAnimation = true;
 
       document.addEventListener('readystatechange', () => {
-        // console.log("YES");
-        if(document.readyState === 'complete'||document.readyState==='interactive'){
-          // console.log("HELLO!!!!!!!!!!!");
-          const loader = document.getElementById("pre-loader");
-          loader!.setAttribute("class", "");
-          loader!.setAttribute("class", "fade-out");
+        if (
+          document.readyState === 'complete' ||
+          document.readyState === 'interactive'
+        ) {
+          const loader = document.getElementById('pre-loader');
+          loader!.setAttribute('class', '');
+          loader!.setAttribute('class', 'fade-out');
           setTimeout(() => {
             this.inAnimation = false;
             loader?.remove();
           }, 3000);
         }
       });
+    }
   }
-}
 }

@@ -1,5 +1,4 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
   APIService,
@@ -7,7 +6,7 @@ import {
   CreateImageCollectionInput,
   CreateFlightDetailsInput,
   CreatePendingJobsInput,
-  CreateGameParkInput
+  CreateGameParkInput,
 } from 'src/app/API.service';
 import { ControllerService } from 'src/app/api/controller/controller.service';
 import { v4 as uuidv4 } from 'uuid';
@@ -18,20 +17,15 @@ import { ParksDialogComponent } from './parks-dialog/parks-dialog.component';
 import { PublishCommand } from '@aws-sdk/client-sns';
 import { SNSClient } from '@aws-sdk/client-sns';
 
-const REGION = "sa-east-1";
+const REGION = 'sa-east-1';
 let snsClient = new SNSClient({
   apiVersion: '2010-03-31',
   region: REGION,
   credentials: {
     accessKeyId: process.env.ACCESS_KEY_ID!,
-    secretAccessKey: process.env.SECRET_ACCESS_KEY!
-  }
-  // credentials: {
-    //accessKeyId: environment.ACCESS_KEY_ID,
-    //secretAccessKey: environment.SECRET_ACCESS_KEY
-  //}
+    secretAccessKey: process.env.SECRET_ACCESS_KEY!,
+  },
 });
-
 
 interface Park {
   value: string | undefined;
@@ -53,9 +47,8 @@ interface ImageSize {
   templateUrl: './file-upload.component.html',
   styleUrls: ['./file-upload.component.scss'],
 })
-
 export class FileUploadComponent {
-  @ViewChild("parks") parks!: ElementRef<HTMLInputElement>;
+  @ViewChild('parks') parks!: ElementRef<HTMLInputElement>;
 
   title = 'file-upload-component';
 
@@ -64,16 +57,15 @@ export class FileUploadComponent {
   fileName = '';
   files: File[] = [];
   formData = new FormData();
-  // frames = [];
   frameCount = 0;
   uploadCount = 0;
   splittingProgress = 0;
   uploadingProgress = 0;
   finalWidth = 0;
   finalHeight = 0;
-  name: string = "";
-  location: string = "";
-  address: string = "";
+  name: string = '';
+  location: string = '';
+  address: string = '';
 
   outputs: HTMLElement[];
 
@@ -88,11 +80,7 @@ export class FileUploadComponent {
   sliderValue = 1;
   vertical = false;
   tickInterval = 1;
-
-  parksList: Park[] = [
-    // {value: 'Somkhanda-1', viewValue: 'Somkhanda'},
-    // {value: 'RietVlei-2', viewValue: 'Riet Vlei'},
-  ];
+  parksList: Park[] = [];
 
   flight: FlightType[] = [
     { value: 'Drone', viewValue: 'Drone' },
@@ -115,21 +103,13 @@ export class FileUploadComponent {
     private snackBar: MatSnackBar,
     public dialog: MatDialog
   ) {
-    // const imageForm = document.querySelector("#imageForm");
-    // const imageInput = document.querySelector("#fileUpload");
-
-    // imageForm?.addEventListener("submit", async event =>{
-    //   event.preventDefault();
-    //   this.uploadFileLocal();
-    //   console.log(this.file?.name);
-    // })
     this.outputs = [];
+
     //loader
     this.inAnimation = false;
     this.fadeOut();
 
     this.api.ListGameParks().then((event: any) => {
-      //console.log(event.items[0]?.park_name);
       for (let i = 0; i < event.items.length; i++) {
         const element = event.items[i];
         this.parksList.push({
@@ -140,63 +120,34 @@ export class FileUploadComponent {
     });
   }
 
-  getSliderValue(event:any) {
-    // console.log(event.value);
+  //gets value from resolution slider
+  getSliderValue(event: any) {
     this.sliderValue = event.value;
- }
+  }
 
+  //creats a map collection on the database
   uploadFileLocal(ev: Event) {
     ev.preventDefault();
-    console.log('Submit button pressed');
     this.frameCount = 0;
     this.uploadCount = 0;
     this.splittingProgress = 0;
     this.uploadingProgress = 0;
-
-    let resolution = document.getElementById('resolution') as HTMLSelectElement;
-    let selected = resolution.selectedIndex;
-
-    switch (selected) {
-      case 1:
-        this.finalHeight = 1080;
-        this.finalWidth = 1920;
-        break;
-
-      case 2:
-        this.finalHeight = 720;
-        this.finalWidth = 1280;
-        break;
-
-      case 3:
-        this.finalHeight = 480;
-        this.finalWidth = 720;
-        break;
-
-      case 4:
-        this.finalHeight = 360;
-        this.finalWidth = 640;
-        break;
-    }
-    console.log('size:', this.finalHeight, this.finalWidth, selected);
 
     // get the id of the park
     let e = document.getElementById('parks') as HTMLSelectElement;
     let sel = e.selectedIndex;
     let opt = e.options[sel];
     let parkSel = opt.value;
-    console.log(parkSel);
 
     //get the flying option
     e = document.getElementById('fType') as HTMLSelectElement;
     sel = e.selectedIndex;
     opt = e.options[sel];
     let typeSel = opt.value;
-    console.log(typeSel);
 
     //get the height
     const flight_height = document.getElementById('height') as HTMLInputElement;
     const height = flight_height?.value;
-    console.log(height);
 
     if (this.files[0] && parkSel != '' && typeSel != '' && height != '') {
       const h: number = +height;
@@ -212,94 +163,93 @@ export class FileUploadComponent {
         flightID: uuidv4(),
         flight_height: h,
         flight_type: typeSel,
-        /////////////////////////////TODO: how to get pilot id
-        // pilotID?: string | null;
       };
 
       //create flight in the database
-      this.api.CreateFlightDetails(flight).then((resp: any) => {
-        console.log(resp);
-      }).catch(e => { console.log(e) });
-
-      //
+      this.api
+        .CreateFlightDetails(flight)
+        .catch((e) => {
+          console.log(e);
+        });
 
       const newColID = uuidv4();
 
-      const collectionName = (document.getElementById('collectionName') as HTMLInputElement).value;
+      const collectionName = (
+        document.getElementById('collectionName') as HTMLInputElement
+      ).value;
 
       const imageCollection: CreateImageCollectionInput = {
         collectionID: newColID,
         parkID: parkSel,
-        //   upload_date_time: string,
         flightID: flight.flightID,
         completed: false,
         pending: true,
         error: false,
-        //taskID: taskId
-        // _version?: number | null;
-        collectionName:collectionName
+        collectionName: collectionName,
       };
 
-      this.api.CreateImageCollection(imageCollection).then((res: any) => {
-        console.log("CreateImageCollection response:", res);
+      this.api
+        .CreateImageCollection(imageCollection)
+        .then(() => {
+          //disable navbar when system is uploading file(s)
+          document.getElementById('buttons')!.style.display = 'none';
 
-        //disable navbar when system is uploading file(s)
-        document.getElementById('buttons')!.style.display='none';
+          if (this.files.length > 1) {
+            promises.push(this.uploadImages(newColID));
+          } else {
+            promises.push(this.uploadVideo(newColID).catch(err => {
+              console.log(err);
+              throw err;
+            }));
+          }
 
-        if (this.files.length > 1) {
-          promises.push(this.uploadImages(newColID));
-        } else {
-          promises.push(this.uploadVideo(newColID).catch(err => {
-            console.log(err);
-            throw err;
-          }));
-        }
+          //create a pending job in the PendingJobs table, with jobID = this collectionID
+          const pendingJob: CreatePendingJobsInput = {
+            jobID: newColID,
+            busy: false,
+            collectionID: imageCollection.collectionID,
+          };
+          this.api.CreatePendingJobs(pendingJob).then(() => {
+            //wait for all promises to resolve
+            Promise.all(promises).then(async () => {
+              //publish SNS message to 'stitch_jobs' topic with the jobID - once all image uploads are complete
+              await this.publishSNSNotification();
 
-        //create a pending job in the PendingJobs table, with jobID = this collectionID
-        const pendingJob: CreatePendingJobsInput = {
-          jobID: newColID,
-          busy: false,
-          collectionID: imageCollection.collectionID
-        }
-        this.api.CreatePendingJobs(pendingJob).then((resp: any) => {
-          console.log("CreatePendingJob response:", resp);
-
-          //wait for all promises to resolve
-          Promise.all(promises).then(async () => {
-
-            //publish SNS message to 'stitch_jobs' topic with the jobID - once all image uploads are complete
-            await this.publishSNSNotification();
-
-            //route to map catalogue page
-            //this.router.navigate(['map-catalogue']);
-              document.getElementById('buttons')!.style.display='block';
-              if(document.getElementById('successful-submit')){
-                document.getElementById('successful-submit')!.innerHTML='<h4 class="variable" style="color: #5f5f5f;">You can now navigate to the map catalogue to see the result of your upload</h4>';
+              //route to map catalogue page
+              document.getElementById('buttons')!.style.display = 'block';
+              if (document.getElementById('successful-submit')) {
+                document.getElementById('successful-submit')!.innerHTML =
+                  '<h4 class="variable" style="color: #5f5f5f;">You can now navigate to the map catalogue to see the result of your upload</h4>';
               }
-              this.outputs = Array.from(document.getElementsByClassName('videoSplitting') as HTMLCollectionOf<HTMLElement>);
+              this.outputs = Array.from(
+                document.getElementsByClassName(
+                  'videoSplitting'
+                ) as HTMLCollectionOf<HTMLElement>
+              );
 
-              if(this.outputs!=null){
-                this.outputs.forEach(output => {
-                  if(output!=null){
-                    output.innerHTML="";
+              if (this.outputs != null) {
+                this.outputs.forEach((output) => {
+                  if (output != null) {
+                    output.innerHTML = '';
                   }
                 });
               }
           }).catch(err => {
             console.log(err);
           });
+        })
+        .catch((e) => {
+          console.log(e);
         });
-      }).catch(e => { console.log(e) });
       this.submitPressed = true;
     } else {
       this.snackBar.open('Fill in all the details about the upload.', '❌');
     }
   }
 
+  //changes the view to select data for the map
   onFileSelected(event: any) {
     this.submitPressed = false;
-    console.log('File staged!');
-    //console.log(this.parks[0].viewValue);
     this.fileName = '';
 
     for (let index = 0; index < event.target.files.length; index++) {
@@ -322,13 +272,16 @@ export class FileUploadComponent {
     }
   }
 
+  //removes all selected images and videos
   clearSelection() {
     window.location.reload();
   }
 
+  //uploads images to S3
   async uploadImages(collectionID: string): Promise<any> {
-    if(document.getElementById('video')!=null){ //for testing purposes
-      document.getElementById('video')!.innerHTML='';
+    if (document.getElementById('video') != null) {
+      //for testing purposes
+      document.getElementById('video')!.innerHTML = '';
     }
 
     return new Promise<any>(async (resolve) => {
@@ -336,8 +289,6 @@ export class FileUploadComponent {
       const frames = [];
       this.frameCount = this.files.length;
       for (var i = 0; i < this.files.length; i++) {
-        //TODO: get from dropdown
-
         const inp: CreateImagesInput = {
           imageID: uuidv4(),
           collectionID: collectionID,
@@ -346,20 +297,7 @@ export class FileUploadComponent {
         };
 
         frames[i] = new File([this.files[i]], inp.imageID + '.png');
-/*         var newBlob = this.resizeImage(
-          frames[i],
-          this.finalWidth,
-          this.finalHeight
-        );
-        await newBlob.then((newBlob) => {
-          frames[i] = newBlob;
-        }); */
-
-        promises.push(
-          this.api
-            .CreateImages(inp)
-        );
-
+        promises.push(this.api.CreateImages(inp));
         promises.push(this.uploadToS3(collectionID, inp.imageID, frames[i]));
       }
       promises.push(this.makeThumbnails(collectionID, frames));
@@ -370,6 +308,7 @@ export class FileUploadComponent {
     });
   }
 
+  //splits video into images and uploads them to S3
   uploadVideo(collectionID: string): Promise<any> {
     return new Promise<any>(async (resolve, reject) => {
       let promises: Promise<any>[] = [];
@@ -385,7 +324,6 @@ export class FileUploadComponent {
       // extract frames (video, interval(time), quality(0-1), final width, final height)
       const interval = 1; //fps
       const quality = 1.0;
-      // TODO: NEED TO GET THESE VALUES FROM THE DROP DOWN @STEVEN
       await this.extractFramesFromVideo(
         img.src,
         interval,
@@ -394,10 +332,7 @@ export class FileUploadComponent {
         this.finalHeight
       ).then(async (frames) => {
         this.frameCount = frames.length;
-
-        // const frame = frames[1];
         var fCount = 0;
-        //code in lines 215-____ replaces commented code in lines ___-___
 
         //create an image collection
         for (let i = 0; i < frames.length; i++) {
@@ -408,13 +343,11 @@ export class FileUploadComponent {
             file_name: collectionID + '-frame-' + i + '.png',
           };
 
-          console.log(i + '|' + inp.imageID);
-
           promises.push(this.api.CreateImages(inp));
-          promises.push(this.uploadToS3(collectionID, inp.imageID, frames[fCount++]));
+          promises.push(
+            this.uploadToS3(collectionID, inp.imageID, frames[fCount++])
+          );
         }
-
-
         promises.push(this.makeThumbnails(collectionID, frames));
       });
 
@@ -424,6 +357,7 @@ export class FileUploadComponent {
     });
   }
 
+  //uploads a file to S3
   uploadToS3(collectionID: string, imageID: string, file: any): Promise<any> {
     return new Promise((resolve, reject) => {
       //converting blob to png
@@ -433,20 +367,22 @@ export class FileUploadComponent {
         .S3upload(imageID, collectionID, 'images', newFile, 'image/png')
         .then((data: any) => {
           this.uploadCount++;
-          console.log(this.uploadCount);
-          this.uploadingProgress = Math.round((this.uploadCount / this.frameCount) * 100);
+          this.uploadingProgress = Math.round(
+            (this.uploadCount / this.frameCount) * 100
+          );
           if (this.uploadingProgress > 100) {
             this.uploadingProgress = 100;
           }
-
           resolve(data);
-        }).catch(e => {
+        })
+        .catch((e) => {
           console.log(e);
           reject(e);
         });
     });
   }
 
+  //splits video into frames
   extractFramesFromVideo = async (
     videoUrl: string,
     interval: number,
@@ -471,13 +407,11 @@ export class FileUploadComponent {
       video.currentTime = 10000000 * Math.random();
     }
     const duration = video.duration;
-
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
     const [w, h] = [video.videoWidth, video.videoHeight];
     canvas.width = width;
     canvas.height = height;
-
     let currentTime = 0;
     const frames = [];
 
@@ -489,7 +423,6 @@ export class FileUploadComponent {
         const base64ImageData = canvas.toDataURL('image/png', quality);
         const imageBlob = await fetch(base64ImageData).then((r) => r.blob());
         frames.push(imageBlob);
-        // frames.push(base64ImageData);
       }
       this.splittingProgress = Math.round((currentTime / duration) * 100);
       currentTime += interval;
@@ -498,6 +431,7 @@ export class FileUploadComponent {
     return frames;
   };
 
+  //resizes an images resolution
   async resizeImage(blobFile: File, width: number, height: number) {
     // quality value for webp and jpeg formats.
     const quality = 100;
@@ -507,6 +441,7 @@ export class FileUploadComponent {
     return await fromBlob(blobFile, quality, width, height /*, format */);
   }
 
+  //takes 3 images, resizes them and uploads them to S3 as thumbnails
   async makeThumbnails(collectionID: string, frames: any[]) {
     return new Promise(async (resolve) => {
       let promises: Promise<any>[] = [];
@@ -516,29 +451,32 @@ export class FileUploadComponent {
       thumbnails.push(frames[frames.length - 1]);
 
       for (var i = 0; i < 3; i++) {
-        // console.log("THUMBNAIL"+thumbnails[i]);
         var newBlob = this.resizeImage(thumbnails[i], 240, 180);
         await newBlob.then((newBlob) => {
-          // let newBlob = thumbnails[i];
           var newFile = new File([newBlob], 'thumbnail_' + i + '.png');
 
-          promises.push(this.apiController
-            .S3upload(
-              'thumbnail_' + i,
-              collectionID,
-              'thumbnails',
-              newFile,
-              'image/png'
-            )
-            .then(() => {
-              this.uploadCount++;
-              this.uploadingProgress = Math.round((this.uploadCount / this.frameCount) * 100);
-              if (this.uploadingProgress > 100) {
-                this.uploadingProgress = 100;
-              }
-            }).catch(e => {
-              console.log(e);
-            }));
+          promises.push(
+            this.apiController
+              .S3upload(
+                'thumbnail_' + i,
+                collectionID,
+                'thumbnails',
+                newFile,
+                'image/png'
+              )
+              .then(() => {
+                this.uploadCount++;
+                this.uploadingProgress = Math.round(
+                  (this.uploadCount / this.frameCount) * 100
+                );
+                if (this.uploadingProgress > 100) {
+                  this.uploadingProgress = 100;
+                }
+              })
+              .catch((e) => {
+                console.log(e);
+              })
+          );
         });
       }
 
@@ -548,14 +486,14 @@ export class FileUploadComponent {
     });
   }
 
+  //publishesthat the job is available for stitching
   async publishSNSNotification() {
     const publishParams = {
       Message: 'New pending stitch job published!',
-      TopicArn: 'arn:aws:sns:sa-east-1:870416143884:stitch_jobs'
+      TopicArn: 'arn:aws:sns:sa-east-1:870416143884:stitch_jobs',
     };
     try {
       const data = await snsClient.send(new PublishCommand(publishParams));
-      console.log("Successfully published SNS notification", data);
       return data; //For unit tests
     } catch (e) {
       console.log(e);
@@ -563,52 +501,34 @@ export class FileUploadComponent {
     }
   }
 
+  //opens dialog to add a new park
   openParksDialog(): void {
     const dialogRef = this.dialog.open(ParksDialogComponent, {
       width: '500px',
-      data: {name:'', location:'', address:''}
+      data: { name: '', location: '', address: '' },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if(result == undefined) {
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result == undefined) {
         return;
       }
       this.name = result.name;
       this.location = result.location;
       this.address = result.address;
-
-      // console.log(result);
-
-      // //change username in DynamoDB
-      // const updatedUser: UpdateUserInput = {
-      //   userID: this.currUserID,
-      //   user_name: this.newName
-      //   //_version: this.user._version
-      // }
-      // this.user._version++;
-      // this.api.UpdateUser(updatedUser).then((res: any) => {
-      //   this.name.nativeElement.innerHTML = this.newName;
-      //   this.currName = this.newName;
-      //   this.name.nativeElement.value = this.newName;
-      //   console.log(res);
-      // });
       this.createPark();
     });
-
-
   }
   //this is park stuff that might work
-  private createPark():void {
+  private createPark(): void {
     const newPark: CreateGameParkInput = {
       parkID: uuidv4(),
       park_name: this.name,
       park_location: this.location,
       park_address: this.address,
-      // _version: 1
-    }
-    this.api.CreateGamePark(newPark)
-      .then((resp:any) => {
-        console.log(resp);
+    };
+    this.api
+      .CreateGamePark(newPark)
+      .then(() => {
         alert('Successfully created!');
         return 1;
       })
@@ -618,22 +538,20 @@ export class FileUploadComponent {
       });
   }
 
-  fadeOut () {
-    if (!this.inAnimation){
+  //closes the loading screen
+  fadeOut() {
+    if (!this.inAnimation) {
       this.inAnimation = true;
-      document.addEventListener('readystatechange', (event) => {
-        if(document.readyState === 'complete'){
-          const loader = document.getElementById("pre-loader");
-          loader!.setAttribute("class", "fade-out");
-          let count = 0;
+      document.addEventListener('readystatechange', () => {
+        if (document.readyState === 'complete') {
+          const loader = document.getElementById('pre-loader');
+          loader!.setAttribute('class', 'fade-out');
           setTimeout(() => {
             this.inAnimation = false;
             loader?.remove();
           }, 3000);
         }
       });
+    }
   }
 }
-}
-
-

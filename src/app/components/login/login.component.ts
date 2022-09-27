@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { ControllerService } from 'src/app/api/controller/controller.service';
+import {
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
 import { Auth } from 'aws-amplify';
-import { ThisReceiver } from '@angular/compiler';
-import { faDownLeftAndUpRightToCenter } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'aerial-mapping-login',
@@ -13,16 +14,18 @@ import { faDownLeftAndUpRightToCenter } from '@fortawesome/free-solid-svg-icons'
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  @Output() loggedIn = new EventEmitter<any>();  //for unit testing purposes
+  @Output() loggedIn = new EventEmitter<any>(); //for unit testing purposes
 
   title = 'login-component';
 
   loginForm: UntypedFormGroup;
   isSubmitted: boolean;
   inAnimation: boolean;
-  hide:boolean;
+  hide: boolean;
 
-  constructor(private formBuilder: UntypedFormBuilder, private router: Router, private http: HttpClient) {
+  constructor(
+    private formBuilder: UntypedFormBuilder,
+    private router: Router ) {
     //loader
 
     this.inAnimation = false;
@@ -30,8 +33,11 @@ export class LoginComponent {
     this.fadeOut();
 
     this.loginForm = this.formBuilder.group({
-      email: new UntypedFormControl('', [Validators.required, Validators.email]),
-      password: new UntypedFormControl('', [Validators.required])
+      email: new UntypedFormControl('', [
+        Validators.required,
+        Validators.email,
+      ]),
+      password: new UntypedFormControl('', [Validators.required]),
     });
     this.isSubmitted = false;
 
@@ -42,13 +48,13 @@ export class LoginComponent {
     window.location.reload();
   }
 
+  //signs the user in and creates a token for them
   async login() {
-    if(this.isSubmitted){
+    if (this.isSubmitted) {
       const email = this.loginForm.controls['email'];
       const password = this.loginForm.controls['password'];
 
-      if(email.value != '' && password.value != '') {
-        var err:string = "";
+      if (email.value != '' && password.value != '') {
         //Amplify Auth
         try {
           const user = await Auth.signIn(email.value, password.value);
@@ -58,45 +64,51 @@ export class LoginComponent {
           }, 1);
           this.loggedIn.emit(user); //for unit testing purposes
         } catch (error) {
-            console.log('error signing in', error);
-            this.errorOccurred(""+error);
-            this.isSubmitted=false;
-        }
-
-      }
-    }
-
-
-  }
-  errorOccurred(err:string){
-    if (err!= "") {
-      if(err.includes("User does not exist")) {
-        if(document.getElementById("error")){ //for testing purposes
-          document.getElementById("error")!.innerHTML="Either the email or password entered is incorrect"
+          console.log('error signing in', error);
+          this.errorOccurred('' + error);
+          this.isSubmitted = false;
         }
       }
     }
   }
 
+  //returns the error message from logging in to the user
+  errorOccurred(err: string) {
+    if (err != '') {
+      if (err.includes('User does not exist')) {
+        if (document.getElementById('error')) {
+          //for testing purposes
+          document.getElementById('error')!.innerHTML =
+            'Either the email or password entered is incorrect';
+        }
+      }
+    }
+  }
 
-  get email() { return this.loginForm.get('email'); }
-  get password() { return this.loginForm.get('password'); }
+  //gets the user email from the form
+  get email() {
+    return this.loginForm.get('email');
+  }
 
-  fadeOut () {
-    if (!this.inAnimation){
+  //gets the user password from the form
+  get password() {
+    return this.loginForm.get('password');
+  }
+
+  //closes the loader
+  fadeOut() {
+    if (!this.inAnimation) {
       this.inAnimation = true;
-      document.addEventListener('readystatechange', (event) => {
-        if(document.readyState === 'complete'){
-          const loader = document.getElementById("pre-loader");
-          loader!.setAttribute("class", "fade-out");
-          let count = 0;
+      document.addEventListener('readystatechange', () => {
+        if (document.readyState === 'complete') {
+          const loader = document.getElementById('pre-loader');
+          loader!.setAttribute('class', 'fade-out');
           setTimeout(() => {
             this.inAnimation = false;
             loader?.remove();
           }, 3000);
         }
       });
+    }
   }
-}
-
 }
