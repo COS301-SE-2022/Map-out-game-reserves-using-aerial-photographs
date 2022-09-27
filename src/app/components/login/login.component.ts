@@ -22,7 +22,7 @@ export class LoginComponent {
   inAnimation: boolean;
   hide:boolean;
 
-  constructor(private formBuilder: UntypedFormBuilder, private router: Router, private http: HttpClient) {
+  constructor(private formBuilder: UntypedFormBuilder, public router: Router, private http: HttpClient) {
     //loader
 
     this.inAnimation = false;
@@ -57,16 +57,19 @@ export class LoginComponent {
             this.windowReload();
           }, 1);
           this.loggedIn.emit(user); //for unit testing purposes
+          return 1;
         } catch (error) {
             console.log('error signing in', error);
             this.errorOccurred(""+error);
             this.isSubmitted=false;
+            return error;
         }
-
+      }
+      else {
+        return 'email or password empty';
       }
     }
-
-
+    return -1;
   }
   errorOccurred(err:string){
     if (err!= "") {

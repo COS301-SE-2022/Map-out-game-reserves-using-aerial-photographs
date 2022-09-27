@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { LoginComponent } from './login.component';
 import { Auth, Storage } from 'aws-amplify';
+import { DashboardComponent } from '../dashboard/dashboard.component';
 
 Auth.configure({
   region: 'sa-east-1',
@@ -21,8 +22,14 @@ describe('LoginComponent', () => {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 25000;
 
     await TestBed.configureTestingModule({
-      declarations: [ LoginComponent ],
-      imports: [ FormsModule, ReactiveFormsModule, HttpClientModule, RouterTestingModule ],
+      declarations: [ LoginComponent, DashboardComponent ],
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        RouterTestingModule.withRoutes(
+        [{path: 'dashboard', component: DashboardComponent}]
+      ) ],
       providers: [ HttpClient ]
     })
     .compileComponents();
@@ -80,21 +87,24 @@ describe('LoginComponent', () => {
     expect(password.valid).toBeTruthy();
   });
 
-  it('submits form and logs in', (done) => {
+  it('submits form and logs in', async () => {
     component.loginForm.controls['email'].setValue("correct@email.com");
     component.loginForm.controls['password'].setValue("12345678");
 
-    const routerMock: any = jasmine.createSpyObj('Router', ['navigate']);
-    routerMock.navigate.and.returnValue(true);
+    //const routerMock: any = jasmine.createSpyObj('Router', ['navigate']);
+    //routerMock.navigate.and.returnValue(true);
+    spyOn(component.router, 'navigate').and.returnValue(Promise.resolve(true));
     component.windowReload = jasmine.createSpy();
 
     //response from event emitter
-    component.loggedIn.subscribe(user => {
-      expect(user.attributes.email).toBe("correct@email.com");
-      done();
-    });
+    //component.loggedIn.subscribe(user => {
+      //expect(user.attributes.email).toBe("correct@email.com");
+      //done();
+    //});
 
-    component.login();
+    component.isSubmitted = true;
+    const result = await component.login();
+    expect(result).toBe(1);
   });
 
   afterEach(() => {

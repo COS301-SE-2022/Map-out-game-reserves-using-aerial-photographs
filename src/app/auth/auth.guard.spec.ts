@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { DashboardComponent } from '../components/dashboard/dashboard.component';
 import { AuthGuard } from './auth.guard';
 
 describe('AuthGuard', () => {
@@ -10,7 +11,12 @@ describe('AuthGuard', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
+      declarations: [DashboardComponent],
+      imports: [
+        RouterTestingModule.withRoutes(
+        [{path: 'dashboard', component: DashboardComponent}]
+        )
+      ],
       providers: [AuthGuard]
     }).compileComponents();
     guard = TestBed.inject(AuthGuard);
