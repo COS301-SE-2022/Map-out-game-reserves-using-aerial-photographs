@@ -7,7 +7,9 @@ module.exports = {
   plugins: [
     new EnvironmentPlugin({
       ACCESS_KEY_ID: 'defaultvalue',
-      SECRET_ACCESS_KEY: 'defaultvalue'
+      SECRET_ACCESS_KEY: 'defaultvalue',
+      VALID_USERNAME: 'defaultvalue',
+      VALID_PASSWORD: 'defaultvalue'
     })
   ]
 };

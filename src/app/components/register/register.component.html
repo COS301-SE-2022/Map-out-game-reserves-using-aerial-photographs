@@ -59,7 +59,7 @@
           required
           style="width:90%"
         />
-        <button mat-icon-button id = "icon" matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" >
+        <button type = "button" mat-icon-button id = "icon" matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" >
           <mat-icon [ngStyle]="{'color':'white'}">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
         <div *ngIf="this.isSubmitted && password!.errors?.['required']" class="text-danger">
@@ -75,15 +75,15 @@
           required
           style="width:90%"
         />
-        <button mat-icon-button id = "icon" matSuffix (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide2" >
+        <button type = "button" mat-icon-button id = "icon" matSuffix (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide2" >
           <mat-icon [ngStyle]="{'color':'white'}">{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
         <div *ngIf="this.isSubmitted && repeatedPassword!.errors?.['required']" class="text-danger">
           <small style="padding-left: 8px; color: rgb(180, 180, 180);">Please confirm your password</small>
         </div>
-
-        <div class="clearfix center">
-          <button type="submit" class="button signupbtn" (click)="isSubmitted = true">Sign Up</button>
+        <div class="clearfix center" style="align-content: center;">
+          <button type="submit" class="button signupbtn" id="loginBtn" (click)="isSubmitted = true">Sign Up</button>
+          <mat-progress-spinner *ngIf="this.isSubmitted&&!this.errState" mode="indeterminate" class = "spinner" diameter = "25" style = "z-index: 10; position:absolute;"></mat-progress-spinner>
         </div>
         <div class="clearfix center" style="height: 40px">
           <button mat-button [routerLink]="['/login']" class="button2">

@@ -42,7 +42,7 @@ export class AccountComponent implements OnInit {
   currUserID: string = "";
   newPassword: string = "";
   newName: string = "";
-  currUser: User|null = null;
+  currUser: User | null = null;
   registerForm: UntypedFormGroup;
   passwordForm: UntypedFormGroup;
   emailForm: UntypedFormGroup;
@@ -59,9 +59,9 @@ export class AccountComponent implements OnInit {
     public dialog: MatDialog,
     private snackBar: MatSnackBar
   ) {
-     //loader
-     this.inAnimation = false;
-     this.fadeOut();
+    //loader
+    this.inAnimation = false;
+    this.fadeOut();
     this.registerForm = new UntypedFormGroup({
       inviteEmail: new UntypedFormControl('', [Validators.required, Validators.email]),
     });
@@ -85,13 +85,13 @@ export class AccountComponent implements OnInit {
       await Auth.currentAuthenticatedUser({ bypassCache: false }).then(async (res: any) => {
         const groups: Array<any> = res.signInUserSession.idToken.payload['cognito:groups'];
         groups.forEach((group: any) => {
-          if(group == 'Admin') {
+          if (group == 'Admin') {
             this.admin = true;
           }
         });
 
         this.api.UserByEmail(res.attributes.email).then((resp: any) => {
-          if(resp.items.length > 0) {
+          if (resp.items.length > 0) {
             this.user = resp.items[0];
             this.currName = this.user.user_name;
             this.name.nativeElement.value = this.currName;
@@ -102,12 +102,12 @@ export class AccountComponent implements OnInit {
           }
         }).catch(err => {
           console.log(err);
-          if(err.errors[0].message == "Network Error"){
+          if (err.errors[0].message == "Network Error") {
             this.snackBar.open("Network error...", "❌", { verticalPosition: 'top' });
           }
         });
       });
-    } catch(error: any) {
+    } catch (error: any) {
       console.log(error);
       this.snackBar.open("Network error...", "❌", { verticalPosition: 'top' });
     }
@@ -120,7 +120,7 @@ export class AccountComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result == undefined) {
+      if (result == undefined) {
         return;
       }
       this.newPassword = result;
@@ -136,11 +136,11 @@ export class AccountComponent implements OnInit {
   openNameDialog(): void {
     const dialogRef = this.dialog.open(NameDialogComponent, {
       width: '500px',
-      data: { currentName: this.currName},
+      data: { currentName: this.currName },
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result == undefined) {
+      if (result == undefined) {
         return;
       }
       this.newName = result;
@@ -164,11 +164,11 @@ export class AccountComponent implements OnInit {
   async openEmailDialog() {
     const dialogRef = this.dialog.open(EmailDialogComponent, {
       width: '500px',
-      data: { currentEmail: this.user.user_email}
+      data: { currentEmail: this.user.user_email }
     });
 
     dialogRef.afterClosed().subscribe(async newEmail => {
-      if(newEmail == undefined) {
+      if (newEmail == undefined) {
         return;
       }
 
@@ -193,17 +193,17 @@ export class AccountComponent implements OnInit {
   openRegisterLinkDialog() {
     const dialogRef = this.dialog.open(RegisterLinkDialogComponent, {
       width: '500px',
-      data: { recipient: ''}
+      data: { recipient: '' }
     });
 
     dialogRef.afterClosed().subscribe(async obj => {
-      if(obj == undefined) {
+      if (obj == undefined) {
         return;
       }
 
       //add invite in DynamoDB
       let role;
-      if(obj.checked) {
+      if (obj.checked) {
         role = "admin";
       }
       else {
@@ -225,22 +225,28 @@ export class AccountComponent implements OnInit {
     });
   }
 
+  //this has to be a function so that unit tests can spyOn it and mock it properly
+  windowReload() {
+    window.location.reload();
+  }
+
   async logout() {
     try {
       await Auth.signOut();
       this.router.navigate(['login']);
       setTimeout(() => {
-        window.location.reload();
+        this.windowReload();
       }, 1);
     } catch (error) {
-        console.log('error signing out: ', error);
+      console.log('error signing out: ', error);
     }
   }
-  fadeOut () {
-    if (!this.inAnimation){
+
+  fadeOut() {
+    if (!this.inAnimation) {
       this.inAnimation = true;
       document.addEventListener('readystatechange', (event) => {
-        if(document.readyState === 'complete'){
+        if (document.readyState === 'complete') {
           const loader = document.getElementById("pre-loader");
           loader!.setAttribute("class", "fade-out");
           let count = 0;
@@ -250,19 +256,15 @@ export class AccountComponent implements OnInit {
           }, 3000);
         }
       });
+    }
+  }
+
+  onDeleteClick(): void {
+    if (confirm('Are you sure you want to delete your account?') == true) {
+      let deleteID: DeleteUserInput = { userID: this.user.userID };
+      this.api.DeleteUser(deleteID);
+      this.logout();
+    } else {
+    }
   }
 }
-
-onDeleteClick(tryAgain:boolean): void {
-  console.log(this.user);
-  if (confirm("Are you sure you want to delete your account?") == true) {
-    let deleteID: DeleteUserInput = {userID: this.user.userID};
-    this.api.DeleteUser(deleteID);
-    this.logout();
-  } else {
-    
-  }
-}
-}
-
-

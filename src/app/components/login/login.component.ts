@@ -19,16 +19,17 @@ export class LoginComponent {
 
   loginForm: UntypedFormGroup;
   isSubmitted: boolean;
+  errState:boolean;
   inAnimation: boolean;
   hide:boolean;
-  
-  constructor(private formBuilder: UntypedFormBuilder, private router: Router, private http: HttpClient) {
+
+  constructor(private formBuilder: UntypedFormBuilder, public router: Router, private http: HttpClient) {
     //loader
-    
+
     this.inAnimation = false;
 
     this.fadeOut();
-       
+
     this.loginForm = this.formBuilder.group({
       email: new UntypedFormControl('', [Validators.required, Validators.email]),
       password: new UntypedFormControl('', [Validators.required])
@@ -36,13 +37,22 @@ export class LoginComponent {
     this.isSubmitted = false;
 
     this.hide = true;
+    this.errState = false;
+  }
+
+  windowReload() {
+    window.location.reload();
   }
 
   async login() {
     if(this.isSubmitted){
+      this.errState=false;
+      if(document.getElementById('loginBtn')!=null) {//for testing purposes
+        document.getElementById('loginBtn')!.style.display="none";
+      }
+      
       const email = this.loginForm.controls['email'];
       const password = this.loginForm.controls['password'];
-  
       if(email.value != '' && password.value != '') {
         var err:string = "";
         //Amplify Auth
@@ -50,30 +60,41 @@ export class LoginComponent {
           const user = await Auth.signIn(email.value, password.value);
           this.router.navigate(['dashboard']);
           setTimeout(() => {
-            window.location.reload();
+            this.windowReload();
           }, 1);
           this.loggedIn.emit(user); //for unit testing purposes
+          return 1;
         } catch (error) {
             console.log('error signing in', error);
             this.errorOccurred(""+error);
-            this.isSubmitted=false;
+            if(document.getElementById('loginBtn')!=null) {//for testing purposes
+              document.getElementById('loginBtn')!.style.display="flex";
+            }
+
+            return error;
         }
-        
+      }
+      else {
+        this.errState=true;
+        if(document.getElementById('loginBtn')!=null) {//for testing purposes
+          document.getElementById('loginBtn')!.style.display="flex";
+        }
+        return 'email or password empty';
       }
     }
-    
-
+    return -1;
   }
+
   errorOccurred(err:string){
+    this.isSubmitted=false;
     if (err!= "") {
-      if(err.includes("User does not exist")) {
+      if(err.includes("User does not exist")|| err.includes("Incorrect username or password")) {
         if(document.getElementById("error")){ //for testing purposes
           document.getElementById("error")!.innerHTML="Either the email or password entered is incorrect"
         }
       }
     }
   }
-  
 
   get email() { return this.loginForm.get('email'); }
   get password() { return this.loginForm.get('password'); }

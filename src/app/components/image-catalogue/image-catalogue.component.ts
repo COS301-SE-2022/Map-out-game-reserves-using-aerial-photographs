@@ -139,26 +139,26 @@ export class ImageCatalogueComponent implements OnInit {
                     )
                     .then((signedURL) => {
                       i.url = signedURL;
-                    });
+                    }).catch(err => console.log(err));
                 }
 
                 for(let i = 0;i<3;i++){
                   this.controller
                     .S3download(
-                      "thumbnail_"+i,
+                      'thumbnail_'+i,
                       catalogData.catalogue.collectionID,
                       'thumbnails',
                       false
                     )
                     .then((signedURL) => {
                       catalogData.thumbnails.push(signedURL);
-                    });
+                    }).catch(err => console.log(err));
                 }
                 // this.sortByDate();
                 this.tempCatalogues = this.catalogues;
                 setTimeout(() => {
                     // console.log(this.spinners);
-                    this.spinners.forEach(spin => {
+                    this.spinners.forEach((spin) => {
                       spin.style.display="none";
                     });
                 }, 7000);

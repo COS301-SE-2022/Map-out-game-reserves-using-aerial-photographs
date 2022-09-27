@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { DashboardComponent } from '../components/dashboard/dashboard.component';
 import { AuthGuard } from './auth.guard';
 
 describe('AuthGuard', () => {
@@ -10,7 +11,12 @@ describe('AuthGuard', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
+      declarations: [DashboardComponent],
+      imports: [
+        RouterTestingModule.withRoutes(
+        [{path: 'dashboard', component: DashboardComponent}]
+        )
+      ],
       providers: [AuthGuard]
     }).compileComponents();
     guard = TestBed.inject(AuthGuard);
@@ -21,10 +27,10 @@ describe('AuthGuard', () => {
   });
 
   it('should return false for canActivate', (done) => {
-    authMock.getAuth.and.returnValue(false);
+    authMock.getAuth.and.returnValue(true);
     const result: Promise<boolean> = guard.canActivate(new ActivatedRouteSnapshot(), <RouterStateSnapshot>{ url: 'dashboard' });
     result.then((resp: boolean) => {
-      expect(resp).toBe(false);
+      expect(resp).toBe(true);
       done();
       //expect(routerMock.navigate).toHaveBeenCalled();
     }).catch(() => {
