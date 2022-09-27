@@ -18,7 +18,6 @@ describe('ControllerService', () => {
     //_version: 1,
     //_lastChangedAt: 1
   }
-  let file = new File([""], "filename");
 
   let originalTimeout: number;
   beforeEach(async() => {
@@ -46,36 +45,6 @@ describe('ControllerService', () => {
       done();
     });
   });
-
-  // it('S3upload', (done: DoneFn) => {
-  //   const result = service.S3upload("test_file", "test_collection", "test_folder", file, ".txt");
-  //   result.then((resp: any) => {
-  //     expect(resp.statusCode).toBe(21);
-  //     done();
-  //   }).catch((error) => {
-  //     done.fail(error);
-  //   });
-  // });
-
-  // it('S3download', (done: DoneFn) => {
-  //   const result = service.S3download("test_file", "test_collection", "test_folder", false);
-  //   result.then((resp: any) => {
-  //     expect(resp.statusCode).toBe(21);
-  //     done();
-  //   }).catch((error) => {
-  //     done.fail(error);
-  //   });
-  // });
-
-  // it('S3delete', (done: DoneFn) => {
-  //   const result = service.S3delete("test_collection/test_folder/test_file");
-  //   result.then((resp: any) => {
-  //     expect(resp.statusCode).toBe(21);
-  //     done();
-  //   }).catch((error) => {
-  //     done.fail(error);
-  //   });
-  // });
 
   afterEach(() => {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;

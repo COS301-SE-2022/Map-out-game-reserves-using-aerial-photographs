@@ -8,8 +8,9 @@ describe('MapboxComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [MapboxComponent],
-    }).compileComponents();
+      declarations: [ MapboxComponent ]
+    })
+    .compileComponents();
 
     fixture = TestBed.createComponent(MapboxComponent);
     component = fixture.componentInstance;
