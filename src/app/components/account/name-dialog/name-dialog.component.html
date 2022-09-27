@@ -2,35 +2,14 @@
 <div mat-dialog-content>
   <mat-form-field appearance="fill">
     <mat-label for="curr">Current Name</mat-label>
-    <input
-      id="currNameField"
-      matInput
-      [(ngModel)]="data.currentName"
-      name="curr"
-      readonly
-    />
+    <input id="currNameField" matInput [(ngModel)]="data.currentName" name="curr" readonly>
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label for="new">New Name</mat-label>
-    <input
-      id="newNameField"
-      matInput
-      [(ngModel)]="data.newName"
-      name="new"
-      cdkFocusInitial
-    />
+    <input id="newNameField" matInput [(ngModel)]="data.newName" name="new" cdkFocusInitial>
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()" color="warn">Cancel</button>
-  <button
-    id="saveNewName"
-    mat-button
-    [disabled]="!data.newName"
-    (click)="onSubmit()"
-    color="primary"
-    type="button"
-  >
-    Save Changes
-  </button>
+  <button id="saveNewName" mat-button [disabled]="!data.newName" (click)="onSubmit()" color="primary" type="button">Save Changes</button>
 </div>
