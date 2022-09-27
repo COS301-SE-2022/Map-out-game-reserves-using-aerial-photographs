@@ -20,6 +20,7 @@ export class RegisterComponent {
   inAnimation: boolean;
   hide:boolean;
   hide2:boolean;
+  errState: boolean;
 
   title = 'register-component';
 
@@ -38,6 +39,7 @@ export class RegisterComponent {
     this.isSubmitted = false;
     this.hide=true;
     this.hide2=true;
+    this.errState=false;
   }
 
   getErrorMessage() {
@@ -50,6 +52,10 @@ export class RegisterComponent {
 
   onRegisterFormSubmit(user: User) {
     if (this.isSubmitted){
+      this.errState=false;
+      if(document.getElementById('loginBtn')!=null) {//for testing purposes
+        document.getElementById('loginBtn')!.style.display="none";
+      }
       const email = this.registerForm.controls['user_email'].value;
     const password = this.registerForm.controls['user_password'].value;
     const repeatedPassword = this.registerForm.controls['repeatedPassword'].value;
@@ -58,15 +64,27 @@ export class RegisterComponent {
     // TODO: perform validation for email, password
 
     if (name == '' || email == '' || password == '' || repeatedPassword == '') {
+      if(document.getElementById('loginBtn')!=null) {//for testing purposes
+        document.getElementById('loginBtn')!.style.display="flex";
+      }
+      this.errState=true;
       return;
     }
 
     if (this.registerForm.controls['user_email'].errors?.['email']) {
+      if(document.getElementById('loginBtn')!=null) {//for testing purposes
+        document.getElementById('loginBtn')!.style.display="flex";
+      }
+      this.errState=true;
       return;
     }
 
     if (password !== repeatedPassword) {
       this.snackBar.open("Passwords do not match.", "❌");
+      if(document.getElementById('loginBtn')!=null) {//for testing purposes
+        document.getElementById('loginBtn')!.style.display="flex";
+      }
+      this.errState=true;
       return;
     }
 
@@ -87,6 +105,9 @@ export class RegisterComponent {
           });
         } else {
           this.snackBar.open("Your email has not been invited.", "❌", { verticalPosition: 'bottom' });
+          if(document.getElementById('loginBtn')!=null) {//for testing purposes
+            document.getElementById('loginBtn')!.style.display="flex";
+          }
           this.isSubmitted=false;
         }
       },
