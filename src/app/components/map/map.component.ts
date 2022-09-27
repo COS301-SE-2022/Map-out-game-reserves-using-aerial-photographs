@@ -13,7 +13,10 @@ export class MapComponent {
     const state: any = this.location.getState();
     if (state != null) {
       console.log(state.taskID);
-      this.url = 'http://102.141.170.62:8000/public/task/' + state.taskID + '/iframe/3d/';
+      this.url =
+        'http://102.141.170.62:8000/public/task/' +
+        state.taskID +
+        '/iframe/3d/';
     }
   }
 }

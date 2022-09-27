@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { ControllerService } from 'src/app/api/controller/controller.service';
+import {
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
 import { Auth } from 'aws-amplify';
-import { ThisReceiver } from '@angular/compiler';
-import { faDownLeftAndUpRightToCenter } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'aerial-mapping-login',
@@ -13,7 +14,7 @@ import { faDownLeftAndUpRightToCenter } from '@fortawesome/free-solid-svg-icons'
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  @Output() loggedIn = new EventEmitter<any>();  //for unit testing purposes
+  @Output() loggedIn = new EventEmitter<any>(); //for unit testing purposes
 
   title = 'login-component';
 
@@ -30,8 +31,11 @@ export class LoginComponent {
     this.fadeOut();
 
     this.loginForm = this.formBuilder.group({
-      email: new UntypedFormControl('', [Validators.required, Validators.email]),
-      password: new UntypedFormControl('', [Validators.required])
+      email: new UntypedFormControl('', [
+        Validators.required,
+        Validators.email,
+      ]),
+      password: new UntypedFormControl('', [Validators.required]),
     });
     this.isSubmitted = false;
 
@@ -43,7 +47,7 @@ export class LoginComponent {
   }
 
   async login() {
-    if(this.isSubmitted){
+    if (this.isSubmitted) {
       const email = this.loginForm.controls['email'];
       const password = this.loginForm.controls['password'];
 
@@ -71,35 +75,44 @@ export class LoginComponent {
     }
     return -1;
   }
-  errorOccurred(err:string){
-    if (err!= "") {
-      if(err.includes("User does not exist")) {
-        if(document.getElementById("error")){ //for testing purposes
-          document.getElementById("error")!.innerHTML="Either the email or password entered is incorrect"
+
+  //returns the error message from logging in to the user
+  errorOccurred(err: string) {
+    if (err != '') {
+      if (err.includes('User does not exist')) {
+        if (document.getElementById('error')) {
+          //for testing purposes
+          document.getElementById('error')!.innerHTML =
+            'Either the email or password entered is incorrect';
         }
       }
     }
   }
 
+  //gets the user email from the form
+  get email() {
+    return this.loginForm.get('email');
+  }
 
-  get email() { return this.loginForm.get('email'); }
-  get password() { return this.loginForm.get('password'); }
+  //gets the user password from the form
+  get password() {
+    return this.loginForm.get('password');
+  }
 
-  fadeOut () {
-    if (!this.inAnimation){
+  //closes the loader
+  fadeOut() {
+    if (!this.inAnimation) {
       this.inAnimation = true;
-      document.addEventListener('readystatechange', (event) => {
-        if(document.readyState === 'complete'){
-          const loader = document.getElementById("pre-loader");
-          loader!.setAttribute("class", "fade-out");
-          let count = 0;
+      document.addEventListener('readystatechange', () => {
+        if (document.readyState === 'complete') {
+          const loader = document.getElementById('pre-loader');
+          loader!.setAttribute('class', 'fade-out');
           setTimeout(() => {
             this.inAnimation = false;
             loader?.remove();
           }, 3000);
         }
       });
+    }
   }
-}
-
 }
