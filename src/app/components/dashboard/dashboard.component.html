@@ -4,29 +4,11 @@
   <aerial-mapping-side-navbar></aerial-mapping-side-navbar>
   <app-footer></app-footer>
   <div id="outer" class="content2">
-    
-    <!-- <div class="title">
-      <h3>DASHBOARD</h3>
-      <mat-divider></mat-divider>
-    </div> -->
     <table>
       <tr>
         <td>
-          <div class="flights cont" id = "mapbox"> 
-            <!--  -->
-            <!-- <div class="total">
-              <div class="num">
-                <fa-icon class="camera" [icon]="mapIcon"></fa-icon>
-                {{ total }}
-              </div>
-              <div class="label">New Maps</div>
-            </div> -->
-            <!-- <div class="barChart"> -->
-              <!-- <aerial-mapping-bar-chart
-                [List]="maps"
-              ></aerial-mapping-bar-chart> -->
-              <aerial-mapping-mapbox></aerial-mapping-mapbox>
-            <!-- </div> -->
+          <div class="flights cont" id="mapbox">
+            <aerial-mapping-mapbox></aerial-mapping-mapbox>
           </div>
         </td>
         <td>
@@ -34,7 +16,6 @@
             <div class="messageTitle">
               MESSAGES
               <mat-divider></mat-divider>
-              <!-- <hr> -->
             </div>
             <div class="scrollableMessage">
               <mat-list>
@@ -56,7 +37,12 @@
                   >
                   <!-- (click)="dismiss(message.collectionID)" -->
                   <!-- <button class="close" ><mat-icon>close</mat-icon></button> -->
-                  <button class="close" (click)="dismiss(message.collectionID, 'error')"><mat-icon>close</mat-icon></button>
+                  <button
+                    class="close"
+                    (click)="dismiss(message.collectionID, 'error')"
+                  >
+                    <mat-icon>close</mat-icon>
+                  </button>
                 </mat-list-item>
               </mat-list>
             </div>
@@ -71,11 +57,9 @@
               >System status</span
             >
           </div>
-          <!-- <div class="gap"></div> -->
           <div class="completed cont tooltip">
             <div class="completeTitle">
               COMPLETED
-              <!-- <hr> -->
               <mat-divider></mat-divider>
             </div>
             <div class="scrollableComplete">
@@ -92,11 +76,15 @@
                     [icon]="complete"
                   ></fa-icon>
                   <span class="message">Upload</span>
-                  <span class="completeName"
-                    >{{ collection.collectionName }}</span
+                  <span class="completeName">{{
+                    collection.collectionName
+                  }}</span>
+                  <button
+                    class="close"
+                    (click)="dismiss(collection.collectionID, 'complete')"
                   >
-                  <!-- <span class="completeDate">{{m.date}}</span> -->
-                  <button class="close" (click)="dismiss(collection.collectionID, 'complete')"><mat-icon>close</mat-icon></button>
+                    <mat-icon>close</mat-icon>
+                  </button>
                 </mat-list-item>
               </mat-list>
             </div>
@@ -133,7 +121,8 @@
                     [icon]="progress"
                   ></fa-icon>
                   <span class="progressName"
-                    >Stitching {{ collection.collectionID }}, in progress...</span
+                    >Stitching {{ collection.collectionID }}, in
+                    progress...</span
                   >
                 </mat-list-item>
               </mat-list>

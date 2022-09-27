@@ -1,20 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard.component';
-import { BarChartComponent } from './bar-chart/bar-chart.component';
 import { MapboxComponent } from './mapbox/mapbox.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatListModule } from '@angular/material/list';
 import { NavbarModule } from '../shared/navbar/navbar.module';
 import { NgChartsModule } from 'ng2-charts';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FooterModule } from '../shared/footer/footer.module';
 import { SpinnerModule } from '../shared/spinner/spinner.module';
 import { MatIconModule } from '@angular/material/icon';
 
-
 @NgModule({
-  declarations: [DashboardComponent, BarChartComponent, MapboxComponent],
+  declarations: [DashboardComponent, MapboxComponent],
   imports: [
     CommonModule,
     FontAwesomeModule,
@@ -24,7 +22,7 @@ import { MatIconModule } from '@angular/material/icon';
     FooterModule,
     NgChartsModule,
     SpinnerModule,
-    MatIconModule
-  ]
+    MatIconModule,
+  ],
 })
-export class DashboardModule { }
+export class DashboardModule {}
