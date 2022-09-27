@@ -13,6 +13,7 @@ import { BrowserModule, By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { AccountComponent } from './account.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 
 describe('AccountComponent', () => {
@@ -35,8 +36,10 @@ describe('AccountComponent', () => {
         MatInputModule,
         MatButtonModule,
         MatSnackBarModule,
-        BrowserModule
-       ]
+        BrowserModule,
+        HttpClientModule
+      ],
+      providers: [ HttpClient ]
     })
     .compileComponents();
 
