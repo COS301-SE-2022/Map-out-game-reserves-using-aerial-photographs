@@ -121,14 +121,14 @@ hr {
 }
 
 .button{
-    position: absolute;
+    // position: absolute;
     text-align: center;
     vertical-align: center;
     background-color: rgba(116, 104, 92, 0);
     color: white;
     border: 2px solid white;
     border-radius: 0px;
-    padding: 20px 28px;
+    padding: 20px 20px;
     //margin-bottom: 20px;
     font-style: normal;
     font-weight: 400;
@@ -205,4 +205,8 @@ a:hover {
 #text-danger{
   color: $primary-red !important;
 
+}
+
+:host ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {   
+  stroke: #7c9db3ab;
 }
