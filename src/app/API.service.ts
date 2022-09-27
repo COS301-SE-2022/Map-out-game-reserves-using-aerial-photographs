@@ -1,6 +1,9 @@
-import { Injectable } from '@angular/core';
-import API, { graphqlOperation, GraphQLResult } from '@aws-amplify/api-graphql';
-import { Observable } from 'zen-observable-ts';
+/* tslint:disable */
+/* eslint-disable */
+//  This file was automatically generated and should not be edited.
+import { Injectable } from "@angular/core";
+import API, { graphqlOperation, GraphQLResult } from "@aws-amplify/api-graphql";
+import { Observable } from "zen-observable-ts";
 
 export interface SubscriptionResponse<T> {
   value: GraphQLResult<T>;
@@ -40,7 +43,7 @@ export type __SubscriptionContainer = {
 };
 
 export type User = {
-  __typename: 'User';
+  __typename: "User";
   userID: string;
   user_email?: string | null;
   user_password?: string | null;
@@ -53,7 +56,7 @@ export type User = {
 };
 
 export type FlightDetails = {
-  __typename: 'FlightDetails';
+  __typename: "FlightDetails";
   flightID: string;
   flight_height?: number | null;
   flight_type?: string | null;
@@ -64,7 +67,7 @@ export type FlightDetails = {
 };
 
 export type Images = {
-  __typename: 'Images';
+  __typename: "Images";
   imageID: string;
   collectionID?: string | null;
   name?: string | null;
@@ -113,16 +116,16 @@ export type ModelStringInput = {
 };
 
 export enum ModelAttributeTypes {
-  binary = 'binary',
-  binarySet = 'binarySet',
-  bool = 'bool',
-  list = 'list',
-  map = 'map',
-  number = 'number',
-  numberSet = 'numberSet',
-  string = 'string',
-  stringSet = 'stringSet',
-  _null = '_null',
+  binary = "binary",
+  binarySet = "binarySet",
+  bool = "bool",
+  list = "list",
+  map = "map",
+  number = "number",
+  numberSet = "numberSet",
+  string = "string",
+  stringSet = "stringSet",
+  _null = "_null"
 }
 
 export type ModelSizeInput = {
@@ -173,7 +176,7 @@ export type ModelGameParkConditionInput = {
 };
 
 export type GamePark = {
-  __typename: 'GamePark';
+  __typename: "GamePark";
   parkID: string;
   park_name?: string | null;
   park_location?: string | null;
@@ -222,7 +225,7 @@ export type ModelImageCollectionConditionInput = {
 };
 
 export type ImageCollection = {
-  __typename: 'ImageCollection';
+  __typename: "ImageCollection";
   collectionID: string;
   taskID?: string | null;
   parkID?: string | null;
@@ -273,7 +276,7 @@ export type ModelMapConditionInput = {
 };
 
 export type Map = {
-  __typename: 'Map';
+  __typename: "Map";
   mapID: string;
   bucket_name?: string | null;
   file_name?: string | null;
@@ -311,7 +314,7 @@ export type ModelMessageConditionInput = {
 };
 
 export type Message = {
-  __typename: 'Message';
+  __typename: "Message";
   messageID: string;
   message_status?: string | null;
   message_description?: string | null;
@@ -416,7 +419,7 @@ export type ModelPendingInvitesConditionInput = {
 };
 
 export type PendingInvites = {
-  __typename: 'PendingInvites';
+  __typename: "PendingInvites";
   inviteID: string;
   email: string;
   role: string;
@@ -447,7 +450,7 @@ export type ModelConnectionConditionInput = {
 };
 
 export type Connection = {
-  __typename: 'Connection';
+  __typename: "Connection";
   connectionID: string;
   topic: string;
   createdAt: string;
@@ -480,7 +483,7 @@ export type ModelPendingJobsConditionInput = {
 };
 
 export type PendingJobs = {
-  __typename: 'PendingJobs';
+  __typename: "PendingJobs";
   jobID: string;
   busy?: boolean | null;
   taskID?: string | null;
@@ -514,12 +517,12 @@ export type ModelUserFilterInput = {
 };
 
 export enum ModelSortDirection {
-  ASC = 'ASC',
-  DESC = 'DESC',
+  ASC = "ASC",
+  DESC = "DESC"
 }
 
 export type ModelUserConnection = {
-  __typename: 'ModelUserConnection';
+  __typename: "ModelUserConnection";
   items: Array<User | null>;
   nextToken?: string | null;
 };
@@ -535,7 +538,7 @@ export type ModelGameParkFilterInput = {
 };
 
 export type ModelGameParkConnection = {
-  __typename: 'ModelGameParkConnection';
+  __typename: "ModelGameParkConnection";
   items: Array<GamePark | null>;
   nextToken?: string | null;
 };
@@ -557,7 +560,7 @@ export type ModelImageCollectionFilterInput = {
 };
 
 export type ModelImageCollectionConnection = {
-  __typename: 'ModelImageCollectionConnection';
+  __typename: "ModelImageCollectionConnection";
   items: Array<ImageCollection | null>;
   nextToken?: string | null;
 };
@@ -573,7 +576,7 @@ export type ModelMapFilterInput = {
 };
 
 export type ModelMapConnection = {
-  __typename: 'ModelMapConnection';
+  __typename: "ModelMapConnection";
   items: Array<Map | null>;
   nextToken?: string | null;
 };
@@ -589,7 +592,7 @@ export type ModelMessageFilterInput = {
 };
 
 export type ModelMessageConnection = {
-  __typename: 'ModelMessageConnection';
+  __typename: "ModelMessageConnection";
   items: Array<Message | null>;
   nextToken?: string | null;
 };
@@ -606,7 +609,7 @@ export type ModelImagesFilterInput = {
 };
 
 export type ModelImagesConnection = {
-  __typename: 'ModelImagesConnection';
+  __typename: "ModelImagesConnection";
   items: Array<Images | null>;
   nextToken?: string | null;
 };
@@ -622,7 +625,7 @@ export type ModelFlightDetailsFilterInput = {
 };
 
 export type ModelFlightDetailsConnection = {
-  __typename: 'ModelFlightDetailsConnection';
+  __typename: "ModelFlightDetailsConnection";
   items: Array<FlightDetails | null>;
   nextToken?: string | null;
 };
@@ -637,7 +640,7 @@ export type ModelPendingInvitesFilterInput = {
 };
 
 export type ModelPendingInvitesConnection = {
-  __typename: 'ModelPendingInvitesConnection';
+  __typename: "ModelPendingInvitesConnection";
   items: Array<PendingInvites | null>;
   nextToken?: string | null;
 };
@@ -651,7 +654,7 @@ export type ModelConnectionFilterInput = {
 };
 
 export type ModelConnectionConnection = {
-  __typename: 'ModelConnectionConnection';
+  __typename: "ModelConnectionConnection";
   items: Array<Connection | null>;
   nextToken?: string | null;
 };
@@ -667,13 +670,13 @@ export type ModelPendingJobsFilterInput = {
 };
 
 export type ModelPendingJobsConnection = {
-  __typename: 'ModelPendingJobsConnection';
+  __typename: "ModelPendingJobsConnection";
   items: Array<PendingJobs | null>;
   nextToken?: string | null;
 };
 
 export type RegisterUserMutation = {
-  __typename: 'User';
+  __typename: "User";
   userID: string;
   user_email?: string | null;
   user_password?: string | null;
@@ -686,13 +689,13 @@ export type RegisterUserMutation = {
 };
 
 export type CreateFlightMutation = {
-  __typename: 'FlightDetails';
+  __typename: "FlightDetails";
   flightID: string;
   flight_height?: number | null;
   flight_type?: string | null;
   pilotID?: string | null;
   Pilot?: {
-    __typename: 'User';
+    __typename: "User";
     userID: string;
     user_email?: string | null;
     user_password?: string | null;
@@ -708,7 +711,7 @@ export type CreateFlightMutation = {
 };
 
 export type CreateImageMutation = {
-  __typename: 'Images';
+  __typename: "Images";
   imageID: string;
   collectionID?: string | null;
   name?: string | null;
@@ -719,7 +722,7 @@ export type CreateImageMutation = {
 };
 
 export type CreateUserMutation = {
-  __typename: 'User';
+  __typename: "User";
   userID: string;
   user_email?: string | null;
   user_password?: string | null;
@@ -732,7 +735,7 @@ export type CreateUserMutation = {
 };
 
 export type UpdateUserMutation = {
-  __typename: 'User';
+  __typename: "User";
   userID: string;
   user_email?: string | null;
   user_password?: string | null;
@@ -745,7 +748,7 @@ export type UpdateUserMutation = {
 };
 
 export type DeleteUserMutation = {
-  __typename: 'User';
+  __typename: "User";
   userID: string;
   user_email?: string | null;
   user_password?: string | null;
@@ -758,7 +761,7 @@ export type DeleteUserMutation = {
 };
 
 export type CreateGameParkMutation = {
-  __typename: 'GamePark';
+  __typename: "GamePark";
   parkID: string;
   park_name?: string | null;
   park_location?: string | null;
@@ -768,7 +771,7 @@ export type CreateGameParkMutation = {
 };
 
 export type UpdateGameParkMutation = {
-  __typename: 'GamePark';
+  __typename: "GamePark";
   parkID: string;
   park_name?: string | null;
   park_location?: string | null;
@@ -778,7 +781,7 @@ export type UpdateGameParkMutation = {
 };
 
 export type DeleteGameParkMutation = {
-  __typename: 'GamePark';
+  __typename: "GamePark";
   parkID: string;
   park_name?: string | null;
   park_location?: string | null;
@@ -788,12 +791,12 @@ export type DeleteGameParkMutation = {
 };
 
 export type CreateImageCollectionMutation = {
-  __typename: 'ImageCollection';
+  __typename: "ImageCollection";
   collectionID: string;
   taskID?: string | null;
   parkID?: string | null;
   GamePark?: {
-    __typename: 'GamePark';
+    __typename: "GamePark";
     parkID: string;
     park_name?: string | null;
     park_location?: string | null;
@@ -808,13 +811,13 @@ export type CreateImageCollectionMutation = {
   dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: {
-    __typename: 'FlightDetails';
+    __typename: "FlightDetails";
     flightID: string;
     flight_height?: number | null;
     flight_type?: string | null;
     pilotID?: string | null;
     Pilot?: {
-      __typename: 'User';
+      __typename: "User";
       userID: string;
       user_email?: string | null;
       user_password?: string | null;
@@ -834,12 +837,12 @@ export type CreateImageCollectionMutation = {
 };
 
 export type UpdateImageCollectionMutation = {
-  __typename: 'ImageCollection';
+  __typename: "ImageCollection";
   collectionID: string;
   taskID?: string | null;
   parkID?: string | null;
   GamePark?: {
-    __typename: 'GamePark';
+    __typename: "GamePark";
     parkID: string;
     park_name?: string | null;
     park_location?: string | null;
@@ -854,13 +857,13 @@ export type UpdateImageCollectionMutation = {
   dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: {
-    __typename: 'FlightDetails';
+    __typename: "FlightDetails";
     flightID: string;
     flight_height?: number | null;
     flight_type?: string | null;
     pilotID?: string | null;
     Pilot?: {
-      __typename: 'User';
+      __typename: "User";
       userID: string;
       user_email?: string | null;
       user_password?: string | null;
@@ -880,12 +883,12 @@ export type UpdateImageCollectionMutation = {
 };
 
 export type DeleteImageCollectionMutation = {
-  __typename: 'ImageCollection';
+  __typename: "ImageCollection";
   collectionID: string;
   taskID?: string | null;
   parkID?: string | null;
   GamePark?: {
-    __typename: 'GamePark';
+    __typename: "GamePark";
     parkID: string;
     park_name?: string | null;
     park_location?: string | null;
@@ -900,13 +903,13 @@ export type DeleteImageCollectionMutation = {
   dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: {
-    __typename: 'FlightDetails';
+    __typename: "FlightDetails";
     flightID: string;
     flight_height?: number | null;
     flight_type?: string | null;
     pilotID?: string | null;
     Pilot?: {
-      __typename: 'User';
+      __typename: "User";
       userID: string;
       user_email?: string | null;
       user_password?: string | null;
@@ -926,18 +929,18 @@ export type DeleteImageCollectionMutation = {
 };
 
 export type CreateMapMutation = {
-  __typename: 'Map';
+  __typename: "Map";
   mapID: string;
   bucket_name?: string | null;
   file_name?: string | null;
   collectionID?: string | null;
   Collection?: {
-    __typename: 'ImageCollection';
+    __typename: "ImageCollection";
     collectionID: string;
     taskID?: string | null;
     parkID?: string | null;
     GamePark?: {
-      __typename: 'GamePark';
+      __typename: "GamePark";
       parkID: string;
       park_name?: string | null;
       park_location?: string | null;
@@ -952,7 +955,7 @@ export type CreateMapMutation = {
     dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
-      __typename: 'FlightDetails';
+      __typename: "FlightDetails";
       flightID: string;
       flight_height?: number | null;
       flight_type?: string | null;
@@ -969,18 +972,18 @@ export type CreateMapMutation = {
 };
 
 export type UpdateMapMutation = {
-  __typename: 'Map';
+  __typename: "Map";
   mapID: string;
   bucket_name?: string | null;
   file_name?: string | null;
   collectionID?: string | null;
   Collection?: {
-    __typename: 'ImageCollection';
+    __typename: "ImageCollection";
     collectionID: string;
     taskID?: string | null;
     parkID?: string | null;
     GamePark?: {
-      __typename: 'GamePark';
+      __typename: "GamePark";
       parkID: string;
       park_name?: string | null;
       park_location?: string | null;
@@ -995,7 +998,7 @@ export type UpdateMapMutation = {
     dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
-      __typename: 'FlightDetails';
+      __typename: "FlightDetails";
       flightID: string;
       flight_height?: number | null;
       flight_type?: string | null;
@@ -1012,18 +1015,18 @@ export type UpdateMapMutation = {
 };
 
 export type DeleteMapMutation = {
-  __typename: 'Map';
+  __typename: "Map";
   mapID: string;
   bucket_name?: string | null;
   file_name?: string | null;
   collectionID?: string | null;
   Collection?: {
-    __typename: 'ImageCollection';
+    __typename: "ImageCollection";
     collectionID: string;
     taskID?: string | null;
     parkID?: string | null;
     GamePark?: {
-      __typename: 'GamePark';
+      __typename: "GamePark";
       parkID: string;
       park_name?: string | null;
       park_location?: string | null;
@@ -1038,7 +1041,7 @@ export type DeleteMapMutation = {
     dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
-      __typename: 'FlightDetails';
+      __typename: "FlightDetails";
       flightID: string;
       flight_height?: number | null;
       flight_type?: string | null;
@@ -1055,18 +1058,18 @@ export type DeleteMapMutation = {
 };
 
 export type CreateMessageMutation = {
-  __typename: 'Message';
+  __typename: "Message";
   messageID: string;
   message_status?: string | null;
   message_description?: string | null;
   collectionID?: string | null;
   ImageCollection?: {
-    __typename: 'ImageCollection';
+    __typename: "ImageCollection";
     collectionID: string;
     taskID?: string | null;
     parkID?: string | null;
     GamePark?: {
-      __typename: 'GamePark';
+      __typename: "GamePark";
       parkID: string;
       park_name?: string | null;
       park_location?: string | null;
@@ -1081,7 +1084,7 @@ export type CreateMessageMutation = {
     dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
-      __typename: 'FlightDetails';
+      __typename: "FlightDetails";
       flightID: string;
       flight_height?: number | null;
       flight_type?: string | null;
@@ -1098,18 +1101,18 @@ export type CreateMessageMutation = {
 };
 
 export type UpdateMessageMutation = {
-  __typename: 'Message';
+  __typename: "Message";
   messageID: string;
   message_status?: string | null;
   message_description?: string | null;
   collectionID?: string | null;
   ImageCollection?: {
-    __typename: 'ImageCollection';
+    __typename: "ImageCollection";
     collectionID: string;
     taskID?: string | null;
     parkID?: string | null;
     GamePark?: {
-      __typename: 'GamePark';
+      __typename: "GamePark";
       parkID: string;
       park_name?: string | null;
       park_location?: string | null;
@@ -1124,7 +1127,7 @@ export type UpdateMessageMutation = {
     dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
-      __typename: 'FlightDetails';
+      __typename: "FlightDetails";
       flightID: string;
       flight_height?: number | null;
       flight_type?: string | null;
@@ -1141,18 +1144,18 @@ export type UpdateMessageMutation = {
 };
 
 export type DeleteMessageMutation = {
-  __typename: 'Message';
+  __typename: "Message";
   messageID: string;
   message_status?: string | null;
   message_description?: string | null;
   collectionID?: string | null;
   ImageCollection?: {
-    __typename: 'ImageCollection';
+    __typename: "ImageCollection";
     collectionID: string;
     taskID?: string | null;
     parkID?: string | null;
     GamePark?: {
-      __typename: 'GamePark';
+      __typename: "GamePark";
       parkID: string;
       park_name?: string | null;
       park_location?: string | null;
@@ -1167,7 +1170,7 @@ export type DeleteMessageMutation = {
     dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
-      __typename: 'FlightDetails';
+      __typename: "FlightDetails";
       flightID: string;
       flight_height?: number | null;
       flight_type?: string | null;
@@ -1184,7 +1187,7 @@ export type DeleteMessageMutation = {
 };
 
 export type CreateImagesMutation = {
-  __typename: 'Images';
+  __typename: "Images";
   imageID: string;
   collectionID?: string | null;
   name?: string | null;
@@ -1195,7 +1198,7 @@ export type CreateImagesMutation = {
 };
 
 export type UpdateImagesMutation = {
-  __typename: 'Images';
+  __typename: "Images";
   imageID: string;
   collectionID?: string | null;
   name?: string | null;
@@ -1206,7 +1209,7 @@ export type UpdateImagesMutation = {
 };
 
 export type DeleteImagesMutation = {
-  __typename: 'Images';
+  __typename: "Images";
   imageID: string;
   collectionID?: string | null;
   name?: string | null;
@@ -1217,13 +1220,13 @@ export type DeleteImagesMutation = {
 };
 
 export type CreateFlightDetailsMutation = {
-  __typename: 'FlightDetails';
+  __typename: "FlightDetails";
   flightID: string;
   flight_height?: number | null;
   flight_type?: string | null;
   pilotID?: string | null;
   Pilot?: {
-    __typename: 'User';
+    __typename: "User";
     userID: string;
     user_email?: string | null;
     user_password?: string | null;
@@ -1239,13 +1242,13 @@ export type CreateFlightDetailsMutation = {
 };
 
 export type UpdateFlightDetailsMutation = {
-  __typename: 'FlightDetails';
+  __typename: "FlightDetails";
   flightID: string;
   flight_height?: number | null;
   flight_type?: string | null;
   pilotID?: string | null;
   Pilot?: {
-    __typename: 'User';
+    __typename: "User";
     userID: string;
     user_email?: string | null;
     user_password?: string | null;
@@ -1261,13 +1264,13 @@ export type UpdateFlightDetailsMutation = {
 };
 
 export type DeleteFlightDetailsMutation = {
-  __typename: 'FlightDetails';
+  __typename: "FlightDetails";
   flightID: string;
   flight_height?: number | null;
   flight_type?: string | null;
   pilotID?: string | null;
   Pilot?: {
-    __typename: 'User';
+    __typename: "User";
     userID: string;
     user_email?: string | null;
     user_password?: string | null;
@@ -1283,7 +1286,7 @@ export type DeleteFlightDetailsMutation = {
 };
 
 export type CreatePendingInvitesMutation = {
-  __typename: 'PendingInvites';
+  __typename: "PendingInvites";
   inviteID: string;
   email: string;
   role: string;
@@ -1292,7 +1295,7 @@ export type CreatePendingInvitesMutation = {
 };
 
 export type UpdatePendingInvitesMutation = {
-  __typename: 'PendingInvites';
+  __typename: "PendingInvites";
   inviteID: string;
   email: string;
   role: string;
@@ -1301,7 +1304,7 @@ export type UpdatePendingInvitesMutation = {
 };
 
 export type DeletePendingInvitesMutation = {
-  __typename: 'PendingInvites';
+  __typename: "PendingInvites";
   inviteID: string;
   email: string;
   role: string;
@@ -1310,7 +1313,7 @@ export type DeletePendingInvitesMutation = {
 };
 
 export type CreateConnectionMutation = {
-  __typename: 'Connection';
+  __typename: "Connection";
   connectionID: string;
   topic: string;
   createdAt: string;
@@ -1318,7 +1321,7 @@ export type CreateConnectionMutation = {
 };
 
 export type UpdateConnectionMutation = {
-  __typename: 'Connection';
+  __typename: "Connection";
   connectionID: string;
   topic: string;
   createdAt: string;
@@ -1326,7 +1329,7 @@ export type UpdateConnectionMutation = {
 };
 
 export type DeleteConnectionMutation = {
-  __typename: 'Connection';
+  __typename: "Connection";
   connectionID: string;
   topic: string;
   createdAt: string;
@@ -1334,7 +1337,7 @@ export type DeleteConnectionMutation = {
 };
 
 export type CreatePendingJobsMutation = {
-  __typename: 'PendingJobs';
+  __typename: "PendingJobs";
   jobID: string;
   busy?: boolean | null;
   taskID?: string | null;
@@ -1344,7 +1347,7 @@ export type CreatePendingJobsMutation = {
 };
 
 export type UpdatePendingJobsMutation = {
-  __typename: 'PendingJobs';
+  __typename: "PendingJobs";
   jobID: string;
   busy?: boolean | null;
   taskID?: string | null;
@@ -1354,7 +1357,7 @@ export type UpdatePendingJobsMutation = {
 };
 
 export type DeletePendingJobsMutation = {
-  __typename: 'PendingJobs';
+  __typename: "PendingJobs";
   jobID: string;
   busy?: boolean | null;
   taskID?: string | null;
@@ -1364,7 +1367,7 @@ export type DeletePendingJobsMutation = {
 };
 
 export type GetUsersQuery = {
-  __typename: 'User';
+  __typename: "User";
   userID: string;
   user_email?: string | null;
   user_password?: string | null;
@@ -1377,7 +1380,7 @@ export type GetUsersQuery = {
 };
 
 export type GetParksQuery = {
-  __typename: 'GamePark';
+  __typename: "GamePark";
   parkID: string;
   park_name?: string | null;
   park_location?: string | null;
@@ -1387,18 +1390,18 @@ export type GetParksQuery = {
 };
 
 export type GetMessagesQuery = {
-  __typename: 'Message';
+  __typename: "Message";
   messageID: string;
   message_status?: string | null;
   message_description?: string | null;
   collectionID?: string | null;
   ImageCollection?: {
-    __typename: 'ImageCollection';
+    __typename: "ImageCollection";
     collectionID: string;
     taskID?: string | null;
     parkID?: string | null;
     GamePark?: {
-      __typename: 'GamePark';
+      __typename: "GamePark";
       parkID: string;
       park_name?: string | null;
       park_location?: string | null;
@@ -1413,7 +1416,7 @@ export type GetMessagesQuery = {
     dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
-      __typename: 'FlightDetails';
+      __typename: "FlightDetails";
       flightID: string;
       flight_height?: number | null;
       flight_type?: string | null;
@@ -1430,7 +1433,7 @@ export type GetMessagesQuery = {
 };
 
 export type GetImagesByCollectionIdQuery = {
-  __typename: 'Images';
+  __typename: "Images";
   imageID: string;
   collectionID?: string | null;
   name?: string | null;
@@ -1441,12 +1444,12 @@ export type GetImagesByCollectionIdQuery = {
 };
 
 export type GetImageCollectionsQuery = {
-  __typename: 'ImageCollection';
+  __typename: "ImageCollection";
   collectionID: string;
   taskID?: string | null;
   parkID?: string | null;
   GamePark?: {
-    __typename: 'GamePark';
+    __typename: "GamePark";
     parkID: string;
     park_name?: string | null;
     park_location?: string | null;
@@ -1461,13 +1464,13 @@ export type GetImageCollectionsQuery = {
   dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: {
-    __typename: 'FlightDetails';
+    __typename: "FlightDetails";
     flightID: string;
     flight_height?: number | null;
     flight_type?: string | null;
     pilotID?: string | null;
     Pilot?: {
-      __typename: 'User';
+      __typename: "User";
       userID: string;
       user_email?: string | null;
       user_password?: string | null;
@@ -1487,7 +1490,7 @@ export type GetImageCollectionsQuery = {
 };
 
 export type GetImageQuery = {
-  __typename: 'Images';
+  __typename: "Images";
   imageID: string;
   collectionID?: string | null;
   name?: string | null;
@@ -1498,12 +1501,12 @@ export type GetImageQuery = {
 };
 
 export type GetCataloguesQuery = {
-  __typename: 'ImageCollection';
+  __typename: "ImageCollection";
   collectionID: string;
   taskID?: string | null;
   parkID?: string | null;
   GamePark?: {
-    __typename: 'GamePark';
+    __typename: "GamePark";
     parkID: string;
     park_name?: string | null;
     park_location?: string | null;
@@ -1518,13 +1521,13 @@ export type GetCataloguesQuery = {
   dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: {
-    __typename: 'FlightDetails';
+    __typename: "FlightDetails";
     flightID: string;
     flight_height?: number | null;
     flight_type?: string | null;
     pilotID?: string | null;
     Pilot?: {
-      __typename: 'User';
+      __typename: "User";
       userID: string;
       user_email?: string | null;
       user_password?: string | null;
@@ -1544,7 +1547,7 @@ export type GetCataloguesQuery = {
 };
 
 export type GetUserQuery = {
-  __typename: 'User';
+  __typename: "User";
   userID: string;
   user_email?: string | null;
   user_password?: string | null;
@@ -1557,9 +1560,9 @@ export type GetUserQuery = {
 };
 
 export type ListUsersQuery = {
-  __typename: 'ModelUserConnection';
+  __typename: "ModelUserConnection";
   items: Array<{
-    __typename: 'User';
+    __typename: "User";
     userID: string;
     user_email?: string | null;
     user_password?: string | null;
@@ -1574,9 +1577,9 @@ export type ListUsersQuery = {
 };
 
 export type UserByEmailQuery = {
-  __typename: 'ModelUserConnection';
+  __typename: "ModelUserConnection";
   items: Array<{
-    __typename: 'User';
+    __typename: "User";
     userID: string;
     user_email?: string | null;
     user_password?: string | null;
@@ -1591,7 +1594,7 @@ export type UserByEmailQuery = {
 };
 
 export type GetGameParkQuery = {
-  __typename: 'GamePark';
+  __typename: "GamePark";
   parkID: string;
   park_name?: string | null;
   park_location?: string | null;
@@ -1601,9 +1604,9 @@ export type GetGameParkQuery = {
 };
 
 export type ListGameParksQuery = {
-  __typename: 'ModelGameParkConnection';
+  __typename: "ModelGameParkConnection";
   items: Array<{
-    __typename: 'GamePark';
+    __typename: "GamePark";
     parkID: string;
     park_name?: string | null;
     park_location?: string | null;
@@ -1615,12 +1618,12 @@ export type ListGameParksQuery = {
 };
 
 export type GetImageCollectionQuery = {
-  __typename: 'ImageCollection';
+  __typename: "ImageCollection";
   collectionID: string;
   taskID?: string | null;
   parkID?: string | null;
   GamePark?: {
-    __typename: 'GamePark';
+    __typename: "GamePark";
     parkID: string;
     park_name?: string | null;
     park_location?: string | null;
@@ -1635,13 +1638,13 @@ export type GetImageCollectionQuery = {
   dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: {
-    __typename: 'FlightDetails';
+    __typename: "FlightDetails";
     flightID: string;
     flight_height?: number | null;
     flight_type?: string | null;
     pilotID?: string | null;
     Pilot?: {
-      __typename: 'User';
+      __typename: "User";
       userID: string;
       user_email?: string | null;
       user_password?: string | null;
@@ -1661,14 +1664,14 @@ export type GetImageCollectionQuery = {
 };
 
 export type ListImageCollectionsQuery = {
-  __typename: 'ModelImageCollectionConnection';
+  __typename: "ModelImageCollectionConnection";
   items: Array<{
-    __typename: 'ImageCollection';
+    __typename: "ImageCollection";
     collectionID: string;
     taskID?: string | null;
     parkID?: string | null;
     GamePark?: {
-      __typename: 'GamePark';
+      __typename: "GamePark";
       parkID: string;
       park_name?: string | null;
       park_location?: string | null;
@@ -1683,7 +1686,7 @@ export type ListImageCollectionsQuery = {
     dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
-      __typename: 'FlightDetails';
+      __typename: "FlightDetails";
       flightID: string;
       flight_height?: number | null;
       flight_type?: string | null;
@@ -1699,14 +1702,14 @@ export type ListImageCollectionsQuery = {
 };
 
 export type GetImageCollectionByTaskIdQuery = {
-  __typename: 'ModelImageCollectionConnection';
+  __typename: "ModelImageCollectionConnection";
   items: Array<{
-    __typename: 'ImageCollection';
+    __typename: "ImageCollection";
     collectionID: string;
     taskID?: string | null;
     parkID?: string | null;
     GamePark?: {
-      __typename: 'GamePark';
+      __typename: "GamePark";
       parkID: string;
       park_name?: string | null;
       park_location?: string | null;
@@ -1721,7 +1724,7 @@ export type GetImageCollectionByTaskIdQuery = {
     dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
-      __typename: 'FlightDetails';
+      __typename: "FlightDetails";
       flightID: string;
       flight_height?: number | null;
       flight_type?: string | null;
@@ -1737,18 +1740,18 @@ export type GetImageCollectionByTaskIdQuery = {
 };
 
 export type GetMapQuery = {
-  __typename: 'Map';
+  __typename: "Map";
   mapID: string;
   bucket_name?: string | null;
   file_name?: string | null;
   collectionID?: string | null;
   Collection?: {
-    __typename: 'ImageCollection';
+    __typename: "ImageCollection";
     collectionID: string;
     taskID?: string | null;
     parkID?: string | null;
     GamePark?: {
-      __typename: 'GamePark';
+      __typename: "GamePark";
       parkID: string;
       park_name?: string | null;
       park_location?: string | null;
@@ -1763,7 +1766,7 @@ export type GetMapQuery = {
     dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
-      __typename: 'FlightDetails';
+      __typename: "FlightDetails";
       flightID: string;
       flight_height?: number | null;
       flight_type?: string | null;
@@ -1780,15 +1783,15 @@ export type GetMapQuery = {
 };
 
 export type ListMapsQuery = {
-  __typename: 'ModelMapConnection';
+  __typename: "ModelMapConnection";
   items: Array<{
-    __typename: 'Map';
+    __typename: "Map";
     mapID: string;
     bucket_name?: string | null;
     file_name?: string | null;
     collectionID?: string | null;
     Collection?: {
-      __typename: 'ImageCollection';
+      __typename: "ImageCollection";
       collectionID: string;
       taskID?: string | null;
       parkID?: string | null;
@@ -1809,15 +1812,15 @@ export type ListMapsQuery = {
 };
 
 export type GetMapByFileNameQuery = {
-  __typename: 'ModelMapConnection';
+  __typename: "ModelMapConnection";
   items: Array<{
-    __typename: 'Map';
+    __typename: "Map";
     mapID: string;
     bucket_name?: string | null;
     file_name?: string | null;
     collectionID?: string | null;
     Collection?: {
-      __typename: 'ImageCollection';
+      __typename: "ImageCollection";
       collectionID: string;
       taskID?: string | null;
       parkID?: string | null;
@@ -1838,18 +1841,18 @@ export type GetMapByFileNameQuery = {
 };
 
 export type GetMessageQuery = {
-  __typename: 'Message';
+  __typename: "Message";
   messageID: string;
   message_status?: string | null;
   message_description?: string | null;
   collectionID?: string | null;
   ImageCollection?: {
-    __typename: 'ImageCollection';
+    __typename: "ImageCollection";
     collectionID: string;
     taskID?: string | null;
     parkID?: string | null;
     GamePark?: {
-      __typename: 'GamePark';
+      __typename: "GamePark";
       parkID: string;
       park_name?: string | null;
       park_location?: string | null;
@@ -1864,7 +1867,7 @@ export type GetMessageQuery = {
     dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
-      __typename: 'FlightDetails';
+      __typename: "FlightDetails";
       flightID: string;
       flight_height?: number | null;
       flight_type?: string | null;
@@ -1881,15 +1884,15 @@ export type GetMessageQuery = {
 };
 
 export type ListMessagesQuery = {
-  __typename: 'ModelMessageConnection';
+  __typename: "ModelMessageConnection";
   items: Array<{
-    __typename: 'Message';
+    __typename: "Message";
     messageID: string;
     message_status?: string | null;
     message_description?: string | null;
     collectionID?: string | null;
     ImageCollection?: {
-      __typename: 'ImageCollection';
+      __typename: "ImageCollection";
       collectionID: string;
       taskID?: string | null;
       parkID?: string | null;
@@ -1910,15 +1913,15 @@ export type ListMessagesQuery = {
 };
 
 export type GetMessageByCollectionIdQuery = {
-  __typename: 'ModelMessageConnection';
+  __typename: "ModelMessageConnection";
   items: Array<{
-    __typename: 'Message';
+    __typename: "Message";
     messageID: string;
     message_status?: string | null;
     message_description?: string | null;
     collectionID?: string | null;
     ImageCollection?: {
-      __typename: 'ImageCollection';
+      __typename: "ImageCollection";
       collectionID: string;
       taskID?: string | null;
       parkID?: string | null;
@@ -1939,7 +1942,7 @@ export type GetMessageByCollectionIdQuery = {
 };
 
 export type GetImagesQuery = {
-  __typename: 'Images';
+  __typename: "Images";
   imageID: string;
   collectionID?: string | null;
   name?: string | null;
@@ -1950,9 +1953,9 @@ export type GetImagesQuery = {
 };
 
 export type ListImagesQuery = {
-  __typename: 'ModelImagesConnection';
+  __typename: "ModelImagesConnection";
   items: Array<{
-    __typename: 'Images';
+    __typename: "Images";
     imageID: string;
     collectionID?: string | null;
     name?: string | null;
@@ -1965,9 +1968,9 @@ export type ListImagesQuery = {
 };
 
 export type ImagesByCollectionIdQuery = {
-  __typename: 'ModelImagesConnection';
+  __typename: "ModelImagesConnection";
   items: Array<{
-    __typename: 'Images';
+    __typename: "Images";
     imageID: string;
     collectionID?: string | null;
     name?: string | null;
@@ -1980,13 +1983,13 @@ export type ImagesByCollectionIdQuery = {
 };
 
 export type GetFlightDetailsQuery = {
-  __typename: 'FlightDetails';
+  __typename: "FlightDetails";
   flightID: string;
   flight_height?: number | null;
   flight_type?: string | null;
   pilotID?: string | null;
   Pilot?: {
-    __typename: 'User';
+    __typename: "User";
     userID: string;
     user_email?: string | null;
     user_password?: string | null;
@@ -2002,15 +2005,15 @@ export type GetFlightDetailsQuery = {
 };
 
 export type ListFlightDetailsQuery = {
-  __typename: 'ModelFlightDetailsConnection';
+  __typename: "ModelFlightDetailsConnection";
   items: Array<{
-    __typename: 'FlightDetails';
+    __typename: "FlightDetails";
     flightID: string;
     flight_height?: number | null;
     flight_type?: string | null;
     pilotID?: string | null;
     Pilot?: {
-      __typename: 'User';
+      __typename: "User";
       userID: string;
       user_email?: string | null;
       user_password?: string | null;
@@ -2028,7 +2031,7 @@ export type ListFlightDetailsQuery = {
 };
 
 export type GetPendingInvitesQuery = {
-  __typename: 'PendingInvites';
+  __typename: "PendingInvites";
   inviteID: string;
   email: string;
   role: string;
@@ -2037,9 +2040,9 @@ export type GetPendingInvitesQuery = {
 };
 
 export type ListPendingInvitesQuery = {
-  __typename: 'ModelPendingInvitesConnection';
+  __typename: "ModelPendingInvitesConnection";
   items: Array<{
-    __typename: 'PendingInvites';
+    __typename: "PendingInvites";
     inviteID: string;
     email: string;
     role: string;
@@ -2050,9 +2053,9 @@ export type ListPendingInvitesQuery = {
 };
 
 export type GetPendingInvitesByEmailQuery = {
-  __typename: 'ModelPendingInvitesConnection';
+  __typename: "ModelPendingInvitesConnection";
   items: Array<{
-    __typename: 'PendingInvites';
+    __typename: "PendingInvites";
     inviteID: string;
     email: string;
     role: string;
@@ -2063,7 +2066,7 @@ export type GetPendingInvitesByEmailQuery = {
 };
 
 export type GetConnectionQuery = {
-  __typename: 'Connection';
+  __typename: "Connection";
   connectionID: string;
   topic: string;
   createdAt: string;
@@ -2071,9 +2074,9 @@ export type GetConnectionQuery = {
 };
 
 export type ListConnectionsQuery = {
-  __typename: 'ModelConnectionConnection';
+  __typename: "ModelConnectionConnection";
   items: Array<{
-    __typename: 'Connection';
+    __typename: "Connection";
     connectionID: string;
     topic: string;
     createdAt: string;
@@ -2083,9 +2086,9 @@ export type ListConnectionsQuery = {
 };
 
 export type GetConnectionsByTopicQuery = {
-  __typename: 'ModelConnectionConnection';
+  __typename: "ModelConnectionConnection";
   items: Array<{
-    __typename: 'Connection';
+    __typename: "Connection";
     connectionID: string;
     topic: string;
     createdAt: string;
@@ -2095,7 +2098,7 @@ export type GetConnectionsByTopicQuery = {
 };
 
 export type GetPendingJobsQuery = {
-  __typename: 'PendingJobs';
+  __typename: "PendingJobs";
   jobID: string;
   busy?: boolean | null;
   taskID?: string | null;
@@ -2105,9 +2108,9 @@ export type GetPendingJobsQuery = {
 };
 
 export type ListPendingJobsQuery = {
-  __typename: 'ModelPendingJobsConnection';
+  __typename: "ModelPendingJobsConnection";
   items: Array<{
-    __typename: 'PendingJobs';
+    __typename: "PendingJobs";
     jobID: string;
     busy?: boolean | null;
     taskID?: string | null;
@@ -2119,7 +2122,7 @@ export type ListPendingJobsQuery = {
 };
 
 export type OnCreateUserSubscription = {
-  __typename: 'User';
+  __typename: "User";
   userID: string;
   user_email?: string | null;
   user_password?: string | null;
@@ -2132,7 +2135,7 @@ export type OnCreateUserSubscription = {
 };
 
 export type OnUpdateUserSubscription = {
-  __typename: 'User';
+  __typename: "User";
   userID: string;
   user_email?: string | null;
   user_password?: string | null;
@@ -2145,7 +2148,7 @@ export type OnUpdateUserSubscription = {
 };
 
 export type OnDeleteUserSubscription = {
-  __typename: 'User';
+  __typename: "User";
   userID: string;
   user_email?: string | null;
   user_password?: string | null;
@@ -2158,7 +2161,7 @@ export type OnDeleteUserSubscription = {
 };
 
 export type OnCreateGameParkSubscription = {
-  __typename: 'GamePark';
+  __typename: "GamePark";
   parkID: string;
   park_name?: string | null;
   park_location?: string | null;
@@ -2168,7 +2171,7 @@ export type OnCreateGameParkSubscription = {
 };
 
 export type OnUpdateGameParkSubscription = {
-  __typename: 'GamePark';
+  __typename: "GamePark";
   parkID: string;
   park_name?: string | null;
   park_location?: string | null;
@@ -2178,7 +2181,7 @@ export type OnUpdateGameParkSubscription = {
 };
 
 export type OnDeleteGameParkSubscription = {
-  __typename: 'GamePark';
+  __typename: "GamePark";
   parkID: string;
   park_name?: string | null;
   park_location?: string | null;
@@ -2188,12 +2191,12 @@ export type OnDeleteGameParkSubscription = {
 };
 
 export type OnCreateImageCollectionSubscription = {
-  __typename: 'ImageCollection';
+  __typename: "ImageCollection";
   collectionID: string;
   taskID?: string | null;
   parkID?: string | null;
   GamePark?: {
-    __typename: 'GamePark';
+    __typename: "GamePark";
     parkID: string;
     park_name?: string | null;
     park_location?: string | null;
@@ -2208,13 +2211,13 @@ export type OnCreateImageCollectionSubscription = {
   dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: {
-    __typename: 'FlightDetails';
+    __typename: "FlightDetails";
     flightID: string;
     flight_height?: number | null;
     flight_type?: string | null;
     pilotID?: string | null;
     Pilot?: {
-      __typename: 'User';
+      __typename: "User";
       userID: string;
       user_email?: string | null;
       user_password?: string | null;
@@ -2234,12 +2237,12 @@ export type OnCreateImageCollectionSubscription = {
 };
 
 export type OnUpdateImageCollectionSubscription = {
-  __typename: 'ImageCollection';
+  __typename: "ImageCollection";
   collectionID: string;
   taskID?: string | null;
   parkID?: string | null;
   GamePark?: {
-    __typename: 'GamePark';
+    __typename: "GamePark";
     parkID: string;
     park_name?: string | null;
     park_location?: string | null;
@@ -2254,13 +2257,13 @@ export type OnUpdateImageCollectionSubscription = {
   dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: {
-    __typename: 'FlightDetails';
+    __typename: "FlightDetails";
     flightID: string;
     flight_height?: number | null;
     flight_type?: string | null;
     pilotID?: string | null;
     Pilot?: {
-      __typename: 'User';
+      __typename: "User";
       userID: string;
       user_email?: string | null;
       user_password?: string | null;
@@ -2280,12 +2283,12 @@ export type OnUpdateImageCollectionSubscription = {
 };
 
 export type OnDeleteImageCollectionSubscription = {
-  __typename: 'ImageCollection';
+  __typename: "ImageCollection";
   collectionID: string;
   taskID?: string | null;
   parkID?: string | null;
   GamePark?: {
-    __typename: 'GamePark';
+    __typename: "GamePark";
     parkID: string;
     park_name?: string | null;
     park_location?: string | null;
@@ -2300,13 +2303,13 @@ export type OnDeleteImageCollectionSubscription = {
   dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: {
-    __typename: 'FlightDetails';
+    __typename: "FlightDetails";
     flightID: string;
     flight_height?: number | null;
     flight_type?: string | null;
     pilotID?: string | null;
     Pilot?: {
-      __typename: 'User';
+      __typename: "User";
       userID: string;
       user_email?: string | null;
       user_password?: string | null;
@@ -2326,18 +2329,18 @@ export type OnDeleteImageCollectionSubscription = {
 };
 
 export type OnCreateMapSubscription = {
-  __typename: 'Map';
+  __typename: "Map";
   mapID: string;
   bucket_name?: string | null;
   file_name?: string | null;
   collectionID?: string | null;
   Collection?: {
-    __typename: 'ImageCollection';
+    __typename: "ImageCollection";
     collectionID: string;
     taskID?: string | null;
     parkID?: string | null;
     GamePark?: {
-      __typename: 'GamePark';
+      __typename: "GamePark";
       parkID: string;
       park_name?: string | null;
       park_location?: string | null;
@@ -2352,7 +2355,7 @@ export type OnCreateMapSubscription = {
     dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
-      __typename: 'FlightDetails';
+      __typename: "FlightDetails";
       flightID: string;
       flight_height?: number | null;
       flight_type?: string | null;
@@ -2369,18 +2372,18 @@ export type OnCreateMapSubscription = {
 };
 
 export type OnUpdateMapSubscription = {
-  __typename: 'Map';
+  __typename: "Map";
   mapID: string;
   bucket_name?: string | null;
   file_name?: string | null;
   collectionID?: string | null;
   Collection?: {
-    __typename: 'ImageCollection';
+    __typename: "ImageCollection";
     collectionID: string;
     taskID?: string | null;
     parkID?: string | null;
     GamePark?: {
-      __typename: 'GamePark';
+      __typename: "GamePark";
       parkID: string;
       park_name?: string | null;
       park_location?: string | null;
@@ -2395,7 +2398,7 @@ export type OnUpdateMapSubscription = {
     dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
-      __typename: 'FlightDetails';
+      __typename: "FlightDetails";
       flightID: string;
       flight_height?: number | null;
       flight_type?: string | null;
@@ -2412,18 +2415,18 @@ export type OnUpdateMapSubscription = {
 };
 
 export type OnDeleteMapSubscription = {
-  __typename: 'Map';
+  __typename: "Map";
   mapID: string;
   bucket_name?: string | null;
   file_name?: string | null;
   collectionID?: string | null;
   Collection?: {
-    __typename: 'ImageCollection';
+    __typename: "ImageCollection";
     collectionID: string;
     taskID?: string | null;
     parkID?: string | null;
     GamePark?: {
-      __typename: 'GamePark';
+      __typename: "GamePark";
       parkID: string;
       park_name?: string | null;
       park_location?: string | null;
@@ -2438,7 +2441,7 @@ export type OnDeleteMapSubscription = {
     dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
-      __typename: 'FlightDetails';
+      __typename: "FlightDetails";
       flightID: string;
       flight_height?: number | null;
       flight_type?: string | null;
@@ -2455,18 +2458,18 @@ export type OnDeleteMapSubscription = {
 };
 
 export type OnCreateMessageSubscription = {
-  __typename: 'Message';
+  __typename: "Message";
   messageID: string;
   message_status?: string | null;
   message_description?: string | null;
   collectionID?: string | null;
   ImageCollection?: {
-    __typename: 'ImageCollection';
+    __typename: "ImageCollection";
     collectionID: string;
     taskID?: string | null;
     parkID?: string | null;
     GamePark?: {
-      __typename: 'GamePark';
+      __typename: "GamePark";
       parkID: string;
       park_name?: string | null;
       park_location?: string | null;
@@ -2481,7 +2484,7 @@ export type OnCreateMessageSubscription = {
     dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
-      __typename: 'FlightDetails';
+      __typename: "FlightDetails";
       flightID: string;
       flight_height?: number | null;
       flight_type?: string | null;
@@ -2498,18 +2501,18 @@ export type OnCreateMessageSubscription = {
 };
 
 export type OnUpdateMessageSubscription = {
-  __typename: 'Message';
+  __typename: "Message";
   messageID: string;
   message_status?: string | null;
   message_description?: string | null;
   collectionID?: string | null;
   ImageCollection?: {
-    __typename: 'ImageCollection';
+    __typename: "ImageCollection";
     collectionID: string;
     taskID?: string | null;
     parkID?: string | null;
     GamePark?: {
-      __typename: 'GamePark';
+      __typename: "GamePark";
       parkID: string;
       park_name?: string | null;
       park_location?: string | null;
@@ -2524,7 +2527,7 @@ export type OnUpdateMessageSubscription = {
     dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
-      __typename: 'FlightDetails';
+      __typename: "FlightDetails";
       flightID: string;
       flight_height?: number | null;
       flight_type?: string | null;
@@ -2541,18 +2544,18 @@ export type OnUpdateMessageSubscription = {
 };
 
 export type OnDeleteMessageSubscription = {
-  __typename: 'Message';
+  __typename: "Message";
   messageID: string;
   message_status?: string | null;
   message_description?: string | null;
   collectionID?: string | null;
   ImageCollection?: {
-    __typename: 'ImageCollection';
+    __typename: "ImageCollection";
     collectionID: string;
     taskID?: string | null;
     parkID?: string | null;
     GamePark?: {
-      __typename: 'GamePark';
+      __typename: "GamePark";
       parkID: string;
       park_name?: string | null;
       park_location?: string | null;
@@ -2567,7 +2570,7 @@ export type OnDeleteMessageSubscription = {
     dismissed?: boolean | null;
     flightID?: string | null;
     FlightDetails?: {
-      __typename: 'FlightDetails';
+      __typename: "FlightDetails";
       flightID: string;
       flight_height?: number | null;
       flight_type?: string | null;
@@ -2584,7 +2587,7 @@ export type OnDeleteMessageSubscription = {
 };
 
 export type OnCreateImagesSubscription = {
-  __typename: 'Images';
+  __typename: "Images";
   imageID: string;
   collectionID?: string | null;
   name?: string | null;
@@ -2595,7 +2598,7 @@ export type OnCreateImagesSubscription = {
 };
 
 export type OnUpdateImagesSubscription = {
-  __typename: 'Images';
+  __typename: "Images";
   imageID: string;
   collectionID?: string | null;
   name?: string | null;
@@ -2606,7 +2609,7 @@ export type OnUpdateImagesSubscription = {
 };
 
 export type OnDeleteImagesSubscription = {
-  __typename: 'Images';
+  __typename: "Images";
   imageID: string;
   collectionID?: string | null;
   name?: string | null;
@@ -2617,13 +2620,13 @@ export type OnDeleteImagesSubscription = {
 };
 
 export type OnCreateFlightDetailsSubscription = {
-  __typename: 'FlightDetails';
+  __typename: "FlightDetails";
   flightID: string;
   flight_height?: number | null;
   flight_type?: string | null;
   pilotID?: string | null;
   Pilot?: {
-    __typename: 'User';
+    __typename: "User";
     userID: string;
     user_email?: string | null;
     user_password?: string | null;
@@ -2639,13 +2642,13 @@ export type OnCreateFlightDetailsSubscription = {
 };
 
 export type OnUpdateFlightDetailsSubscription = {
-  __typename: 'FlightDetails';
+  __typename: "FlightDetails";
   flightID: string;
   flight_height?: number | null;
   flight_type?: string | null;
   pilotID?: string | null;
   Pilot?: {
-    __typename: 'User';
+    __typename: "User";
     userID: string;
     user_email?: string | null;
     user_password?: string | null;
@@ -2661,13 +2664,13 @@ export type OnUpdateFlightDetailsSubscription = {
 };
 
 export type OnDeleteFlightDetailsSubscription = {
-  __typename: 'FlightDetails';
+  __typename: "FlightDetails";
   flightID: string;
   flight_height?: number | null;
   flight_type?: string | null;
   pilotID?: string | null;
   Pilot?: {
-    __typename: 'User';
+    __typename: "User";
     userID: string;
     user_email?: string | null;
     user_password?: string | null;
@@ -2683,7 +2686,7 @@ export type OnDeleteFlightDetailsSubscription = {
 };
 
 export type OnCreatePendingInvitesSubscription = {
-  __typename: 'PendingInvites';
+  __typename: "PendingInvites";
   inviteID: string;
   email: string;
   role: string;
@@ -2692,7 +2695,7 @@ export type OnCreatePendingInvitesSubscription = {
 };
 
 export type OnUpdatePendingInvitesSubscription = {
-  __typename: 'PendingInvites';
+  __typename: "PendingInvites";
   inviteID: string;
   email: string;
   role: string;
@@ -2701,7 +2704,7 @@ export type OnUpdatePendingInvitesSubscription = {
 };
 
 export type OnDeletePendingInvitesSubscription = {
-  __typename: 'PendingInvites';
+  __typename: "PendingInvites";
   inviteID: string;
   email: string;
   role: string;
@@ -2710,7 +2713,7 @@ export type OnDeletePendingInvitesSubscription = {
 };
 
 export type OnCreateConnectionSubscription = {
-  __typename: 'Connection';
+  __typename: "Connection";
   connectionID: string;
   topic: string;
   createdAt: string;
@@ -2718,7 +2721,7 @@ export type OnCreateConnectionSubscription = {
 };
 
 export type OnUpdateConnectionSubscription = {
-  __typename: 'Connection';
+  __typename: "Connection";
   connectionID: string;
   topic: string;
   createdAt: string;
@@ -2726,7 +2729,7 @@ export type OnUpdateConnectionSubscription = {
 };
 
 export type OnDeleteConnectionSubscription = {
-  __typename: 'Connection';
+  __typename: "Connection";
   connectionID: string;
   topic: string;
   createdAt: string;
@@ -2734,7 +2737,7 @@ export type OnDeleteConnectionSubscription = {
 };
 
 export type OnCreatePendingJobsSubscription = {
-  __typename: 'PendingJobs';
+  __typename: "PendingJobs";
   jobID: string;
   busy?: boolean | null;
   taskID?: string | null;
@@ -2744,7 +2747,7 @@ export type OnCreatePendingJobsSubscription = {
 };
 
 export type OnUpdatePendingJobsSubscription = {
-  __typename: 'PendingJobs';
+  __typename: "PendingJobs";
   jobID: string;
   busy?: boolean | null;
   taskID?: string | null;
@@ -2754,7 +2757,7 @@ export type OnUpdatePendingJobsSubscription = {
 };
 
 export type OnDeletePendingJobsSubscription = {
-  __typename: 'PendingJobs';
+  __typename: "PendingJobs";
   jobID: string;
   busy?: boolean | null;
   taskID?: string | null;
@@ -2764,7 +2767,7 @@ export type OnDeletePendingJobsSubscription = {
 };
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root"
 })
 export class APIService {
   async Invite(email?: string): Promise<string | null> {
@@ -2939,7 +2942,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      input,
+      input
     };
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
@@ -2968,7 +2971,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      input,
+      input
     };
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
@@ -2997,7 +3000,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      input,
+      input
     };
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
@@ -3023,7 +3026,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      input,
+      input
     };
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
@@ -3049,7 +3052,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      input,
+      input
     };
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
@@ -3075,7 +3078,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      input,
+      input
     };
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
@@ -3137,7 +3140,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      input,
+      input
     };
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
@@ -3199,7 +3202,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      input,
+      input
     };
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
@@ -3261,7 +3264,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      input,
+      input
     };
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
@@ -3320,7 +3323,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      input,
+      input
     };
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
@@ -3379,7 +3382,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      input,
+      input
     };
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
@@ -3438,7 +3441,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      input,
+      input
     };
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
@@ -3497,7 +3500,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      input,
+      input
     };
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
@@ -3556,7 +3559,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      input,
+      input
     };
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
@@ -3615,7 +3618,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      input,
+      input
     };
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
@@ -3642,7 +3645,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      input,
+      input
     };
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
@@ -3669,7 +3672,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      input,
+      input
     };
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
@@ -3696,7 +3699,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      input,
+      input
     };
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
@@ -3734,7 +3737,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      input,
+      input
     };
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
@@ -3772,7 +3775,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      input,
+      input
     };
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
@@ -3810,7 +3813,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      input,
+      input
     };
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
@@ -3835,7 +3838,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      input,
+      input
     };
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
@@ -3860,7 +3863,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      input,
+      input
     };
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
@@ -3885,7 +3888,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      input,
+      input
     };
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
@@ -3909,7 +3912,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      input,
+      input
     };
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
@@ -3933,7 +3936,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      input,
+      input
     };
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
@@ -3957,7 +3960,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      input,
+      input
     };
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
@@ -3983,7 +3986,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      input,
+      input
     };
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
@@ -4009,7 +4012,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      input,
+      input
     };
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
@@ -4035,7 +4038,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      input,
+      input
     };
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
@@ -4340,7 +4343,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      userID,
+      userID
     };
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
@@ -4419,7 +4422,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      user_email,
+      user_email
     };
     if (sortDirection) {
       gqlAPIServiceArguments.sortDirection = sortDirection;
@@ -4451,7 +4454,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      parkID,
+      parkID
     };
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
@@ -4552,7 +4555,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      collectionID,
+      collectionID
     };
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
@@ -4673,7 +4676,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      taskID,
+      taskID
     };
     if (sortDirection) {
       gqlAPIServiceArguments.sortDirection = sortDirection;
@@ -4740,7 +4743,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      mapID,
+      mapID
     };
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
@@ -4843,7 +4846,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      file_name,
+      file_name
     };
     if (sortDirection) {
       gqlAPIServiceArguments.sortDirection = sortDirection;
@@ -4908,7 +4911,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      messageID,
+      messageID
     };
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
@@ -5011,7 +5014,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      collectionID,
+      collectionID
     };
     if (sortDirection) {
       gqlAPIServiceArguments.sortDirection = sortDirection;
@@ -5046,7 +5049,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      imageID,
+      imageID
     };
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
@@ -5121,7 +5124,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      collectionID,
+      collectionID
     };
     if (sortDirection) {
       gqlAPIServiceArguments.sortDirection = sortDirection;
@@ -5165,7 +5168,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      flightID,
+      flightID
     };
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
@@ -5239,7 +5242,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      inviteID,
+      inviteID
     };
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
@@ -5310,7 +5313,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      email,
+      email
     };
     if (sortDirection) {
       gqlAPIServiceArguments.sortDirection = sortDirection;
@@ -5342,7 +5345,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      connectionID,
+      connectionID
     };
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
@@ -5411,7 +5414,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      topic,
+      topic
     };
     if (sortDirection) {
       gqlAPIServiceArguments.sortDirection = sortDirection;
@@ -5443,7 +5446,7 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      jobID,
+      jobID
     };
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
@@ -5494,7 +5497,7 @@ export class APIService {
     return <ListPendingJobsQuery>response.data.listPendingJobs;
   }
   OnCreateUserListener: Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onCreateUser'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateUser">>
   > = API.graphql(
     graphqlOperation(
       `subscription OnCreateUser {
@@ -5513,11 +5516,11 @@ export class APIService {
       }`
     )
   ) as Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onCreateUser'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateUser">>
   >;
 
   OnUpdateUserListener: Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onUpdateUser'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateUser">>
   > = API.graphql(
     graphqlOperation(
       `subscription OnUpdateUser {
@@ -5536,11 +5539,11 @@ export class APIService {
       }`
     )
   ) as Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onUpdateUser'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateUser">>
   >;
 
   OnDeleteUserListener: Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onDeleteUser'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteUser">>
   > = API.graphql(
     graphqlOperation(
       `subscription OnDeleteUser {
@@ -5559,11 +5562,11 @@ export class APIService {
       }`
     )
   ) as Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onDeleteUser'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteUser">>
   >;
 
   OnCreateGameParkListener: Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onCreateGamePark'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateGamePark">>
   > = API.graphql(
     graphqlOperation(
       `subscription OnCreateGamePark {
@@ -5579,11 +5582,11 @@ export class APIService {
       }`
     )
   ) as Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onCreateGamePark'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateGamePark">>
   >;
 
   OnUpdateGameParkListener: Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onUpdateGamePark'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateGamePark">>
   > = API.graphql(
     graphqlOperation(
       `subscription OnUpdateGamePark {
@@ -5599,11 +5602,11 @@ export class APIService {
       }`
     )
   ) as Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onUpdateGamePark'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateGamePark">>
   >;
 
   OnDeleteGameParkListener: Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onDeleteGamePark'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteGamePark">>
   > = API.graphql(
     graphqlOperation(
       `subscription OnDeleteGamePark {
@@ -5619,12 +5622,12 @@ export class APIService {
       }`
     )
   ) as Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onDeleteGamePark'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteGamePark">>
   >;
 
   OnCreateImageCollectionListener: Observable<
     SubscriptionResponse<
-      Pick<__SubscriptionContainer, 'onCreateImageCollection'>
+      Pick<__SubscriptionContainer, "onCreateImageCollection">
     >
   > = API.graphql(
     graphqlOperation(
@@ -5678,13 +5681,13 @@ export class APIService {
     )
   ) as Observable<
     SubscriptionResponse<
-      Pick<__SubscriptionContainer, 'onCreateImageCollection'>
+      Pick<__SubscriptionContainer, "onCreateImageCollection">
     >
   >;
 
   OnUpdateImageCollectionListener: Observable<
     SubscriptionResponse<
-      Pick<__SubscriptionContainer, 'onUpdateImageCollection'>
+      Pick<__SubscriptionContainer, "onUpdateImageCollection">
     >
   > = API.graphql(
     graphqlOperation(
@@ -5738,13 +5741,13 @@ export class APIService {
     )
   ) as Observable<
     SubscriptionResponse<
-      Pick<__SubscriptionContainer, 'onUpdateImageCollection'>
+      Pick<__SubscriptionContainer, "onUpdateImageCollection">
     >
   >;
 
   OnDeleteImageCollectionListener: Observable<
     SubscriptionResponse<
-      Pick<__SubscriptionContainer, 'onDeleteImageCollection'>
+      Pick<__SubscriptionContainer, "onDeleteImageCollection">
     >
   > = API.graphql(
     graphqlOperation(
@@ -5798,12 +5801,12 @@ export class APIService {
     )
   ) as Observable<
     SubscriptionResponse<
-      Pick<__SubscriptionContainer, 'onDeleteImageCollection'>
+      Pick<__SubscriptionContainer, "onDeleteImageCollection">
     >
   >;
 
   OnCreateMapListener: Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onCreateMap'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateMap">>
   > = API.graphql(
     graphqlOperation(
       `subscription OnCreateMap {
@@ -5852,11 +5855,11 @@ export class APIService {
       }`
     )
   ) as Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onCreateMap'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateMap">>
   >;
 
   OnUpdateMapListener: Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onUpdateMap'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateMap">>
   > = API.graphql(
     graphqlOperation(
       `subscription OnUpdateMap {
@@ -5905,11 +5908,11 @@ export class APIService {
       }`
     )
   ) as Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onUpdateMap'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateMap">>
   >;
 
   OnDeleteMapListener: Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onDeleteMap'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteMap">>
   > = API.graphql(
     graphqlOperation(
       `subscription OnDeleteMap {
@@ -5958,11 +5961,11 @@ export class APIService {
       }`
     )
   ) as Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onDeleteMap'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteMap">>
   >;
 
   OnCreateMessageListener: Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onCreateMessage'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateMessage">>
   > = API.graphql(
     graphqlOperation(
       `subscription OnCreateMessage {
@@ -6011,11 +6014,11 @@ export class APIService {
       }`
     )
   ) as Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onCreateMessage'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateMessage">>
   >;
 
   OnUpdateMessageListener: Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onUpdateMessage'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateMessage">>
   > = API.graphql(
     graphqlOperation(
       `subscription OnUpdateMessage {
@@ -6064,11 +6067,11 @@ export class APIService {
       }`
     )
   ) as Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onUpdateMessage'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateMessage">>
   >;
 
   OnDeleteMessageListener: Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onDeleteMessage'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteMessage">>
   > = API.graphql(
     graphqlOperation(
       `subscription OnDeleteMessage {
@@ -6117,11 +6120,11 @@ export class APIService {
       }`
     )
   ) as Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onDeleteMessage'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteMessage">>
   >;
 
   OnCreateImagesListener: Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onCreateImages'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateImages">>
   > = API.graphql(
     graphqlOperation(
       `subscription OnCreateImages {
@@ -6138,11 +6141,11 @@ export class APIService {
       }`
     )
   ) as Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onCreateImages'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateImages">>
   >;
 
   OnUpdateImagesListener: Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onUpdateImages'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateImages">>
   > = API.graphql(
     graphqlOperation(
       `subscription OnUpdateImages {
@@ -6159,11 +6162,11 @@ export class APIService {
       }`
     )
   ) as Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onUpdateImages'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateImages">>
   >;
 
   OnDeleteImagesListener: Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onDeleteImages'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteImages">>
   > = API.graphql(
     graphqlOperation(
       `subscription OnDeleteImages {
@@ -6180,11 +6183,11 @@ export class APIService {
       }`
     )
   ) as Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onDeleteImages'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteImages">>
   >;
 
   OnCreateFlightDetailsListener: Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onCreateFlightDetails'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateFlightDetails">>
   > = API.graphql(
     graphqlOperation(
       `subscription OnCreateFlightDetails {
@@ -6212,11 +6215,11 @@ export class APIService {
       }`
     )
   ) as Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onCreateFlightDetails'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateFlightDetails">>
   >;
 
   OnUpdateFlightDetailsListener: Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onUpdateFlightDetails'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateFlightDetails">>
   > = API.graphql(
     graphqlOperation(
       `subscription OnUpdateFlightDetails {
@@ -6244,11 +6247,11 @@ export class APIService {
       }`
     )
   ) as Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onUpdateFlightDetails'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateFlightDetails">>
   >;
 
   OnDeleteFlightDetailsListener: Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onDeleteFlightDetails'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteFlightDetails">>
   > = API.graphql(
     graphqlOperation(
       `subscription OnDeleteFlightDetails {
@@ -6276,12 +6279,12 @@ export class APIService {
       }`
     )
   ) as Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onDeleteFlightDetails'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteFlightDetails">>
   >;
 
   OnCreatePendingInvitesListener: Observable<
     SubscriptionResponse<
-      Pick<__SubscriptionContainer, 'onCreatePendingInvites'>
+      Pick<__SubscriptionContainer, "onCreatePendingInvites">
     >
   > = API.graphql(
     graphqlOperation(
@@ -6298,13 +6301,13 @@ export class APIService {
     )
   ) as Observable<
     SubscriptionResponse<
-      Pick<__SubscriptionContainer, 'onCreatePendingInvites'>
+      Pick<__SubscriptionContainer, "onCreatePendingInvites">
     >
   >;
 
   OnUpdatePendingInvitesListener: Observable<
     SubscriptionResponse<
-      Pick<__SubscriptionContainer, 'onUpdatePendingInvites'>
+      Pick<__SubscriptionContainer, "onUpdatePendingInvites">
     >
   > = API.graphql(
     graphqlOperation(
@@ -6321,13 +6324,13 @@ export class APIService {
     )
   ) as Observable<
     SubscriptionResponse<
-      Pick<__SubscriptionContainer, 'onUpdatePendingInvites'>
+      Pick<__SubscriptionContainer, "onUpdatePendingInvites">
     >
   >;
 
   OnDeletePendingInvitesListener: Observable<
     SubscriptionResponse<
-      Pick<__SubscriptionContainer, 'onDeletePendingInvites'>
+      Pick<__SubscriptionContainer, "onDeletePendingInvites">
     >
   > = API.graphql(
     graphqlOperation(
@@ -6344,12 +6347,12 @@ export class APIService {
     )
   ) as Observable<
     SubscriptionResponse<
-      Pick<__SubscriptionContainer, 'onDeletePendingInvites'>
+      Pick<__SubscriptionContainer, "onDeletePendingInvites">
     >
   >;
 
   OnCreateConnectionListener: Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onCreateConnection'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateConnection">>
   > = API.graphql(
     graphqlOperation(
       `subscription OnCreateConnection {
@@ -6363,11 +6366,11 @@ export class APIService {
       }`
     )
   ) as Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onCreateConnection'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateConnection">>
   >;
 
   OnUpdateConnectionListener: Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onUpdateConnection'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateConnection">>
   > = API.graphql(
     graphqlOperation(
       `subscription OnUpdateConnection {
@@ -6381,11 +6384,11 @@ export class APIService {
       }`
     )
   ) as Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onUpdateConnection'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateConnection">>
   >;
 
   OnDeleteConnectionListener: Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onDeleteConnection'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteConnection">>
   > = API.graphql(
     graphqlOperation(
       `subscription OnDeleteConnection {
@@ -6399,11 +6402,11 @@ export class APIService {
       }`
     )
   ) as Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onDeleteConnection'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteConnection">>
   >;
 
   OnCreatePendingJobsListener: Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onCreatePendingJobs'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreatePendingJobs">>
   > = API.graphql(
     graphqlOperation(
       `subscription OnCreatePendingJobs {
@@ -6419,11 +6422,11 @@ export class APIService {
       }`
     )
   ) as Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onCreatePendingJobs'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreatePendingJobs">>
   >;
 
   OnUpdatePendingJobsListener: Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onUpdatePendingJobs'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdatePendingJobs">>
   > = API.graphql(
     graphqlOperation(
       `subscription OnUpdatePendingJobs {
@@ -6439,11 +6442,11 @@ export class APIService {
       }`
     )
   ) as Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onUpdatePendingJobs'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdatePendingJobs">>
   >;
 
   OnDeletePendingJobsListener: Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onDeletePendingJobs'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeletePendingJobs">>
   > = API.graphql(
     graphqlOperation(
       `subscription OnDeletePendingJobs {
@@ -6459,6 +6462,6 @@ export class APIService {
       }`
     )
   ) as Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, 'onDeletePendingJobs'>>
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeletePendingJobs">>
   >;
 }

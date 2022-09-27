@@ -1,69 +1,77 @@
 <div class="background">
+  <!-- <div class="heading">
+    <h1>Account</h1>
+  </div> -->
   <aerial-mapping-side-navbar></aerial-mapping-side-navbar>
   <app-footer></app-footer>
   <div class="content">
+    <!-- <div class="form"> -->
     <div class="title">
       <h3>MY DETAILS</h3>
       <mat-divider></mat-divider>
     </div>
-    <div style="height: 80%; margin: 2%">
-      <label class="label"> NAME </label>
+    <div style="height: 80%; margin: 2%;">
+
+      <!-- Name field -->
+      <label class="label">
+        NAME
+      </label>
       <form [formGroup]="nameForm">
         <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+          <!-- <mat-label>Name</mat-label> -->
           <label>
             <input id="displayNameField" readonly #name matInput style="user-select: none;">
           </label>
-          <div matSuffix style="height: 100% !important; margin: 0">
-            <button
-              id="nameEdit"
-              mat-button
-              class="tooltip"
-              (click)="openNameDialog()"
-            >
-              <span class="material-symbols-outlined"> edit </span>
+          <div matSuffix style="height: 100% !important; margin: 0;">
+            <button id="nameEdit" mat-button class="tooltip" (click)="openNameDialog()">
+              <span class="material-symbols-outlined">
+                edit
+              </span>
             </button>
           </div>
         </mat-form-field>
       </form>
 
-      <label class="label"> EMAIL </label>
+      <!-- Email field -->
+      <label class="label">
+        EMAIL
+      </label>
       <form [formGroup]="emailForm">
         <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+          <!-- <mat-label>Email</mat-label> -->
           <label>
-            <input readonly #email matInput style="user-select: none" />
+            <input readonly #email matInput style="user-select: none;">
           </label>
-          <div matSuffix style="height: 100% !important; margin: 0">
-            <button
-              id="emailEdit"
-              mat-button
-              class="tooltip"
-              (click)="openEmailDialog()"
-            >
-              <span class="material-symbols-outlined"> edit </span>
+          <div matSuffix style="height: 100% !important; margin: 0;">
+            <button id="emailEdit" mat-button class="tooltip" (click)="openEmailDialog()">
+              <span class="material-symbols-outlined">
+                edit
+              </span>
             </button>
           </div>
         </mat-form-field>
       </form>
 
-      <label class="label"> ROLE </label>
+      <!-- Role field -->
+      <label class="label">
+        ROLE
+      </label>
       <form [formGroup]="roleForm">
         <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+          <!-- <mat-label>Role</mat-label> -->
           <label>
-            <input readonly #role matInput style="user-select: none" />
+            <input readonly #role matInput style="user-select: none;">
           </label>
         </mat-form-field>
       </form>
 
+      <!-- Bottom Buttons -->
       <div class="contains">
         <div class="center">
           <button id="passwordEdit" (click)="openPasswordDialog()" class="btn">
             Change Password
           </button>
-          <button
-            (click)="openRegisterLinkDialog()"
-            *ngIf="this.admin"
-            class="btn"
-          >
+          <button (click)="openRegisterLinkDialog()" *ngIf="this.admin" class="btn">
             Send Registration Link
           </button>
           <button id="logoutBtn" (click)="logout()" class="btn">
@@ -73,16 +81,11 @@
         </div>
       </div>
       <div>
-        <button
-          mat-button
-          class="deleteAccount"
-          (click)="onDeleteClick()"
-          color="warn"
-        >
-          Delete account
-        </button>
+        <button mat-button class="deleteAccount" (click)="onDeleteClick(true)" color="warn">Delete account</button>
       </div>
+
       <app-spinner></app-spinner>
+
     </div>
   </div>
 </div>

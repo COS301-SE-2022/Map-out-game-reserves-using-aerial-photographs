@@ -2,26 +2,18 @@
 <div mat-dialog-content>
   <mat-form-field appearance="fill">
     <mat-label for="curr">Park Name</mat-label>
-    <input matInput [(ngModel)]="data.name" name="name" cdkFocusInitial />
+    <input matInput [(ngModel)]="data.name" name="name" cdkFocusInitial>
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label for="new">Park Location (Coordinates)</mat-label>
-    <input matInput [(ngModel)]="data.location" name="location" />
+    <input matInput [(ngModel)]="data.location" name="location">
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label for="new">Park Address</mat-label>
-    <input matInput [(ngModel)]="data.address" name="address" />
+    <input matInput [(ngModel)]="data.address" name="address">
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()" color="warn">Cancel</button>
-  <button
-    mat-button
-    [disabled]="!data.name"
-    (click)="onSubmit()"
-    color="primary"
-    type="button"
-  >
-    Save Changes
-  </button>
+  <button mat-button [disabled]="!data.name" (click)="onSubmit()" color="primary" type="button">Save Changes</button>
 </div>

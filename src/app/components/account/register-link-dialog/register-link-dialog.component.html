@@ -1,22 +1,12 @@
 <h1 mat-dialog-title>Send Registration Invite</h1>
-<div mat-dialog-content style="height: 115px">
+<div mat-dialog-content style="height: 115px;">
   <mat-form-field appearance="fill">
     <mat-label for="new">Recipient Email Address</mat-label>
-    <input matInput [(ngModel)]="data.recipient" name="new" cdkFocusInitial />
+    <input matInput [(ngModel)]="data.recipient" name="new" cdkFocusInitial>
   </mat-form-field>
-  <mat-checkbox #checkbox [color]="checkboxColor"
-    >Invite new user as Administrator</mat-checkbox
-  >
+  <mat-checkbox #checkbox [color]="checkboxColor">Invite new user as Administrator</mat-checkbox>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()" color="warn">Cancel</button>
-  <button
-    mat-button
-    [disabled]="!data.recipient"
-    (click)="onSubmit(checkbox.checked)"
-    color="primary"
-    type="button"
-  >
-    Send Invite
-  </button>
+  <button mat-button [disabled]="!data.recipient" (click)="onSubmit(checkbox.checked)" color="primary" type="button">Send Invite</button>
 </div>
