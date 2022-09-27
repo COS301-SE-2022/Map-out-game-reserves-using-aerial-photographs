@@ -2,17 +2,34 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-
 import { LoginComponent } from './login.component';
+import { Auth, Storage } from 'aws-amplify';
+import { DashboardComponent } from '../dashboard/dashboard.component';
+
+Auth.configure({
+  region: 'sa-east-1',
+  userPoolId: 'sa-east-1_wDnNPQ5Vo',
+  userPoolWebClientId: '3a32euto9uetfe88377gd2u617'
+})
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
+  let originalTimeout: number;
 
   beforeEach(async () => {
+    originalTimeout =  jasmine.DEFAULT_TIMEOUT_INTERVAL;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 25000;
+
     await TestBed.configureTestingModule({
-      declarations: [ LoginComponent ],
-      imports: [ FormsModule, ReactiveFormsModule, HttpClientModule, RouterTestingModule ],
+      declarations: [ LoginComponent, DashboardComponent ],
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        RouterTestingModule.withRoutes(
+        [{path: 'dashboard', component: DashboardComponent}]
+      ) ],
       providers: [ HttpClient ]
     })
     .compileComponents();
@@ -26,8 +43,7 @@ describe('LoginComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it("should have as title 'login-component'", () => {  
-    // const app = fixture.debugElement.componentInstance;
+  it("should have as title 'login-component'", () => {
     expect(component.title).toEqual('login-component');
   });
 
@@ -74,14 +90,25 @@ describe('LoginComponent', () => {
   it('submits form and logs in', async () => {
     component.loginForm.controls['email'].setValue("correct@email.com");
     component.loginForm.controls['password'].setValue("12345678");
-    expect(component.loginForm.valid).toBeTruthy();
+
+    //const routerMock: any = jasmine.createSpyObj('Router', ['navigate']);
+    //routerMock.navigate.and.returnValue(true);
+    spyOn(component.router, 'navigate').and.returnValue(Promise.resolve(true));
+    component.windowReload = jasmine.createSpy();
 
     //response from event emitter
-    component.loggedIn.subscribe(user => {
-      expect(user!.attributes.email).toBe("correct@email.com");
-    });
+    //component.loggedIn.subscribe(user => {
+      //expect(user.attributes.email).toBe("correct@email.com");
+      //done();
+    //});
 
-    await component.login();
+    component.isSubmitted = true;
+    const result = await component.login();
+    expect(result).toBe(1);
+  });
+
+  afterEach(() => {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
   });
 
 });

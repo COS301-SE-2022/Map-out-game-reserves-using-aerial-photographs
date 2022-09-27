@@ -21,14 +21,14 @@ export class LoginComponent {
   isSubmitted: boolean;
   inAnimation: boolean;
   hide:boolean;
-  
-  constructor(private formBuilder: UntypedFormBuilder, private router: Router, private http: HttpClient) {
+
+  constructor(private formBuilder: UntypedFormBuilder, public router: Router, private http: HttpClient) {
     //loader
-    
+
     this.inAnimation = false;
 
     this.fadeOut();
-       
+
     this.loginForm = this.formBuilder.group({
       email: new UntypedFormControl('', [Validators.required, Validators.email]),
       password: new UntypedFormControl('', [Validators.required])
@@ -38,11 +38,14 @@ export class LoginComponent {
     this.hide = true;
   }
 
+  windowReload() {
+    window.location.reload();
+  }
+
   async login() {
     if(this.isSubmitted){
       const email = this.loginForm.controls['email'];
       const password = this.loginForm.controls['password'];
-  
       if(email.value != '' && password.value != '') {
         var err:string = "";
         //Amplify Auth
@@ -50,20 +53,24 @@ export class LoginComponent {
           const user = await Auth.signIn(email.value, password.value);
           this.router.navigate(['dashboard']);
           setTimeout(() => {
-            window.location.reload();
+            this.windowReload();
           }, 1);
           this.loggedIn.emit(user); //for unit testing purposes
+          return 1;
         } catch (error) {
             console.log('error signing in', error);
             this.errorOccurred(""+error);
             this.isSubmitted=false;
+            return error;
         }
-        
+      }
+      else {
+        return 'email or password empty';
       }
     }
-    
-
+    return -1;
   }
+
   errorOccurred(err:string){
     if (err!= "") {
       if(err.includes("User does not exist")) {
@@ -73,7 +80,6 @@ export class LoginComponent {
       }
     }
   }
-  
 
   get email() { return this.loginForm.get('email'); }
   get password() { return this.loginForm.get('password'); }

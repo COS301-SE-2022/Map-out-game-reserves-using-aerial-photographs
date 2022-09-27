@@ -204,6 +204,11 @@ export class FileUploadComponent {
       const h: number = +height;
       let promises: Promise<any>[] = [];
 
+      if(this.files.length == 1 && this.files[0].type.match('image/*')) {
+        this.snackBar.open('At least two images are needed to stitch maps using images. Either upload more than one image, or try uploading a video.', '❌')
+        throw 'Use more than one image to stitch a map.';
+      }
+
       //create a flight object
       const flight: CreateFlightDetailsInput = {
         flightID: uuidv4(),
@@ -258,11 +263,9 @@ export class FileUploadComponent {
         this.api.CreatePendingJobs(pendingJob).then((resp: any) => {
           console.log("CreatePendingJob response:", resp);
 
-          // console.log("LENGTH"+promises.length);
           //wait for all promises to resolve
           Promise.all(promises).then(async () => {
-            // console.log("PROMISES");
-            // console.log(promises);
+
             //publish SNS message to 'stitch_jobs' topic with the jobID - once all image uploads are complete
             await this.publishSNSNotification();
 
@@ -281,6 +284,8 @@ export class FileUploadComponent {
                   }
                 });
               }
+          }).catch(err => {
+            console.log(err);
           });
         });
       }).catch(e => { console.log(e) });
@@ -297,6 +302,11 @@ export class FileUploadComponent {
     this.fileName = '';
 
     for (let index = 0; index < event.target.files.length; index++) {
+
+      if(!event.target.files[index].type.match('image/*') && !event.target.files[index].type.match('video/*')) {
+        throw 'File type must be an image or a video';
+      }
+
       this.files.push(event.target.files[index]);
 
       if (this.files[index]) {
@@ -355,18 +365,22 @@ export class FileUploadComponent {
 
       Promise.all(promises).then((resp: any) => {
         resolve(resp);
-      });
+      }).catch(err => { console.log(err); });
     });
   }
 
   uploadVideo(collectionID: string): Promise<any> {
-    return new Promise<any>(async (resolve) => {
+    return new Promise<any>(async (resolve, reject) => {
       let promises: Promise<any>[] = [];
       //Load video
       const img = new Image();
       img.crossOrigin = 'anonymous';
       img.src = URL.createObjectURL(this.files[0]);
 
+      if (!this.files[0].type.match('video/*')) {
+        reject("Input more than one image to stitch a new map.");
+        return;
+      }
       // extract frames (video, interval(time), quality(0-1), final width, final height)
       const interval = 1; //fps
       const quality = 1.0;
@@ -389,19 +403,15 @@ export class FileUploadComponent {
           const inp: CreateImagesInput = {
             imageID: uuidv4(),
             collectionID: collectionID,
-            bucket_name: 'dylpickles-image-bucket',
+            bucket_name: 'aerial-mapping-bucket80642-dev',
             file_name: collectionID + '-frame-' + i + '.png',
           };
 
-          console.log(i + '|' + inp.imageID);
-
-          promises.push (this.api
-            .CreateImages(inp));
-
-            promises.push(this.uploadToS3(collectionID, inp.imageID, frames[fCount++]));
-          }
-
-
+          promises.push(this.api.CreateImages(inp));
+          promises.push(
+            this.uploadToS3(collectionID, inp.imageID, frames[fCount++])
+          );
+        }
         promises.push(this.makeThumbnails(collectionID, frames));
       });
 
@@ -487,11 +497,11 @@ export class FileUploadComponent {
 
   async resizeImage(blobFile: File, width: number, height: number) {
     // quality value for webp and jpeg formats.
-    const quality = 80;
+    const quality = 100;
     // file format: png, jpeg, bmp, gif, webp. If null, original format will be used.
-    const format = 'webp';
+    //const format = 'webp';
     // note only the blobFile argument is required
-    return await fromBlob(blobFile, quality, width, height, format);
+    return await fromBlob(blobFile, quality, width, height /*, format */);
   }
 
   async makeThumbnails(collectionID: string, frames: any[]) {

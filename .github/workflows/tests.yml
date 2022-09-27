@@ -49,10 +49,20 @@ jobs:
       #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       #   run: node ./scripts/setenv.js -- --environment=dev
 
-        #run tests on the entire repository
-      - name: Unit Test all
+        #run unit & integration tests
+      - name: Unit & Integration Tests
         # if: inputs.testtype == 'unit'
         run: npx ng test --watch=false --browsers=ChromeHeadless --code-coverage
+
+        #run end-to-end tests
+      # - name: Cypress E2E Tests
+      #   uses: cypress-io/github-action@v2
+      #   timeout-minutes: 10
+      #   with:
+      #     browser: firefox
+      #   env:
+      #     VALID_USERNAME: ${{ secrets.VALID_USERNAME }}
+      #     VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
 
         #Upload codecov report
       - name: Upload Codecov Report
