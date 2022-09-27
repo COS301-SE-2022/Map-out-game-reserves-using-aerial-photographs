@@ -26,7 +26,7 @@ describe('AuthGuard', () => {
     expect(guard).toBeTruthy();
   });
 
-  it('should return false for canActivate', (done) => {
+  it('should return true for canActivate', (done) => {
     authMock.getAuth.and.returnValue(true);
     const result: Promise<boolean> = guard.canActivate(new ActivatedRouteSnapshot(), <RouterStateSnapshot>{ url: 'dashboard' });
     result.then((resp: boolean) => {
