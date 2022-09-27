@@ -9,6 +9,7 @@ import { FooterModule } from '../shared/footer/footer.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SpinnerModule } from '../shared/spinner/spinner.module';
 import { MatIconModule } from '@angular/material/icon';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [LoginComponent],
@@ -22,7 +23,8 @@ import { MatIconModule } from '@angular/material/icon';
     ReactiveFormsModule,
     MatSnackBarModule, 
     SpinnerModule,
-    MatIconModule
+    MatIconModule,
+    MatProgressSpinnerModule
   ]
 })
 export class LoginModule { }

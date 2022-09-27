@@ -31,7 +31,7 @@
         <mat-form-field appearance="fill" required style="width:auto;">
           <input id="loginPasswordInput" [type]="hide ? 'password' : 'text'" formControlName="password" placeholder="Enter your password"
             matInput>
-            <button mat-icon-button id = "icon" matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" >
+            <button type = "button" mat-icon-button id = "icon" matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" >
               <mat-icon [ngStyle]="{'color':'white'}">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
               </button>
           <mat-hint id="loginPasswordPrompt" align="start" *ngIf="this.isSubmitted && password!.errors?.['required']"
@@ -43,7 +43,10 @@
         <br>
 
         <div class="center">
-          <a class="center"><button id="loginBtn" type="submit" (click)="isSubmitted = true" mat-flat-button>LOGIN</button></a>
+          <a class="center" id="loginBtn"><button type="submit" (click)="isSubmitted = true">
+            LOGIN
+          </button></a>
+            <mat-progress-spinner *ngIf="this.isSubmitted&&!this.errState" mode="indeterminate" class = "spinner" diameter = "25" style = "z-index: 10; position:absolute;"></mat-progress-spinner>
         </div>
       </form>
 
