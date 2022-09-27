@@ -63,7 +63,6 @@ export class LoginComponent {
             this.isSubmitted=false;
             return error;
         }
-
       }
       else {
         return 'email or password empty';
@@ -81,7 +80,6 @@ export class LoginComponent {
       }
     }
   }
-
 
   get email() { return this.loginForm.get('email'); }
   get password() { return this.loginForm.get('password'); }
