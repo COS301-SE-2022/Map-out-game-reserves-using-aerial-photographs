@@ -15,10 +15,8 @@ import {
   CreateMessageInput,
   UpdateImageCollectionInput,
   GetImageCollectionQuery,
-  DeleteMapInput,
   DeleteMessageInput,
-  GetMessagesQuery,
-  GetMessageByCollectionIdQuery
+  GetMessageByCollectionIdQuery,
 } from 'src/app/API.service';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -31,14 +29,11 @@ import { ControllerService } from 'src/app/api/controller/controller.service';
 })
 export class DashboardComponent implements OnInit {
   title = 'dashboard-component';
-
   collectionData: ImageCollection[] = [];
   completed: ImageCollection[] = [];
   processing: ImageCollection[] = [];
-
   messagesData: CreateMessageInput[] = [];
   messages: Dashboard_Message[] = [];
-
   errorState: boolean = false;
 
   // font awesome icons
@@ -48,9 +43,6 @@ export class DashboardComponent implements OnInit {
   good = good;
   complete = complete;
   progress = progress;
-
-  values = [3, 5, 2, 3, 2, 1, 7, 4];
-
   inAnimation: boolean;
 
   constructor(
@@ -67,96 +59,14 @@ export class DashboardComponent implements OnInit {
     this.refreshDashboard();
 
     // refresh map collections and messages when a notification is received from the websocket
-    if(this.controller.websocket != null){
+    if (this.controller.websocket != null) {
       this.controller.websocket.onmessage = (msg: any) => {
-        console.log('SNS message received ', msg);
         this.refreshDashboard();
       };
     }
-
-    //poll DynamoDB (OLD)
-    // this.statusPollingInterval = interval(5000)
-    //   .pipe(
-    //     startWith(0),
-    //     switchMap(() => this.api.ListImageCollections())
-    //   ).subscribe({
-    //     next: async (collections: ListImageCollectionsQuery) => {
-    //       console.log("[DASHBOARD] Polling collections from DynamoDB...");
-    //       this.completed = [];
-    //       this.processing = [];
-    //       for (const collection of collections.items) {
-    //         if (collection) {
-    //           if (collection.completed) {
-    //             this.completed.push(collection);
-    //           }
-    //           else if (collection.pending) {
-    //             this.processing.push(collection);
-    //           }
-    //         }
-    //       }
-    //     },
-    //     error: (err: any) => {
-    //       console.log(err);
-    //       if (err.errors[0].message == "Network Error") {
-    //         if (!this.errorState) {
-    //           this.errorState = true;
-    //           this.snackbar.open("Network error...", "❌", { verticalPosition: 'top' });
-    //         }
-    //       }
-    //     }
-    //   })
-
-    // this.messagePollingInterval = interval(5000)
-    //   .pipe(
-    //     startWith(0),
-    //     switchMap(() => this.api.ListMessages())
-    //   ).subscribe({
-    //     next: (messages: ListMessagesQuery) => {
-    //       console.log("[DASHBOARD] Listing Messages:", messages)
-    //       if (messages.items.length != 0) {
-    //         console.log(messages);
-    //         this.messagesData = [];
-    //         this.messages = [];
-    //         for (const element of messages.items) {
-    //           if (element) {
-    //             //not creating a message, just using CreateMessageInput as an interface here
-    //             const msg: CreateMessageInput = {
-    //               message_status: element.message_status,
-    //               message_description: element.message_description,
-    //               collectionID: element.collectionID,
-    //               messageID: element.messageID
-    //             }
-    //             this.messagesData.push(msg)
-    //           }
-    //         }
-    //         for (let i = 0; i < this.messagesData.length; i++) {
-    //           let status = good;
-    //           let status_color = 'green-icon';
-    //           if (this.messagesData[i].message_status?.toLowerCase() == 'warning') {
-    //             status = warning;
-    //             status_color = 'orange-icon';
-    //           } else if (this.messagesData[i].message_status?.toLowerCase() == 'error') {
-    //             status = error;
-    //             status_color = 'red-icon';
-    //           }
-    //           this.messages[i] = {
-    //             message_status: status,
-    //             color: status_color,
-    //             message_description: this.messagesData[i].message_description,
-    //             collectionID: this.messagesData[i].collectionID,
-    //           };
-    //         }
-    //       }
-
-    //       return -1;
-    //     },
-    //     error: (err: any) => {
-    //       console.log(err);
-    //       return -1;
-    //     }
-    //   });
   }
 
+  //reloads all data on the dashboard
   refreshDashboard() {
     // get all map collections from DynamoDB - and check statuses of each one.
     this.api
@@ -165,8 +75,6 @@ export class DashboardComponent implements OnInit {
         this.completed = [];
         this.processing = [];
         for (const collection of resp.items) {
-          // console.log("COLLECTION");
-          // console.log(collection);
           if (collection) {
             if (collection.completed && !collection.dismissed) {
               this.completed.push(collection);
@@ -243,10 +151,11 @@ export class DashboardComponent implements OnInit {
       });
   }
 
+  //closes the loadscreen
   fadeOut() {
     if (!this.inAnimation) {
       this.inAnimation = true;
-      document.addEventListener('readystatechange', (event) => {
+      document.addEventListener('readystatechange', () => {
         if (document.readyState === 'complete') {
           const loader = document.getElementById('pre-loader');
           loader!.setAttribute('class', 'fade-out');
@@ -258,61 +167,58 @@ export class DashboardComponent implements OnInit {
       });
     }
   }
-  dismiss(ID:string|undefined|null, statusType:string):void {
-    //TODO: dismiss message = true
-    // var resp = this.api.GetImageCollection(ID);
-    // this.api.UpdateImageCollection(ID, )
 
+  //removes an error message from the dashboard
+  dismiss(ID: string | undefined | null, statusType: string): void {
     //error messages
     if (statusType == 'error') {
       //make sure id cant be null
-      if(ID==null){
-        ID="";
+      if (ID == null) {
+        ID = '';
       }
-      this.api.GetMessageByCollectionId(ID).then((value: GetMessageByCollectionIdQuery) => {
-        // const temp:Array<> = value.items;
-        // console.log(value.items[0]?.messageID);
-        let t: string|undefined = value.items[0]?.messageID;
-        if (t ==undefined){
-          t="";
-        }
-        let deleteId : DeleteMessageInput = {messageID : t};
-        this.api.DeleteMessage(deleteId);
-      });
-      this.snackbar.open("Error message dismissed", '❌', {
+      this.api
+        .GetMessageByCollectionId(ID)
+        .then((value: GetMessageByCollectionIdQuery) => {
+          let t: string | undefined = value.items[0]?.messageID;
+          if (t == undefined) {
+            t = '';
+          }
+          let deleteId: DeleteMessageInput = { messageID: t };
+          this.api.DeleteMessage(deleteId);
+        });
+      this.snackbar.open('Error message dismissed', '❌', {
         verticalPosition: 'bottom',
       });
-      if(document.getElementById(ID) != null) {
-        document.getElementById(ID)!.style.display='none';
+      if (document.getElementById(ID) != null) {
+        document.getElementById(ID)!.style.display = 'none';
       }
     }
 
     //completed messages
-    if (statusType =='complete') {
+    if (statusType == 'complete') {
       //make sure id cant be null
-      if(ID==null){
-        ID="";
+      if (ID == null) {
+        ID = '';
       }
-      const IDn:string|undefined = ID;
-      
-      this.api
-      .GetImageCollection(IDn)
-      .then((value: GetImageCollectionQuery) => {
-        value.dismissed=true;
-        const newMessage:UpdateImageCollectionInput={
-          collectionID: IDn,
-          dismissed: true
-        }
-        this.api.UpdateImageCollection(newMessage);
-      });
+      const IDn: string | undefined = ID;
 
-      this.snackbar.open("Map completed message dismissed", '❌', {
+      this.api
+        .GetImageCollection(IDn)
+        .then((value: GetImageCollectionQuery) => {
+          value.dismissed = true;
+          const newMessage: UpdateImageCollectionInput = {
+            collectionID: IDn,
+            dismissed: true,
+          };
+          this.api.UpdateImageCollection(newMessage);
+        });
+
+      this.snackbar.open('Map completed message dismissed', '❌', {
         verticalPosition: 'bottom',
       });
-      if(document.getElementById(ID) != null) {
-        document.getElementById(ID)!.style.display='none';
+      if (document.getElementById(ID) != null) {
+        document.getElementById(ID)!.style.display = 'none';
       }
-      
     }
   }
 }
@@ -323,5 +229,3 @@ class Dashboard_Message {
   message_description: string | null | undefined = '';
   collectionID: string | null | undefined = '';
 }
-
-
