@@ -9,14 +9,14 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SafePipe } from './safe.pipe';
 
 @NgModule({
-  declarations: [ MapComponent, SafePipe ],
+  declarations: [MapComponent, SafePipe],
   imports: [
     CommonModule,
     FontAwesomeModule,
     MatButtonModule,
     NavbarModule,
     FooterModule,
-    MatSnackBarModule
-  ]
+    MatSnackBarModule,
+  ],
 })
-export class MapModule { }
+export class MapModule {}
