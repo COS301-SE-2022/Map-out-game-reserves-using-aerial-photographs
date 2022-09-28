@@ -7,9 +7,7 @@ describe('AWSAmplifyWrapper', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ]
+      imports: [RouterTestingModule],
     }).compileComponents();
     service = TestBed.inject(AWSAmplifyWrapper);
   });
@@ -17,5 +15,4 @@ describe('AWSAmplifyWrapper', () => {
   it('should create', () => {
     expect(service).toBeTruthy();
   });
-
 });
