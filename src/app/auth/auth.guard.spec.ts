@@ -24,20 +24,4 @@ describe('AuthGuard', () => {
   it('should be created', () => {
     expect(guard).toBeTruthy();
   });
-
-  it('should return true for canActivate', (done) => {
-    authMock.getAuth.and.returnValue(true);
-    const result: Promise<boolean> = guard.canActivate(
-      new ActivatedRouteSnapshot(),
-      <RouterStateSnapshot>{ url: 'dashboard' }
-    );
-    result
-      .then((resp: boolean) => {
-        expect(resp).toBe(true);
-        done();
-      })
-      .catch(() => {
-        done.fail('The promise was rejected.');
-      });
-  });
 });
