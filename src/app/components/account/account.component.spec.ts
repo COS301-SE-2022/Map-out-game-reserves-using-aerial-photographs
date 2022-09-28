@@ -11,7 +11,6 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-
 import { AccountComponent } from './account.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
