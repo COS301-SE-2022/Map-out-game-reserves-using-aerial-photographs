@@ -15,7 +15,6 @@ import { DebugElement } from '@angular/core';
 import { AccountComponent } from './account.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
-
 describe('AccountComponent', () => {
   let component: AccountComponent;
   let fixture: ComponentFixture<AccountComponent>;
@@ -24,7 +23,7 @@ describe('AccountComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AccountComponent ],
+      declarations: [AccountComponent],
       imports: [
         NoopAnimationsModule,
         RouterTestingModule,
@@ -37,15 +36,13 @@ describe('AccountComponent', () => {
         MatButtonModule,
         MatSnackBarModule,
         BrowserModule,
-        HttpClientModule
+        HttpClientModule,
       ],
-      providers: [ HttpClient ]
-    })
-    .compileComponents();
+      providers: [HttpClient],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AccountComponent);
     component = fixture.componentInstance;
-    // fixture.detectChanges();
   });
 
   it('should create', () => {
@@ -53,24 +50,16 @@ describe('AccountComponent', () => {
   });
 
   it("should have as title 'account-component'", () => {
-    // const app = fixture.debugElement.componentInstance;
     expect(component.title).toEqual('account-component');
   });
 
   it('should call openPasswordDialog when clicked', () => {
     fixture.detectChanges();
 
-    let openPassword = spyOn (component, 'openPasswordDialog').and.callThrough();
+    let openPassword = spyOn(component, 'openPasswordDialog').and.callThrough();
     expect(openPassword).not.toHaveBeenCalled();
 
     let button = fixture.nativeElement.querySelector('#nameEdit');
     expect(button).toBeTruthy();
-
-    // CAUSES AUTH ERROR!!
-    // button.click();
-    // expect(openPassword).toHaveBeenCalled();
   });
-
-
-
 });
