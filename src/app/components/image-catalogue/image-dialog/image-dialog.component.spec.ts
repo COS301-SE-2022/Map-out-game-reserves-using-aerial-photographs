@@ -2,7 +2,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  MatDialogModule,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -42,7 +46,7 @@ describe('ImageDialogComponent', () => {
         MatInputModule,
         MatButtonModule,
         MatSnackBarModule,
-        HttpClientModule
+        HttpClientModule,
       ],
       providers: [
         {
@@ -57,7 +61,7 @@ describe('ImageDialogComponent', () => {
           provide: Router,
           useValue: routerSpy,
         },
-        HttpClient
+        HttpClient,
       ],
     }).compileComponents();
 
@@ -69,38 +73,6 @@ describe('ImageDialogComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  // Attempt at setTimeout test
-  // it('test setTimeout() for spinners', () => {
-  //   jasmine.clock().uninstall();
-
-  //   component.spinners = [
-  //     document.createElement(
-  //       '<mat-progress-spinner mode="indeterminate" class = "spinner" diameter = "50" style = "z-index: 1;"></mat-progress-spinner>'
-  //     ),
-  //     document.createElement(
-  //       '<mat-progress-spinner mode="indeterminate" class = "spinner" diameter = "50" style = "z-index: 1;"></mat-progress-spinner>'
-  //     ),
-  //   ];
-  //   jasmine.clock().install();
-  //   jasmine.clock().tick(4000);
-  //   expect(component.spinners[0].style.display).toBe('none');
-  //   expect(component.spinners[1].style.display).toBe('none');
-  //   jasmine.clock().uninstall();
-  // });
-
-  // it('test onDeleteClick() with mock try again', () => {
-  //   let router = fixture.debugElement.injector.get(Router);
-  //   let spy = router.navigateByUrl as jasmine.Spy;
-  //   component.onDeleteClick(true);
-  //   expect(spy).toHaveBeenCalled();
-  // });
-
-  // it('dialog should be closed after onDeleteClick()', () => {
-  //   let spy = spyOn(component.dialogRef, 'close').and.callThrough();
-  //   component.onDeleteClick(false);
-  //   expect(spy).toHaveBeenCalled();
-  // });
 
   it('test onSubmit() with mock taskID', () => {
     let router = fixture.debugElement.injector.get(Router);

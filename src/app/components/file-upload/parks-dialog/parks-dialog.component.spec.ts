@@ -2,7 +2,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  MatDialogModule,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -21,7 +25,7 @@ describe('ParksDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ParksDialogComponent ],
+      declarations: [ParksDialogComponent],
       imports: [
         NoopAnimationsModule,
         MatCardModule,
@@ -31,18 +35,19 @@ describe('ParksDialogComponent', () => {
         MatFormFieldModule,
         MatInputModule,
         MatButtonModule,
-        MatSnackBarModule
+        MatSnackBarModule,
       ],
       providers: [
         {
-          provide: MatDialogRef, useValue: dialogMock
+          provide: MatDialogRef,
+          useValue: dialogMock,
         },
         {
-          provide: MAT_DIALOG_DATA, useValue: {}
-        }
-      ]
-    })
-    .compileComponents();
+          provide: MAT_DIALOG_DATA,
+          useValue: {},
+        },
+      ],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ParksDialogComponent);
     component = fixture.componentInstance;

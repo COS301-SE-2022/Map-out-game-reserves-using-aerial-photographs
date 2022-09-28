@@ -2,7 +2,6 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatListModule } from '@angular/material/list';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
 import { DashboardComponent } from './dashboard.component';
 
 describe('DashboardComponent', () => {
@@ -11,15 +10,10 @@ describe('DashboardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DashboardComponent ],
-      imports: [
-        HttpClientModule,
-        MatListModule,
-        MatSnackBarModule
-      ],
-      providers: [ HttpClient ]
-    })
-    .compileComponents();
+      declarations: [DashboardComponent],
+      imports: [HttpClientModule, MatListModule, MatSnackBarModule],
+      providers: [HttpClient],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(DashboardComponent);
     component = fixture.componentInstance;
@@ -30,8 +24,7 @@ describe('DashboardComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it("should have as title 'dashboard-component'", () => {  
-    // const app = fixture.debugElement.componentInstance;
+  it("should have as title 'dashboard-component'", () => {
     expect(component.title).toEqual('dashboard-component');
   });
 });

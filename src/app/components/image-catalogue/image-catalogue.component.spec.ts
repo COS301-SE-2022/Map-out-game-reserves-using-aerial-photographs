@@ -8,9 +8,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
-
 import { ImageCatalogueComponent } from './image-catalogue.component';
 
 describe('ImageCatalogueComponent', () => {
@@ -19,7 +16,7 @@ describe('ImageCatalogueComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ImageCatalogueComponent ],
+      declarations: [ImageCatalogueComponent],
       imports: [
         HttpClientModule,
         NoopAnimationsModule,
@@ -29,11 +26,10 @@ describe('ImageCatalogueComponent', () => {
         MatInputModule,
         MatSelectModule,
         MatSnackBarModule,
-        MatDialogModule
-       ],
-      providers: [ HttpClient ]
-    })
-    .compileComponents();
+        MatDialogModule,
+      ],
+      providers: [HttpClient],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ImageCatalogueComponent);
     component = fixture.componentInstance;
@@ -43,6 +39,4 @@ describe('ImageCatalogueComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  
 });

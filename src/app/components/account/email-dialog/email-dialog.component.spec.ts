@@ -2,7 +2,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  MatDialogModule,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -53,15 +57,6 @@ describe('EmailDialogComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  // it('component variables initialised correctly', () => {
-  //   spyOn(component.snackBar,"open").and.callThrough();
-  //   expect(component.isSubmitted).toBeFalsy();
-  //   expect(component.email!.value).toBe('');
-  //   expect(component.password!.value).toBe('');
-  //   expect(component.repeatedPassword!.value).toBe('');
-  //   expect(component.name!.value).toBe('');
-  // });
 
   it('test onSubmit() with mock empty email', () => {
     component.data.newEmail = '';

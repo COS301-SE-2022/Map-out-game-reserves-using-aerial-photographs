@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { MapComponent } from './map.component';
 import { SafePipe } from './safe.pipe';
 
@@ -9,9 +8,8 @@ describe('MapComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MapComponent, SafePipe ]
-    })
-    .compileComponents();
+      declarations: [MapComponent, SafePipe],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(MapComponent);
     component = fixture.componentInstance;
