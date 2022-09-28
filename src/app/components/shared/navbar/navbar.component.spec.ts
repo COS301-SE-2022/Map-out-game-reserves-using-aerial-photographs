@@ -18,16 +18,4 @@ describe('NavbarComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  // Might be untestable
-
-  // it('test onClick()', () => {
-  //   Object.defineProperty(window.location, 'reload', { configurable: true, });
-  //   let spy = spyOn(window.location, 'reload');
-  //   jasmine.clock().install();
-  //   component.onClick('test');
-  //   jasmine.clock().tick(1);
-  //   expect(spy).toHaveBeenCalled();
-  //   jasmine.clock().uninstall();
-  // });
 });

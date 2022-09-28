@@ -2,7 +2,11 @@ import { TestBed } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDialog, MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  MatDialogModule,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -26,19 +30,19 @@ describe('AppComponent', () => {
         MatListModule,
         MatFormFieldModule,
         MatProgressBarModule,
-        MatButtonModule
+        MatButtonModule,
       ],
-      declarations: [
-        AppComponent
-      ],
+      declarations: [AppComponent],
       providers: [
         {
-          provide: MatDialogRef, useValue: {}
+          provide: MatDialogRef,
+          useValue: {},
         },
         {
-          provide: MAT_DIALOG_DATA, useValue:{}
-        }
-      ]
+          provide: MAT_DIALOG_DATA,
+          useValue: {},
+        },
+      ],
     }).compileComponents();
   });
 
@@ -58,6 +62,8 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('Aerial Mapper app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain(
+      'Aerial Mapper app is running!'
+    );
   });
 });
