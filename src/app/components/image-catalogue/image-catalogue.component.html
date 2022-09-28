@@ -25,9 +25,9 @@
             <mat-label id="right" class="sortLabel">Sort By</mat-label>
             <mat-select matInput 
               id="left" class="sort" style="display: inline">
-              <mat-option [value]="sort.date" selected (click)="orderByDate()">Upload Date</mat-option>
-              <mat-option [value]="sort.name" (click)="orderByName()">Map Name</mat-option>
-              <mat-option [value]="sort.park" (click)="orderByPark()">Park</mat-option>
+              <mat-option selected (click)="orderByDate()">Upload Date</mat-option>
+              <mat-option (click)="orderByName()">Map Name</mat-option>
+              <mat-option (click)="orderByPark()">Park</mat-option>
 
             </mat-select>
           </mat-form-field>

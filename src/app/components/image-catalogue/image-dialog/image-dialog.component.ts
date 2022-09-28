@@ -60,20 +60,23 @@ export class ImageDialogComponent {
         spin.style.display = 'none';
       });
     }, 4000);
-
   }
 
   async ngOnInit() {
-      await Auth.currentAuthenticatedUser({ bypassCache: false }).then(async (res: any) => {
-        const groups: Array<any> = res.signInUserSession.idToken.payload['cognito:groups'];
+    await Auth.currentAuthenticatedUser({ bypassCache: false }).then(
+      async (res: any) => {
+        const groups: Array<any> =
+          res.signInUserSession.idToken.payload['cognito:groups'];
         groups.forEach((group: any) => {
           if (group == 'Admin') {
             this.admin = true;
           }
         });
-      }, (err: any) => {
+      },
+      (err: any) => {
         console.log(err);
-      });
+      }
+    );
   }
 
   //closes the image-dialog

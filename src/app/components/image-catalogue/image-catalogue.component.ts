@@ -4,7 +4,6 @@ import { SafeUrl } from '@angular/platform-browser';
 import {
   APIService,
   Images,
-  ListGameParksQuery,
   ListImageCollectionsQuery,
 } from 'src/app/API.service';
 import { ControllerService } from 'src/app/api/controller/controller.service';
@@ -14,8 +13,6 @@ import {
   MAT_TOOLTIP_DEFAULT_OPTIONS,
   MatTooltipDefaultOptions,
 } from '@angular/material/tooltip';
-import { number, string } from 'yargs';
-import { String } from 'aws-sdk/clients/acm';
 
 /** Custom options the configure the tooltip's default show/hide delays. */
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
@@ -53,16 +50,8 @@ export class ImageCatalogueComponent implements OnInit {
   tempCatalogues: Array<any> = [];
   catalogues: CatalogData[] = [];
   selectedCatalogue: any = null;
-
-  sort = {
-    date: 'date',
-    park: 'park',
-    name: 'name',
-  };
-
   inAnimation: boolean;
   spinners: HTMLElement[];
-
   flag = false;
 
   constructor(
@@ -71,7 +60,6 @@ export class ImageCatalogueComponent implements OnInit {
     private controller: ControllerService,
     private snackbar: MatSnackBar
   ) {
-    // window.location.reload();
     //loader
     this.inAnimation = false;
     this.fadeOut();
@@ -95,14 +83,12 @@ export class ImageCatalogueComponent implements OnInit {
           'spinner'
         ) as HTMLCollectionOf<HTMLElement>
       );
-      // console.log(this.spinners);
     }, 5000);
   }
 
   ngOnInit() {
     if (this.controller.websocket != null) {
-      this.controller.websocket.onmessage = (msg: any) => {
-        console.log('SNS message received ', msg);
+      this.controller.websocket.onmessage = () => {
         this.getAllCatalogues();
       };
     }
@@ -112,47 +98,43 @@ export class ImageCatalogueComponent implements OnInit {
     this.api
       .ListImageCollections()
       .then((data: ListImageCollectionsQuery) => {
-        console.log(data);
-
         for (const catalog of data.items) {
-              // console.log(parkNameTemp);
-              this.catalogues.push({
-                catalogue: catalog,
-                images: [],
-                thumbnails: [],
-                collectionID: catalog?.collectionID,
-                completed: catalog?.completed,
-                error: catalog?.error,
-                taskID: catalog?.taskID,
-                collectionName: catalog?.collectionName,
-                parkName: ""
-              });
-          }
-          
-          // console.log(parkNameTemp);
+          this.catalogues.push({
+            catalogue: catalog,
+            images: [],
+            thumbnails: [],
+            collectionID: catalog?.collectionID,
+            completed: catalog?.completed,
+            error: catalog?.error,
+            taskID: catalog?.taskID,
+            collectionName: catalog?.collectionName,
+            parkName: '',
+          });
+        }
 
         for (const catalogData of this.catalogues) {
           var parkidString: string = '';
-          if (catalogData && (catalogData.catalogue.parkID == undefined || catalogData.catalogue.parkID == null)) {
+          if (
+            catalogData &&
+            (catalogData.catalogue.parkID == undefined ||
+              catalogData.catalogue.parkID == null)
+          ) {
             catalogData.catalogue.parkID = '';
             catalogData.parkName = '';
           } else {
             parkidString = '' + catalogData?.catalogue.parkID;
             this.api.GetGamePark(parkidString).then((resp: any) => {
-              // console.log(resp);
               if (resp?.park_name == null || resp?.park_name == undefined) {
-                catalogData.parkName = "";
+                catalogData.parkName = '';
               } else {
                 catalogData.parkName = resp.park_name;
               }
             });
           }
 
-          //console.log(22,catalogData.catalogue.collectionID);
           this.api
             .ImagesByCollectionId(catalogData.catalogue.collectionID)
             .then((resp: any) => {
-              //console.log(resp.items);
               for (const image of resp.items) {
                 catalogData.images.push({ image: image, url: '' });
               }
@@ -170,7 +152,7 @@ export class ImageCatalogueComponent implements OnInit {
                   })
                   .catch((err) => console.log(err));
               }
-              
+
               for (let i = 0; i < 3; i++) {
                 this.controller
                   .S3download(
@@ -184,10 +166,8 @@ export class ImageCatalogueComponent implements OnInit {
                   })
                   .catch((err) => console.log(err));
               }
-              // this.sortByDate();
               this.tempCatalogues = this.catalogues;
               setTimeout(() => {
-                // console.log(this.spinners);
                 this.spinners.forEach((spin) => {
                   spin.style.display = 'none';
                 });
@@ -195,7 +175,6 @@ export class ImageCatalogueComponent implements OnInit {
             })
             .catch((e) => console.log(e));
         }
-        console.log(this.catalogues);
         return data.items;
       })
       .catch((e) => {
@@ -222,13 +201,15 @@ export class ImageCatalogueComponent implements OnInit {
 
   orderByPark() {
     this.catalogues.sort(function (a, b) {
-      if(!a.catalogue.GamePark){
+      if (!a.catalogue.GamePark) {
         return 1;
       }
-      if(!b.catalogue.GamePark){
+      if (!b.catalogue.GamePark) {
         return -1;
       }
-      return a.catalogue.GamePark.park_name.localeCompare(b.catalogue.GamePark.park_name);
+      return a.catalogue.GamePark.park_name.localeCompare(
+        b.catalogue.GamePark.park_name
+      );
     });
   }
 
@@ -236,7 +217,6 @@ export class ImageCatalogueComponent implements OnInit {
     this.catalogues.sort((a, b) =>
       a.catalogue.collectionName.localeCompare(b.catalogue.collectionName)
     );
-    console.log(this.catalogues);
   }
 
   searchCatalogues() {
@@ -256,35 +236,6 @@ export class ImageCatalogueComponent implements OnInit {
     });
   }
 
-  // onChangeSort(selectedOption: any) {
-  //   this.selected = selectedOption.target.value;
-  //   if (this.selected == 'date') {
-  //     this.sortByDate();
-  //   } else if (this.selected == 'park') {
-  //     this.sortByPark();
-  //   }
-  //   else if (this.selected == 'name') {
-  //     this.sortByName();
-  //   }
-  // }
-
-  // sortByDate() {
-  //   this.catalogues.sort((a, b) => {
-  //     return (
-  //       new Date(a.catalogue.upload_date_time!).getTime() -
-  //       new Date(b.catalogue.upload_date_time!).getTime()
-  //     );
-  //   });
-  // }
-
-  // sortByPark() {
-  //   this.catalogues.sort((a: any, b: any) => a.catalogue.GamePark.park_name - b.catalogue.GamePark.park_name!);
-  // }
-
-  // sortByName() {
-  //   this.catalogues.sort((a: any, b: any) => a.catalogue.collectionName - b.catalogue.collectionName!);
-  // }
-
   enlarge(catalogue: CatalogData) {
     const doc = document.getElementById('popup');
     if (doc !== null) {
@@ -295,16 +246,10 @@ export class ImageCatalogueComponent implements OnInit {
 
   openImageDialog(catalogue: CatalogData): void {
     this.selectedCatalogue = catalogue;
-    console.log(this.selectedCatalogue);
-
-    const dialogRef = this.dialog.open(ImageDialogComponent, {
+    this.dialog.open(ImageDialogComponent, {
       width: '100vw',
       data: { selectedCatalogue: this.selectedCatalogue },
     });
-  }
-
-  showmap(taskID: string) {
-    console.log(taskID);
   }
 
   fadeOut() {
@@ -312,12 +257,10 @@ export class ImageCatalogueComponent implements OnInit {
       this.inAnimation = true;
 
       document.addEventListener('readystatechange', () => {
-        // console.log("YES");
         if (
           document.readyState === 'complete' ||
           document.readyState === 'interactive'
         ) {
-          // console.log("HELLO!!!!!!!!!!!");
           const loader = document.getElementById('pre-loader');
           loader!.setAttribute('class', '');
           loader!.setAttribute('class', 'fade-out');
@@ -329,13 +272,4 @@ export class ImageCatalogueComponent implements OnInit {
       });
     }
   }
-
-  // getParkName(id: string|undefined|null, parks: string[][]):string {
-  //   for(let p of parks) {
-  //     if (p[1] == id){
-  //       return p[2];
-  //     }
-  //   }
-  //   return "";
-  // }
 }
