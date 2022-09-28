@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { ControllerService } from 'src/app/api/controller/controller.service';
+import {
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
 import { Auth } from 'aws-amplify';
-import { ThisReceiver } from '@angular/compiler';
-import { faDownLeftAndUpRightToCenter } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'aerial-mapping-login',
@@ -13,29 +14,26 @@ import { faDownLeftAndUpRightToCenter } from '@fortawesome/free-solid-svg-icons'
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  @Output() loggedIn = new EventEmitter<any>();  //for unit testing purposes
-
+  @Output() loggedIn = new EventEmitter<any>(); //for unit testing purposes
   title = 'login-component';
-
   loginForm: UntypedFormGroup;
   isSubmitted: boolean;
-  errState:boolean;
+  errState: boolean;
   inAnimation: boolean;
-  hide:boolean;
+  hide: boolean;
 
-  constructor(private formBuilder: UntypedFormBuilder, public router: Router, private http: HttpClient) {
+  constructor(private formBuilder: UntypedFormBuilder, public router: Router) {
     //loader
-
     this.inAnimation = false;
-
     this.fadeOut();
-
     this.loginForm = this.formBuilder.group({
-      email: new UntypedFormControl('', [Validators.required, Validators.email]),
-      password: new UntypedFormControl('', [Validators.required])
+      email: new UntypedFormControl('', [
+        Validators.required,
+        Validators.email,
+      ]),
+      password: new UntypedFormControl('', [Validators.required]),
     });
     this.isSubmitted = false;
-
     this.hide = true;
     this.errState = false;
   }
@@ -44,17 +42,18 @@ export class LoginComponent {
     window.location.reload();
   }
 
+  //assigns the user a token and logs them into the app
   async login() {
-    if(this.isSubmitted){
-      this.errState=false;
-      if(document.getElementById('loginBtn')!=null) {//for testing purposes
-        document.getElementById('loginBtn')!.style.display="none";
+    if (this.isSubmitted) {
+      this.errState = false;
+      if (document.getElementById('loginBtn') != null) {
+        //for testing purposes
+        document.getElementById('loginBtn')!.style.display = 'none';
       }
-      
+
       const email = this.loginForm.controls['email'];
       const password = this.loginForm.controls['password'];
-      if(email.value != '' && password.value != '') {
-        var err:string = "";
+      if (email.value != '' && password.value != '') {
         //Amplify Auth
         try {
           const user = await Auth.signIn(email.value, password.value);
@@ -65,19 +64,19 @@ export class LoginComponent {
           this.loggedIn.emit(user); //for unit testing purposes
           return 1;
         } catch (error) {
-            console.log('error signing in', error);
-            this.errorOccurred(""+error);
-            if(document.getElementById('loginBtn')!=null) {//for testing purposes
-              document.getElementById('loginBtn')!.style.display="flex";
-            }
-
-            return error;
+          console.log('error signing in', error);
+          this.errorOccurred('' + error);
+          if (document.getElementById('loginBtn') != null) {
+            //for testing purposes
+            document.getElementById('loginBtn')!.style.display = 'flex';
+          }
+          return error;
         }
-      }
-      else {
-        this.errState=true;
-        if(document.getElementById('loginBtn')!=null) {//for testing purposes
-          document.getElementById('loginBtn')!.style.display="flex";
+      } else {
+        this.errState = true;
+        if (document.getElementById('loginBtn') != null) {
+          //for testing purposes
+          document.getElementById('loginBtn')!.style.display = 'flex';
         }
         return 'email or password empty';
       }
@@ -85,35 +84,44 @@ export class LoginComponent {
     return -1;
   }
 
-  errorOccurred(err:string){
-    this.isSubmitted=false;
-    if (err!= "") {
-      if(err.includes("User does not exist")|| err.includes("Incorrect username or password")) {
-        if(document.getElementById("error")){ //for testing purposes
-          document.getElementById("error")!.innerHTML="Either the email or password entered is incorrect"
+  //displays the login error to the user
+  errorOccurred(err: string) {
+    this.isSubmitted = false;
+    if (err != '') {
+      if (
+        err.includes('User does not exist') ||
+        err.includes('Incorrect username or password')
+      ) {
+        if (document.getElementById('error')) {
+          //for testing purposes
+          document.getElementById('error')!.innerHTML =
+            'Either the email or password entered is incorrect';
         }
       }
     }
   }
 
-  get email() { return this.loginForm.get('email'); }
-  get password() { return this.loginForm.get('password'); }
+  get email() {
+    return this.loginForm.get('email');
+  }
+  get password() {
+    return this.loginForm.get('password');
+  }
 
-  fadeOut () {
-    if (!this.inAnimation){
+  //closes the loadscreen
+  fadeOut() {
+    if (!this.inAnimation) {
       this.inAnimation = true;
-      document.addEventListener('readystatechange', (event) => {
-        if(document.readyState === 'complete'){
-          const loader = document.getElementById("pre-loader");
-          loader!.setAttribute("class", "fade-out");
-          let count = 0;
+      document.addEventListener('readystatechange', () => {
+        if (document.readyState === 'complete') {
+          const loader = document.getElementById('pre-loader');
+          loader!.setAttribute('class', 'fade-out');
           setTimeout(() => {
             this.inAnimation = false;
             loader?.remove();
           }, 3000);
         }
       });
+    }
   }
-}
-
 }
