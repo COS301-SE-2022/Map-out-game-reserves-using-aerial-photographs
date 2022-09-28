@@ -1,22 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Auth, Storage } from 'aws-amplify';
-import { APIService, CreateUserInput, GetImageCollectionByTaskIdQuery, ImageCollection, UpdateImageCollectionInput, User } from 'src/app/API.service';
-import { v4 as uuidv4 } from 'uuid';
+import { CreateUserInput, ImageCollection, User } from 'src/app/API.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ControllerService {
-  //@ViewChild('formElem') formElem!: ElementRef<HTMLFormElement>;
   collectionData: ImageCollection[] = [];
   errorState: boolean = false;
   websocket: WebSocket | null;
 
-  constructor(private http: HttpClient, private router: Router, private snackBar: MatSnackBar) {
+  constructor(private http: HttpClient, private snackBar: MatSnackBar) {
     // open client WebSocket
     this.websocket = new WebSocket("wss://ha3u3iiggc.execute-api.sa-east-1.amazonaws.com/production/");
     this.websocket.onmessage = (msg: any) => {
@@ -42,6 +39,7 @@ export class ControllerService {
     }
   }
 
+  //opens the web socket and handles requests on it
   configWebSocket() {
     this.websocket = null;
     this.websocket = new WebSocket("wss://ha3u3iiggc.execute-api.sa-east-1.amazonaws.com/production/");
@@ -68,6 +66,7 @@ export class ControllerService {
     }
   }
 
+  //sends a registration email to the specified recipient
   invokeEmailLambda(email: string) {
     const body = {
       email: email
@@ -103,6 +102,7 @@ export class ControllerService {
     }
   }
 
+  //uploads files to our s3 bucket
   async S3upload(fileKey:string, collection:string, folder:string, fileData: File, dataType:string){
     try {
       const result = await Storage.put(collection+"/"+folder+"/"+fileKey, fileData, {
@@ -114,6 +114,7 @@ export class ControllerService {
     }
   };
 
+  //deletes files from our s3 bucket
   async S3delete(collection:string){
     try {
       const result = await Storage.remove(collection);
@@ -123,122 +124,11 @@ export class ControllerService {
     }
   };
 
+  //downloads files from our s3 bucket
   async S3download(fileKey:string, collection:string, folder:string, fetch_data:boolean){
-    // Storage.list('public/') // for listing ALL files without prefix, pass '' instead
-    // .then(result => console.log(result))
-    //console.log("sent: "+collection+"/"+folder+"/"+fileKey);
     const result = await Storage.get(collection+"/"+folder+"/"+fileKey, { download: fetch_data });
-    //console.log(result);
     return result;
-  }
-
-  async getImageData(bucket_name: string, file_name: string): Promise<any> {
-    // const options = {
-    //   headers: new HttpHeaders({
-    //     "Content-Type": "image/png",
-    //   }),
-    // };
-
-    return this.http.get(
-      'https://3dxg59qzw5.execute-api.us-east-1.amazonaws.com/test_stage/' +
-        bucket_name +
-        '/' +
-        file_name,
-      {
-        headers: { 'Content-Type': 'image/png' },
-        responseType: 'json',
-      }
-    );
-  }
-
-  //------------------------------------------------------------------------
-  //This is temporary code used to populate the database with temporary data
-  /*async popMessage() {
-    const newMessage: CreateMessageInput = {
-      messageID: uuidv4(),
-      message_status: "warning",
-      message_description: "upload error",
-      _version: 1,
-      messageImageCollectionId: this.createCollection()
-    }
-    return this.repo.CreateMessage(newMessage)
-          .then((event) => {
-            alert('Successfully created!');
-            return 1;
-          })
-          .catch((e) => {
-            console.log('error creating message...', e);
-            return -1;
-          });
-  }
-
-  private createCollection():string {
-    const newCollection: CreateImageCollectionInput = {
-      collectionID: uuidv4(),
-      parkID: this.createPark(),
-      upload_date_time: "15/07/2022",
-      completed: true,
-      flightID: this.createFlight(),
-      _version: 1
-    }
-    this.repo.CreateImageCollection(newCollection)
-          .then((event) => {
-            alert('Successfully created!');
-            return 1;
-          })
-          .catch((e) => {
-            console.log('error creating collection...', e);
-            return -1;
-          });
-    return newCollection.collectionID;
-  }
-
-  private createPark():string {
-    const newPark: CreateGameParkInput = {
-      parkID: uuidv4(),
-      park_name: "Rietvlei Nature Reserve",
-      park_location: "25.8825° S, 28.2639° E",
-      park_address: "4 Game Reserve Ave, Rietvallei 377-Jr, Pretoria, 0181",
-      _version: 1
-    }
-    this.repo.CreateGamePark(newPark)
-          .then((event) => {
-            alert('Successfully created!');
-            return 1;
-          })
-          .catch((e) => {
-            console.log('error creating park...', e);
-            return -1;
-          });
-    return newPark.parkID;
-  }
-
-  private createFlight():string {
-    const newFlight: CreateFlightDetailsInput = {
-      flightID: uuidv4(),
-      flight_height: 500,
-      flight_type: "Drone",
-      pilotID: "049b98df-c0fa-465d-8dbe-2a0c78ef1654",
-      _version: 1
-    }
-    this.repo.CreateFlightDetails(newFlight)
-          .then((event) => {
-            alert('Successfully created!');
-            return 1;
-          })
-          .catch((e) => {
-            console.log('error creating flight...', e);
-            return -1;
-          });
-    return newFlight.flightID;
-  }*/
-}
-
-
-// Interfaces
-
-interface WebODMTokenResponse {
-  token: string;
+  };
 }
 
 export interface WebODMProject {
@@ -254,9 +144,4 @@ export interface WebODMCreateTaskResponse {
   description: string;
 }
 
-interface WebODMTask {
-  id: string;
-  images_count: number;
-  name: string;
-  status: number;
-}
+
