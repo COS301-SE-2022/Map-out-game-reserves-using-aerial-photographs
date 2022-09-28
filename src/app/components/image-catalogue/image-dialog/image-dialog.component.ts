@@ -17,6 +17,7 @@ import {
 } from './confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ImageCatalogueComponent } from '../image-catalogue.component';
+import { Auth } from 'aws-amplify';
 
 export interface CatalogData {
   completed: boolean | undefined;
@@ -40,6 +41,7 @@ export class ImageDialogComponent {
   selectCatalogue: CatalogData;
   spinners: HTMLElement[];
   result: boolean = false;
+  admin: boolean = false;
 
   constructor(
     private router: Router,
@@ -64,6 +66,20 @@ export class ImageDialogComponent {
         spin.style.display = 'none';
       });
     }, 4000);
+
+  }
+
+  async ngOnInit() {
+      await Auth.currentAuthenticatedUser({ bypassCache: false }).then(async (res: any) => {
+        const groups: Array<any> = res.signInUserSession.idToken.payload['cognito:groups'];
+        groups.forEach((group: any) => {
+          if (group == 'Admin') {
+            this.admin = true;
+          }
+        });
+      }, (err: any) => {
+        console.log(err);
+      });
   }
 
   onNoClick(): void {

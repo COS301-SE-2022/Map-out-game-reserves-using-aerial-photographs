@@ -25,7 +25,7 @@
 <mat-dialog-actions align="start">
   <button mat-button (click)="onNoClick()" color="warn">Close</button>
   <button *ngIf="selectCatalogue?.completed; else elseBlock" mat-button (click)="onSubmit(selectCatalogue.taskID)" color="primary" type="button" matTooltip="View the stitched map">View Map</button>
-  <button *ngIf="selectCatalogue?.completed" mat-button (click)="confirmDialog(false)" color="warn" style="margin-left: 73%">Delete Map</button>
+  <button *ngIf="selectCatalogue?.completed && this.admin" mat-button (click)="confirmDialog(false)" color="warn" style="margin-left: 73%">Delete Map</button>
   <ng-template #elseBlock>
     <button *ngIf="selectCatalogue?.error; else lastElseBlock" mat-button color="primary" type="button" matTooltip="The map cannot be processed" disabled>Error</button>
     <ng-template #lastElseBlock>
