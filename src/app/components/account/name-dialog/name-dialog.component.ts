@@ -22,7 +22,7 @@ export class NameDialogComponent {
     this.dialogRef.close();
   }
 
-  //gathers the name email data
+  //gathers the new name data
   onSubmit() {
     if (this.data.newName == '') {
       return;
