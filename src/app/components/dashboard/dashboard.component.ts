@@ -7,7 +7,6 @@ import {
   faCheckCircle as complete,
   faSpinner as progress,
 } from '@fortawesome/free-solid-svg-icons';
-import { BarChart } from './bar-chart/bar-chart.model';
 import {
   APIService,
   ListImageCollectionsQuery,
@@ -40,9 +39,7 @@ export class DashboardComponent implements OnInit {
   messagesData: CreateMessageInput[] = [];
   messages: Dashboard_Message[] = [];
 
-  total: number;
   errorState: boolean = false;
-  public maps!: Array<BarChart>;
 
   // font awesome icons
   mapIcon = mapIcon;
@@ -64,24 +61,6 @@ export class DashboardComponent implements OnInit {
     //loader
     this.inAnimation = false;
     this.fadeOut();
-
-
-    //TODO integrate this bar chart with real data
-    this.maps = [
-      { Value: this.values[0] },
-      { Value: this.values[1] },
-      { Value: this.values[2] },
-      { Value: this.values[3] },
-      { Value: this.values[4] },
-      { Value: this.values[5] },
-      { Value: this.values[6] },
-      { Value: this.values[7] },
-    ];
-    this.total = 0;
-    this.maps.forEach((element) => {
-      this.total += element.Value;
-    });
-
   }
 
   ngOnInit(): void {

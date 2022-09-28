@@ -12,6 +12,7 @@ import { EmailDialogComponent } from './email-dialog/email-dialog.component';
 import { RegisterLinkDialogComponent } from './register-link-dialog/register-link-dialog.component';
 import { v4 as uuidv4 } from 'uuid';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ControllerService } from 'src/app/api/controller/controller.service';
 
 
 export interface DialogData {
@@ -56,6 +57,7 @@ export class AccountComponent implements OnInit {
   constructor(
     private router: Router,
     private api: APIService,
+    private controller: ControllerService,
     public dialog: MatDialog,
     private snackBar: MatSnackBar
   ) {
@@ -219,8 +221,18 @@ export class AccountComponent implements OnInit {
       }
       this.api.CreatePendingInvites(newInvite).then((res: any) => {
         //snackbar with success message (if successful?)
-        this.snackBar.open(`Invite sent to ${obj.recipient}`, "✔️");
         console.log(res);
+      });
+
+      //call emailer lambda function
+      console.log("Recipient email: ", obj.recipient);
+      this.controller.invokeEmailLambda(obj.recipient).subscribe({
+        next: (_data) => {
+          this.snackBar.open(`Invite sent to ${obj.recipient}`, "✔️");
+        },
+        error: (_err) => {
+          console.log('email not sent: ',_err);
+        }
       });
     });
   }

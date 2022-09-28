@@ -4,6 +4,7 @@ import { SafeUrl } from '@angular/platform-browser';
 import {
   APIService,
   Images,
+  ListGameParksQuery,
   ListImageCollectionsQuery,
 } from 'src/app/API.service';
 import { ControllerService } from 'src/app/api/controller/controller.service';
@@ -14,6 +15,7 @@ import {
   MatTooltipDefaultOptions,
 } from '@angular/material/tooltip';
 import { number, string } from 'yargs';
+import { String } from 'aws-sdk/clients/acm';
 
 /** Custom options the configure the tooltip's default show/hide delays. */
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
@@ -35,6 +37,7 @@ interface CatalogData {
   error: boolean | undefined | null;
   taskID: string | undefined | null;
   collectionName: string | undefined | null;
+  parkName: string | undefined | null;
 }
 
 @Component({
@@ -60,7 +63,7 @@ export class ImageCatalogueComponent implements OnInit {
   inAnimation: boolean;
   spinners: HTMLElement[];
 
-  flag=false;
+  flag = false;
 
   constructor(
     public dialog: MatDialog,
@@ -75,27 +78,32 @@ export class ImageCatalogueComponent implements OnInit {
 
     this.selected = 'date';
     this.getAllCatalogues();
-    if(this.controller.websocket != null){
+    if (this.controller.websocket != null) {
       this.controller.websocket.onmessage = (msg: any) => {
-        this.snackbar.open(`New map stitching job (${msg}) completed.`, "✔️", { verticalPosition: 'top', duration: 3000 });
+        this.snackbar.open(`New map stitching job (${msg}) completed.`, '✔️', {
+          verticalPosition: 'top',
+          duration: 3000,
+        });
         //make 'View Map' button visible
         this.getAllCatalogues();
-      }
+      };
     }
-    this.spinners=[];
+    this.spinners = [];
     setTimeout(() => {
-      this.spinners = Array.from(document.getElementsByClassName('spinner') as HTMLCollectionOf<HTMLElement>)
-        // console.log(this.spinners);
+      this.spinners = Array.from(
+        document.getElementsByClassName(
+          'spinner'
+        ) as HTMLCollectionOf<HTMLElement>
+      );
+      // console.log(this.spinners);
     }, 5000);
-
   }
 
   ngOnInit() {
-    if(this.controller.websocket != null){
+    if (this.controller.websocket != null) {
       this.controller.websocket.onmessage = (msg: any) => {
-        console.log("SNS message received ", msg);
+        console.log('SNS message received ', msg);
         this.getAllCatalogues();
-
       };
     }
   }
@@ -107,19 +115,39 @@ export class ImageCatalogueComponent implements OnInit {
         console.log(data);
 
         for (const catalog of data.items) {
-          this.catalogues.push({
-            catalogue: catalog,
-            images: [],
-            thumbnails: [],
-            collectionID: catalog?.collectionID,
-            completed: catalog?.completed,
-            error: catalog?.error,
-            taskID: catalog?.taskID,
-            collectionName: catalog?.collectionName
-          });
-        }
+              // console.log(parkNameTemp);
+              this.catalogues.push({
+                catalogue: catalog,
+                images: [],
+                thumbnails: [],
+                collectionID: catalog?.collectionID,
+                completed: catalog?.completed,
+                error: catalog?.error,
+                taskID: catalog?.taskID,
+                collectionName: catalog?.collectionName,
+                parkName: ""
+              });
+          }
+          
+          // console.log(parkNameTemp);
 
         for (const catalogData of this.catalogues) {
+          var parkidString: string = '';
+          if (catalogData && (catalogData.catalogue.parkID == undefined || catalogData.catalogue.parkID == null)) {
+            catalogData.catalogue.parkID = '';
+            catalogData.parkName = '';
+          } else {
+            parkidString = '' + catalogData?.catalogue.parkID;
+            this.api.GetGamePark(parkidString).then((resp: any) => {
+              // console.log(resp);
+              if (resp?.park_name == null || resp?.park_name == undefined) {
+                catalogData.parkName = "";
+              } else {
+                catalogData.parkName = resp.park_name;
+              }
+            });
+          }
+
           //console.log(22,catalogData.catalogue.collectionID);
           this.api
             .ImagesByCollectionId(catalogData.catalogue.collectionID)
@@ -129,43 +157,45 @@ export class ImageCatalogueComponent implements OnInit {
                 catalogData.images.push({ image: image, url: '' });
               }
 
-                for (const i of catalogData.images) {
-                  this.controller
-                    .S3download(
-                      i.image.imageID,
-                      catalogData.catalogue.collectionID,
-                      'images',
-                      false
-                    )
-                    .then((signedURL) => {
-                      i.url = signedURL;
-                    }).catch(err => console.log(err));
-                }
-
-                for(let i = 0;i<3;i++){
-                  this.controller
-                    .S3download(
-                      'thumbnail_'+i,
-                      catalogData.catalogue.collectionID,
-                      'thumbnails',
-                      false
-                    )
-                    .then((signedURL) => {
-                      catalogData.thumbnails.push(signedURL);
-                    }).catch(err => console.log(err));
-                }
-                // this.sortByDate();
-                this.tempCatalogues = this.catalogues;
-                setTimeout(() => {
-                    // console.log(this.spinners);
-                    this.spinners.forEach((spin) => {
-                      spin.style.display="none";
-                    });
-                }, 7000);
-              })
-              .catch((e) => console.log(e));
-          }
-
+              for (const i of catalogData.images) {
+                this.controller
+                  .S3download(
+                    i.image.imageID,
+                    catalogData.catalogue.collectionID,
+                    'images',
+                    false
+                  )
+                  .then((signedURL) => {
+                    i.url = signedURL;
+                  })
+                  .catch((err) => console.log(err));
+              }
+              
+              for (let i = 0; i < 3; i++) {
+                this.controller
+                  .S3download(
+                    'thumbnail_' + i,
+                    catalogData.catalogue.collectionID,
+                    'thumbnails',
+                    false
+                  )
+                  .then((signedURL) => {
+                    catalogData.thumbnails.push(signedURL);
+                  })
+                  .catch((err) => console.log(err));
+              }
+              // this.sortByDate();
+              this.tempCatalogues = this.catalogues;
+              setTimeout(() => {
+                // console.log(this.spinners);
+                this.spinners.forEach((spin) => {
+                  spin.style.display = 'none';
+                });
+              }, 7000);
+            })
+            .catch((e) => console.log(e));
+        }
+        console.log(this.catalogues);
         return data.items;
       })
       .catch((e) => {
@@ -263,8 +293,8 @@ export class ImageCatalogueComponent implements OnInit {
     }
   }
 
-  openImageDialog(catalogue:CatalogData): void {
-    this.selectedCatalogue = catalogue
+  openImageDialog(catalogue: CatalogData): void {
+    this.selectedCatalogue = catalogue;
     console.log(this.selectedCatalogue);
 
     const dialogRef = this.dialog.open(ImageDialogComponent, {
@@ -277,23 +307,35 @@ export class ImageCatalogueComponent implements OnInit {
     console.log(taskID);
   }
 
-  fadeOut () {
-    if (!this.inAnimation){
+  fadeOut() {
+    if (!this.inAnimation) {
       this.inAnimation = true;
 
       document.addEventListener('readystatechange', () => {
         // console.log("YES");
-        if(document.readyState === 'complete'||document.readyState==='interactive'){
+        if (
+          document.readyState === 'complete' ||
+          document.readyState === 'interactive'
+        ) {
           // console.log("HELLO!!!!!!!!!!!");
-          const loader = document.getElementById("pre-loader");
-          loader!.setAttribute("class", "");
-          loader!.setAttribute("class", "fade-out");
+          const loader = document.getElementById('pre-loader');
+          loader!.setAttribute('class', '');
+          loader!.setAttribute('class', 'fade-out');
           setTimeout(() => {
             this.inAnimation = false;
             loader?.remove();
           }, 3000);
         }
       });
+    }
   }
-}
+
+  // getParkName(id: string|undefined|null, parks: string[][]):string {
+  //   for(let p of parks) {
+  //     if (p[1] == id){
+  //       return p[2];
+  //     }
+  //   }
+  //   return "";
+  // }
 }
