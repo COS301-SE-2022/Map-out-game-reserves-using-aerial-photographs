@@ -211,10 +211,10 @@ export class ImageCatalogueComponent implements OnInit {
   orderByDate() {
     this.catalogues.sort(function (a, b) {
       if (a.catalogue.createdAt < b.catalogue.createdAt) {
-        return -1;
+        return 1;
       }
       if (a.catalogue.createdAt > b.catalogue.createdAt) {
-        return 1;
+        return -1;
       }
       return 0;
     });
@@ -222,26 +222,21 @@ export class ImageCatalogueComponent implements OnInit {
 
   orderByPark() {
     this.catalogues.sort(function (a, b) {
-      if (a.catalogue.GamePark.park_name < b.catalogue.GamePark.park_name) {
-        return -1;
-      }
-      if (a.catalogue.GamePark.park_name > b.catalogue.GamePark.park_name) {
+      if(!a.catalogue.GamePark){
         return 1;
       }
-      return 0;
+      if(!b.catalogue.GamePark){
+        return -1;
+      }
+      return a.catalogue.GamePark.park_name.localeCompare(b.catalogue.GamePark.park_name);
     });
   }
 
   orderByName() {
-    this.catalogues.sort(function (a, b) {
-      if (a.catalogue.collectionName < b.catalogue.collectionName) {
-        return -1;
-      }
-      if (a.catalogue.collectionName > b.catalogue.collectionName) {
-        return 1;
-      }
-      return 0;
-    });
+    this.catalogues.sort((a, b) =>
+      a.catalogue.collectionName.localeCompare(b.catalogue.collectionName)
+    );
+    console.log(this.catalogues);
   }
 
   searchCatalogues() {
