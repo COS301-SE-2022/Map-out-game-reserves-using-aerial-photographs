@@ -1,4 +1,4 @@
-@import 'src/styles.scss';
+@import "src/styles.scss";
 
 h1 {
   font-family: "Segoe UI", sans-serif;
@@ -6,7 +6,7 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-weight:200;
+  font-weight: 200;
   font-size: 40px;
 }
 
@@ -26,7 +26,6 @@ h2 {
   font-weight: 100;
 }
 
-
 label {
   padding-top: 25px;
   padding-left: 15px;
@@ -34,7 +33,6 @@ label {
   font-family: "Segoe UI", sans-serif;
 }
 
-/* input color class */
 ::ng-deep input.mat-input-element {
   color: #484a4c;
 }
@@ -47,16 +45,10 @@ mat-hint {
 mat-form-field {
   display: block;
   background-color: rgb(255, 255, 255, 0.25);
-  font-family: 'Tahoma';
+  font-family: "Tahoma";
   color: gray;
-  // margin: 10px;
   width: 93%;
   height: 55px;
-}
-
-
-mat-form-field:hover {
-  
 }
 
 button {
@@ -80,8 +72,8 @@ button {
   height: 14;
 }
 
-button:hover{
-  cursor:pointer;
+button:hover {
+  cursor: pointer;
 }
 
 .center {
@@ -115,8 +107,6 @@ button:hover {
   background-color: #5f5f5f8a;
   padding: 1% 2%;
   position: fixed;
-  /* Stay in place /
-    z-index: 1; / Sit on top */
   left: 7.5%;
   top: 10%;
   width: 50%;
@@ -128,32 +118,31 @@ button:hover {
   width: 45%;
   float: right;
   margin-right: 30px;
-  height:100%;
-  // position: absolute;
-  // top: 50%;
+  height: 100%;
   -ms-transform: translateY(10%);
   transform: translateY(10%);
 }
 
-#text{
+#text {
   font-family: "Segoe UI", sans-serif;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-weight:200;
+  font-weight: 200;
   font-size: larger;
 }
 
-#icon{
-  border:none; 
+#icon {
+  border: none;
   color: white;
 }
 
-#icon:hover{
+#icon:hover {
   background-color: #5f5f5f;
-} 
+}
 
-:host ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {   
+:host ::ng-deep .mat-progress-spinner circle,
+.mat-spinner circle {
   stroke: #7c9db3ab;
 }

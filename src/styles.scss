@@ -1,26 +1,20 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
-@import '~material-icons/iconfont/material-icons.scss';
+@import "~material-icons/iconfont/material-icons.scss";
 @import "~material-design-icons-iconfont/dist/material-design-icons.css";
 
-//Colours
 $primary-dark: #0b1c42;
 $primary-background: #efeff2;
 $primary-grey: #747c7c;
 $accent-colour: #c12223;
 $secondary-grey: #5c7484;
 $primary: #757575;
-// $primary-background: #ffffff;
 $primary-background-opaque: #ebebeb;
-// $primary-dark: #12172a;
 $primary-epi-dark: #001744;
 $primary-red: #ca1a20;
 $primary-super-dark: #222222;
-// $primary-epi-white: #ebebeb;
-// $primary-grey: #e8e8e8;
 $primary-brown: #5f5f5f;
 $primary-brown-opaque: #5f5f5fa9;
 
-//Body
 * {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -65,18 +59,13 @@ h3 {
   margin-top: 0;
   font-weight: 400;
   text-align: center;
-  color: $primary-dark
+  color: $primary-dark;
 }
 
 .material-symbols-outlined {
-  font-variation-settings:
-    'FILL' 1,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 48
+  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 48;
 }
 
-//scrollbar
 ::-webkit-scrollbar {
   width: 20px;
 }
@@ -96,12 +85,10 @@ h3 {
   background-color: #a8bbbf;
 }
 
-//tooltip
 .tooltip {
   position: relative;
   display: inline-block;
   width: fit-content;
-  // margin: 5px;
 }
 
 .tooltip .tooltiptext {
@@ -114,14 +101,10 @@ h3 {
   text-align: center;
   border-radius: 3px;
   padding: 5px 0;
-  // margin: 5px;
-  /* Position the tooltip */
   position: absolute;
   z-index: 1;
   top: 105%;
-  //   bottom:25%;
   left: 0;
-  //   right: 0%;
   opacity: 0;
   transition: opacity 1s;
 }
@@ -135,11 +118,9 @@ h3 {
 
 .content {
   background-color: white;
-  // background-color: transparentize($primary-background-opaque, 1);
   margin-top: 2vh;
   margin-left: 2vw;
   margin-right: 2vw;
-  // border-radius: 15px;
   height: 80vh;
   width: 96vw;
   vertical-align: bottom;
@@ -149,15 +130,9 @@ h3 {
   overflow-y: auto;
   display: inline-block;
   padding: 1%;
-  //option 1
-//   box-shadow: 5px 5px 8px 0px rgba(0,0,0,0.42);
-// -webkit-box-shadow: 5px 5px 8px 0px rgba(0,0,0,0.42);
-// -moz-box-shadow: 5px 5px 8px 0px rgba(0,0,0,0.42);
-
-  //option 2
-  box-shadow: 4px 4px 10px -1px rgba(0,0,0,0.7);
--webkit-box-shadow: 4px 4px 10px -1px rgba(0,0,0,0.7);
--moz-box-shadow: 4px 4px 10px -1px rgba(0,0,0,0.7);
+  box-shadow: 4px 4px 10px -1px rgba(0, 0, 0, 0.7);
+  -webkit-box-shadow: 4px 4px 10px -1px rgba(0, 0, 0, 0.7);
+  -moz-box-shadow: 4px 4px 10px -1px rgba(0, 0, 0, 0.7);
   transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -175,14 +150,14 @@ mat-icon {
 
 .button {
   background-color: $primary-epi-dark;
-  color:white;
+  color: white;
   width: 45%;
   left: 20%;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 60px;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
   font-size: 25px;
   font-weight: 50;
 }

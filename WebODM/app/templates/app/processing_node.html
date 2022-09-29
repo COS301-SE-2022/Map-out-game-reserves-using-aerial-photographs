@@ -1,0 +1,15 @@
+{% extends "app/logged_in_base.html" %}
+{% load i18n tz %}
+
+{% block content %}
+
+{% load render_bundle from webpack_loader %}
+{% render_bundle 'Console' attrs='async' %}
+
+{% if user.is_superuser %}
+<div class="text-center">
+	<button class="btn btn-default" onclick="location.href='{% url "admin:nodeodm_processingnode_change" processing_node.id %}';"><i class="glyphicon glyphicon-pencil"></i> {% trans "Edit" %}</button>
+</div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,22 @@
+.console-buttons{
+    margin-left: 16px;
+    margin-bottom: 16px;
+    float: right;
+    text-align: right;
+    a{
+        margin-left: 4px;
+    }
+}
+
+.console{
+    .exit-fullscreen{
+        display: none;
+    }
+}
+
+.console:fullscreen{
+    .exit-fullscreen{
+        display: block;
+        margin-bottom: 12px;
+    }
+}

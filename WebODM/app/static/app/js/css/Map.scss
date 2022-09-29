@@ -1,0 +1,102 @@
+.map{
+    position: relative;
+
+    .opacity-slider{
+        border-radius: 4px;
+        text-align: center;
+        width: 220px;
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        margin-left: -100px;
+        z-index: 999;
+        padding-bottom: 6px;
+    }
+
+    .leaflet-touch .leaflet-control-layers-toggle, .leaflet-control-layers-toggle{
+        background: no-repeat center/90% url(../icons/basemap.svg);
+        border-radius: 2px;
+        width: 30px;
+        height: 30px;
+        background-size: 22px;
+    }
+
+    .leaflet-popup-content{
+        .title{
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .asset-links{
+            li:first-child{
+                display: none;
+            }
+            &.loading{
+                li{ display: none }
+                li:first-child{
+                    display: block;
+                }
+                padding-left: 0;
+                list-style-type: none;
+            }
+            margin-top: 8px;
+            padding-left: 16px;
+
+            columns: 2;
+            -webkit-columns: 2;
+            -moz-columns: 2;
+        }
+        .switchModeButton{
+            bottom: 12px;
+        }
+    }
+
+    .leaflet-right .leaflet-control,
+    .leaflet-control-measure.leaflet-control{
+        margin-right: 12px;
+        display: none;
+    }
+
+    .popup-opacity-slider{
+        margin-bottom: 6px;
+    }
+
+    .actionButtons{
+       // display: none;
+        position: absolute;
+        z-index: 2000;
+        right: 12px;
+        bottom: 20px;
+        & > *{
+            display: inline-block;
+            margin-left: 12px;
+        }
+    }
+
+    .standby{
+        z-index: 1000;
+    }
+
+    .leaflet-control-add-overlay{
+        z-index: 999;
+
+        a.leaflet-control-add-overlay-button{
+          background: url(../icons/dragndrop-add.svg) 0 0 no-repeat;
+          background-size: 26px 26px;
+          border-radius: 2px;
+          &:hover{
+              cursor: pointer;
+          }
+        }
+
+    }
+    .leaflet-touch .leaflet-control-add-overlay a, .leaflet-control-add-overlay a {
+        background-position: 2px 2px;
+    }
+    .leaflet-container{
+        a.leaflet-popup-close-button{
+            top: 8px;
+            right: 8px;
+        }
+    }
+}
