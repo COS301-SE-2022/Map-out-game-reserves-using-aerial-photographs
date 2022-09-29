@@ -35,8 +35,6 @@
                   <span class="messageDate"
                     >Map ID: {{ message.collectionID }}</span
                   >
-                  <!-- (click)="dismiss(message.collectionID)" -->
-                  <!-- <button class="close" ><mat-icon>close</mat-icon></button> -->
                   <button
                     class="close"
                     (click)="dismiss(message.collectionID, 'error')"
@@ -91,7 +89,6 @@
                       collection.collectionName
                     }}</span>
                   </ng-template>
-                  <!-- <span class="completeDate">{{m.date}}</span> -->
                   <button
                     class="close"
                     (click)="dismiss(collection.collectionID, 'complete')"
@@ -117,10 +114,8 @@
           <div class="progress cont tooltip">
             <div class="progressTitle">
               IN PROGRESS
-              <!-- <hr> -->
               <mat-divider></mat-divider>
             </div>
-            <!-- C&Z changed style -->
             <div class="scrollableProgress">
               <mat-list>
                 <mat-list-item
