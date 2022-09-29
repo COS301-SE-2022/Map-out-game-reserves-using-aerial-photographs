@@ -21,7 +21,7 @@
 	}
 })(function () {
 	"use strict";
-	
+
 	if (typeof window === "undefined" || typeof window.document == "undefined") {
 		return function() {
 			throw new Error( "Sortable.js requires a window with a document" );
@@ -709,7 +709,7 @@
 					+ (prevRect.top - currentRect.top) + 'px,0)'
 				);
 
-				target.offsetWidth; // repaint
+				target.offsetWidth(); // repaint
 
 				_css(target, 'transition', 'all ' + ms + 'ms');
 				_css(target, 'transform', 'translate3d(0,0,0)');

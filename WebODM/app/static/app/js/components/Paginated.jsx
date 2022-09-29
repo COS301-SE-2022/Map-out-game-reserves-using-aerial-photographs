@@ -63,10 +63,7 @@ class Paginated extends React.Component{
     });
   }
 
-  render(){
-    throw new Error("Override me");
-  }
-} 
+}
 
 export default Paginated;
 

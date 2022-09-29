@@ -6,7 +6,7 @@ class Paginator extends React.Component {
         const { itemsPerPage, totalItems, currentPage } = this.props;
         let paginator = null;
 
-        if (itemsPerPage && itemsPerPage && totalItems > itemsPerPage){
+        if (itemsPerPage && totalItems > itemsPerPage){
             const numPages = Math.ceil(totalItems / itemsPerPage),
                   pages = [...Array(numPages).keys()]; // [0, 1, 2, ...numPages]
 
@@ -19,7 +19,7 @@ class Paginator extends React.Component {
                           </Link>
                         </li>
                         {pages.map(page => {
-                            return (<li     
+                            return (<li
                                 key={page + 1}
                                 className={currentPage === (page + 1) ? "active" : ""}
                             ><Link to={{search: "?page=" + (page + 1)}}>{page + 1}</Link></li>);
