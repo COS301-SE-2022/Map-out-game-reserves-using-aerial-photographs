@@ -1,8 +1,8 @@
-@import 'src/styles.scss';
+@import "src/styles.scss";
 
 h1 {
   color: white;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
   font-weight: 505;
   font-style: normal;
   font-size: 5vh;
@@ -47,14 +47,15 @@ mat-icon {
   width: 75%;
   margin: 1%;
   height: 10%;
-  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
+    0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
   transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
   display: inline-block;
   position: relative;
   padding: 0px;
   border-radius: 4px;
   background: #fff;
-  color: rgba(0, 0, 0, .87);
+  color: rgba(0, 0, 0, 0.87);
   align-content: center;
   display: inline-flex;
   justify-content: space-between;
@@ -73,8 +74,6 @@ mat-icon {
   background-color: $primary-dark;
   border: none;
   color: white;
-  //text-align: center;
-  //text-decoration: none;
   display: inline-block !important;
   font-size: 16px;
   margin: 10px;
@@ -84,7 +83,8 @@ mat-icon {
 }
 
 .btn:hover {
-  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+    0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
 
 .contains {
@@ -95,36 +95,27 @@ mat-icon {
 .center {
   margin: 0;
   padding: 0;
-  //position: relative;
-  display: flex;//block;
+  display: flex;
   align-items: center;
   margin: auto;
   margin-top: 3%;
-  //top: 50%;
-  //left: 50%;
-  //-ms-transform: translate(-50%, -50%);
-  //transform: translate(-50%, -50%);
   width: fit-content;
 }
 
 .editButt {
-  //background-color: white;
   padding: 0px;
   margin: 0px;
   top: 0px;
   left: -20px;
-  //width: 1%;
 }
 
 .viewButt {
   padding: 0px;
   margin: 0px;
   left: -40px;
-  //width: 1%;
   height: 24px;
 }
 
-/* The popup form - hidden by default */
 .form-popupName,
 .form-popupEmail,
 .form-popupPassword,
@@ -139,7 +130,6 @@ mat-icon {
   height: auto;
 }
 
-/* Add styles to the form container */
 .form-container {
   max-width: 500px;
   padding: 10px;
@@ -148,9 +138,8 @@ mat-icon {
   background-color: white;
 }
 
-/* Full-width input fields */
-.form-container input[type=text],
-.form-container input[type=password] {
+.form-container input[type="text"],
+.form-container input[type="password"] {
   width: 100%;
   padding: 15px;
   margin: 5px 0 22px 0;
@@ -158,14 +147,12 @@ mat-icon {
   background: #f1f1f1;
 }
 
-/* When the inputs get focus, do something */
-.form-container input[type=text]:focus,
-.form-container input[type=password]:focus {
+.form-container input[type="text"]:focus,
+.form-container input[type="password"]:focus {
   background-color: #ddd;
   outline: none;
 }
 
-/* Set a style for the submit/login button */
 .form-container .btn {
   background-color: $primary;
   color: white;
@@ -219,18 +206,15 @@ mat-form-field {
 }
 
 ::ng-deep .mat-focused .mat-form-field-label {
-  /*change color of label*/
   color: $primary-epi-dark !important;
- }
+}
 
 ::ng-deep.mat-form-field-underline {
-  /*change color of underline*/
   background-color: $primary-epi-dark !important;
 }
 
 ::ng-deep.mat-form-field-ripple {
- /*change color of underline when focused*/
- background-color: $primary-epi-dark !important;
+  background-color: $primary-epi-dark !important;
 }
 
 .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
@@ -251,12 +235,11 @@ label {
 }
 
 #logoutBtn {
-  // margin-top: 2%;
   background-color: $accent-colour;
 }
 
-.deleteAccount{
-  float:right;
+.deleteAccount {
+  float: right;
   text-transform: uppercase;
-  font-size:medium;
+  font-size: medium;
 }
