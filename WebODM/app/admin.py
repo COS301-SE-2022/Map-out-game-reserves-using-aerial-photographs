@@ -166,12 +166,6 @@ class PluginAdmin(admin.ModelAdmin):
         return HttpResponseRedirect(reverse('admin:app_plugin_changelist'))
 
     def plugin_upload(self, request, *args, **kwargs):
-        file = request.FILES.get('file')
-        if file is not None:
-            # Save to tmp dir
-            tmp_zip_path = tempfile.mktemp('plugin.zip', dir=settings.MEDIA_TMP)
-            tmp_extract_path = tempfile.mkdtemp('plugin', dir=settings.MEDIA_TMP)
-
             try:
                 with open(tmp_zip_path, 'wb+') as fd:
                     if isinstance(file, InMemoryUploadedFile):
