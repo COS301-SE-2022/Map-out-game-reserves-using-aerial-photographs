@@ -1,0 +1,100 @@
+.project-list-item{
+    min-height: 60px;
+
+    .project-name{
+        font-weight: bold;
+
+        @media screen and (max-width: 768px){
+            font-size: x-large;
+            text-align: center;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        } 
+    }
+
+    .drag-drop-icon{
+        display: none;
+        position: absolute;
+        border-radius: 100%;
+        padding: 16px;
+        left: 48%;
+        top: 0;
+        font-size: 300%;
+        -webkit-animation: pulsate 0.5s ease-out;
+        -webkit-animation-iteration-count: infinite; 
+        animation: pulsate 0.5s ease-out;
+        animation-iteration-count: infinite; 
+        opacity: 0.5;
+        pointer-events:none;
+    }
+
+    @-webkit-keyframes pulsate {
+        0% {opacity: 0.5;}
+        50% {opacity: 1.0;}
+        100% {opacity: 0.5;}
+    }
+     @keyframes pulsate {
+        0% {opacity: 0.5;}
+        50% {opacity: 1.0;}
+        100% {opacity: 0.5;}
+    }
+
+    &.refreshing{
+        background-color: #eee;
+    }
+
+     -webkit-transition: background-color 1s ease;
+    transition: background-color 1s ease;
+
+    &.dz-drag-hover{
+        .drag-drop-icon{
+            display: block;
+        }
+        background-color: #f7f7f7;
+    }
+
+    .project-links{
+        margin-top: 10px;
+        margin-bottom: 10px;
+        font-size: 90%;
+        i{
+            margin-right: 4px;
+        }
+        a{
+            margin-right: 12px;
+        }
+    }
+
+    .btn-danger .fa-trash{
+        margin-right: 2px;
+        margin-left: 0px;
+    }
+    
+    .dz-preview{
+        display: none;
+    }
+
+    .row{
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .project-buttons {
+        float: right;
+
+        @media screen and (max-width: 768px){
+
+            .asset-download-buttons {
+                width: 100%;
+            }
+
+            float: none;      
+            
+            width: 100%;
+
+            .btn {
+                width: 100%;
+            }
+        }
+    }
+}

@@ -1,0 +1,72 @@
+.sharePopup{
+	position: absolute;
+	&.top{
+		bottom: 0;
+	}
+	&.bottom{
+		top: 0;
+	}
+	right: 0;
+	pointer-events: none;
+
+	.sharePopupContainer{
+		pointer-events: auto;
+		position: relative;
+		display: block;
+	    left: -26px;
+    	min-width: 232px;
+
+		&.top{
+			top: -43px;
+		}
+		&.bottom{
+		    top: 153px;
+    		left: -46px;
+		}
+
+		&.popover.top > .arrow{
+			left: auto;
+			right: 60px;
+		}
+		&.popover.bottom > .arrow{
+			left: 25px;
+		}
+
+		h3.popover-title{
+			padding-top: 8px;
+		}
+
+		.checkbox{
+			margin-top: 0;
+		}
+
+		.fa-sync{
+			margin-left: -25px;
+			margin-right: 5px;
+		}
+
+		.btn-qrcode{
+			position: absolute;
+			right: 0px;
+			top: -6px;
+		}
+
+		.share-links{
+			& > div{
+				margin-top: 8px;
+				&:first-child{
+					margin-top: 4px;
+				}
+			}
+			max-height: 0;
+			overflow: hidden;
+			transition: max-height 1s ease-in-out;
+			
+			&.show{
+				max-height: 800px;
+				height: auto;
+			}
+		}
+	}
+}
+
