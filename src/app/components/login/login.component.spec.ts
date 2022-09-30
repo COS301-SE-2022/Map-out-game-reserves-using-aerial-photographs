@@ -12,6 +12,9 @@ Auth.configure({
   userPoolWebClientId: '3a32euto9uetfe88377gd2u617',
 });
 
+const username = "correct@email.com";
+const password = "12345678";
+
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
@@ -96,6 +99,23 @@ describe('LoginComponent', () => {
     const result = await component.login();
     expect(result).toBe(1);
   });
+
+  it('Must login within 5 seconds', async () => {
+    component.loginForm.controls['email'].setValue(username);
+    component.loginForm.controls['password'].setValue(password);
+
+    spyOn(component.router, 'navigate').and.returnValue(Promise.resolve(true));
+    component.windowReload = jasmine.createSpy();
+
+    component.isSubmitted = true;
+    const start = new Date().getTime();
+    const result = await component.login();
+    const duration = new Date().getTime() - start;
+    console.log('[Performance Quality Requirement]');
+    console.log(`Logged in within ${duration} milliseconds`);
+    expect(duration).toBeLessThan(5000);
+  });
+
 
   afterEach(() => {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
