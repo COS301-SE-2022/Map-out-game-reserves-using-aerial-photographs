@@ -2,10 +2,8 @@
 
 .nav {
   background-color: $primary-dark;
-  // border-radius: 15px;
   height: fit-content;
   width: 100%;
-  // min-height: 300px;
   min-width: 190px;
   padding: 15px;
   z-index: 9;
@@ -25,7 +23,6 @@
 .navText {
   font-size: 14pt;
   color: $primary-background;
-  // transition: 0.5s;
 }
 
 mat-icon {
@@ -43,8 +40,6 @@ mat-icon {
 }
 
 .menu-button span {
-  // position: relative;
-  // text-align: left;
   max-width: 0;
   -webkit-transition: max-width 1s;
   transition: max-width 1s;
@@ -69,7 +64,6 @@ mat-icon {
 
 .mat-button-base {
   height: 6vh;
-  // min-height: 50px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -81,8 +75,6 @@ mat-icon {
   #titleButton {
     width: 100%;
     text-align: center;
-    // position: absolute;
-    // left: 50vw;
   }
 
   .menu-button span {

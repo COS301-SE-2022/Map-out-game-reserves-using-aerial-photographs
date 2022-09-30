@@ -2,20 +2,40 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-
 import { LoginComponent } from './login.component';
+import { Auth } from 'aws-amplify';
+import { DashboardComponent } from '../dashboard/dashboard.component';
+
+Auth.configure({
+  region: 'sa-east-1',
+  userPoolId: 'sa-east-1_wDnNPQ5Vo',
+  userPoolWebClientId: '3a32euto9uetfe88377gd2u617',
+});
+
+const username = "correct@email.com";
+const password = "12345678";
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
+  let originalTimeout: number;
 
   beforeEach(async () => {
+    originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 25000;
+
     await TestBed.configureTestingModule({
-      declarations: [ LoginComponent ],
-      imports: [ FormsModule, ReactiveFormsModule, HttpClientModule, RouterTestingModule ],
-      providers: [ HttpClient ]
-    })
-    .compileComponents();
+      declarations: [LoginComponent, DashboardComponent],
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        RouterTestingModule.withRoutes([
+          { path: 'dashboard', component: DashboardComponent },
+        ]),
+      ],
+      providers: [HttpClient],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
@@ -24,6 +44,10 @@ describe('LoginComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it("should have as title 'login-component'", () => {
+    expect(component.title).toEqual('login-component');
   });
 
   it('component variables initialised correctly', () => {
@@ -67,16 +91,33 @@ describe('LoginComponent', () => {
   });
 
   it('submits form and logs in', async () => {
-    component.loginForm.controls['email'].setValue("correct@email.com");
-    component.loginForm.controls['password'].setValue("12345678");
-    expect(component.loginForm.valid).toBeTruthy();
-
-    //response from event emitter
-    component.loggedIn.subscribe(user => {
-      expect(user!.attributes.email).toBe("correct@email.com");
-    });
-
-    await component.login();
+    component.loginForm.controls['email'].setValue('correct@email.com');
+    component.loginForm.controls['password'].setValue('12345678');
+    spyOn(component.router, 'navigate').and.returnValue(Promise.resolve(true));
+    component.windowReload = jasmine.createSpy();
+    component.isSubmitted = true;
+    const result = await component.login();
+    expect(result).toBe(1);
   });
 
+  it('Must login within 5 seconds', async () => {
+    component.loginForm.controls['email'].setValue(username);
+    component.loginForm.controls['password'].setValue(password);
+
+    spyOn(component.router, 'navigate').and.returnValue(Promise.resolve(true));
+    component.windowReload = jasmine.createSpy();
+
+    component.isSubmitted = true;
+    const start = new Date().getTime();
+    const result = await component.login();
+    const duration = new Date().getTime() - start;
+    console.log('[Performance Quality Requirement]');
+    console.log(`Logged in within ${duration} milliseconds`);
+    expect(duration).toBeLessThan(5000);
+  });
+
+
+  afterEach(() => {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
+  });
 });

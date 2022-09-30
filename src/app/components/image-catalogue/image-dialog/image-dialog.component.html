@@ -1,11 +1,90 @@
-<mat-dialog-content class="mat-typography">
+<mat-dialog-content
+  class="mat-typography"
+  *ngIf="!selectCatalogue?.error; else errorMessages"
+>
   <div class="images" style="overflow-y: auto" *ngIf="selectCatalogue != null">
     <mat-card class="imageContainer" *ngFor="let img of selectCatalogue.images">
-      <mat-card-content><img [src]="img.url" alt="{{ img.image.file_name }}" /></mat-card-content>
+      <div class="center">
+        <mat-progress-spinner
+          mode="indeterminate"
+          class="spinner"
+          diameter="50"
+          style="z-index: 1"
+        ></mat-progress-spinner>
+      </div>
+      <mat-card-content>
+        <a [href]="img.url" target="_blank">
+          <img [src]="img.url" alt="{{ img.image.file_name }}" />
+        </a>
+      </mat-card-content>
     </mat-card>
   </div>
 </mat-dialog-content>
+<ng-template #errorMessages>
+  <mat-dialog-content>
+    <div>
+      <p class="errorMessage">ERROR</p>
+      <p class="errorMessage">
+        An error occurred during the stitching process please try re-upload the
+        video/images
+      </p>
+      <p class="errorMessage">
+        Please ensure that there are 2 or more images on upload
+      </p>
+    </div>
+    <button
+      mat-button
+      class="tryAgain"
+      (click)="confirmDialog(true)"
+      color="warn"
+    >
+      Try Again
+    </button>
+  </mat-dialog-content>
+</ng-template>
 <mat-dialog-actions align="start">
   <button mat-button (click)="onNoClick()" color="warn">Close</button>
-  <button mat-button (click)="onSubmit()" color="primary" type="button" matTooltip="View the stiched map">View Map</button>
+  <button
+    *ngIf="selectCatalogue?.completed; else elseBlock"
+    mat-button
+    (click)="onSubmit(selectCatalogue.taskID)"
+    color="primary"
+    type="button"
+    matTooltip="View the stitched map"
+  >
+    View Map
+  </button>
+  <button
+    *ngIf="selectCatalogue?.completed"
+    mat-button
+    (click)="confirmDialog(false)"
+    color="warn"
+    style="margin-left: 73%"
+  >
+    Delete Map
+  </button>
+  <ng-template #elseBlock>
+    <button
+      *ngIf="selectCatalogue?.error; else lastElseBlock"
+      mat-button
+      color="primary"
+      type="button"
+      matTooltip="The map cannot be processed"
+      disabled
+    >
+      Error
+    </button>
+    <ng-template #lastElseBlock>
+      <button
+        mat-button
+        (click)="onSubmit()"
+        color="primary"
+        type="button"
+        matTooltip="The map is busy processing"
+        disabled
+      >
+        Map Pending
+      </button>
+    </ng-template>
+  </ng-template>
 </mat-dialog-actions>

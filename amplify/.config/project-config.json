@@ -2,7 +2,7 @@
   "providers": [
     "awscloudformation"
   ],
-  "projectName": "amplifyapp",
+  "projectName": "AerialMapping",
   "version": "3.1",
   "frontend": "javascript",
   "javascript": {

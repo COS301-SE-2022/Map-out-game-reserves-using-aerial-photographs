@@ -1,14 +1,13 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule, MatDialogState } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { User } from 'src/app/API.service';
-
 import { RegisterComponent } from './register.component';
 
 describe('RegisterComponent', () => {
@@ -22,13 +21,11 @@ describe('RegisterComponent', () => {
     userID: 'jaksdjkasjd',
     createdAt: '',
     updatedAt: '',
-    _version: 1,
-    _lastChangedAt: 1
-  }
+  };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RegisterComponent ],
+      declarations: [RegisterComponent],
       imports: [
         NoopAnimationsModule,
         HttpClientModule,
@@ -37,11 +34,10 @@ describe('RegisterComponent', () => {
         MatDialogModule,
         MatFormFieldModule,
         MatInputModule,
-        MatSnackBarModule
+        MatSnackBarModule,
       ],
-      providers: [ HttpClient ]
-    })
-    .compileComponents();
+      providers: [HttpClient],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -51,12 +47,16 @@ describe('RegisterComponent', () => {
   });
 
   it('should create', () => {
-    spyOn(component.snackBar,"open").and.callThrough();
+    spyOn(component.snackBar, 'open').and.callThrough();
     expect(component).toBeTruthy();
   });
 
+  it("should have as title 'register-component'", () => {
+    expect(component.title).toEqual('register-component');
+  });
+
   it('component variables initialised correctly', () => {
-    spyOn(component.snackBar,"open").and.callThrough();
+    spyOn(component.snackBar, 'open').and.callThrough();
     expect(component.isSubmitted).toBeFalsy();
     expect(component.email!.value).toBe('');
     expect(component.password!.value).toBe('');
@@ -65,12 +65,12 @@ describe('RegisterComponent', () => {
   });
 
   it('form invalid when empty', () => {
-    spyOn(component.snackBar,"open").and.callThrough();
+    spyOn(component.snackBar, 'open').and.callThrough();
     expect(component.registerForm.valid).toBeFalsy();
   });
 
   it('gets correct error message', () => {
-    spyOn(component.snackBar,"open").and.callThrough();
+    spyOn(component.snackBar, 'open').and.callThrough();
 
     expect(component.getErrorMessage()).toBe('You must enter a value');
 
@@ -84,7 +84,7 @@ describe('RegisterComponent', () => {
   });
 
   it('email field validity', () => {
-    spyOn(component.snackBar,"open").and.callThrough();
+    spyOn(component.snackBar, 'open').and.callThrough();
     //should be invalid at first since it is empty
     const email = component.registerForm.controls['user_email'];
     expect(email.valid).toBeFalsy();
@@ -105,7 +105,7 @@ describe('RegisterComponent', () => {
   });
 
   it('password field validity', () => {
-    spyOn(component.snackBar,"open").and.callThrough();
+    spyOn(component.snackBar, 'open').and.callThrough();
     //should be invalid at first since it is empty
     const password = component.registerForm.controls['user_password'];
     expect(password.valid).toBeFalsy();
@@ -116,7 +116,7 @@ describe('RegisterComponent', () => {
   });
 
   it('repeated password field validity', () => {
-    spyOn(component.snackBar,"open").and.callThrough();
+    spyOn(component.snackBar, 'open').and.callThrough();
     //should be invalid at first since it is empty
     const repeatedPass = component.registerForm.controls['repeatedPassword'];
     expect(repeatedPass.valid).toBeFalsy();
@@ -127,7 +127,7 @@ describe('RegisterComponent', () => {
   });
 
   it('name field validity', () => {
-    spyOn(component.snackBar,"open").and.callThrough();
+    spyOn(component.snackBar, 'open').and.callThrough();
 
     //should be invalid at first since it is empty
     const name = component.registerForm.controls['user_name'];
@@ -139,28 +139,18 @@ describe('RegisterComponent', () => {
   });
 
   it('form submission validity', () => {
-    spyOn(component.snackBar,"open").and.callThrough();
+    spyOn(component.snackBar, 'open').and.callThrough();
 
-    component.registerForm.controls['user_email'].setValue("test@email.com");
-    component.registerForm.controls['user_password'].setValue("12345678");
-    component.registerForm.controls['repeatedPassword'].setValue("12345678");
-    component.registerForm.controls['user_name'].setValue("Joe");
+    component.registerForm.controls['user_email'].setValue('test@email.com');
+    component.registerForm.controls['user_password'].setValue('12345678');
+    component.registerForm.controls['repeatedPassword'].setValue('12345678');
+    component.registerForm.controls['user_name'].setValue('Joe');
     expect(component.registerForm.valid).toBeTruthy();
 
-    component.registered.subscribe(resp => {
+    component.registered.subscribe((resp) => {
       expect(resp).toBe(-1);
     });
 
     component.onRegisterFormSubmit(user);
   });
-
-  it('opens OTP dialog', () => {
-    spyOn(component.snackBar,"open").and.callThrough();
-    component.dialogState.subscribe(state => {
-      expect(state).toBe(MatDialogState.OPEN);
-    });
-
-    component.openOtpDialog(user);
-  });
-
 });

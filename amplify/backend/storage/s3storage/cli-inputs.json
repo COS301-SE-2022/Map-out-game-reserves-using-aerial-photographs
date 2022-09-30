@@ -1,0 +1,13 @@
+{
+  "resourceName": "s3storage",
+  "policyUUID": "2ab9862e",
+  "bucketName": "aerial-mapping-bucket",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "groupAccess": []
+}

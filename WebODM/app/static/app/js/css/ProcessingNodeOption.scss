@@ -1,0 +1,32 @@
+.processing-node-option{
+    .checkbox{
+        margin-right: 143px;
+    }
+
+    button{
+        margin-left: 4px;
+    }
+    
+    &.form-horizontal.form-group{
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    select.form-control{
+        min-width: 204px;
+    }
+
+    .file-control{
+        position: absolute;
+        left: -99999px;
+    }
+
+    .tooltip .tooltip-inner{
+        padding: 3px 16px;
+    }
+
+    .alert{
+        padding: 2px 4px 2px 4px;
+        margin-top: 12px;
+    }
+}

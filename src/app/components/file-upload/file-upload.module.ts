@@ -7,10 +7,17 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FooterModule } from '../shared/footer/footer.module';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatIconModule} from '@angular/material/icon'
-
+import { ParksDialogComponent } from './parks-dialog/parks-dialog.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { SpinnerModule } from '../shared/spinner/spinner.module';
+import {MatSliderModule} from '@angular/material/slider';
 
 @NgModule({
-  declarations: [ FileUploadComponent ],
+  declarations: [ FileUploadComponent, ParksDialogComponent ],
   imports: [
     CommonModule,
     NavbarModule,
@@ -18,7 +25,15 @@ import {MatIconModule} from '@angular/material/icon'
     FooterModule,
     MatSnackBarModule,
     MatDividerModule,
-    MatIconModule
+    MatIconModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatDialogModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatButtonModule, 
+    SpinnerModule,
+    MatSliderModule
   ]
 })
 export class FileUploadModule { }

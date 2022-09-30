@@ -1,8 +1,8 @@
-@import 'src/styles.scss';
+@import "src/styles.scss";
 
 h1 {
   color: white;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
   font-weight: 505;
   font-style: normal;
   font-size: 5vh;
@@ -44,9 +44,9 @@ td {
   width: 98%;
   margin: 2%;
   padding: 5px;
-  box-shadow: 4px 4px 10px -1px rgba(0,0,0,0.7);
--webkit-box-shadow: 4px 4px 10px -1px rgba(0,0,0,0.7);
--moz-box-shadow: 4px 4px 10px -1px rgba(0,0,0,0.7);
+  box-shadow: 4px 4px 10px -1px rgba(0, 0, 0, 0.7);
+  -webkit-box-shadow: 4px 4px 10px -1px rgba(0, 0, 0, 0.7);
+  -moz-box-shadow: 4px 4px 10px -1px rgba(0, 0, 0, 0.7);
   transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -55,7 +55,6 @@ td {
 }
 
 .messageTitle {
-  // font-weight: 700;
   font-style: normal;
   font-size: 22px;
   color: $primary-dark;
@@ -64,7 +63,6 @@ td {
 }
 
 .completeTitle {
-  // font-weight: 700;
   font-style: normal;
   font-size: 22px;
   color: $primary-dark;
@@ -72,7 +70,6 @@ td {
 }
 
 .progressTitle {
-  // font-weight: 700;
   font-style: normal;
   font-size: 22px;
   color: $primary-dark;
@@ -107,7 +104,7 @@ td {
 }
 
 .num {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
   font-weight: 700;
   font-style: normal;
   font-size: 60px;
@@ -116,23 +113,6 @@ td {
 
 .label {
   color: $primary;
-}
-
-.barChart {
-  display: block;
-  position: relative;
-  width: 100%;
-  //bottom: 37%;
-  height: 70%;//38%;
-  width: 100%;//28%;
-  // C&Z change
-  //top: 28%;
-}
-
-aerial-mapping-bar-chart {
-  display: block;
-  width: 100%;
-  height: 100%;
 }
 
 .scrollableMessage {
@@ -150,7 +130,6 @@ aerial-mapping-bar-chart {
   overflow-y: auto;
 }
 
-
 .messages {
   height: 39%;
 }
@@ -161,11 +140,13 @@ aerial-mapping-bar-chart {
   margin-bottom: 1%;
 }
 
-.messageDate {
-  position: absolute;
+.messageDate,
+.completeName {
   right: 3%;
   color: gray;
   font-size: smaller;
+  text-overflow: clip;
+  width: 55%;
 }
 
 .icon {
@@ -195,8 +176,6 @@ aerial-mapping-bar-chart {
 }
 
 .completeDate {
-  position: absolute;
-  right: 3%;
   color: gray;
   font-size: smaller;
 }
@@ -216,14 +195,10 @@ aerial-mapping-bar-chart {
 
 @media only screen and (max-width: 768px) {
   .content2 {
-    //left: 0px !important;
-    //border: 2px solid red;
-    //width: 98%;
     top: 16vh !important;
     overflow-x: hidden;
     display: block;
     margin-left: 3%;
-    // margin-right: 1%;
   }
 
   td {
@@ -231,7 +206,8 @@ aerial-mapping-bar-chart {
     display: block;
   }
 
-  .tooltip, .cont {
+  .tooltip,
+  .cont {
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -242,10 +218,43 @@ aerial-mapping-bar-chart {
   }
 }
 
+.message {
+  width: 25%;
+}
+
 .center {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 60px;
+}
+
+.close {
+  position: absolute;
+  left: 90%;
+  border: none;
+  cursor: pointer;
+  background-color: rgba(92, 116, 132, 0);
+  -webkit-transition: 0.5s all;
+  -webkit-transition-delay: 5s;
+  transition: 0.5s all;
+  transition-delay: 5s;
+}
+
+.messageItem:hover + .close {
+  display: block;
+}
+
+.completeItem:hover,
+.completeName:hover + .close {
+  display: block;
+}
+
+span {
+  display: inline-block;
+}
+
+span:hover {
+  cursor: default;
 }

@@ -10,57 +10,62 @@
       <h3>MY DETAILS</h3>
       <mat-divider></mat-divider>
     </div>
-    <div style="height: 80%; margin: 2%;">
-
+    <div style="height: 80%; margin: 2%">
       <!-- Name field -->
-      <label class="label">
-        NAME
-      </label>
+      <label class="label"> NAME </label>
       <form [formGroup]="nameForm">
         <mat-form-field appearance="outline" [hideRequiredMarker]="true">
           <!-- <mat-label>Name</mat-label> -->
           <label>
-            <input readonly #name matInput style="user-select: none;">
+            <input
+              id="displayNameField"
+              readonly
+              #name
+              matInput
+              style="user-select: none"
+            />
           </label>
-          <div matSuffix style="height: 100% !important; margin: 0;">
-            <button mat-button class="tooltip" (click)="openNameDialog()">
-              <span class="material-symbols-outlined">
-                edit
-              </span>
+          <div matSuffix style="height: 100% !important; margin: 0">
+            <button
+              id="nameEdit"
+              mat-button
+              class="tooltip"
+              (click)="openNameDialog()"
+            >
+              <span class="material-symbols-outlined"> edit </span>
             </button>
           </div>
         </mat-form-field>
       </form>
 
       <!-- Email field -->
-      <label class="label">
-        EMAIL
-      </label>
+      <label class="label"> EMAIL </label>
       <form [formGroup]="emailForm">
         <mat-form-field appearance="outline" [hideRequiredMarker]="true">
           <!-- <mat-label>Email</mat-label> -->
           <label>
-            <input readonly #email matInput style="user-select: none;">
+            <input readonly #email matInput style="user-select: none" />
           </label>
-          <div matSuffix style="height: 100% !important; margin: 0;">
-            <button mat-button class="tooltip" (click)="openEmailDialog()">
-              <span class="material-symbols-outlined">
-                edit
-              </span>
+          <div matSuffix style="height: 100% !important; margin: 0">
+            <button
+              id="emailEdit"
+              mat-button
+              class="tooltip"
+              (click)="openEmailDialog()"
+            >
+              <span class="material-symbols-outlined"> edit </span>
             </button>
           </div>
         </mat-form-field>
       </form>
 
       <!-- Role field -->
-      <label class="label">
-        ROLE
-      </label>
+      <label class="label"> ROLE </label>
       <form [formGroup]="roleForm">
         <mat-form-field appearance="outline" [hideRequiredMarker]="true">
           <!-- <mat-label>Role</mat-label> -->
           <label>
-            <input readonly #role matInput style="user-select: none;">
+            <input readonly #role matInput style="user-select: none" />
           </label>
         </mat-form-field>
       </form>
@@ -68,10 +73,14 @@
       <!-- Bottom Buttons -->
       <div class="contains">
         <div class="center">
-          <button (click)="openPasswordDialog()" class="btn">
+          <button id="passwordEdit" (click)="openPasswordDialog()" class="btn">
             Change Password
           </button>
-          <button (click)="openRegisterLinkDialog()" *ngIf="this.admin" class="btn">
+          <button
+            (click)="openRegisterLinkDialog()"
+            *ngIf="this.admin"
+            class="btn"
+          >
             Send Registration Link
           </button>
           <button id="logoutBtn" (click)="logout()" class="btn">
@@ -80,7 +89,18 @@
           </button>
         </div>
       </div>
+      <div>
+        <button
+          mat-button
+          class="deleteAccount"
+          (click)="onDeleteClick()"
+          color="warn"
+        >
+          Delete account
+        </button>
+      </div>
 
+      <app-spinner></app-spinner>
     </div>
   </div>
 </div>

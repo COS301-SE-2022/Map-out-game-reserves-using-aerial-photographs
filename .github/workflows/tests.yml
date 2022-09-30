@@ -10,7 +10,7 @@ on:
         required: true
         type: string
       testtype:
-        description: 'Type of test (lint, build, test)'
+        description: 'Type of test (unit)'
         required: false
         type: string
 
@@ -25,12 +25,6 @@ jobs:
         with:
           fetch-depth: 0
 
-        #Generates the hashes for the comparison between the origin branch and the upstream development branch
-      # - name: Derive appropriate SHAs for base and head for `nx affected` commands
-      #   uses: nrwl/nx-set-shas@v2
-      #   with:
-      #     main-branch-name: 'develop'
-
         #Installs node.js
       - name: Use Node.js 16
         uses: actions/setup-node@v2
@@ -41,13 +35,30 @@ jobs:
       - name: Install packages
         run: npm install
 
-        #run tests on the entire repository
-      - name: Unit Test all
-        # if: inputs.testtype == 'unit'
+        #run unit & integration tests
+      - name: Unit & Integration Tests
         run: npx ng test --watch=false --browsers=ChromeHeadless --code-coverage
+
+        #run end-to-end tests
+      # - name: Cypress E2E Tests
+      #   uses: cypress-io/github-action@v2
+      #   timeout-minutes: 10
+      #   with:
+      #     browser: firefox
+      #   env:
+      #     VALID_USERNAME: ${{ secrets.VALID_USERNAME }}
+      #     VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
 
         #Upload codecov report
       - name: Upload Codecov Report
         uses: codecov/codecov-action@v2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+
+      # generates env variables
+      # - name: Generate environment.ts file
+      #   env:
+      #     CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #   run: node ./scripts/setenv.js -- --environment=dev

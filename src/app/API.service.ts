@@ -37,6 +37,9 @@ export type __SubscriptionContainer = {
   onCreateConnection: OnCreateConnectionSubscription;
   onUpdateConnection: OnUpdateConnectionSubscription;
   onDeleteConnection: OnDeleteConnectionSubscription;
+  onCreatePendingJobs: OnCreatePendingJobsSubscription;
+  onUpdatePendingJobs: OnUpdatePendingJobsSubscription;
+  onDeletePendingJobs: OnDeletePendingJobsSubscription;
 };
 
 export type User = {
@@ -50,9 +53,6 @@ export type User = {
   user_approved?: boolean | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type FlightDetails = {
@@ -64,9 +64,6 @@ export type FlightDetails = {
   Pilot?: User | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type Images = {
@@ -78,9 +75,6 @@ export type Images = {
   file_name?: string | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type CreateUserInput = {
@@ -91,7 +85,6 @@ export type CreateUserInput = {
   user_name?: string | null;
   user_role?: string | null;
   user_approved?: boolean | null;
-  _version?: number | null;
 };
 
 export type ModelUserConditionInput = {
@@ -160,12 +153,10 @@ export type UpdateUserInput = {
   user_name?: string | null;
   user_role?: string | null;
   user_approved?: boolean | null;
-  _version?: number | null;
 };
 
 export type DeleteUserInput = {
   userID: string;
-  _version?: number | null;
 };
 
 export type CreateGameParkInput = {
@@ -173,7 +164,6 @@ export type CreateGameParkInput = {
   park_name?: string | null;
   park_location?: string | null;
   park_address?: string | null;
-  _version?: number | null;
 };
 
 export type ModelGameParkConditionInput = {
@@ -193,9 +183,6 @@ export type GamePark = {
   park_address?: string | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type UpdateGameParkInput = {
@@ -203,12 +190,10 @@ export type UpdateGameParkInput = {
   park_name?: string | null;
   park_location?: string | null;
   park_address?: string | null;
-  _version?: number | null;
 };
 
 export type DeleteGameParkInput = {
   parkID: string;
-  _version?: number | null;
 };
 
 export type CreateImageCollectionInput = {
@@ -219,8 +204,9 @@ export type CreateImageCollectionInput = {
   completed?: boolean | null;
   error?: boolean | null;
   pending?: boolean | null;
+  dismissed?: boolean | null;
   flightID?: string | null;
-  _version?: number | null;
+  collectionName?: string | null;
 };
 
 export type ModelImageCollectionConditionInput = {
@@ -230,7 +216,9 @@ export type ModelImageCollectionConditionInput = {
   completed?: ModelBooleanInput | null;
   error?: ModelBooleanInput | null;
   pending?: ModelBooleanInput | null;
+  dismissed?: ModelBooleanInput | null;
   flightID?: ModelStringInput | null;
+  collectionName?: ModelStringInput | null;
   and?: Array<ModelImageCollectionConditionInput | null> | null;
   or?: Array<ModelImageCollectionConditionInput | null> | null;
   not?: ModelImageCollectionConditionInput | null;
@@ -246,13 +234,12 @@ export type ImageCollection = {
   completed?: boolean | null;
   error?: boolean | null;
   pending?: boolean | null;
+  dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: FlightDetails | null;
+  collectionName?: string | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type UpdateImageCollectionInput = {
@@ -263,13 +250,13 @@ export type UpdateImageCollectionInput = {
   completed?: boolean | null;
   error?: boolean | null;
   pending?: boolean | null;
+  dismissed?: boolean | null;
   flightID?: string | null;
-  _version?: number | null;
+  collectionName?: string | null;
 };
 
 export type DeleteImageCollectionInput = {
   collectionID: string;
-  _version?: number | null;
 };
 
 export type CreateMapInput = {
@@ -277,7 +264,6 @@ export type CreateMapInput = {
   bucket_name?: string | null;
   file_name?: string | null;
   collectionID?: string | null;
-  _version?: number | null;
 };
 
 export type ModelMapConditionInput = {
@@ -298,9 +284,6 @@ export type Map = {
   Collection?: ImageCollection | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type UpdateMapInput = {
@@ -308,12 +291,10 @@ export type UpdateMapInput = {
   bucket_name?: string | null;
   file_name?: string | null;
   collectionID?: string | null;
-  _version?: number | null;
 };
 
 export type DeleteMapInput = {
   mapID: string;
-  _version?: number | null;
 };
 
 export type CreateMessageInput = {
@@ -321,7 +302,6 @@ export type CreateMessageInput = {
   message_status?: string | null;
   message_description?: string | null;
   collectionID?: string | null;
-  _version?: number | null;
 };
 
 export type ModelMessageConditionInput = {
@@ -342,9 +322,6 @@ export type Message = {
   ImageCollection?: ImageCollection | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type UpdateMessageInput = {
@@ -352,12 +329,10 @@ export type UpdateMessageInput = {
   message_status?: string | null;
   message_description?: string | null;
   collectionID?: string | null;
-  _version?: number | null;
 };
 
 export type DeleteMessageInput = {
   messageID: string;
-  _version?: number | null;
 };
 
 export type CreateImagesInput = {
@@ -366,7 +341,6 @@ export type CreateImagesInput = {
   name?: string | null;
   bucket_name?: string | null;
   file_name?: string | null;
-  _version?: number | null;
 };
 
 export type ModelImagesConditionInput = {
@@ -385,12 +359,10 @@ export type UpdateImagesInput = {
   name?: string | null;
   bucket_name?: string | null;
   file_name?: string | null;
-  _version?: number | null;
 };
 
 export type DeleteImagesInput = {
   imageID: string;
-  _version?: number | null;
 };
 
 export type CreateFlightDetailsInput = {
@@ -398,7 +370,6 @@ export type CreateFlightDetailsInput = {
   flight_height?: number | null;
   flight_type?: string | null;
   pilotID?: string | null;
-  _version?: number | null;
 };
 
 export type ModelFlightDetailsConditionInput = {
@@ -427,19 +398,16 @@ export type UpdateFlightDetailsInput = {
   flight_height?: number | null;
   flight_type?: string | null;
   pilotID?: string | null;
-  _version?: number | null;
 };
 
 export type DeleteFlightDetailsInput = {
   flightID: string;
-  _version?: number | null;
 };
 
 export type CreatePendingInvitesInput = {
   inviteID: string;
   email: string;
   role: string;
-  _version?: number | null;
 };
 
 export type ModelPendingInvitesConditionInput = {
@@ -457,27 +425,21 @@ export type PendingInvites = {
   role: string;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type UpdatePendingInvitesInput = {
   inviteID: string;
   email?: string | null;
   role?: string | null;
-  _version?: number | null;
 };
 
 export type DeletePendingInvitesInput = {
   inviteID: string;
-  _version?: number | null;
 };
 
 export type CreateConnectionInput = {
   connectionID: string;
   topic: string;
-  _version?: number | null;
 };
 
 export type ModelConnectionConditionInput = {
@@ -493,20 +455,52 @@ export type Connection = {
   topic: string;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type UpdateConnectionInput = {
   connectionID: string;
   topic?: string | null;
-  _version?: number | null;
 };
 
 export type DeleteConnectionInput = {
   connectionID: string;
-  _version?: number | null;
+};
+
+export type CreatePendingJobsInput = {
+  jobID: string;
+  busy?: boolean | null;
+  taskID?: string | null;
+  collectionID?: string | null;
+};
+
+export type ModelPendingJobsConditionInput = {
+  busy?: ModelBooleanInput | null;
+  taskID?: ModelStringInput | null;
+  collectionID?: ModelStringInput | null;
+  and?: Array<ModelPendingJobsConditionInput | null> | null;
+  or?: Array<ModelPendingJobsConditionInput | null> | null;
+  not?: ModelPendingJobsConditionInput | null;
+};
+
+export type PendingJobs = {
+  __typename: "PendingJobs";
+  jobID: string;
+  busy?: boolean | null;
+  taskID?: string | null;
+  collectionID?: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type UpdatePendingJobsInput = {
+  jobID: string;
+  busy?: boolean | null;
+  taskID?: string | null;
+  collectionID?: string | null;
+};
+
+export type DeletePendingJobsInput = {
+  jobID: string;
 };
 
 export type ModelUserFilterInput = {
@@ -531,7 +525,6 @@ export type ModelUserConnection = {
   __typename: "ModelUserConnection";
   items: Array<User | null>;
   nextToken?: string | null;
-  startedAt?: number | null;
 };
 
 export type ModelGameParkFilterInput = {
@@ -548,7 +541,6 @@ export type ModelGameParkConnection = {
   __typename: "ModelGameParkConnection";
   items: Array<GamePark | null>;
   nextToken?: string | null;
-  startedAt?: number | null;
 };
 
 export type ModelImageCollectionFilterInput = {
@@ -559,7 +551,9 @@ export type ModelImageCollectionFilterInput = {
   completed?: ModelBooleanInput | null;
   error?: ModelBooleanInput | null;
   pending?: ModelBooleanInput | null;
+  dismissed?: ModelBooleanInput | null;
   flightID?: ModelStringInput | null;
+  collectionName?: ModelStringInput | null;
   and?: Array<ModelImageCollectionFilterInput | null> | null;
   or?: Array<ModelImageCollectionFilterInput | null> | null;
   not?: ModelImageCollectionFilterInput | null;
@@ -569,7 +563,6 @@ export type ModelImageCollectionConnection = {
   __typename: "ModelImageCollectionConnection";
   items: Array<ImageCollection | null>;
   nextToken?: string | null;
-  startedAt?: number | null;
 };
 
 export type ModelMapFilterInput = {
@@ -586,7 +579,6 @@ export type ModelMapConnection = {
   __typename: "ModelMapConnection";
   items: Array<Map | null>;
   nextToken?: string | null;
-  startedAt?: number | null;
 };
 
 export type ModelMessageFilterInput = {
@@ -603,7 +595,6 @@ export type ModelMessageConnection = {
   __typename: "ModelMessageConnection";
   items: Array<Message | null>;
   nextToken?: string | null;
-  startedAt?: number | null;
 };
 
 export type ModelImagesFilterInput = {
@@ -621,7 +612,6 @@ export type ModelImagesConnection = {
   __typename: "ModelImagesConnection";
   items: Array<Images | null>;
   nextToken?: string | null;
-  startedAt?: number | null;
 };
 
 export type ModelFlightDetailsFilterInput = {
@@ -638,7 +628,6 @@ export type ModelFlightDetailsConnection = {
   __typename: "ModelFlightDetailsConnection";
   items: Array<FlightDetails | null>;
   nextToken?: string | null;
-  startedAt?: number | null;
 };
 
 export type ModelPendingInvitesFilterInput = {
@@ -654,7 +643,6 @@ export type ModelPendingInvitesConnection = {
   __typename: "ModelPendingInvitesConnection";
   items: Array<PendingInvites | null>;
   nextToken?: string | null;
-  startedAt?: number | null;
 };
 
 export type ModelConnectionFilterInput = {
@@ -669,7 +657,22 @@ export type ModelConnectionConnection = {
   __typename: "ModelConnectionConnection";
   items: Array<Connection | null>;
   nextToken?: string | null;
-  startedAt?: number | null;
+};
+
+export type ModelPendingJobsFilterInput = {
+  jobID?: ModelStringInput | null;
+  busy?: ModelBooleanInput | null;
+  taskID?: ModelStringInput | null;
+  collectionID?: ModelStringInput | null;
+  and?: Array<ModelPendingJobsFilterInput | null> | null;
+  or?: Array<ModelPendingJobsFilterInput | null> | null;
+  not?: ModelPendingJobsFilterInput | null;
+};
+
+export type ModelPendingJobsConnection = {
+  __typename: "ModelPendingJobsConnection";
+  items: Array<PendingJobs | null>;
+  nextToken?: string | null;
 };
 
 export type RegisterUserMutation = {
@@ -683,9 +686,6 @@ export type RegisterUserMutation = {
   user_approved?: boolean | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type CreateFlightMutation = {
@@ -705,15 +705,9 @@ export type CreateFlightMutation = {
     user_approved?: boolean | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type CreateImageMutation = {
@@ -725,9 +719,6 @@ export type CreateImageMutation = {
   file_name?: string | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type CreateUserMutation = {
@@ -741,9 +732,6 @@ export type CreateUserMutation = {
   user_approved?: boolean | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type UpdateUserMutation = {
@@ -757,9 +745,6 @@ export type UpdateUserMutation = {
   user_approved?: boolean | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type DeleteUserMutation = {
@@ -773,9 +758,6 @@ export type DeleteUserMutation = {
   user_approved?: boolean | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type CreateGameParkMutation = {
@@ -786,9 +768,6 @@ export type CreateGameParkMutation = {
   park_address?: string | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type UpdateGameParkMutation = {
@@ -799,9 +778,6 @@ export type UpdateGameParkMutation = {
   park_address?: string | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type DeleteGameParkMutation = {
@@ -812,9 +788,6 @@ export type DeleteGameParkMutation = {
   park_address?: string | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type CreateImageCollectionMutation = {
@@ -830,14 +803,12 @@ export type CreateImageCollectionMutation = {
     park_address?: string | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
   upload_date_time?: string | null;
   completed?: boolean | null;
   error?: boolean | null;
   pending?: boolean | null;
+  dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: {
     __typename: "FlightDetails";
@@ -845,17 +816,24 @@ export type CreateImageCollectionMutation = {
     flight_height?: number | null;
     flight_type?: string | null;
     pilotID?: string | null;
+    Pilot?: {
+      __typename: "User";
+      userID: string;
+      user_email?: string | null;
+      user_password?: string | null;
+      user_password_salt?: string | null;
+      user_name?: string | null;
+      user_role?: string | null;
+      user_approved?: boolean | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
+  collectionName?: string | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type UpdateImageCollectionMutation = {
@@ -871,14 +849,12 @@ export type UpdateImageCollectionMutation = {
     park_address?: string | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
   upload_date_time?: string | null;
   completed?: boolean | null;
   error?: boolean | null;
   pending?: boolean | null;
+  dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: {
     __typename: "FlightDetails";
@@ -886,17 +862,24 @@ export type UpdateImageCollectionMutation = {
     flight_height?: number | null;
     flight_type?: string | null;
     pilotID?: string | null;
+    Pilot?: {
+      __typename: "User";
+      userID: string;
+      user_email?: string | null;
+      user_password?: string | null;
+      user_password_salt?: string | null;
+      user_name?: string | null;
+      user_role?: string | null;
+      user_approved?: boolean | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
+  collectionName?: string | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type DeleteImageCollectionMutation = {
@@ -912,14 +895,12 @@ export type DeleteImageCollectionMutation = {
     park_address?: string | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
   upload_date_time?: string | null;
   completed?: boolean | null;
   error?: boolean | null;
   pending?: boolean | null;
+  dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: {
     __typename: "FlightDetails";
@@ -927,17 +908,24 @@ export type DeleteImageCollectionMutation = {
     flight_height?: number | null;
     flight_type?: string | null;
     pilotID?: string | null;
+    Pilot?: {
+      __typename: "User";
+      userID: string;
+      user_email?: string | null;
+      user_password?: string | null;
+      user_password_salt?: string | null;
+      user_name?: string | null;
+      user_role?: string | null;
+      user_approved?: boolean | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
+  collectionName?: string | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type CreateMapMutation = {
@@ -951,22 +939,36 @@ export type CreateMapMutation = {
     collectionID: string;
     taskID?: string | null;
     parkID?: string | null;
+    GamePark?: {
+      __typename: "GamePark";
+      parkID: string;
+      park_name?: string | null;
+      park_location?: string | null;
+      park_address?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
+    FlightDetails?: {
+      __typename: "FlightDetails";
+      flightID: string;
+      flight_height?: number | null;
+      flight_type?: string | null;
+      pilotID?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type UpdateMapMutation = {
@@ -980,22 +982,36 @@ export type UpdateMapMutation = {
     collectionID: string;
     taskID?: string | null;
     parkID?: string | null;
+    GamePark?: {
+      __typename: "GamePark";
+      parkID: string;
+      park_name?: string | null;
+      park_location?: string | null;
+      park_address?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
+    FlightDetails?: {
+      __typename: "FlightDetails";
+      flightID: string;
+      flight_height?: number | null;
+      flight_type?: string | null;
+      pilotID?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type DeleteMapMutation = {
@@ -1009,22 +1025,36 @@ export type DeleteMapMutation = {
     collectionID: string;
     taskID?: string | null;
     parkID?: string | null;
+    GamePark?: {
+      __typename: "GamePark";
+      parkID: string;
+      park_name?: string | null;
+      park_location?: string | null;
+      park_address?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
+    FlightDetails?: {
+      __typename: "FlightDetails";
+      flightID: string;
+      flight_height?: number | null;
+      flight_type?: string | null;
+      pilotID?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type CreateMessageMutation = {
@@ -1038,22 +1068,36 @@ export type CreateMessageMutation = {
     collectionID: string;
     taskID?: string | null;
     parkID?: string | null;
+    GamePark?: {
+      __typename: "GamePark";
+      parkID: string;
+      park_name?: string | null;
+      park_location?: string | null;
+      park_address?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
+    FlightDetails?: {
+      __typename: "FlightDetails";
+      flightID: string;
+      flight_height?: number | null;
+      flight_type?: string | null;
+      pilotID?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type UpdateMessageMutation = {
@@ -1067,22 +1111,36 @@ export type UpdateMessageMutation = {
     collectionID: string;
     taskID?: string | null;
     parkID?: string | null;
+    GamePark?: {
+      __typename: "GamePark";
+      parkID: string;
+      park_name?: string | null;
+      park_location?: string | null;
+      park_address?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
+    FlightDetails?: {
+      __typename: "FlightDetails";
+      flightID: string;
+      flight_height?: number | null;
+      flight_type?: string | null;
+      pilotID?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type DeleteMessageMutation = {
@@ -1096,22 +1154,36 @@ export type DeleteMessageMutation = {
     collectionID: string;
     taskID?: string | null;
     parkID?: string | null;
+    GamePark?: {
+      __typename: "GamePark";
+      parkID: string;
+      park_name?: string | null;
+      park_location?: string | null;
+      park_address?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
+    FlightDetails?: {
+      __typename: "FlightDetails";
+      flightID: string;
+      flight_height?: number | null;
+      flight_type?: string | null;
+      pilotID?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type CreateImagesMutation = {
@@ -1123,9 +1195,6 @@ export type CreateImagesMutation = {
   file_name?: string | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type UpdateImagesMutation = {
@@ -1137,9 +1206,6 @@ export type UpdateImagesMutation = {
   file_name?: string | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type DeleteImagesMutation = {
@@ -1151,9 +1217,6 @@ export type DeleteImagesMutation = {
   file_name?: string | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type CreateFlightDetailsMutation = {
@@ -1173,15 +1236,9 @@ export type CreateFlightDetailsMutation = {
     user_approved?: boolean | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type UpdateFlightDetailsMutation = {
@@ -1201,15 +1258,9 @@ export type UpdateFlightDetailsMutation = {
     user_approved?: boolean | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type DeleteFlightDetailsMutation = {
@@ -1229,15 +1280,9 @@ export type DeleteFlightDetailsMutation = {
     user_approved?: boolean | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type CreatePendingInvitesMutation = {
@@ -1247,9 +1292,6 @@ export type CreatePendingInvitesMutation = {
   role: string;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type UpdatePendingInvitesMutation = {
@@ -1259,9 +1301,6 @@ export type UpdatePendingInvitesMutation = {
   role: string;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type DeletePendingInvitesMutation = {
@@ -1271,9 +1310,6 @@ export type DeletePendingInvitesMutation = {
   role: string;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type CreateConnectionMutation = {
@@ -1282,9 +1318,6 @@ export type CreateConnectionMutation = {
   topic: string;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type UpdateConnectionMutation = {
@@ -1293,9 +1326,6 @@ export type UpdateConnectionMutation = {
   topic: string;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type DeleteConnectionMutation = {
@@ -1304,9 +1334,36 @@ export type DeleteConnectionMutation = {
   topic: string;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
+};
+
+export type CreatePendingJobsMutation = {
+  __typename: "PendingJobs";
+  jobID: string;
+  busy?: boolean | null;
+  taskID?: string | null;
+  collectionID?: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type UpdatePendingJobsMutation = {
+  __typename: "PendingJobs";
+  jobID: string;
+  busy?: boolean | null;
+  taskID?: string | null;
+  collectionID?: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type DeletePendingJobsMutation = {
+  __typename: "PendingJobs";
+  jobID: string;
+  busy?: boolean | null;
+  taskID?: string | null;
+  collectionID?: string | null;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type GetUsersQuery = {
@@ -1320,9 +1377,6 @@ export type GetUsersQuery = {
   user_approved?: boolean | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type GetParksQuery = {
@@ -1333,9 +1387,6 @@ export type GetParksQuery = {
   park_address?: string | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type GetMessagesQuery = {
@@ -1349,22 +1400,36 @@ export type GetMessagesQuery = {
     collectionID: string;
     taskID?: string | null;
     parkID?: string | null;
+    GamePark?: {
+      __typename: "GamePark";
+      parkID: string;
+      park_name?: string | null;
+      park_location?: string | null;
+      park_address?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
+    FlightDetails?: {
+      __typename: "FlightDetails";
+      flightID: string;
+      flight_height?: number | null;
+      flight_type?: string | null;
+      pilotID?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type GetImagesByCollectionIdQuery = {
@@ -1376,9 +1441,6 @@ export type GetImagesByCollectionIdQuery = {
   file_name?: string | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type GetImageCollectionsQuery = {
@@ -1394,14 +1456,12 @@ export type GetImageCollectionsQuery = {
     park_address?: string | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
   upload_date_time?: string | null;
   completed?: boolean | null;
   error?: boolean | null;
   pending?: boolean | null;
+  dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: {
     __typename: "FlightDetails";
@@ -1409,17 +1469,24 @@ export type GetImageCollectionsQuery = {
     flight_height?: number | null;
     flight_type?: string | null;
     pilotID?: string | null;
+    Pilot?: {
+      __typename: "User";
+      userID: string;
+      user_email?: string | null;
+      user_password?: string | null;
+      user_password_salt?: string | null;
+      user_name?: string | null;
+      user_role?: string | null;
+      user_approved?: boolean | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
+  collectionName?: string | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type GetImageQuery = {
@@ -1431,9 +1498,6 @@ export type GetImageQuery = {
   file_name?: string | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type GetCataloguesQuery = {
@@ -1449,14 +1513,12 @@ export type GetCataloguesQuery = {
     park_address?: string | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
   upload_date_time?: string | null;
   completed?: boolean | null;
   error?: boolean | null;
   pending?: boolean | null;
+  dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: {
     __typename: "FlightDetails";
@@ -1464,17 +1526,24 @@ export type GetCataloguesQuery = {
     flight_height?: number | null;
     flight_type?: string | null;
     pilotID?: string | null;
+    Pilot?: {
+      __typename: "User";
+      userID: string;
+      user_email?: string | null;
+      user_password?: string | null;
+      user_password_salt?: string | null;
+      user_name?: string | null;
+      user_role?: string | null;
+      user_approved?: boolean | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
+  collectionName?: string | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type GetUserQuery = {
@@ -1488,9 +1557,6 @@ export type GetUserQuery = {
   user_approved?: boolean | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type ListUsersQuery = {
@@ -1506,15 +1572,11 @@ export type ListUsersQuery = {
     user_approved?: boolean | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null>;
   nextToken?: string | null;
-  startedAt?: number | null;
 };
 
-export type SyncUsersQuery = {
+export type UserByEmailQuery = {
   __typename: "ModelUserConnection";
   items: Array<{
     __typename: "User";
@@ -1527,12 +1589,8 @@ export type SyncUsersQuery = {
     user_approved?: boolean | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null>;
   nextToken?: string | null;
-  startedAt?: number | null;
 };
 
 export type GetGameParkQuery = {
@@ -1543,9 +1601,6 @@ export type GetGameParkQuery = {
   park_address?: string | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type ListGameParksQuery = {
@@ -1558,30 +1613,8 @@ export type ListGameParksQuery = {
     park_address?: string | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null>;
   nextToken?: string | null;
-  startedAt?: number | null;
-};
-
-export type SyncGameParksQuery = {
-  __typename: "ModelGameParkConnection";
-  items: Array<{
-    __typename: "GamePark";
-    parkID: string;
-    park_name?: string | null;
-    park_location?: string | null;
-    park_address?: string | null;
-    createdAt: string;
-    updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
-  } | null>;
-  nextToken?: string | null;
-  startedAt?: number | null;
 };
 
 export type GetImageCollectionQuery = {
@@ -1597,14 +1630,12 @@ export type GetImageCollectionQuery = {
     park_address?: string | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
   upload_date_time?: string | null;
   completed?: boolean | null;
   error?: boolean | null;
   pending?: boolean | null;
+  dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: {
     __typename: "FlightDetails";
@@ -1612,17 +1643,24 @@ export type GetImageCollectionQuery = {
     flight_height?: number | null;
     flight_type?: string | null;
     pilotID?: string | null;
+    Pilot?: {
+      __typename: "User";
+      userID: string;
+      user_email?: string | null;
+      user_password?: string | null;
+      user_password_salt?: string | null;
+      user_name?: string | null;
+      user_role?: string | null;
+      user_approved?: boolean | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
+  collectionName?: string | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type ListImageCollectionsQuery = {
@@ -1632,41 +1670,73 @@ export type ListImageCollectionsQuery = {
     collectionID: string;
     taskID?: string | null;
     parkID?: string | null;
+    GamePark?: {
+      __typename: "GamePark";
+      parkID: string;
+      park_name?: string | null;
+      park_location?: string | null;
+      park_address?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
+    FlightDetails?: {
+      __typename: "FlightDetails";
+      flightID: string;
+      flight_height?: number | null;
+      flight_type?: string | null;
+      pilotID?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null>;
   nextToken?: string | null;
-  startedAt?: number | null;
 };
 
-export type SyncImageCollectionsQuery = {
+export type GetImageCollectionByTaskIdQuery = {
   __typename: "ModelImageCollectionConnection";
   items: Array<{
     __typename: "ImageCollection";
     collectionID: string;
     taskID?: string | null;
     parkID?: string | null;
+    GamePark?: {
+      __typename: "GamePark";
+      parkID: string;
+      park_name?: string | null;
+      park_location?: string | null;
+      park_address?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
+    FlightDetails?: {
+      __typename: "FlightDetails";
+      flightID: string;
+      flight_height?: number | null;
+      flight_type?: string | null;
+      pilotID?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null>;
   nextToken?: string | null;
-  startedAt?: number | null;
 };
 
 export type GetMapQuery = {
@@ -1680,22 +1750,36 @@ export type GetMapQuery = {
     collectionID: string;
     taskID?: string | null;
     parkID?: string | null;
+    GamePark?: {
+      __typename: "GamePark";
+      parkID: string;
+      park_name?: string | null;
+      park_location?: string | null;
+      park_address?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
+    FlightDetails?: {
+      __typename: "FlightDetails";
+      flightID: string;
+      flight_height?: number | null;
+      flight_type?: string | null;
+      pilotID?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type ListMapsQuery = {
@@ -1706,17 +1790,28 @@ export type ListMapsQuery = {
     bucket_name?: string | null;
     file_name?: string | null;
     collectionID?: string | null;
+    Collection?: {
+      __typename: "ImageCollection";
+      collectionID: string;
+      taskID?: string | null;
+      parkID?: string | null;
+      upload_date_time?: string | null;
+      completed?: boolean | null;
+      error?: boolean | null;
+      pending?: boolean | null;
+      dismissed?: boolean | null;
+      flightID?: string | null;
+      collectionName?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null>;
   nextToken?: string | null;
-  startedAt?: number | null;
 };
 
-export type SyncMapsQuery = {
+export type GetMapByFileNameQuery = {
   __typename: "ModelMapConnection";
   items: Array<{
     __typename: "Map";
@@ -1724,14 +1819,25 @@ export type SyncMapsQuery = {
     bucket_name?: string | null;
     file_name?: string | null;
     collectionID?: string | null;
+    Collection?: {
+      __typename: "ImageCollection";
+      collectionID: string;
+      taskID?: string | null;
+      parkID?: string | null;
+      upload_date_time?: string | null;
+      completed?: boolean | null;
+      error?: boolean | null;
+      pending?: boolean | null;
+      dismissed?: boolean | null;
+      flightID?: string | null;
+      collectionName?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null>;
   nextToken?: string | null;
-  startedAt?: number | null;
 };
 
 export type GetMessageQuery = {
@@ -1745,22 +1851,36 @@ export type GetMessageQuery = {
     collectionID: string;
     taskID?: string | null;
     parkID?: string | null;
+    GamePark?: {
+      __typename: "GamePark";
+      parkID: string;
+      park_name?: string | null;
+      park_location?: string | null;
+      park_address?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
+    FlightDetails?: {
+      __typename: "FlightDetails";
+      flightID: string;
+      flight_height?: number | null;
+      flight_type?: string | null;
+      pilotID?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type ListMessagesQuery = {
@@ -1771,17 +1891,28 @@ export type ListMessagesQuery = {
     message_status?: string | null;
     message_description?: string | null;
     collectionID?: string | null;
+    ImageCollection?: {
+      __typename: "ImageCollection";
+      collectionID: string;
+      taskID?: string | null;
+      parkID?: string | null;
+      upload_date_time?: string | null;
+      completed?: boolean | null;
+      error?: boolean | null;
+      pending?: boolean | null;
+      dismissed?: boolean | null;
+      flightID?: string | null;
+      collectionName?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null>;
   nextToken?: string | null;
-  startedAt?: number | null;
 };
 
-export type SyncMessagesQuery = {
+export type GetMessageByCollectionIdQuery = {
   __typename: "ModelMessageConnection";
   items: Array<{
     __typename: "Message";
@@ -1789,14 +1920,25 @@ export type SyncMessagesQuery = {
     message_status?: string | null;
     message_description?: string | null;
     collectionID?: string | null;
+    ImageCollection?: {
+      __typename: "ImageCollection";
+      collectionID: string;
+      taskID?: string | null;
+      parkID?: string | null;
+      upload_date_time?: string | null;
+      completed?: boolean | null;
+      error?: boolean | null;
+      pending?: boolean | null;
+      dismissed?: boolean | null;
+      flightID?: string | null;
+      collectionName?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null>;
   nextToken?: string | null;
-  startedAt?: number | null;
 };
 
 export type GetImagesQuery = {
@@ -1808,9 +1950,6 @@ export type GetImagesQuery = {
   file_name?: string | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type ListImagesQuery = {
@@ -1824,15 +1963,11 @@ export type ListImagesQuery = {
     file_name?: string | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null>;
   nextToken?: string | null;
-  startedAt?: number | null;
 };
 
-export type SyncImagesQuery = {
+export type ImagesByCollectionIdQuery = {
   __typename: "ModelImagesConnection";
   items: Array<{
     __typename: "Images";
@@ -1843,12 +1978,8 @@ export type SyncImagesQuery = {
     file_name?: string | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null>;
   nextToken?: string | null;
-  startedAt?: number | null;
 };
 
 export type GetFlightDetailsQuery = {
@@ -1868,15 +1999,9 @@ export type GetFlightDetailsQuery = {
     user_approved?: boolean | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type ListFlightDetailsQuery = {
@@ -1887,32 +2012,22 @@ export type ListFlightDetailsQuery = {
     flight_height?: number | null;
     flight_type?: string | null;
     pilotID?: string | null;
+    Pilot?: {
+      __typename: "User";
+      userID: string;
+      user_email?: string | null;
+      user_password?: string | null;
+      user_password_salt?: string | null;
+      user_name?: string | null;
+      user_role?: string | null;
+      user_approved?: boolean | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null>;
   nextToken?: string | null;
-  startedAt?: number | null;
-};
-
-export type SyncFlightDetailsQuery = {
-  __typename: "ModelFlightDetailsConnection";
-  items: Array<{
-    __typename: "FlightDetails";
-    flightID: string;
-    flight_height?: number | null;
-    flight_type?: string | null;
-    pilotID?: string | null;
-    createdAt: string;
-    updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
-  } | null>;
-  nextToken?: string | null;
-  startedAt?: number | null;
 };
 
 export type GetPendingInvitesQuery = {
@@ -1922,9 +2037,6 @@ export type GetPendingInvitesQuery = {
   role: string;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type ListPendingInvitesQuery = {
@@ -1936,170 +2048,8 @@ export type ListPendingInvitesQuery = {
     role: string;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null>;
   nextToken?: string | null;
-  startedAt?: number | null;
-};
-
-export type SyncPendingInvitesQuery = {
-  __typename: "ModelPendingInvitesConnection";
-  items: Array<{
-    __typename: "PendingInvites";
-    inviteID: string;
-    email: string;
-    role: string;
-    createdAt: string;
-    updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
-  } | null>;
-  nextToken?: string | null;
-  startedAt?: number | null;
-};
-
-export type GetConnectionQuery = {
-  __typename: "Connection";
-  connectionID: string;
-  topic: string;
-  createdAt: string;
-  updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
-};
-
-export type ListConnectionsQuery = {
-  __typename: "ModelConnectionConnection";
-  items: Array<{
-    __typename: "Connection";
-    connectionID: string;
-    topic: string;
-    createdAt: string;
-    updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
-  } | null>;
-  nextToken?: string | null;
-  startedAt?: number | null;
-};
-
-export type SyncConnectionsQuery = {
-  __typename: "ModelConnectionConnection";
-  items: Array<{
-    __typename: "Connection";
-    connectionID: string;
-    topic: string;
-    createdAt: string;
-    updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
-  } | null>;
-  nextToken?: string | null;
-  startedAt?: number | null;
-};
-
-export type UserByEmailQuery = {
-  __typename: "ModelUserConnection";
-  items: Array<{
-    __typename: "User";
-    userID: string;
-    user_email?: string | null;
-    user_password?: string | null;
-    user_password_salt?: string | null;
-    user_name?: string | null;
-    user_role?: string | null;
-    user_approved?: boolean | null;
-    createdAt: string;
-    updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
-  } | null>;
-  nextToken?: string | null;
-  startedAt?: number | null;
-};
-
-export type GetImageCollectionByTaskIdQuery = {
-  __typename: "ModelImageCollectionConnection";
-  items: Array<{
-    __typename: "ImageCollection";
-    collectionID: string;
-    taskID?: string | null;
-    parkID?: string | null;
-    upload_date_time?: string | null;
-    completed?: boolean | null;
-    error?: boolean | null;
-    pending?: boolean | null;
-    flightID?: string | null;
-    createdAt: string;
-    updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
-  } | null>;
-  nextToken?: string | null;
-  startedAt?: number | null;
-};
-
-export type GetMapByFileNameQuery = {
-  __typename: "ModelMapConnection";
-  items: Array<{
-    __typename: "Map";
-    mapID: string;
-    bucket_name?: string | null;
-    file_name?: string | null;
-    collectionID?: string | null;
-    createdAt: string;
-    updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
-  } | null>;
-  nextToken?: string | null;
-  startedAt?: number | null;
-};
-
-export type GetMessageByCollectionIdQuery = {
-  __typename: "ModelMessageConnection";
-  items: Array<{
-    __typename: "Message";
-    messageID: string;
-    message_status?: string | null;
-    message_description?: string | null;
-    collectionID?: string | null;
-    createdAt: string;
-    updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
-  } | null>;
-  nextToken?: string | null;
-  startedAt?: number | null;
-};
-
-export type ImagesByCollectionIdQuery = {
-  __typename: "ModelImagesConnection";
-  items: Array<{
-    __typename: "Images";
-    imageID: string;
-    collectionID?: string | null;
-    name?: string | null;
-    bucket_name?: string | null;
-    file_name?: string | null;
-    createdAt: string;
-    updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
-  } | null>;
-  nextToken?: string | null;
-  startedAt?: number | null;
 };
 
 export type GetPendingInvitesByEmailQuery = {
@@ -2111,12 +2061,28 @@ export type GetPendingInvitesByEmailQuery = {
     role: string;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null>;
   nextToken?: string | null;
-  startedAt?: number | null;
+};
+
+export type GetConnectionQuery = {
+  __typename: "Connection";
+  connectionID: string;
+  topic: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type ListConnectionsQuery = {
+  __typename: "ModelConnectionConnection";
+  items: Array<{
+    __typename: "Connection";
+    connectionID: string;
+    topic: string;
+    createdAt: string;
+    updatedAt: string;
+  } | null>;
+  nextToken?: string | null;
 };
 
 export type GetConnectionsByTopicQuery = {
@@ -2127,12 +2093,32 @@ export type GetConnectionsByTopicQuery = {
     topic: string;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null>;
   nextToken?: string | null;
-  startedAt?: number | null;
+};
+
+export type GetPendingJobsQuery = {
+  __typename: "PendingJobs";
+  jobID: string;
+  busy?: boolean | null;
+  taskID?: string | null;
+  collectionID?: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type ListPendingJobsQuery = {
+  __typename: "ModelPendingJobsConnection";
+  items: Array<{
+    __typename: "PendingJobs";
+    jobID: string;
+    busy?: boolean | null;
+    taskID?: string | null;
+    collectionID?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null>;
+  nextToken?: string | null;
 };
 
 export type OnCreateUserSubscription = {
@@ -2146,9 +2132,6 @@ export type OnCreateUserSubscription = {
   user_approved?: boolean | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type OnUpdateUserSubscription = {
@@ -2162,9 +2145,6 @@ export type OnUpdateUserSubscription = {
   user_approved?: boolean | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type OnDeleteUserSubscription = {
@@ -2178,9 +2158,6 @@ export type OnDeleteUserSubscription = {
   user_approved?: boolean | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type OnCreateGameParkSubscription = {
@@ -2191,9 +2168,6 @@ export type OnCreateGameParkSubscription = {
   park_address?: string | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type OnUpdateGameParkSubscription = {
@@ -2204,9 +2178,6 @@ export type OnUpdateGameParkSubscription = {
   park_address?: string | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type OnDeleteGameParkSubscription = {
@@ -2217,9 +2188,6 @@ export type OnDeleteGameParkSubscription = {
   park_address?: string | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type OnCreateImageCollectionSubscription = {
@@ -2235,14 +2203,12 @@ export type OnCreateImageCollectionSubscription = {
     park_address?: string | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
   upload_date_time?: string | null;
   completed?: boolean | null;
   error?: boolean | null;
   pending?: boolean | null;
+  dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: {
     __typename: "FlightDetails";
@@ -2250,17 +2216,24 @@ export type OnCreateImageCollectionSubscription = {
     flight_height?: number | null;
     flight_type?: string | null;
     pilotID?: string | null;
+    Pilot?: {
+      __typename: "User";
+      userID: string;
+      user_email?: string | null;
+      user_password?: string | null;
+      user_password_salt?: string | null;
+      user_name?: string | null;
+      user_role?: string | null;
+      user_approved?: boolean | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
+  collectionName?: string | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type OnUpdateImageCollectionSubscription = {
@@ -2276,14 +2249,12 @@ export type OnUpdateImageCollectionSubscription = {
     park_address?: string | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
   upload_date_time?: string | null;
   completed?: boolean | null;
   error?: boolean | null;
   pending?: boolean | null;
+  dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: {
     __typename: "FlightDetails";
@@ -2291,17 +2262,24 @@ export type OnUpdateImageCollectionSubscription = {
     flight_height?: number | null;
     flight_type?: string | null;
     pilotID?: string | null;
+    Pilot?: {
+      __typename: "User";
+      userID: string;
+      user_email?: string | null;
+      user_password?: string | null;
+      user_password_salt?: string | null;
+      user_name?: string | null;
+      user_role?: string | null;
+      user_approved?: boolean | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
+  collectionName?: string | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type OnDeleteImageCollectionSubscription = {
@@ -2317,14 +2295,12 @@ export type OnDeleteImageCollectionSubscription = {
     park_address?: string | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
   upload_date_time?: string | null;
   completed?: boolean | null;
   error?: boolean | null;
   pending?: boolean | null;
+  dismissed?: boolean | null;
   flightID?: string | null;
   FlightDetails?: {
     __typename: "FlightDetails";
@@ -2332,17 +2308,24 @@ export type OnDeleteImageCollectionSubscription = {
     flight_height?: number | null;
     flight_type?: string | null;
     pilotID?: string | null;
+    Pilot?: {
+      __typename: "User";
+      userID: string;
+      user_email?: string | null;
+      user_password?: string | null;
+      user_password_salt?: string | null;
+      user_name?: string | null;
+      user_role?: string | null;
+      user_approved?: boolean | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
+  collectionName?: string | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type OnCreateMapSubscription = {
@@ -2356,22 +2339,36 @@ export type OnCreateMapSubscription = {
     collectionID: string;
     taskID?: string | null;
     parkID?: string | null;
+    GamePark?: {
+      __typename: "GamePark";
+      parkID: string;
+      park_name?: string | null;
+      park_location?: string | null;
+      park_address?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
+    FlightDetails?: {
+      __typename: "FlightDetails";
+      flightID: string;
+      flight_height?: number | null;
+      flight_type?: string | null;
+      pilotID?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type OnUpdateMapSubscription = {
@@ -2385,22 +2382,36 @@ export type OnUpdateMapSubscription = {
     collectionID: string;
     taskID?: string | null;
     parkID?: string | null;
+    GamePark?: {
+      __typename: "GamePark";
+      parkID: string;
+      park_name?: string | null;
+      park_location?: string | null;
+      park_address?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
+    FlightDetails?: {
+      __typename: "FlightDetails";
+      flightID: string;
+      flight_height?: number | null;
+      flight_type?: string | null;
+      pilotID?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type OnDeleteMapSubscription = {
@@ -2414,22 +2425,36 @@ export type OnDeleteMapSubscription = {
     collectionID: string;
     taskID?: string | null;
     parkID?: string | null;
+    GamePark?: {
+      __typename: "GamePark";
+      parkID: string;
+      park_name?: string | null;
+      park_location?: string | null;
+      park_address?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
+    FlightDetails?: {
+      __typename: "FlightDetails";
+      flightID: string;
+      flight_height?: number | null;
+      flight_type?: string | null;
+      pilotID?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type OnCreateMessageSubscription = {
@@ -2443,22 +2468,36 @@ export type OnCreateMessageSubscription = {
     collectionID: string;
     taskID?: string | null;
     parkID?: string | null;
+    GamePark?: {
+      __typename: "GamePark";
+      parkID: string;
+      park_name?: string | null;
+      park_location?: string | null;
+      park_address?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
+    FlightDetails?: {
+      __typename: "FlightDetails";
+      flightID: string;
+      flight_height?: number | null;
+      flight_type?: string | null;
+      pilotID?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type OnUpdateMessageSubscription = {
@@ -2472,22 +2511,36 @@ export type OnUpdateMessageSubscription = {
     collectionID: string;
     taskID?: string | null;
     parkID?: string | null;
+    GamePark?: {
+      __typename: "GamePark";
+      parkID: string;
+      park_name?: string | null;
+      park_location?: string | null;
+      park_address?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
+    FlightDetails?: {
+      __typename: "FlightDetails";
+      flightID: string;
+      flight_height?: number | null;
+      flight_type?: string | null;
+      pilotID?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type OnDeleteMessageSubscription = {
@@ -2501,22 +2554,36 @@ export type OnDeleteMessageSubscription = {
     collectionID: string;
     taskID?: string | null;
     parkID?: string | null;
+    GamePark?: {
+      __typename: "GamePark";
+      parkID: string;
+      park_name?: string | null;
+      park_location?: string | null;
+      park_address?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
     upload_date_time?: string | null;
     completed?: boolean | null;
     error?: boolean | null;
     pending?: boolean | null;
+    dismissed?: boolean | null;
     flightID?: string | null;
+    FlightDetails?: {
+      __typename: "FlightDetails";
+      flightID: string;
+      flight_height?: number | null;
+      flight_type?: string | null;
+      pilotID?: string | null;
+      createdAt: string;
+      updatedAt: string;
+    } | null;
+    collectionName?: string | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type OnCreateImagesSubscription = {
@@ -2528,9 +2595,6 @@ export type OnCreateImagesSubscription = {
   file_name?: string | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type OnUpdateImagesSubscription = {
@@ -2542,9 +2606,6 @@ export type OnUpdateImagesSubscription = {
   file_name?: string | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type OnDeleteImagesSubscription = {
@@ -2556,9 +2617,6 @@ export type OnDeleteImagesSubscription = {
   file_name?: string | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type OnCreateFlightDetailsSubscription = {
@@ -2578,15 +2636,9 @@ export type OnCreateFlightDetailsSubscription = {
     user_approved?: boolean | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type OnUpdateFlightDetailsSubscription = {
@@ -2606,15 +2658,9 @@ export type OnUpdateFlightDetailsSubscription = {
     user_approved?: boolean | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type OnDeleteFlightDetailsSubscription = {
@@ -2634,15 +2680,9 @@ export type OnDeleteFlightDetailsSubscription = {
     user_approved?: boolean | null;
     createdAt: string;
     updatedAt: string;
-    _version: number;
-    _deleted?: boolean | null;
-    _lastChangedAt: number;
   } | null;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type OnCreatePendingInvitesSubscription = {
@@ -2652,9 +2692,6 @@ export type OnCreatePendingInvitesSubscription = {
   role: string;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type OnUpdatePendingInvitesSubscription = {
@@ -2664,9 +2701,6 @@ export type OnUpdatePendingInvitesSubscription = {
   role: string;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type OnDeletePendingInvitesSubscription = {
@@ -2676,9 +2710,6 @@ export type OnDeletePendingInvitesSubscription = {
   role: string;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type OnCreateConnectionSubscription = {
@@ -2687,9 +2718,6 @@ export type OnCreateConnectionSubscription = {
   topic: string;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type OnUpdateConnectionSubscription = {
@@ -2698,9 +2726,6 @@ export type OnUpdateConnectionSubscription = {
   topic: string;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
 };
 
 export type OnDeleteConnectionSubscription = {
@@ -2709,9 +2734,36 @@ export type OnDeleteConnectionSubscription = {
   topic: string;
   createdAt: string;
   updatedAt: string;
-  _version: number;
-  _deleted?: boolean | null;
-  _lastChangedAt: number;
+};
+
+export type OnCreatePendingJobsSubscription = {
+  __typename: "PendingJobs";
+  jobID: string;
+  busy?: boolean | null;
+  taskID?: string | null;
+  collectionID?: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type OnUpdatePendingJobsSubscription = {
+  __typename: "PendingJobs";
+  jobID: string;
+  busy?: boolean | null;
+  taskID?: string | null;
+  collectionID?: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type OnDeletePendingJobsSubscription = {
+  __typename: "PendingJobs";
+  jobID: string;
+  busy?: boolean | null;
+  taskID?: string | null;
+  collectionID?: string | null;
+  createdAt: string;
+  updatedAt: string;
 };
 
 @Injectable({
@@ -2750,9 +2802,6 @@ export class APIService {
           user_approved
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {};
@@ -2822,15 +2871,9 @@ export class APIService {
             user_approved
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {};
@@ -2863,9 +2906,6 @@ export class APIService {
           file_name
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {};
@@ -2899,9 +2939,6 @@ export class APIService {
           user_approved
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -2931,9 +2968,6 @@ export class APIService {
           user_approved
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -2963,9 +2997,6 @@ export class APIService {
           user_approved
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -2992,9 +3023,6 @@ export class APIService {
           park_address
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -3021,9 +3049,6 @@ export class APIService {
           park_address
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -3050,9 +3075,6 @@ export class APIService {
           park_address
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -3084,14 +3106,12 @@ export class APIService {
             park_address
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           upload_date_time
           completed
           error
           pending
+          dismissed
           flightID
           FlightDetails {
             __typename
@@ -3099,17 +3119,24 @@ export class APIService {
             flight_height
             flight_type
             pilotID
+            Pilot {
+              __typename
+              userID
+              user_email
+              user_password
+              user_password_salt
+              user_name
+              user_role
+              user_approved
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
+          collectionName
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -3141,14 +3168,12 @@ export class APIService {
             park_address
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           upload_date_time
           completed
           error
           pending
+          dismissed
           flightID
           FlightDetails {
             __typename
@@ -3156,17 +3181,24 @@ export class APIService {
             flight_height
             flight_type
             pilotID
+            Pilot {
+              __typename
+              userID
+              user_email
+              user_password
+              user_password_salt
+              user_name
+              user_role
+              user_approved
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
+          collectionName
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -3198,14 +3230,12 @@ export class APIService {
             park_address
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           upload_date_time
           completed
           error
           pending
+          dismissed
           flightID
           FlightDetails {
             __typename
@@ -3213,17 +3243,24 @@ export class APIService {
             flight_height
             flight_type
             pilotID
+            Pilot {
+              __typename
+              userID
+              user_email
+              user_password
+              user_password_salt
+              user_name
+              user_role
+              user_approved
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
+          collectionName
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -3253,22 +3290,36 @@ export class APIService {
             collectionID
             taskID
             parkID
+            GamePark {
+              __typename
+              parkID
+              park_name
+              park_location
+              park_address
+              createdAt
+              updatedAt
+            }
             upload_date_time
             completed
             error
             pending
+            dismissed
             flightID
+            FlightDetails {
+              __typename
+              flightID
+              flight_height
+              flight_type
+              pilotID
+              createdAt
+              updatedAt
+            }
+            collectionName
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -3298,22 +3349,36 @@ export class APIService {
             collectionID
             taskID
             parkID
+            GamePark {
+              __typename
+              parkID
+              park_name
+              park_location
+              park_address
+              createdAt
+              updatedAt
+            }
             upload_date_time
             completed
             error
             pending
+            dismissed
             flightID
+            FlightDetails {
+              __typename
+              flightID
+              flight_height
+              flight_type
+              pilotID
+              createdAt
+              updatedAt
+            }
+            collectionName
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -3343,22 +3408,36 @@ export class APIService {
             collectionID
             taskID
             parkID
+            GamePark {
+              __typename
+              parkID
+              park_name
+              park_location
+              park_address
+              createdAt
+              updatedAt
+            }
             upload_date_time
             completed
             error
             pending
+            dismissed
             flightID
+            FlightDetails {
+              __typename
+              flightID
+              flight_height
+              flight_type
+              pilotID
+              createdAt
+              updatedAt
+            }
+            collectionName
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -3388,22 +3467,36 @@ export class APIService {
             collectionID
             taskID
             parkID
+            GamePark {
+              __typename
+              parkID
+              park_name
+              park_location
+              park_address
+              createdAt
+              updatedAt
+            }
             upload_date_time
             completed
             error
             pending
+            dismissed
             flightID
+            FlightDetails {
+              __typename
+              flightID
+              flight_height
+              flight_type
+              pilotID
+              createdAt
+              updatedAt
+            }
+            collectionName
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -3433,22 +3526,36 @@ export class APIService {
             collectionID
             taskID
             parkID
+            GamePark {
+              __typename
+              parkID
+              park_name
+              park_location
+              park_address
+              createdAt
+              updatedAt
+            }
             upload_date_time
             completed
             error
             pending
+            dismissed
             flightID
+            FlightDetails {
+              __typename
+              flightID
+              flight_height
+              flight_type
+              pilotID
+              createdAt
+              updatedAt
+            }
+            collectionName
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -3478,22 +3585,36 @@ export class APIService {
             collectionID
             taskID
             parkID
+            GamePark {
+              __typename
+              parkID
+              park_name
+              park_location
+              park_address
+              createdAt
+              updatedAt
+            }
             upload_date_time
             completed
             error
             pending
+            dismissed
             flightID
+            FlightDetails {
+              __typename
+              flightID
+              flight_height
+              flight_type
+              pilotID
+              createdAt
+              updatedAt
+            }
+            collectionName
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -3521,9 +3642,6 @@ export class APIService {
           file_name
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -3551,9 +3669,6 @@ export class APIService {
           file_name
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -3581,9 +3696,6 @@ export class APIService {
           file_name
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -3619,15 +3731,9 @@ export class APIService {
             user_approved
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -3663,15 +3769,9 @@ export class APIService {
             user_approved
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -3707,15 +3807,9 @@ export class APIService {
             user_approved
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -3741,9 +3835,6 @@ export class APIService {
           role
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -3769,9 +3860,6 @@ export class APIService {
           role
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -3797,9 +3885,6 @@ export class APIService {
           role
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -3824,9 +3909,6 @@ export class APIService {
           topic
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -3851,9 +3933,6 @@ export class APIService {
           topic
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -3878,9 +3957,6 @@ export class APIService {
           topic
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -3893,6 +3969,84 @@ export class APIService {
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <DeleteConnectionMutation>response.data.deleteConnection;
+  }
+  async CreatePendingJobs(
+    input: CreatePendingJobsInput,
+    condition?: ModelPendingJobsConditionInput
+  ): Promise<CreatePendingJobsMutation> {
+    const statement = `mutation CreatePendingJobs($input: CreatePendingJobsInput!, $condition: ModelPendingJobsConditionInput) {
+        createPendingJobs(input: $input, condition: $condition) {
+          __typename
+          jobID
+          busy
+          taskID
+          collectionID
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <CreatePendingJobsMutation>response.data.createPendingJobs;
+  }
+  async UpdatePendingJobs(
+    input: UpdatePendingJobsInput,
+    condition?: ModelPendingJobsConditionInput
+  ): Promise<UpdatePendingJobsMutation> {
+    const statement = `mutation UpdatePendingJobs($input: UpdatePendingJobsInput!, $condition: ModelPendingJobsConditionInput) {
+        updatePendingJobs(input: $input, condition: $condition) {
+          __typename
+          jobID
+          busy
+          taskID
+          collectionID
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <UpdatePendingJobsMutation>response.data.updatePendingJobs;
+  }
+  async DeletePendingJobs(
+    input: DeletePendingJobsInput,
+    condition?: ModelPendingJobsConditionInput
+  ): Promise<DeletePendingJobsMutation> {
+    const statement = `mutation DeletePendingJobs($input: DeletePendingJobsInput!, $condition: ModelPendingJobsConditionInput) {
+        deletePendingJobs(input: $input, condition: $condition) {
+          __typename
+          jobID
+          busy
+          taskID
+          collectionID
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <DeletePendingJobsMutation>response.data.deletePendingJobs;
   }
   async Test(): Promise<string | null> {
     const statement = `query Test {
@@ -3914,9 +4068,6 @@ export class APIService {
           user_approved
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const response = (await API.graphql(graphqlOperation(statement))) as any;
@@ -3939,9 +4090,6 @@ export class APIService {
           park_address
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const response = (await API.graphql(graphqlOperation(statement))) as any;
@@ -3980,22 +4128,36 @@ export class APIService {
             collectionID
             taskID
             parkID
+            GamePark {
+              __typename
+              parkID
+              park_name
+              park_location
+              park_address
+              createdAt
+              updatedAt
+            }
             upload_date_time
             completed
             error
             pending
+            dismissed
             flightID
+            FlightDetails {
+              __typename
+              flightID
+              flight_height
+              flight_type
+              pilotID
+              createdAt
+              updatedAt
+            }
+            collectionName
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const response = (await API.graphql(graphqlOperation(statement))) as any;
@@ -4014,9 +4176,6 @@ export class APIService {
           file_name
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {};
@@ -4059,14 +4218,12 @@ export class APIService {
             park_address
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           upload_date_time
           completed
           error
           pending
+          dismissed
           flightID
           FlightDetails {
             __typename
@@ -4074,17 +4231,24 @@ export class APIService {
             flight_height
             flight_type
             pilotID
+            Pilot {
+              __typename
+              userID
+              user_email
+              user_password
+              user_password_salt
+              user_name
+              user_role
+              user_approved
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
+          collectionName
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const response = (await API.graphql(graphqlOperation(statement))) as any;
@@ -4101,9 +4265,6 @@ export class APIService {
           file_name
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {};
@@ -4130,14 +4291,12 @@ export class APIService {
             park_address
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           upload_date_time
           completed
           error
           pending
+          dismissed
           flightID
           FlightDetails {
             __typename
@@ -4145,17 +4304,24 @@ export class APIService {
             flight_height
             flight_type
             pilotID
+            Pilot {
+              __typename
+              userID
+              user_email
+              user_password
+              user_password_salt
+              user_name
+              user_role
+              user_approved
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
+          collectionName
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const response = (await API.graphql(graphqlOperation(statement))) as any;
@@ -4174,9 +4340,6 @@ export class APIService {
           user_approved
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -4208,12 +4371,8 @@ export class APIService {
             user_approved
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           nextToken
-          startedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {};
@@ -4237,14 +4396,15 @@ export class APIService {
     )) as any;
     return <ListUsersQuery>response.data.listUsers;
   }
-  async SyncUsers(
+  async UserByEmail(
+    user_email: string,
+    sortDirection?: ModelSortDirection,
     filter?: ModelUserFilterInput,
     limit?: number,
-    nextToken?: string,
-    lastSync?: number
-  ): Promise<SyncUsersQuery> {
-    const statement = `query SyncUsers($filter: ModelUserFilterInput, $limit: Int, $nextToken: String, $lastSync: AWSTimestamp) {
-        syncUsers(filter: $filter, limit: $limit, nextToken: $nextToken, lastSync: $lastSync) {
+    nextToken?: string
+  ): Promise<UserByEmailQuery> {
+    const statement = `query UserByEmail($user_email: String!, $sortDirection: ModelSortDirection, $filter: ModelUserFilterInput, $limit: Int, $nextToken: String) {
+        userByEmail(user_email: $user_email, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
           __typename
           items {
             __typename
@@ -4257,15 +4417,16 @@ export class APIService {
             user_approved
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           nextToken
-          startedAt
         }
       }`;
-    const gqlAPIServiceArguments: any = {};
+    const gqlAPIServiceArguments: any = {
+      user_email
+    };
+    if (sortDirection) {
+      gqlAPIServiceArguments.sortDirection = sortDirection;
+    }
     if (filter) {
       gqlAPIServiceArguments.filter = filter;
     }
@@ -4275,13 +4436,10 @@ export class APIService {
     if (nextToken) {
       gqlAPIServiceArguments.nextToken = nextToken;
     }
-    if (lastSync) {
-      gqlAPIServiceArguments.lastSync = lastSync;
-    }
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
-    return <SyncUsersQuery>response.data.syncUsers;
+    return <UserByEmailQuery>response.data.userByEmail;
   }
   async GetGamePark(parkID: string): Promise<GetGameParkQuery> {
     const statement = `query GetGamePark($parkID: String!) {
@@ -4293,9 +4451,6 @@ export class APIService {
           park_address
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -4324,12 +4479,8 @@ export class APIService {
             park_address
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           nextToken
-          startedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {};
@@ -4353,49 +4504,6 @@ export class APIService {
     )) as any;
     return <ListGameParksQuery>response.data.listGameParks;
   }
-  async SyncGameParks(
-    filter?: ModelGameParkFilterInput,
-    limit?: number,
-    nextToken?: string,
-    lastSync?: number
-  ): Promise<SyncGameParksQuery> {
-    const statement = `query SyncGameParks($filter: ModelGameParkFilterInput, $limit: Int, $nextToken: String, $lastSync: AWSTimestamp) {
-        syncGameParks(filter: $filter, limit: $limit, nextToken: $nextToken, lastSync: $lastSync) {
-          __typename
-          items {
-            __typename
-            parkID
-            park_name
-            park_location
-            park_address
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
-          nextToken
-          startedAt
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    if (limit) {
-      gqlAPIServiceArguments.limit = limit;
-    }
-    if (nextToken) {
-      gqlAPIServiceArguments.nextToken = nextToken;
-    }
-    if (lastSync) {
-      gqlAPIServiceArguments.lastSync = lastSync;
-    }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
-    return <SyncGameParksQuery>response.data.syncGameParks;
-  }
   async GetImageCollection(
     collectionID: string
   ): Promise<GetImageCollectionQuery> {
@@ -4413,14 +4521,12 @@ export class APIService {
             park_address
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           upload_date_time
           completed
           error
           pending
+          dismissed
           flightID
           FlightDetails {
             __typename
@@ -4428,17 +4534,24 @@ export class APIService {
             flight_height
             flight_type
             pilotID
+            Pilot {
+              __typename
+              userID
+              user_email
+              user_password
+              user_password_salt
+              user_name
+              user_role
+              user_approved
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
+          collectionName
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -4464,19 +4577,35 @@ export class APIService {
             collectionID
             taskID
             parkID
+            GamePark {
+              __typename
+              parkID
+              park_name
+              park_location
+              park_address
+              createdAt
+              updatedAt
+            }
             upload_date_time
             completed
             error
             pending
+            dismissed
             flightID
+            FlightDetails {
+              __typename
+              flightID
+              flight_height
+              flight_type
+              pilotID
+              createdAt
+              updatedAt
+            }
+            collectionName
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           nextToken
-          startedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {};
@@ -4500,36 +4629,58 @@ export class APIService {
     )) as any;
     return <ListImageCollectionsQuery>response.data.listImageCollections;
   }
-  async SyncImageCollections(
+  async GetImageCollectionByTaskId(
+    taskID: string,
+    sortDirection?: ModelSortDirection,
     filter?: ModelImageCollectionFilterInput,
     limit?: number,
-    nextToken?: string,
-    lastSync?: number
-  ): Promise<SyncImageCollectionsQuery> {
-    const statement = `query SyncImageCollections($filter: ModelImageCollectionFilterInput, $limit: Int, $nextToken: String, $lastSync: AWSTimestamp) {
-        syncImageCollections(filter: $filter, limit: $limit, nextToken: $nextToken, lastSync: $lastSync) {
+    nextToken?: string
+  ): Promise<GetImageCollectionByTaskIdQuery> {
+    const statement = `query GetImageCollectionByTaskId($taskID: String!, $sortDirection: ModelSortDirection, $filter: ModelImageCollectionFilterInput, $limit: Int, $nextToken: String) {
+        getImageCollectionByTaskId(taskID: $taskID, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
           __typename
           items {
             __typename
             collectionID
             taskID
             parkID
+            GamePark {
+              __typename
+              parkID
+              park_name
+              park_location
+              park_address
+              createdAt
+              updatedAt
+            }
             upload_date_time
             completed
             error
             pending
+            dismissed
             flightID
+            FlightDetails {
+              __typename
+              flightID
+              flight_height
+              flight_type
+              pilotID
+              createdAt
+              updatedAt
+            }
+            collectionName
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           nextToken
-          startedAt
         }
       }`;
-    const gqlAPIServiceArguments: any = {};
+    const gqlAPIServiceArguments: any = {
+      taskID
+    };
+    if (sortDirection) {
+      gqlAPIServiceArguments.sortDirection = sortDirection;
+    }
     if (filter) {
       gqlAPIServiceArguments.filter = filter;
     }
@@ -4539,13 +4690,12 @@ export class APIService {
     if (nextToken) {
       gqlAPIServiceArguments.nextToken = nextToken;
     }
-    if (lastSync) {
-      gqlAPIServiceArguments.lastSync = lastSync;
-    }
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
-    return <SyncImageCollectionsQuery>response.data.syncImageCollections;
+    return <GetImageCollectionByTaskIdQuery>(
+      response.data.getImageCollectionByTaskId
+    );
   }
   async GetMap(mapID: string): Promise<GetMapQuery> {
     const statement = `query GetMap($mapID: String!) {
@@ -4560,22 +4710,36 @@ export class APIService {
             collectionID
             taskID
             parkID
+            GamePark {
+              __typename
+              parkID
+              park_name
+              park_location
+              park_address
+              createdAt
+              updatedAt
+            }
             upload_date_time
             completed
             error
             pending
+            dismissed
             flightID
+            FlightDetails {
+              __typename
+              flightID
+              flight_height
+              flight_type
+              pilotID
+              createdAt
+              updatedAt
+            }
+            collectionName
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -4602,14 +4766,25 @@ export class APIService {
             bucket_name
             file_name
             collectionID
+            Collection {
+              __typename
+              collectionID
+              taskID
+              parkID
+              upload_date_time
+              completed
+              error
+              pending
+              dismissed
+              flightID
+              collectionName
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           nextToken
-          startedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {};
@@ -4633,14 +4808,15 @@ export class APIService {
     )) as any;
     return <ListMapsQuery>response.data.listMaps;
   }
-  async SyncMaps(
+  async GetMapByFileName(
+    file_name: string,
+    sortDirection?: ModelSortDirection,
     filter?: ModelMapFilterInput,
     limit?: number,
-    nextToken?: string,
-    lastSync?: number
-  ): Promise<SyncMapsQuery> {
-    const statement = `query SyncMaps($filter: ModelMapFilterInput, $limit: Int, $nextToken: String, $lastSync: AWSTimestamp) {
-        syncMaps(filter: $filter, limit: $limit, nextToken: $nextToken, lastSync: $lastSync) {
+    nextToken?: string
+  ): Promise<GetMapByFileNameQuery> {
+    const statement = `query GetMapByFileName($file_name: String!, $sortDirection: ModelSortDirection, $filter: ModelMapFilterInput, $limit: Int, $nextToken: String) {
+        getMapByFileName(file_name: $file_name, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
           __typename
           items {
             __typename
@@ -4648,17 +4824,33 @@ export class APIService {
             bucket_name
             file_name
             collectionID
+            Collection {
+              __typename
+              collectionID
+              taskID
+              parkID
+              upload_date_time
+              completed
+              error
+              pending
+              dismissed
+              flightID
+              collectionName
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           nextToken
-          startedAt
         }
       }`;
-    const gqlAPIServiceArguments: any = {};
+    const gqlAPIServiceArguments: any = {
+      file_name
+    };
+    if (sortDirection) {
+      gqlAPIServiceArguments.sortDirection = sortDirection;
+    }
     if (filter) {
       gqlAPIServiceArguments.filter = filter;
     }
@@ -4668,13 +4860,10 @@ export class APIService {
     if (nextToken) {
       gqlAPIServiceArguments.nextToken = nextToken;
     }
-    if (lastSync) {
-      gqlAPIServiceArguments.lastSync = lastSync;
-    }
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
-    return <SyncMapsQuery>response.data.syncMaps;
+    return <GetMapByFileNameQuery>response.data.getMapByFileName;
   }
   async GetMessage(messageID: string): Promise<GetMessageQuery> {
     const statement = `query GetMessage($messageID: String!) {
@@ -4689,22 +4878,36 @@ export class APIService {
             collectionID
             taskID
             parkID
+            GamePark {
+              __typename
+              parkID
+              park_name
+              park_location
+              park_address
+              createdAt
+              updatedAt
+            }
             upload_date_time
             completed
             error
             pending
+            dismissed
             flightID
+            FlightDetails {
+              __typename
+              flightID
+              flight_height
+              flight_type
+              pilotID
+              createdAt
+              updatedAt
+            }
+            collectionName
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -4731,14 +4934,25 @@ export class APIService {
             message_status
             message_description
             collectionID
+            ImageCollection {
+              __typename
+              collectionID
+              taskID
+              parkID
+              upload_date_time
+              completed
+              error
+              pending
+              dismissed
+              flightID
+              collectionName
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           nextToken
-          startedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {};
@@ -4762,14 +4976,15 @@ export class APIService {
     )) as any;
     return <ListMessagesQuery>response.data.listMessages;
   }
-  async SyncMessages(
+  async GetMessageByCollectionId(
+    collectionID: string,
+    sortDirection?: ModelSortDirection,
     filter?: ModelMessageFilterInput,
     limit?: number,
-    nextToken?: string,
-    lastSync?: number
-  ): Promise<SyncMessagesQuery> {
-    const statement = `query SyncMessages($filter: ModelMessageFilterInput, $limit: Int, $nextToken: String, $lastSync: AWSTimestamp) {
-        syncMessages(filter: $filter, limit: $limit, nextToken: $nextToken, lastSync: $lastSync) {
+    nextToken?: string
+  ): Promise<GetMessageByCollectionIdQuery> {
+    const statement = `query GetMessageByCollectionId($collectionID: String!, $sortDirection: ModelSortDirection, $filter: ModelMessageFilterInput, $limit: Int, $nextToken: String) {
+        getMessageByCollectionId(collectionID: $collectionID, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
           __typename
           items {
             __typename
@@ -4777,17 +4992,33 @@ export class APIService {
             message_status
             message_description
             collectionID
+            ImageCollection {
+              __typename
+              collectionID
+              taskID
+              parkID
+              upload_date_time
+              completed
+              error
+              pending
+              dismissed
+              flightID
+              collectionName
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           nextToken
-          startedAt
         }
       }`;
-    const gqlAPIServiceArguments: any = {};
+    const gqlAPIServiceArguments: any = {
+      collectionID
+    };
+    if (sortDirection) {
+      gqlAPIServiceArguments.sortDirection = sortDirection;
+    }
     if (filter) {
       gqlAPIServiceArguments.filter = filter;
     }
@@ -4797,13 +5028,12 @@ export class APIService {
     if (nextToken) {
       gqlAPIServiceArguments.nextToken = nextToken;
     }
-    if (lastSync) {
-      gqlAPIServiceArguments.lastSync = lastSync;
-    }
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
-    return <SyncMessagesQuery>response.data.syncMessages;
+    return <GetMessageByCollectionIdQuery>(
+      response.data.getMessageByCollectionId
+    );
   }
   async GetImages(imageID: string): Promise<GetImagesQuery> {
     const statement = `query GetImages($imageID: String!) {
@@ -4816,9 +5046,6 @@ export class APIService {
           file_name
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -4848,12 +5075,8 @@ export class APIService {
             file_name
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           nextToken
-          startedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {};
@@ -4877,14 +5100,15 @@ export class APIService {
     )) as any;
     return <ListImagesQuery>response.data.listImages;
   }
-  async SyncImages(
+  async ImagesByCollectionId(
+    collectionID: string,
+    sortDirection?: ModelSortDirection,
     filter?: ModelImagesFilterInput,
     limit?: number,
-    nextToken?: string,
-    lastSync?: number
-  ): Promise<SyncImagesQuery> {
-    const statement = `query SyncImages($filter: ModelImagesFilterInput, $limit: Int, $nextToken: String, $lastSync: AWSTimestamp) {
-        syncImages(filter: $filter, limit: $limit, nextToken: $nextToken, lastSync: $lastSync) {
+    nextToken?: string
+  ): Promise<ImagesByCollectionIdQuery> {
+    const statement = `query ImagesByCollectionId($collectionID: String!, $sortDirection: ModelSortDirection, $filter: ModelImagesFilterInput, $limit: Int, $nextToken: String) {
+        imagesByCollectionId(collectionID: $collectionID, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
           __typename
           items {
             __typename
@@ -4895,15 +5119,16 @@ export class APIService {
             file_name
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           nextToken
-          startedAt
         }
       }`;
-    const gqlAPIServiceArguments: any = {};
+    const gqlAPIServiceArguments: any = {
+      collectionID
+    };
+    if (sortDirection) {
+      gqlAPIServiceArguments.sortDirection = sortDirection;
+    }
     if (filter) {
       gqlAPIServiceArguments.filter = filter;
     }
@@ -4913,13 +5138,10 @@ export class APIService {
     if (nextToken) {
       gqlAPIServiceArguments.nextToken = nextToken;
     }
-    if (lastSync) {
-      gqlAPIServiceArguments.lastSync = lastSync;
-    }
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
-    return <SyncImagesQuery>response.data.syncImages;
+    return <ImagesByCollectionIdQuery>response.data.imagesByCollectionId;
   }
   async GetFlightDetails(flightID: string): Promise<GetFlightDetailsQuery> {
     const statement = `query GetFlightDetails($flightID: String!) {
@@ -4940,15 +5162,9 @@ export class APIService {
             user_approved
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -4975,14 +5191,22 @@ export class APIService {
             flight_height
             flight_type
             pilotID
+            Pilot {
+              __typename
+              userID
+              user_email
+              user_password
+              user_password_salt
+              user_name
+              user_role
+              user_approved
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           nextToken
-          startedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {};
@@ -5006,49 +5230,6 @@ export class APIService {
     )) as any;
     return <ListFlightDetailsQuery>response.data.listFlightDetails;
   }
-  async SyncFlightDetails(
-    filter?: ModelFlightDetailsFilterInput,
-    limit?: number,
-    nextToken?: string,
-    lastSync?: number
-  ): Promise<SyncFlightDetailsQuery> {
-    const statement = `query SyncFlightDetails($filter: ModelFlightDetailsFilterInput, $limit: Int, $nextToken: String, $lastSync: AWSTimestamp) {
-        syncFlightDetails(filter: $filter, limit: $limit, nextToken: $nextToken, lastSync: $lastSync) {
-          __typename
-          items {
-            __typename
-            flightID
-            flight_height
-            flight_type
-            pilotID
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
-          nextToken
-          startedAt
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    if (limit) {
-      gqlAPIServiceArguments.limit = limit;
-    }
-    if (nextToken) {
-      gqlAPIServiceArguments.nextToken = nextToken;
-    }
-    if (lastSync) {
-      gqlAPIServiceArguments.lastSync = lastSync;
-    }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
-    return <SyncFlightDetailsQuery>response.data.syncFlightDetails;
-  }
   async GetPendingInvites(inviteID: string): Promise<GetPendingInvitesQuery> {
     const statement = `query GetPendingInvites($inviteID: String!) {
         getPendingInvites(inviteID: $inviteID) {
@@ -5058,9 +5239,6 @@ export class APIService {
           role
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -5088,12 +5266,8 @@ export class APIService {
             role
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           nextToken
-          startedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {};
@@ -5117,14 +5291,15 @@ export class APIService {
     )) as any;
     return <ListPendingInvitesQuery>response.data.listPendingInvites;
   }
-  async SyncPendingInvites(
+  async GetPendingInvitesByEmail(
+    email: string,
+    sortDirection?: ModelSortDirection,
     filter?: ModelPendingInvitesFilterInput,
     limit?: number,
-    nextToken?: string,
-    lastSync?: number
-  ): Promise<SyncPendingInvitesQuery> {
-    const statement = `query SyncPendingInvites($filter: ModelPendingInvitesFilterInput, $limit: Int, $nextToken: String, $lastSync: AWSTimestamp) {
-        syncPendingInvites(filter: $filter, limit: $limit, nextToken: $nextToken, lastSync: $lastSync) {
+    nextToken?: string
+  ): Promise<GetPendingInvitesByEmailQuery> {
+    const statement = `query GetPendingInvitesByEmail($email: AWSEmail!, $sortDirection: ModelSortDirection, $filter: ModelPendingInvitesFilterInput, $limit: Int, $nextToken: String) {
+        getPendingInvitesByEmail(email: $email, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
           __typename
           items {
             __typename
@@ -5133,15 +5308,16 @@ export class APIService {
             role
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           nextToken
-          startedAt
         }
       }`;
-    const gqlAPIServiceArguments: any = {};
+    const gqlAPIServiceArguments: any = {
+      email
+    };
+    if (sortDirection) {
+      gqlAPIServiceArguments.sortDirection = sortDirection;
+    }
     if (filter) {
       gqlAPIServiceArguments.filter = filter;
     }
@@ -5151,13 +5327,12 @@ export class APIService {
     if (nextToken) {
       gqlAPIServiceArguments.nextToken = nextToken;
     }
-    if (lastSync) {
-      gqlAPIServiceArguments.lastSync = lastSync;
-    }
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
-    return <SyncPendingInvitesQuery>response.data.syncPendingInvites;
+    return <GetPendingInvitesByEmailQuery>(
+      response.data.getPendingInvitesByEmail
+    );
   }
   async GetConnection(connectionID: string): Promise<GetConnectionQuery> {
     const statement = `query GetConnection($connectionID: String!) {
@@ -5167,9 +5342,6 @@ export class APIService {
           topic
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -5196,12 +5368,8 @@ export class APIService {
             topic
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           nextToken
-          startedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {};
@@ -5225,336 +5393,6 @@ export class APIService {
     )) as any;
     return <ListConnectionsQuery>response.data.listConnections;
   }
-  async SyncConnections(
-    filter?: ModelConnectionFilterInput,
-    limit?: number,
-    nextToken?: string,
-    lastSync?: number
-  ): Promise<SyncConnectionsQuery> {
-    const statement = `query SyncConnections($filter: ModelConnectionFilterInput, $limit: Int, $nextToken: String, $lastSync: AWSTimestamp) {
-        syncConnections(filter: $filter, limit: $limit, nextToken: $nextToken, lastSync: $lastSync) {
-          __typename
-          items {
-            __typename
-            connectionID
-            topic
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
-          nextToken
-          startedAt
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    if (limit) {
-      gqlAPIServiceArguments.limit = limit;
-    }
-    if (nextToken) {
-      gqlAPIServiceArguments.nextToken = nextToken;
-    }
-    if (lastSync) {
-      gqlAPIServiceArguments.lastSync = lastSync;
-    }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
-    return <SyncConnectionsQuery>response.data.syncConnections;
-  }
-  async UserByEmail(
-    user_email: string,
-    sortDirection?: ModelSortDirection,
-    filter?: ModelUserFilterInput,
-    limit?: number,
-    nextToken?: string
-  ): Promise<UserByEmailQuery> {
-    const statement = `query UserByEmail($user_email: String!, $sortDirection: ModelSortDirection, $filter: ModelUserFilterInput, $limit: Int, $nextToken: String) {
-        userByEmail(user_email: $user_email, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
-          __typename
-          items {
-            __typename
-            userID
-            user_email
-            user_password
-            user_password_salt
-            user_name
-            user_role
-            user_approved
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
-          nextToken
-          startedAt
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {
-      user_email
-    };
-    if (sortDirection) {
-      gqlAPIServiceArguments.sortDirection = sortDirection;
-    }
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    if (limit) {
-      gqlAPIServiceArguments.limit = limit;
-    }
-    if (nextToken) {
-      gqlAPIServiceArguments.nextToken = nextToken;
-    }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
-    return <UserByEmailQuery>response.data.userByEmail;
-  }
-  async GetImageCollectionByTaskId(
-    taskID: string,
-    sortDirection?: ModelSortDirection,
-    filter?: ModelImageCollectionFilterInput,
-    limit?: number,
-    nextToken?: string
-  ): Promise<GetImageCollectionByTaskIdQuery> {
-    const statement = `query GetImageCollectionByTaskId($taskID: String!, $sortDirection: ModelSortDirection, $filter: ModelImageCollectionFilterInput, $limit: Int, $nextToken: String) {
-        getImageCollectionByTaskId(taskID: $taskID, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
-          __typename
-          items {
-            __typename
-            collectionID
-            taskID
-            parkID
-            upload_date_time
-            completed
-            error
-            pending
-            flightID
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
-          nextToken
-          startedAt
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {
-      taskID
-    };
-    if (sortDirection) {
-      gqlAPIServiceArguments.sortDirection = sortDirection;
-    }
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    if (limit) {
-      gqlAPIServiceArguments.limit = limit;
-    }
-    if (nextToken) {
-      gqlAPIServiceArguments.nextToken = nextToken;
-    }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
-    return <GetImageCollectionByTaskIdQuery>(
-      response.data.getImageCollectionByTaskId
-    );
-  }
-  async GetMapByFileName(
-    file_name: string,
-    sortDirection?: ModelSortDirection,
-    filter?: ModelMapFilterInput,
-    limit?: number,
-    nextToken?: string
-  ): Promise<GetMapByFileNameQuery> {
-    const statement = `query GetMapByFileName($file_name: String!, $sortDirection: ModelSortDirection, $filter: ModelMapFilterInput, $limit: Int, $nextToken: String) {
-        getMapByFileName(file_name: $file_name, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
-          __typename
-          items {
-            __typename
-            mapID
-            bucket_name
-            file_name
-            collectionID
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
-          nextToken
-          startedAt
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {
-      file_name
-    };
-    if (sortDirection) {
-      gqlAPIServiceArguments.sortDirection = sortDirection;
-    }
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    if (limit) {
-      gqlAPIServiceArguments.limit = limit;
-    }
-    if (nextToken) {
-      gqlAPIServiceArguments.nextToken = nextToken;
-    }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
-    return <GetMapByFileNameQuery>response.data.getMapByFileName;
-  }
-  async GetMessageByCollectionId(
-    collectionID: string,
-    sortDirection?: ModelSortDirection,
-    filter?: ModelMessageFilterInput,
-    limit?: number,
-    nextToken?: string
-  ): Promise<GetMessageByCollectionIdQuery> {
-    const statement = `query GetMessageByCollectionId($collectionID: String!, $sortDirection: ModelSortDirection, $filter: ModelMessageFilterInput, $limit: Int, $nextToken: String) {
-        getMessageByCollectionId(collectionID: $collectionID, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
-          __typename
-          items {
-            __typename
-            messageID
-            message_status
-            message_description
-            collectionID
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
-          nextToken
-          startedAt
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {
-      collectionID
-    };
-    if (sortDirection) {
-      gqlAPIServiceArguments.sortDirection = sortDirection;
-    }
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    if (limit) {
-      gqlAPIServiceArguments.limit = limit;
-    }
-    if (nextToken) {
-      gqlAPIServiceArguments.nextToken = nextToken;
-    }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
-    return <GetMessageByCollectionIdQuery>(
-      response.data.getMessageByCollectionId
-    );
-  }
-  async ImagesByCollectionId(
-    collectionID: string,
-    sortDirection?: ModelSortDirection,
-    filter?: ModelImagesFilterInput,
-    limit?: number,
-    nextToken?: string
-  ): Promise<ImagesByCollectionIdQuery> {
-    const statement = `query ImagesByCollectionId($collectionID: String!, $sortDirection: ModelSortDirection, $filter: ModelImagesFilterInput, $limit: Int, $nextToken: String) {
-        imagesByCollectionId(collectionID: $collectionID, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
-          __typename
-          items {
-            __typename
-            imageID
-            collectionID
-            name
-            bucket_name
-            file_name
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
-          nextToken
-          startedAt
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {
-      collectionID
-    };
-    if (sortDirection) {
-      gqlAPIServiceArguments.sortDirection = sortDirection;
-    }
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    if (limit) {
-      gqlAPIServiceArguments.limit = limit;
-    }
-    if (nextToken) {
-      gqlAPIServiceArguments.nextToken = nextToken;
-    }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
-    return <ImagesByCollectionIdQuery>response.data.imagesByCollectionId;
-  }
-  async GetPendingInvitesByEmail(
-    email: string,
-    sortDirection?: ModelSortDirection,
-    filter?: ModelPendingInvitesFilterInput,
-    limit?: number,
-    nextToken?: string
-  ): Promise<GetPendingInvitesByEmailQuery> {
-    const statement = `query GetPendingInvitesByEmail($email: AWSEmail!, $sortDirection: ModelSortDirection, $filter: ModelPendingInvitesFilterInput, $limit: Int, $nextToken: String) {
-        getPendingInvitesByEmail(email: $email, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
-          __typename
-          items {
-            __typename
-            inviteID
-            email
-            role
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
-          nextToken
-          startedAt
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {
-      email
-    };
-    if (sortDirection) {
-      gqlAPIServiceArguments.sortDirection = sortDirection;
-    }
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    if (limit) {
-      gqlAPIServiceArguments.limit = limit;
-    }
-    if (nextToken) {
-      gqlAPIServiceArguments.nextToken = nextToken;
-    }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
-    return <GetPendingInvitesByEmailQuery>(
-      response.data.getPendingInvitesByEmail
-    );
-  }
   async GetConnectionsByTopic(
     topic: string,
     sortDirection?: ModelSortDirection,
@@ -5571,12 +5409,8 @@ export class APIService {
             topic
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           nextToken
-          startedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -5599,6 +5433,69 @@ export class APIService {
     )) as any;
     return <GetConnectionsByTopicQuery>response.data.getConnectionsByTopic;
   }
+  async GetPendingJobs(jobID: string): Promise<GetPendingJobsQuery> {
+    const statement = `query GetPendingJobs($jobID: String!) {
+        getPendingJobs(jobID: $jobID) {
+          __typename
+          jobID
+          busy
+          taskID
+          collectionID
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      jobID
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <GetPendingJobsQuery>response.data.getPendingJobs;
+  }
+  async ListPendingJobs(
+    jobID?: string,
+    filter?: ModelPendingJobsFilterInput,
+    limit?: number,
+    nextToken?: string,
+    sortDirection?: ModelSortDirection
+  ): Promise<ListPendingJobsQuery> {
+    const statement = `query ListPendingJobs($jobID: String, $filter: ModelPendingJobsFilterInput, $limit: Int, $nextToken: String, $sortDirection: ModelSortDirection) {
+        listPendingJobs(jobID: $jobID, filter: $filter, limit: $limit, nextToken: $nextToken, sortDirection: $sortDirection) {
+          __typename
+          items {
+            __typename
+            jobID
+            busy
+            taskID
+            collectionID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (jobID) {
+      gqlAPIServiceArguments.jobID = jobID;
+    }
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    if (sortDirection) {
+      gqlAPIServiceArguments.sortDirection = sortDirection;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <ListPendingJobsQuery>response.data.listPendingJobs;
+  }
   OnCreateUserListener: Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateUser">>
   > = API.graphql(
@@ -5615,9 +5512,6 @@ export class APIService {
           user_approved
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`
     )
@@ -5641,9 +5535,6 @@ export class APIService {
           user_approved
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`
     )
@@ -5667,9 +5558,6 @@ export class APIService {
           user_approved
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`
     )
@@ -5690,9 +5578,6 @@ export class APIService {
           park_address
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`
     )
@@ -5713,9 +5598,6 @@ export class APIService {
           park_address
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`
     )
@@ -5736,9 +5618,6 @@ export class APIService {
           park_address
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`
     )
@@ -5766,14 +5645,12 @@ export class APIService {
             park_address
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           upload_date_time
           completed
           error
           pending
+          dismissed
           flightID
           FlightDetails {
             __typename
@@ -5781,17 +5658,24 @@ export class APIService {
             flight_height
             flight_type
             pilotID
+            Pilot {
+              __typename
+              userID
+              user_email
+              user_password
+              user_password_salt
+              user_name
+              user_role
+              user_approved
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
+          collectionName
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`
     )
@@ -5821,14 +5705,12 @@ export class APIService {
             park_address
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           upload_date_time
           completed
           error
           pending
+          dismissed
           flightID
           FlightDetails {
             __typename
@@ -5836,17 +5718,24 @@ export class APIService {
             flight_height
             flight_type
             pilotID
+            Pilot {
+              __typename
+              userID
+              user_email
+              user_password
+              user_password_salt
+              user_name
+              user_role
+              user_approved
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
+          collectionName
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`
     )
@@ -5876,14 +5765,12 @@ export class APIService {
             park_address
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           upload_date_time
           completed
           error
           pending
+          dismissed
           flightID
           FlightDetails {
             __typename
@@ -5891,17 +5778,24 @@ export class APIService {
             flight_height
             flight_type
             pilotID
+            Pilot {
+              __typename
+              userID
+              user_email
+              user_password
+              user_password_salt
+              user_name
+              user_role
+              user_approved
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
+          collectionName
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`
     )
@@ -5927,22 +5821,36 @@ export class APIService {
             collectionID
             taskID
             parkID
+            GamePark {
+              __typename
+              parkID
+              park_name
+              park_location
+              park_address
+              createdAt
+              updatedAt
+            }
             upload_date_time
             completed
             error
             pending
+            dismissed
             flightID
+            FlightDetails {
+              __typename
+              flightID
+              flight_height
+              flight_type
+              pilotID
+              createdAt
+              updatedAt
+            }
+            collectionName
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`
     )
@@ -5966,22 +5874,36 @@ export class APIService {
             collectionID
             taskID
             parkID
+            GamePark {
+              __typename
+              parkID
+              park_name
+              park_location
+              park_address
+              createdAt
+              updatedAt
+            }
             upload_date_time
             completed
             error
             pending
+            dismissed
             flightID
+            FlightDetails {
+              __typename
+              flightID
+              flight_height
+              flight_type
+              pilotID
+              createdAt
+              updatedAt
+            }
+            collectionName
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`
     )
@@ -6005,22 +5927,36 @@ export class APIService {
             collectionID
             taskID
             parkID
+            GamePark {
+              __typename
+              parkID
+              park_name
+              park_location
+              park_address
+              createdAt
+              updatedAt
+            }
             upload_date_time
             completed
             error
             pending
+            dismissed
             flightID
+            FlightDetails {
+              __typename
+              flightID
+              flight_height
+              flight_type
+              pilotID
+              createdAt
+              updatedAt
+            }
+            collectionName
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`
     )
@@ -6044,22 +5980,36 @@ export class APIService {
             collectionID
             taskID
             parkID
+            GamePark {
+              __typename
+              parkID
+              park_name
+              park_location
+              park_address
+              createdAt
+              updatedAt
+            }
             upload_date_time
             completed
             error
             pending
+            dismissed
             flightID
+            FlightDetails {
+              __typename
+              flightID
+              flight_height
+              flight_type
+              pilotID
+              createdAt
+              updatedAt
+            }
+            collectionName
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`
     )
@@ -6083,22 +6033,36 @@ export class APIService {
             collectionID
             taskID
             parkID
+            GamePark {
+              __typename
+              parkID
+              park_name
+              park_location
+              park_address
+              createdAt
+              updatedAt
+            }
             upload_date_time
             completed
             error
             pending
+            dismissed
             flightID
+            FlightDetails {
+              __typename
+              flightID
+              flight_height
+              flight_type
+              pilotID
+              createdAt
+              updatedAt
+            }
+            collectionName
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`
     )
@@ -6122,22 +6086,36 @@ export class APIService {
             collectionID
             taskID
             parkID
+            GamePark {
+              __typename
+              parkID
+              park_name
+              park_location
+              park_address
+              createdAt
+              updatedAt
+            }
             upload_date_time
             completed
             error
             pending
+            dismissed
             flightID
+            FlightDetails {
+              __typename
+              flightID
+              flight_height
+              flight_type
+              pilotID
+              createdAt
+              updatedAt
+            }
+            collectionName
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`
     )
@@ -6159,9 +6137,6 @@ export class APIService {
           file_name
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`
     )
@@ -6183,9 +6158,6 @@ export class APIService {
           file_name
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`
     )
@@ -6207,9 +6179,6 @@ export class APIService {
           file_name
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`
     )
@@ -6239,15 +6208,9 @@ export class APIService {
             user_approved
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`
     )
@@ -6277,15 +6240,9 @@ export class APIService {
             user_approved
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`
     )
@@ -6315,15 +6272,9 @@ export class APIService {
             user_approved
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
           }
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`
     )
@@ -6345,9 +6296,6 @@ export class APIService {
           role
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`
     )
@@ -6371,9 +6319,6 @@ export class APIService {
           role
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`
     )
@@ -6397,9 +6342,6 @@ export class APIService {
           role
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`
     )
@@ -6420,9 +6362,6 @@ export class APIService {
           topic
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`
     )
@@ -6441,9 +6380,6 @@ export class APIService {
           topic
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`
     )
@@ -6462,13 +6398,70 @@ export class APIService {
           topic
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
       }`
     )
   ) as Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteConnection">>
+  >;
+
+  OnCreatePendingJobsListener: Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreatePendingJobs">>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnCreatePendingJobs {
+        onCreatePendingJobs {
+          __typename
+          jobID
+          busy
+          taskID
+          collectionID
+          createdAt
+          updatedAt
+        }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreatePendingJobs">>
+  >;
+
+  OnUpdatePendingJobsListener: Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdatePendingJobs">>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnUpdatePendingJobs {
+        onUpdatePendingJobs {
+          __typename
+          jobID
+          busy
+          taskID
+          collectionID
+          createdAt
+          updatedAt
+        }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdatePendingJobs">>
+  >;
+
+  OnDeletePendingJobsListener: Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeletePendingJobs">>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnDeletePendingJobs {
+        onDeletePendingJobs {
+          __typename
+          jobID
+          busy
+          taskID
+          collectionID
+          createdAt
+          updatedAt
+        }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeletePendingJobs">>
   >;
 }

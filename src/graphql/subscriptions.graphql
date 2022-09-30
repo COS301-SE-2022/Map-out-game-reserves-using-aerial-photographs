@@ -10,9 +10,6 @@ subscription OnCreateUser {
     user_approved
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnUpdateUser {
@@ -26,9 +23,6 @@ subscription OnUpdateUser {
     user_approved
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnDeleteUser {
@@ -42,9 +36,6 @@ subscription OnDeleteUser {
     user_approved
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnCreateGamePark {
@@ -55,9 +46,6 @@ subscription OnCreateGamePark {
     park_address
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnUpdateGamePark {
@@ -68,9 +56,6 @@ subscription OnUpdateGamePark {
     park_address
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnDeleteGamePark {
@@ -81,9 +66,6 @@ subscription OnDeleteGamePark {
     park_address
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnCreateImageCollection {
@@ -98,31 +80,35 @@ subscription OnCreateImageCollection {
       park_address
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     upload_date_time
     completed
     error
     pending
+    dismissed
     flightID
     FlightDetails {
       flightID
       flight_height
       flight_type
       pilotID
+      Pilot {
+        userID
+        user_email
+        user_password
+        user_password_salt
+        user_name
+        user_role
+        user_approved
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
+    collectionName
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnUpdateImageCollection {
@@ -137,31 +123,35 @@ subscription OnUpdateImageCollection {
       park_address
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     upload_date_time
     completed
     error
     pending
+    dismissed
     flightID
     FlightDetails {
       flightID
       flight_height
       flight_type
       pilotID
+      Pilot {
+        userID
+        user_email
+        user_password
+        user_password_salt
+        user_name
+        user_role
+        user_approved
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
+    collectionName
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnDeleteImageCollection {
@@ -176,31 +166,35 @@ subscription OnDeleteImageCollection {
       park_address
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     upload_date_time
     completed
     error
     pending
+    dismissed
     flightID
     FlightDetails {
       flightID
       flight_height
       flight_type
       pilotID
+      Pilot {
+        userID
+        user_email
+        user_password
+        user_password_salt
+        user_name
+        user_role
+        user_approved
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
+    collectionName
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnCreateMap {
@@ -213,22 +207,34 @@ subscription OnCreateMap {
       collectionID
       taskID
       parkID
+      GamePark {
+        parkID
+        park_name
+        park_location
+        park_address
+        createdAt
+        updatedAt
+      }
       upload_date_time
       completed
       error
       pending
+      dismissed
       flightID
+      FlightDetails {
+        flightID
+        flight_height
+        flight_type
+        pilotID
+        createdAt
+        updatedAt
+      }
+      collectionName
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnUpdateMap {
@@ -241,22 +247,34 @@ subscription OnUpdateMap {
       collectionID
       taskID
       parkID
+      GamePark {
+        parkID
+        park_name
+        park_location
+        park_address
+        createdAt
+        updatedAt
+      }
       upload_date_time
       completed
       error
       pending
+      dismissed
       flightID
+      FlightDetails {
+        flightID
+        flight_height
+        flight_type
+        pilotID
+        createdAt
+        updatedAt
+      }
+      collectionName
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnDeleteMap {
@@ -269,22 +287,34 @@ subscription OnDeleteMap {
       collectionID
       taskID
       parkID
+      GamePark {
+        parkID
+        park_name
+        park_location
+        park_address
+        createdAt
+        updatedAt
+      }
       upload_date_time
       completed
       error
       pending
+      dismissed
       flightID
+      FlightDetails {
+        flightID
+        flight_height
+        flight_type
+        pilotID
+        createdAt
+        updatedAt
+      }
+      collectionName
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnCreateMessage {
@@ -297,22 +327,34 @@ subscription OnCreateMessage {
       collectionID
       taskID
       parkID
+      GamePark {
+        parkID
+        park_name
+        park_location
+        park_address
+        createdAt
+        updatedAt
+      }
       upload_date_time
       completed
       error
       pending
+      dismissed
       flightID
+      FlightDetails {
+        flightID
+        flight_height
+        flight_type
+        pilotID
+        createdAt
+        updatedAt
+      }
+      collectionName
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnUpdateMessage {
@@ -325,22 +367,34 @@ subscription OnUpdateMessage {
       collectionID
       taskID
       parkID
+      GamePark {
+        parkID
+        park_name
+        park_location
+        park_address
+        createdAt
+        updatedAt
+      }
       upload_date_time
       completed
       error
       pending
+      dismissed
       flightID
+      FlightDetails {
+        flightID
+        flight_height
+        flight_type
+        pilotID
+        createdAt
+        updatedAt
+      }
+      collectionName
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnDeleteMessage {
@@ -353,22 +407,34 @@ subscription OnDeleteMessage {
       collectionID
       taskID
       parkID
+      GamePark {
+        parkID
+        park_name
+        park_location
+        park_address
+        createdAt
+        updatedAt
+      }
       upload_date_time
       completed
       error
       pending
+      dismissed
       flightID
+      FlightDetails {
+        flightID
+        flight_height
+        flight_type
+        pilotID
+        createdAt
+        updatedAt
+      }
+      collectionName
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnCreateImages {
@@ -380,9 +446,6 @@ subscription OnCreateImages {
     file_name
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnUpdateImages {
@@ -394,9 +457,6 @@ subscription OnUpdateImages {
     file_name
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnDeleteImages {
@@ -408,9 +468,6 @@ subscription OnDeleteImages {
     file_name
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnCreateFlightDetails {
@@ -429,15 +486,9 @@ subscription OnCreateFlightDetails {
       user_approved
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnUpdateFlightDetails {
@@ -456,15 +507,9 @@ subscription OnUpdateFlightDetails {
       user_approved
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnDeleteFlightDetails {
@@ -483,15 +528,9 @@ subscription OnDeleteFlightDetails {
       user_approved
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnCreatePendingInvites {
@@ -501,9 +540,6 @@ subscription OnCreatePendingInvites {
     role
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnUpdatePendingInvites {
@@ -513,9 +549,6 @@ subscription OnUpdatePendingInvites {
     role
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnDeletePendingInvites {
@@ -525,9 +558,6 @@ subscription OnDeletePendingInvites {
     role
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnCreateConnection {
@@ -536,9 +566,6 @@ subscription OnCreateConnection {
     topic
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnUpdateConnection {
@@ -547,9 +574,6 @@ subscription OnUpdateConnection {
     topic
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnDeleteConnection {
@@ -558,8 +582,35 @@ subscription OnDeleteConnection {
     topic
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
+  }
+}
+subscription OnCreatePendingJobs {
+  onCreatePendingJobs {
+    jobID
+    busy
+    taskID
+    collectionID
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdatePendingJobs {
+  onUpdatePendingJobs {
+    jobID
+    busy
+    taskID
+    collectionID
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeletePendingJobs {
+  onDeletePendingJobs {
+    jobID
+    busy
+    taskID
+    collectionID
+    createdAt
+    updatedAt
   }
 }

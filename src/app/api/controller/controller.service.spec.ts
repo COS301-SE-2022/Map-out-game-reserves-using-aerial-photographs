@@ -1,31 +1,27 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { User } from 'src/app/API.service';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { CreateUserInput } from 'src/app/API.service';
 import { ControllerService } from './controller.service';
 
 describe('ControllerService', () => {
   let service: ControllerService;
-  const user: User = {
+  const user: CreateUserInput = {
     user_email: 'incorrect@email.com',
     user_password: '12345678',
     user_name: 'Joe',
-    __typename: 'User',
     userID: 'jaksdjkasjd',
-    createdAt: '',
-    updatedAt: '',
-    _version: 1,
-    _lastChangedAt: 1
-  }
+  };
 
+  let originalTimeout: number;
+  beforeEach(async () => {
+    originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
 
-  beforeEach(async() => {
     await TestBed.configureTestingModule({
-      imports: [ HttpClientModule, MatSnackBarModule ],
-      providers: [ HttpClient ]
-    })
-    .compileComponents();
+      imports: [HttpClientModule, MatSnackBarModule],
+      providers: [HttpClient],
+    }).compileComponents();
     service = TestBed.inject(ControllerService);
   });
 
@@ -34,11 +30,16 @@ describe('ControllerService', () => {
   });
 
   //test tryRegister function (integration test)
-  it('tryRegister', async () => {
+  it('tryRegister', (done: DoneFn) => {
     //no invite for user with email incorrect@email.com
-    expect(await service.tryRegister(user)).toBe(-1);
+    service.tryRegister(user).subscribe((resp: any) => {
+      expect(resp.statusCode).toBe(404);
+      expect(resp.body.result).toBe('Invite does not exist.');
+      done();
+    });
   });
 
-  //test registerUser function (integration test)
-
+  afterEach(() => {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
+  });
 });

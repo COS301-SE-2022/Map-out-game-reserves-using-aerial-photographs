@@ -4,26 +4,11 @@
   <aerial-mapping-side-navbar></aerial-mapping-side-navbar>
   <app-footer></app-footer>
   <div id="outer" class="content2">
-    <!-- <div class="title">
-      <h3>DASHBOARD</h3>
-      <mat-divider></mat-divider>
-    </div> -->
     <table>
       <tr>
         <td>
-          <div class="flights cont">
-            <div class="total">
-              <div class="num">
-                <fa-icon class="camera" [icon]="mapIcon"></fa-icon>
-                {{ total }}
-              </div>
-              <div class="label">New Maps</div>
-            </div>
-            <div class="barChart">
-              <aerial-mapping-bar-chart
-                [List]="maps"
-              ></aerial-mapping-bar-chart>
-            </div>
+          <div class="flights cont" id="mapbox">
+            <aerial-mapping-mapbox></aerial-mapping-mapbox>
           </div>
         </td>
         <td>
@@ -31,7 +16,6 @@
             <div class="messageTitle">
               MESSAGES
               <mat-divider></mat-divider>
-              <!-- <hr> -->
             </div>
             <div class="scrollableMessage">
               <mat-list>
@@ -39,6 +23,7 @@
                   matLine
                   class="messageItem"
                   *ngFor="let message of messages"
+                  [id]="message.collectionID"
                 >
                   <fa-icon
                     class="icon"
@@ -50,6 +35,12 @@
                   <span class="messageDate"
                     >Map ID: {{ message.collectionID }}</span
                   >
+                  <button
+                    class="close"
+                    (click)="dismiss(message.collectionID, 'error')"
+                  >
+                    <mat-icon>close</mat-icon>
+                  </button>
                 </mat-list-item>
               </mat-list>
             </div>
@@ -64,11 +55,9 @@
               >System status</span
             >
           </div>
-          <!-- <div class="gap"></div> -->
           <div class="completed cont tooltip">
             <div class="completeTitle">
               COMPLETED
-              <!-- <hr> -->
               <mat-divider></mat-divider>
             </div>
             <div class="scrollableComplete">
@@ -77,16 +66,35 @@
                   matLine
                   class="completeItem"
                   *ngFor="let collection of completed"
+                  [id]="collection.collectionID"
                 >
                   <fa-icon
                     matListAvatar
                     class="icon brown-icon"
                     [icon]="complete"
                   ></fa-icon>
-                  <span class="completeName"
-                    >Upload {{ collection.collectionID }}</span
+                  <span class="message">Upload</span>
+
+                  <span
+                    class="completeName"
+                    *ngIf="
+                      collection?.collectionName == '' ||
+                        collection.collectionName == undefined;
+                      else elseBlock
+                    "
+                    >{{ collection.collectionID }}</span
                   >
-                  <!-- <span class="completeDate">{{m.date}}</span> -->
+                  <ng-template #elseBlock>
+                    <span class="completeName">{{
+                      collection.collectionName
+                    }}</span>
+                  </ng-template>
+                  <button
+                    class="close"
+                    (click)="dismiss(collection.collectionID, 'complete')"
+                  >
+                    <mat-icon>close</mat-icon>
+                  </button>
                 </mat-list-item>
               </mat-list>
             </div>
@@ -106,10 +114,8 @@
           <div class="progress cont tooltip">
             <div class="progressTitle">
               IN PROGRESS
-              <!-- <hr> -->
               <mat-divider></mat-divider>
             </div>
-            <!-- C&Z changed style -->
             <div class="scrollableProgress">
               <mat-list>
                 <mat-list-item
@@ -122,10 +128,22 @@
                     class="icon brown-icon"
                     [icon]="progress"
                   ></fa-icon>
-                  <span class="progressName"
-                    >Upload {{ collection.collectionID }}, to be
-                    completed...</span
+                  <span
+                    class="progressName"
+                    *ngIf="
+                      collection?.collectionName == '' ||
+                        collection.collectionName == undefined;
+                      else elseBlock
+                    "
+                    >{{ collection.collectionID }}, stitching in
+                    progress...</span
                   >
+                  <ng-template #elseBlock>
+                    <span class="progressName"
+                      >{{ collection.collectionName }}, stitching in
+                      progress...</span
+                    >
+                  </ng-template>
                 </mat-list-item>
               </mat-list>
             </div>
@@ -144,4 +162,5 @@
       </tr>
     </table>
   </div>
+  <app-spinner></app-spinner>
 </div>

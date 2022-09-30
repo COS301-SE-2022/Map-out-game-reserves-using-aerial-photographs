@@ -1,0 +1,132 @@
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+
+# input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+
+type Query {
+  test: String
+  #getUserByEmail(user_email: String): User
+  getUsers: [User]
+  getCurrentUserEmail: String
+  getParks: [GamePark]
+  getParkId(name: String): String
+  pingAuthentication: String
+  getMessages: [Message]
+  getImagesByCollectionId(id: String): [Images]
+  getNumOfVidsPerDate: Int
+  getAuthStatus: Boolean
+  getImageCollections: [ImageCollection]
+  getImage(imageID: String): Images
+  getCatalogues: [ImageCollection]
+}
+
+type Mutation {
+  invite(email: String): String
+  registerUser(name: String, email: String, password: String, role: String, approved: Boolean): User
+  #createImageCollection(parkID: Int,  name: String, flightID: Int): ImageCollection
+  login(email: String, password: String): String
+  logout: String
+  createFlight(pilotID: String, height: Int, type: String): FlightDetails
+  createImage(collectionID: String ,bucket_name: String, file_name: String): Images
+}
+
+type User @model @auth(rules: [{ allow: private, provider: userPools }]) {
+  userID: String! @primaryKey
+  user_email: String @index(name: "byEmail", queryField: "userByEmail")
+  user_password: String
+  user_password_salt: String
+  user_name: String
+  user_role: String
+  user_approved: Boolean
+}
+
+type GamePark @model @auth(rules: [{ allow: private, provider: userPools }]) {
+  parkID: String! @primaryKey
+  park_name: String
+  park_location: String
+  park_address: String
+}
+
+# type Video {
+#   videoID: Int!
+#   flightID: Int
+#   #video_title: String
+#   #video_description: String
+#   file_location: String
+#   #video_thumbnail: String
+#   duration: String
+#   filmed_date_time: AWSDateTime
+#   #video_user: User
+# }
+
+
+type ImageCollection @model @auth(rules: [{ allow: private, provider: userPools }]) {
+  collectionID: String! @primaryKey
+  taskID: String @index(name: "byTaskId", queryField: "getImageCollectionByTaskId")
+  parkID: String
+  GamePark: GamePark @hasOne(fields: ["parkID"])
+  upload_date_time: AWSDateTime
+  completed: Boolean
+  error: Boolean
+  pending: Boolean
+  dismissed: Boolean
+  flightID: String
+  FlightDetails: FlightDetails @hasOne(fields: ["flightID"])
+  collectionName: String
+}
+
+type Map @model @auth(rules: [{ allow: private, provider: userPools }]) {
+  mapID: String! @primaryKey
+  bucket_name: String
+  file_name: String  @index(name: "byFileName", queryField: "getMapByFileName")
+  collectionID: String
+  Collection: ImageCollection @hasOne(fields: ["collectionID"])
+}
+
+type Message @model @auth(rules: [{ allow: private, provider: userPools }]) {
+  messageID: String! @primaryKey
+  message_status: String
+  message_description: String
+  collectionID: String @index(name: "byCollectionId", queryField: "getMessageByCollectionId")
+  ImageCollection: ImageCollection @hasOne(fields: ["collectionID"])
+}
+
+# type Video_In_Collection {
+#   collectionID: Int!
+#   videoID: Int!
+#   video_order: Int!
+# }
+
+type Images @model @auth(rules: [{ allow: private, provider: userPools }]) {
+  imageID: String! @primaryKey
+  collectionID: String @index(name: "byCollectionId", queryField: "imagesByCollectionId")
+  name: String
+  bucket_name: String
+  file_name: String
+}
+
+type FlightDetails @model @auth(rules: [{ allow: private, provider: userPools }]) {
+  flightID: String! @primaryKey
+  flight_height: Float
+  flight_type: String
+  pilotID: String
+  Pilot: User @hasOne(fields: ["pilotID"])
+}
+
+type PendingInvites @model @auth(rules: [{ allow: private, provider: userPools }]) {
+  inviteID: String! @primaryKey
+  email: AWSEmail! @index(name: "byEmail", queryField: "getPendingInvitesByEmail"),
+  role: String!
+}
+
+type Connection @model @auth(rules: [{ allow: private, provider: userPools }]) {
+  connectionID: String! @primaryKey
+  topic: String! @index(name: "byTopic", queryField: "getConnectionsByTopic")
+}
+
+type PendingJobs @model @auth(rules: [{ allow: private, provider: userPools }]) {
+  jobID: String! @primaryKey
+  busy: Boolean
+  taskID: String
+  collectionID: String
+}

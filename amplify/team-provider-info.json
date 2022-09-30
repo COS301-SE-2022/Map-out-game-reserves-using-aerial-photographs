@@ -1,44 +1,35 @@
 {
-  "develop": {
+  "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-amplifyapp-develop-115650-authRole",
-      "UnauthRoleArn": "arn:aws:iam::870416143884:role/amplify-amplifyapp-develop-115650-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::870416143884:role/amplify-amplifyapp-develop-115650-authRole",
-      "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-amplifyapp-develop-115650-deployment",
-      "UnauthRoleName": "amplify-amplifyapp-develop-115650-unauthRole",
-      "StackName": "amplify-amplifyapp-develop-115650",
-      "StackId": "arn:aws:cloudformation:us-east-1:870416143884:stack/amplify-amplifyapp-develop-115650/f4170630-01c8-11ed-82cc-0ab958befa6d",
-      "AmplifyAppId": "d3ibv2r8724y14"
+      "AuthRoleName": "amplify-aerialmapping-dev-80642-authRole",
+      "UnauthRoleArn": "arn:aws:iam::870416143884:role/amplify-aerialmapping-dev-80642-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::870416143884:role/amplify-aerialmapping-dev-80642-authRole",
+      "Region": "sa-east-1",
+      "DeploymentBucketName": "amplify-aerialmapping-dev-80642-deployment",
+      "UnauthRoleName": "amplify-aerialmapping-dev-80642-unauthRole",
+      "StackName": "amplify-aerialmapping-dev-80642",
+      "StackId": "arn:aws:cloudformation:sa-east-1:870416143884:stack/amplify-aerialmapping-dev-80642/49e1e5e0-16e0-11ed-9bb8-02f3256b55c8",
+      "AmplifyAppId": "d39fuyve7kjt5",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-aerialmapping-dev-80642-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
       "auth": {
-        "amplifyappc10a5bb3": {}
+        "aerialmapping8dd8f7d2": {},
+        "userPoolGroups": {}
       },
       "function": {
-        "registerlinkemailer": {
-          "deploymentBucketName": "amplify-amplifyapp-develop-115650-deployment",
-          "s3Key": "amplify-builds/registerlinkemailer-594d2f75346575743773-build.zip",
-          "sesEmail": "thedylpickles1@gmail.com"
-        },
-        "S3Trigger3ac458d4": {
-          "deploymentBucketName": "amplify-amplifyapp-develop-115650-deployment",
-          "s3Key": "amplify-builds/S3Trigger3ac458d4-4e65616e457042636c6e-build.zip"
+        "aerialmapping8dd8f7d2PostConfirmation": {
+          "deploymentBucketName": "amplify-aerialmapping-dev-80642-deployment",
+          "s3Key": "amplify-builds/aerialmapping8dd8f7d2PostConfirmation-54454e4b397642334b59-build.zip",
+          "GROUP": "Users"
+        }
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d39fuyve7kjt5",
+          "type": "manual"
         }
       }
-    }
-  },
-  "dev": {
-    "awscloudformation": {
-      "AuthRoleName": "amplify-amplifyapp-dev-214131-authRole",
-      "UnauthRoleArn": "arn:aws:iam::870416143884:role/amplify-amplifyapp-dev-214131-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::870416143884:role/amplify-amplifyapp-dev-214131-authRole",
-      "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-amplifyapp-dev-214131-deployment",
-      "UnauthRoleName": "amplify-amplifyapp-dev-214131-unauthRole",
-      "StackName": "amplify-amplifyapp-dev-214131",
-      "StackId": "arn:aws:cloudformation:us-east-1:870416143884:stack/amplify-amplifyapp-dev-214131/78b4b180-0151-11ed-bc27-0af1e84484f3",
-      "AmplifyAppId": "d3ibv2r8724y14"
     }
   }
 }

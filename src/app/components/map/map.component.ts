@@ -1,6 +1,5 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import { faXmark as exit, faBars as bars, faAngleLeft as leftArrow } from '@fortawesome/free-solid-svg-icons';
-
+import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'aerial-mapping-map',
@@ -8,5 +7,16 @@ import { faXmark as exit, faBars as bars, faAngleLeft as leftArrow } from '@fort
   styleUrls: ['./map.component.scss'],
 })
 export class MapComponent {
-
+  url: string;
+  constructor(private location: Location) {
+    this.url = '';
+    const state: any = this.location.getState();
+    if (state != null) {
+      console.log(state.taskID);
+      this.url =
+        'https://imageprocessingserver.com:8000/public/task/' +
+        state.taskID +
+        '/iframe/map/';
+    }
+  }
 }
