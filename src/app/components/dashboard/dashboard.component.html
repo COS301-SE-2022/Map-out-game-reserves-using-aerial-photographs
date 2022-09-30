@@ -35,8 +35,6 @@
                   <span class="messageDate"
                     >Map ID: {{ message.collectionID }}</span
                   >
-                  <!-- (click)="dismiss(message.collectionID)" -->
-                  <!-- <button class="close" ><mat-icon>close</mat-icon></button> -->
                   <button
                     class="close"
                     (click)="dismiss(message.collectionID, 'error')"
@@ -76,17 +74,27 @@
                     [icon]="complete"
                   ></fa-icon>
                   <span class="message">Upload</span>
-                  
-                  <span class="completeName" *ngIf="collection?.collectionName=='' || collection.collectionName==undefined; else elseBlock"
-                      >{{ collection.collectionID }}</span
-                    >
+
+                  <span
+                    class="completeName"
+                    *ngIf="
+                      collection?.collectionName == '' ||
+                        collection.collectionName == undefined;
+                      else elseBlock
+                    "
+                    >{{ collection.collectionID }}</span
+                  >
                   <ng-template #elseBlock>
-                    <span class="completeName"
-                      >{{ collection.collectionName }}</span
-                    >
+                    <span class="completeName">{{
+                      collection.collectionName
+                    }}</span>
                   </ng-template>
-                  <!-- <span class="completeDate">{{m.date}}</span> -->
-                  <button class="close" (click)="dismiss(collection.collectionID, 'complete')"><mat-icon>close</mat-icon></button>
+                  <button
+                    class="close"
+                    (click)="dismiss(collection.collectionID, 'complete')"
+                  >
+                    <mat-icon>close</mat-icon>
+                  </button>
                 </mat-list-item>
               </mat-list>
             </div>
@@ -106,10 +114,8 @@
           <div class="progress cont tooltip">
             <div class="progressTitle">
               IN PROGRESS
-              <!-- <hr> -->
               <mat-divider></mat-divider>
             </div>
-            <!-- C&Z changed style -->
             <div class="scrollableProgress">
               <mat-list>
                 <mat-list-item
@@ -122,14 +128,21 @@
                     class="icon brown-icon"
                     [icon]="progress"
                   ></fa-icon>
-                  <span class="progressName" *ngIf="collection?.collectionName=='' || collection.collectionName==undefined; else elseBlock"
-                   
-                    >{{ collection.collectionID }}, stitching in progress...</span
+                  <span
+                    class="progressName"
+                    *ngIf="
+                      collection?.collectionName == '' ||
+                        collection.collectionName == undefined;
+                      else elseBlock
+                    "
+                    >{{ collection.collectionID }}, stitching in
+                    progress...</span
                   >
                   <ng-template #elseBlock>
-                    <span class="progressName" 
-                    >{{ collection.collectionName }}, stitching in progress...</span
-                  >
+                    <span class="progressName"
+                      >{{ collection.collectionName }}, stitching in
+                      progress...</span
+                    >
                   </ng-template>
                 </mat-list-item>
               </mat-list>

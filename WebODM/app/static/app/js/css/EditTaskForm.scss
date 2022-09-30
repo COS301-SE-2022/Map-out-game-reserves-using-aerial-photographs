@@ -1,0 +1,35 @@
+.edit-task-form{
+	.presets-dropdown{
+		margin-left: 8px;
+
+        @media screen and (max-width: 768px){
+            margin-left: 0px;
+            margin-top: 10px;
+        }            
+        
+	}
+
+	.preset-performing-action-icon{
+		margin-left: 12px;
+	}
+
+	.preset-error{
+		margin-top: 12px;
+	}
+
+	.system-preset{
+		background-color: #eee;
+    }
+    
+    .review-options{
+        margin-top: 10px;
+        margin-bottom: 14px;
+    }
+
+    .name-loading{
+        position: absolute;
+        right: 30px;
+        top: 15px;
+        opacity: 0.5;
+    }
+}

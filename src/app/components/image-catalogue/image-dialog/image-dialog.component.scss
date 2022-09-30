@@ -13,7 +13,8 @@ img {
   width: 100%;
 }
 
-:host ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {   
+:host ::ng-deep .mat-progress-spinner circle,
+.mat-spinner circle {
   stroke: #7c9db3ab;
 }
 
@@ -35,6 +36,6 @@ img {
   transform: translateX(-50%) translateY(-50%);
 }
 
-.errorMessage{
+.errorMessage {
   text-align: center;
 }

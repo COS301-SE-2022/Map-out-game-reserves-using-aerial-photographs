@@ -55,7 +55,6 @@ td {
 }
 
 .messageTitle {
-  // font-weight: 700;
   font-style: normal;
   font-size: 22px;
   color: $primary-dark;
@@ -64,7 +63,6 @@ td {
 }
 
 .completeTitle {
-  // font-weight: 700;
   font-style: normal;
   font-size: 22px;
   color: $primary-dark;
@@ -72,7 +70,6 @@ td {
 }
 
 .progressTitle {
-  // font-weight: 700;
   font-style: normal;
   font-size: 22px;
   color: $primary-dark;
@@ -145,7 +142,6 @@ td {
 
 .messageDate,
 .completeName {
-  // position: absolute;
   right: 3%;
   color: gray;
   font-size: smaller;
@@ -180,8 +176,6 @@ td {
 }
 
 .completeDate {
-  // position: absolute;
-  // right: 3%;
   color: gray;
   font-size: smaller;
 }
@@ -201,14 +195,10 @@ td {
 
 @media only screen and (max-width: 768px) {
   .content2 {
-    //left: 0px !important;
-    //border: 2px solid red;
-    //width: 98%;
     top: 16vh !important;
     overflow-x: hidden;
     display: block;
     margin-left: 3%;
-    // margin-right: 1%;
   }
 
   td {
@@ -241,7 +231,6 @@ td {
 }
 
 .close {
-  // display: none;
   position: absolute;
   left: 90%;
   border: none;
@@ -255,13 +244,11 @@ td {
 
 .messageItem:hover + .close {
   display: block;
-  // cursor: pointer;
 }
 
 .completeItem:hover,
 .completeName:hover + .close {
   display: block;
-  // cursor: pointer;
 }
 
 span {

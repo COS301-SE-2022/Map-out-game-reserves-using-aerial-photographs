@@ -1,11 +1,21 @@
 <h1 mat-dialog-title>Enter OTP</h1>
 <div mat-dialog-content>
   <mat-form-field appearance="fill">
-    <mat-label for="curr">Enter the One Time Pin you received via email</mat-label>
-    <input matInput [(ngModel)]="data.otp" name="curr">
+    <mat-label for="curr"
+      >Enter the One Time Pin you received via email</mat-label
+    >
+    <input matInput [(ngModel)]="data.otp" name="curr" />
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()" color="warn">Cancel</button>
-  <button mat-button [disabled]="!data.otp" (click)="onSubmit()" color="primary" type="button">Submit</button>
+  <button
+    mat-button
+    [disabled]="!data.otp"
+    (click)="onSubmit()"
+    color="primary"
+    type="button"
+  >
+    Submit
+  </button>
 </div>
