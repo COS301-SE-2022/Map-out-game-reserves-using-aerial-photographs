@@ -13,7 +13,10 @@ export class MapComponent {
     const state: any = this.location.getState();
     if (state != null) {
       console.log(state.taskID);
-      this.url = 'https://imageprocessingserver.com:8000/public/task/' + state.taskID + '/iframe/map/';
+      this.url =
+        'https://imageprocessingserver.com:8000/public/task/' +
+        state.taskID +
+        '/iframe/map/';
     }
   }
 }
