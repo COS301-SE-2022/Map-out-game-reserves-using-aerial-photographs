@@ -14,7 +14,7 @@
 
 <h1>Map Out Game Reserves Using Aerial Photographs</h1>
 
-"The Map Out Game Reserves Using Aerial Photographs" application is an Angular desktop application that aims to take videography of game parks from drones and use intelligent image stitching and AI-driven recognition focus to create an interactive map. This assists in not only animal-preservation but park-preservation too.
+"The Map Out Game Reserves Using Aerial Photographs" application is an Angular desktop application that aims to take videography of game parks from drones and use intelligent image stitching to create an interactive map. This assists in not only animal-preservation but park-preservation too.
 
   >This project is affiliated with the University of Pretoria COS301 Software Engineering module. The team in charge of its development is <a href="#The Dylpickles">The Dylpickles</a>.
  
@@ -133,25 +133,39 @@ npm start
 <a href="https://drive.google.com/file/d/1A-zZJGLOnGaVaDLI2wWaVRxTWAIY9--m/view?usp=sharing">Version 1</a><br/>
 <a href="https://drive.google.com/file/d/1hQEqsjVKGEA6bgIgqMEVHkNoJNtx4yqa/view?usp=sharing">Version 2</a><br/>
 <a href="https://drive.google.com/file/d/1nhVyc_dyepSc26Eq_GtWMRxwuGvDG1rl/view?usp=sharing">Version 3</a><br/>
+<a href="https://drive.google.com/file/d/1yux7wZamtaT1Lj1aibCrsVfJl6N8X06o/view?usp=sharing">Version 4</a><br/>
 
 <a name="architectural"></a>
 <h3>Architectural Requirements</h3>
 <a href="https://drive.google.com/file/d/1e-WkXni-e-zc_NSjDJw0AZE73m-PvhV-/view?usp=sharing">Version 1</a><br/>
 <a href="https://drive.google.com/file/d/1UlkzT1v6qDIlQyOasSALRpOcDg4wKJ_m/view?usp=sharing">Version 2</a><br/>
+<a href="https://drive.google.com/file/d/1EDRgsSSPdy8rsUd_ilmVd57wwxfnlFjc/view?usp=sharing">Version 3</a><br/>
+<h4>Architectural Diagram</h4>
+<img src="https://user-images.githubusercontent.com/82899425/193235536-72a57bb0-4aa1-49a5-96a5-7aae79575756.jpg" align="center" width="80%"/>
 
 <a name="coding-stds"></a>
 <h3>Coding Standards</h3>
 <a href="https://drive.google.com/file/d/1JzXJ_9kVZoqfU8mCXWa-8tOkUgZt_YO6/view?usp=sharing">Version 1</a><br/>
 <a href="https://drive.google.com/file/d/1yOeuRyyG7H1HrlFbTXZQvgh7Uvb5MSpc/view?usp=sharing">Version 2</a><br/>
+<a href="https://drive.google.com/file/d/1GbgSsdyey-Xog--TJEZY3q7K7xBVVox9/view?usp=sharing">Version 3</a><br/>
 
 <a name="user-manual"></a>
 <h3>User Manual</h3>
 <a href="https://drive.google.com/file/d/10GUkj-MJ_sZCM_SJ1v5H1Q3gyMxPlain/view?usp=sharing">Version 1</a><br/>
 <a href="https://drive.google.com/file/d/13FJf7pFlKzQywgaQBbDzcvXdB-wjSSEF/view?usp=sharing">Version 2</a><br/>
+<a href="https://drive.google.com/file/d/1BANOuUg3tf1KJ5Wa6SKyiNYRrcTejzDK/view?usp=sharing">Version 3</a><br/>
 
 <a name="installation-manual"></a>
 <h3>Technical Installation Manual</h3>
 <a href="https://drive.google.com/file/d/1p42xaO1aWfH4uEBDKKeEXU7Zo2g64_Qw/view?usp=sharing">Version 1</a><br/>
+<a href="https://drive.google.com/file/d/1_tGoVVnKRjt3uzqEx_KAdtnQMIQnjfMn/view?usp=sharing">Version 2</a><br/>
+<h4>Deployment Diagram</h4>
+<img src="https://user-images.githubusercontent.com/82899425/193235520-d2cc1039-25ec-4c5e-b2ea-3abda2a5f408.jpg" align="center" width="80%"/>
+
+<a name="testing-manual"></a>
+<h3>Testing Manual</h3>
+<a href="https://drive.google.com/file/d/14KkR0f4AuC5RZoLq2AsKeueJmQP98SJU/view?usp=sharing">Version 1</a><br/>
+<a href="https://drive.google.com/file/d/1R8TrPcGpWbl2KEseGJzFpM8hXl21ErYh/view?usp=sharing">Usability Testing Report</a><br/>
 
 <p align="right"><a href="#readme-top">Back to top</a></p>
 
