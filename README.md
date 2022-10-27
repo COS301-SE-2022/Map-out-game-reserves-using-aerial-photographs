@@ -18,7 +18,7 @@
 
   >This project is affiliated with the University of Pretoria COS301 Software Engineering module. The team in charge of its development is <a href="#The Dylpickles">The Dylpickles</a>.
  
- <a href="https://drive.google.com/file/d/1OmNzpbv8UaAOVsHzU7kPGPdxDI1EDm6h/view?usp=sharing">View a demonstration of our system</a>
+ <a href="https://drive.google.com/file/d/1yDh--Kbl5Js5Mk5_x9JNP6Tn6nyfBV8M/view?usp=sharing">View a demonstration of our system</a>
  ·
  <a href="#Docs">Explore the docs</a>
  ·
@@ -86,7 +86,7 @@
 <a name="demos"></a>
 
 <h2>Video Demonstration</h2>
-<a href="https://drive.google.com/file/d/1veHGte3ODMpdq1ugV3o4qjrpoCXtHE-Z/view?usp=sharing">View a demonstration of our system</a>
+<a href="https://drive.google.com/file/d/1yDh--Kbl5Js5Mk5_x9JNP6Tn6nyfBV8M/view?usp=sharing">View a demonstration of our system</a>
 
 <a name="pp"></a>
 
